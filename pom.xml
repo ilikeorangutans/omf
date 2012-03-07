@@ -35,10 +35,9 @@
 	</dependencies>
 
 	<modules>
-		<module>annotation</module>
-		<module>api</module>
-		<module>impl</module>
 		<module>omf-parent</module>
+		<module>core</module>
+		<module>daycq4</module>
 	</modules>
 	<build>
 		<plugins>
@@ -49,6 +48,30 @@
 				<configuration>
 					<source>1.5</source>
 					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<reportPlugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-project-info-reports-plugin</artifactId>
+							<version>2.4</version>
+						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>cobertura-maven-plugin</artifactId>
+							<version>2.5.1</version>
+							<configuration>
+								<formats>
+									<format>html</format>
+								</formats>
+							</configuration>
+						</plugin>
+					</reportPlugins>
 				</configuration>
 			</plugin>
 		</plugins>
