@@ -1,7 +1,7 @@
 package com.omf.om.api.mapping;
 
 import com.omf.om.annotation.Atom;
-import com.omf.om.annotation.Entity;
+import com.omf.om.api.annotation.Entity;
 
 @Entity
 public class SimpleEntity {

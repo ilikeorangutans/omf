@@ -5,7 +5,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.omf.om.annotation.Entity;
+import com.omf.om.api.annotation.Entity;
 
 /**
  * 
