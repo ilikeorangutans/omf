@@ -29,8 +29,7 @@ public class PropertyMappingExtractorImplTest {
 
 	@Test
 	public void testSimpleTypeWithBasicProperties() {
-		Set<PropertyMapping> extract = new PropertyMappingExtractorImpl()
-				.extract(EntityWithPlainProperties.class);
+		Set<PropertyMapping> extract = new PropertyMappingExtractorImpl().extract(EntityWithPlainProperties.class);
 
 		assertThat(extract.isEmpty(), is(false));
 		assertThat(extract.size(), is(EntityWithPlainProperties.NUMBER_OF_FIELDS));

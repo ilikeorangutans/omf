@@ -12,12 +12,14 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 	private final PropertyMissingStrategy missingStrategy;
 	private final PropertyNameStrategy nameStrategy;
 	private final String propertyName;
+	private final Class<?> propertyType;
 
-	public ImmutablePropertyMapping(String fieldname, PropertyNameStrategy nameStrategy, String propertyName,
-			String defaultValue, PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException) {
+	public ImmutablePropertyMapping(String fieldname, PropertyNameStrategy nameStrategy, String propertyName, Class<?> propertyType, String defaultValue,
+			PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException) {
 		this.fieldname = fieldname;
 		this.nameStrategy = nameStrategy;
 		this.propertyName = propertyName;
+		this.propertyType = propertyType;
 		this.defaultValue = defaultValue;
 		this.missingStrategy = missingStrategy;
 		this.missingException = missingException;
@@ -25,9 +27,8 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 
 	@Override
 	public String toString() {
-		return "ImmutablePropertyMapping [fieldname=" + fieldname + ", propertyName=" + propertyName
-				+ ", defaultValue=" + defaultValue + ", missingException=" + missingException + ", missingStrategy="
-				+ missingStrategy + ", nameStrategy=" + nameStrategy + "]";
+		return "ImmutablePropertyMapping [fieldname=" + fieldname + ", propertyName=" + propertyName + ", defaultValue=" + defaultValue + ", missingException="
+				+ missingException + ", missingStrategy=" + missingStrategy + ", nameStrategy=" + nameStrategy + "]";
 	}
 
 	public String getDefaultValue() {
@@ -101,5 +102,9 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		} else if (!propertyName.equals(other.propertyName))
 			return false;
 		return true;
+	}
+
+	public Class<?> getPropertyType() {
+		return propertyType;
 	}
 }

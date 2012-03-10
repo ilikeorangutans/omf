@@ -57,4 +57,11 @@ public interface PropertyMapping {
 	 */
 	String getPropertyName();
 
+	/**
+	 * Returns the type of the property.
+	 * 
+	 * @return
+	 */
+	Class<?> getPropertyType();
+
 }

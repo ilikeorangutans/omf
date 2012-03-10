@@ -28,29 +28,35 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 	private final String defaultValue;
 	private final PropertyMissingStrategy missingStrategy;
 	private final Class<? extends Exception> missingException;
+	private final Class<?> propertyType;
 
 	@Parameters
 	public static List<Object[]> getParameters() {
 		List<Object[]> list = new ArrayList<Object[]>();
 
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithDefaultSettings",
-				"fieldWithDefaultSettings", "", PropertyMissingStrategy.ReturnNull, PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithDefaultValue",
-				"fieldWithDefaultValue", "1234", PropertyMissingStrategy.ReturnNull, PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithCustomName", "customName", "",
+		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithDefaultSettings", String.class, "fieldWithDefaultSettings", "",
 				PropertyMissingStrategy.ReturnNull, PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithMissingStrategy",
-				"fieldWithMissingStrategy", "", PropertyMissingStrategy.DefaultValue, PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithAllSettings", "customName",
-				"custom default value", PropertyMissingStrategy.ThrowException, RuntimeException.class });
+		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithDefaultValue", String.class, "fieldWithDefaultValue", "1234",
+				PropertyMissingStrategy.ReturnNull, PropertyMissingException.class });
+		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithCustomName", String.class, "customName", "", PropertyMissingStrategy.ReturnNull,
+				PropertyMissingException.class });
+		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithMissingStrategy", String.class, "fieldWithMissingStrategy", "",
+				PropertyMissingStrategy.DefaultValue, PropertyMissingException.class });
+		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithAllSettings", String.class, "customName", "custom default value",
+				PropertyMissingStrategy.ThrowException, RuntimeException.class });
+		list.add(new Object[] { EntityWithPlainProperties.class, "primitiveInt", int.class, "primitiveInt", "", PropertyMissingStrategy.ReturnNull,
+				PropertyMissingException.class });
+		list.add(new Object[] { EntityWithPlainProperties.class, "complexFloat", Float.class, "complexFloat", "", PropertyMissingStrategy.ReturnNull,
+				PropertyMissingException.class });
 
 		return list;
 	}
 
-	public ParemeterizedPropertyMappingExtractorImplTest(Class<?> type, String fieldName, String propertyName,
-			String defaultValue, PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException) {
+	public ParemeterizedPropertyMappingExtractorImplTest(Class<?> type, String fieldName, Class<?> propertyType, String propertyName, String defaultValue,
+			PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException) {
 		this.type = type;
 		this.fieldName = fieldName;
+		this.propertyType = propertyType;
 		this.propertyName = propertyName;
 		this.defaultValue = defaultValue;
 		this.missingStrategy = missingStrategy;
@@ -68,6 +74,7 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 		assertThat(mapping.getPropertyName(), is(propertyName));
 		assertThat(mapping.getDefaultValue(), is(defaultValue));
 		assertThat(mapping.getMissingStrategy(), is(missingStrategy));
+		assertEquals(propertyType, mapping.getPropertyType());
 		assertEquals(missingException, mapping.getMissingException());
 	}
 }

@@ -7,7 +7,7 @@ import com.omf.om.api.annotation.PropertyMissingStrategy;
 @Entity
 public class EntityWithPlainProperties {
 
-	public static final int NUMBER_OF_FIELDS = 5;
+	public static final int NUMBER_OF_FIELDS = 7;
 
 	@Property
 	private String fieldWithDefaultSettings;
@@ -23,6 +23,12 @@ public class EntityWithPlainProperties {
 
 	@Property(defaultValue = "custom default value", missingException = RuntimeException.class, missingStrategy = PropertyMissingStrategy.ThrowException, name = "customName")
 	private String fieldWithAllSettings;
+
+	@Property
+	private int primitiveInt;
+
+	@Property
+	private Float complexFloat;
 
 	public EntityWithPlainProperties() {
 	}

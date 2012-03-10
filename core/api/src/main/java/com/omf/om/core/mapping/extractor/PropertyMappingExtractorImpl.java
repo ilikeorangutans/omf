@@ -67,7 +67,7 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 			propertyName = field.getName();
 		}
 
-		return new ImmutablePropertyMapping(field.getName(), nameStrategy, propertyName, annotation.defaultValue(),
+		return new ImmutablePropertyMapping(field.getName(), nameStrategy, propertyName, field.getType(), annotation.defaultValue(),
 				annotation.missingStrategy(), annotation.missingException());
 	}
 }
