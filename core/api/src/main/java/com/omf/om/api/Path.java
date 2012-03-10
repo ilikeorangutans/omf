@@ -53,8 +53,7 @@ public class Path {
 		path = path.replaceAll("//+", "/");
 
 		// Remove trailing slash:
-		path = !path.equals(SLASH) && path.length() > 2 && path.endsWith(SLASH) ? path
-				.substring(0, path.length() - 1) : path;
+		path = !path.equals(SLASH) && path.length() > 2 && path.endsWith(SLASH) ? path.substring(0, path.length() - 1) : path;
 		return path;
 	}
 
