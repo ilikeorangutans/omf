@@ -14,8 +14,6 @@ public class ImmutableSessionImpl implements Session {
 	public <T> T get(Class<T> clazz, String path) {
 		if (clazz == null)
 			throw new NullPointerException("Class is null.");
-		
-		
 
 		return null;
 	}
