@@ -37,7 +37,6 @@
 	<modules>
 		<module>omf-parent</module>
 		<module>core</module>
-		<module>daycq4</module>
 	</modules>
 	<build>
 		<plugins>
