@@ -1,5 +1,6 @@
 package com.omf.om.api.session.factory;
 
+import com.omf.om.api.persistence.PersistenceContext;
 import com.omf.om.api.session.Session;
 
 /**
@@ -7,10 +8,14 @@ import com.omf.om.api.session.Session;
  * 
  * @author Jakob Külzer
  * 
- * @param <T>
  */
-public interface SessionFactory<T> {
+public interface SessionFactory {
 
-	Session getSession(T persistenceContext);
+	/**
+	 * 
+	 * @param persistenceContext
+	 * @return
+	 */
+	Session getSession(PersistenceContext persistenceContext);
 
 }
