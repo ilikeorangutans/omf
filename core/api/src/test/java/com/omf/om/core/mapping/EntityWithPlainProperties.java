@@ -30,7 +30,14 @@ public class EntityWithPlainProperties {
 	@Property
 	private Float complexFloat;
 
+	private String unmappedField;
+
 	public EntityWithPlainProperties() {
+		unmappedField = "unmapped";
+	}
+
+	public String getUnmappedField() {
+		return unmappedField;
 	}
 
 	public String getFieldWithDefaultSettings() {

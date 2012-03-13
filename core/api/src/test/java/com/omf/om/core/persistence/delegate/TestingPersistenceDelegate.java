@@ -1,10 +1,8 @@
 package com.omf.om.core.persistence.delegate;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.omf.om.api.mapping.EntityMapping;
 import com.omf.om.api.mapping.PropertyMapping;
+import com.omf.om.api.persistence.PersistenceContext;
 import com.omf.om.api.persistence.PersistenceDelegate;
 import com.omf.om.api.session.Session;
 
@@ -13,12 +11,12 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 	private final EntityMapping entityMapping;
 	private final Session session;
 
-	private final Map<String, Object> properties;
+	private final TestingPersistenceContext persistenceContext;
 
-	public TestingPersistenceDelegate(Session session, EntityMapping entityMapping) {
+	public TestingPersistenceDelegate(Session session, EntityMapping entityMapping, PersistenceContext persistenceContext) {
 		this.session = session;
 		this.entityMapping = entityMapping;
-		properties = new HashMap<String, Object>();
+		this.persistenceContext = (TestingPersistenceContext) (persistenceContext == null ? new TestingPersistenceContext() : persistenceContext);
 	}
 
 	public EntityMapping getEntityMapping() {
@@ -30,11 +28,11 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 	}
 
 	public Object getProperty(PropertyMapping propertyMapping) {
-		return properties.get(propertyMapping.getPropertyName());
+		return persistenceContext.getProperty(propertyMapping);
 	}
 
 	public TestingPersistenceDelegate addProperty(String propertyName, Object value) {
-		properties.put(propertyName, value);
+		persistenceContext.addProperty(propertyName, value);
 		return this;
 	}
 

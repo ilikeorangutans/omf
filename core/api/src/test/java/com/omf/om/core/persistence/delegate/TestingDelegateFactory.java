@@ -9,7 +9,7 @@ import com.omf.om.api.session.Session;
 public class TestingDelegateFactory implements PersistenceDelegateFactory {
 
 	public PersistenceDelegate create(Session session, EntityMapping mapping, PersistenceContext persistenceContext) {
-		return new TestingPersistenceDelegate(session, mapping);
+		return new TestingPersistenceDelegate(session, mapping, persistenceContext);
 	}
 
 }

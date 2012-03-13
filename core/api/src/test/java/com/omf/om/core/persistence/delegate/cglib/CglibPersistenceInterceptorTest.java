@@ -1,8 +1,8 @@
 package com.omf.om.core.persistence.delegate.cglib;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
-import net.sf.cglib.proxy.MethodProxy;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class CglibPersistenceInterceptorTest {
 	@Test
 	public void testInterceptWithValidField() throws Throwable {
 		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPlainProperties.class);
-		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(null, entityMapping).addProperty("fieldWithDefaultSettings", "booyah");
+		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(null, entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(null, entityMapping, persistenceDelegate);
 
 		EntityWithPlainProperties entity = new EntityWithPlainProperties();

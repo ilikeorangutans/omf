@@ -40,19 +40,19 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 		final String name = method.getName();
-		LOG.debug("Intercepted method {}", name);
+		LOG.debug("Intercepted method {}()", name);
 
 		final boolean isGetter = isGetter(name);
 
 		if (!isGetter) {
-			LOG.trace("Method {} not a getter, not intercepted.", name);
-			return proxy.invoke(obj, args);
+			LOG.trace("Method {}() not a getter, not intercepted.", name);
+			return proxy.invokeSuper(obj, args);
 		}
 
 		final String fieldName = extractFieldName(name);
 		if (!mapping.hasField(fieldName)) {
-			LOG.trace("Method {} mapped to field {}. No mapping for property, method not intercepted.", name, fieldName);
-			return proxy.invoke(obj, args);
+			LOG.trace("Method {}() mapped to field {}. No mapping for property, method not intercepted.", name, fieldName);
+			return proxy.invokeSuper(obj, args);
 		}
 
 		final PropertyMapping propertyMapping = mapping.getPropertyByField(fieldName);
@@ -76,6 +76,12 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 		return mapping;
 	}
 
+	/**
+	 * Returns true if the given String is a Java Beans getter.
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public boolean isGetter(String name) {
 		return PATTERN.matcher(name).find();
 	}
