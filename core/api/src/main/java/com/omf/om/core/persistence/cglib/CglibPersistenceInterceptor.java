@@ -1,4 +1,4 @@
-package com.omf.om.core.persistence.delegate.cglib;
+package com.omf.om.core.persistence.cglib;
 
 import java.lang.reflect.Method;
 import java.util.regex.Matcher;
@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import com.omf.om.api.mapping.EntityMapping;
 import com.omf.om.api.mapping.PropertyMapping;
 import com.omf.om.api.persistence.PersistenceDelegate;
-import com.omf.om.api.session.Session;
 
 /**
  * {@link MethodInterceptor} that will intercept all calls to getters for mapped
@@ -28,14 +27,12 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 	private static final Logger LOG = LoggerFactory.getLogger(CglibPersistenceInterceptor.class);
 	private static final Pattern PATTERN = Pattern.compile("(get|is)([A-Z])([a-zA-Z0-9_]*)");
 
-	private final Session session;
-	private final EntityMapping mapping;
 	private final PersistenceDelegate persistenceDelegate;
+	private final EntityMapping entityMapping;
 
-	public CglibPersistenceInterceptor(Session session, EntityMapping mapping, PersistenceDelegate persistenceDelegate) {
-		this.session = session;
-		this.mapping = mapping;
+	public CglibPersistenceInterceptor(PersistenceDelegate persistenceDelegate, EntityMapping mapping) {
 		this.persistenceDelegate = persistenceDelegate;
+		this.entityMapping = mapping;
 	}
 
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
@@ -50,12 +47,12 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 		}
 
 		final String fieldName = extractFieldName(name);
-		if (!mapping.hasField(fieldName)) {
+		if (!entityMapping.hasField(fieldName)) {
 			LOG.trace("Method {}() mapped to field {}. No mapping for property, method not intercepted.", name, fieldName);
 			return proxy.invokeSuper(obj, args);
 		}
 
-		final PropertyMapping propertyMapping = mapping.getPropertyByField(fieldName);
+		final PropertyMapping propertyMapping = entityMapping.getPropertyByField(fieldName);
 		LOG.trace("Retrieved property mapping {}", propertyMapping);
 
 		return persistenceDelegate.getProperty(propertyMapping);
@@ -66,14 +63,6 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 		matcher.find();
 		final String fieldName = matcher.group(2).toLowerCase() + matcher.group(3);
 		return fieldName;
-	}
-
-	public Session getSession() {
-		return session;
-	}
-
-	public EntityMapping getEntityMapping() {
-		return mapping;
 	}
 
 	/**

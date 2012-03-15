@@ -1,6 +1,7 @@
-package com.omf.om.api.persistence;
+package com.omf.om.api.session.proxy;
 
 import com.omf.om.api.mapping.EntityMapping;
+import com.omf.om.api.persistence.PersistenceDelegate;
 import com.omf.om.api.session.Session;
 
 /**
@@ -17,10 +18,12 @@ public interface ProxyFactory {
 	 * supertype as described by the {@link EntityMapping}. The returned proxy
 	 * object will be bound to the given session.
 	 * 
-	 * @param session
-	 * @param entityMapping
-	 * @return
+	 * @param persistenceDelegate
+	 *            The {@link PersistenceDelegate} the created proxy will use to
+	 *            access the persistence backend.
+	 * 
+	 * @return A proxy object for the given type.
 	 */
-	Object create(Session session, PersistenceContext persistenceContext, EntityMapping entityMapping);
+	Object create(Session session, EntityMapping entityMapping, PersistenceDelegate persistenceDelegate);
 
 }

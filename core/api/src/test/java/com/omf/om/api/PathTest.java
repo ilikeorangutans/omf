@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.omf.om.api.path.Path;
+
 public class PathTest {
 
 	private Path path;

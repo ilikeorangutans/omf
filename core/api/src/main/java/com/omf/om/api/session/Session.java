@@ -16,6 +16,6 @@ public interface Session {
 	 * @param path
 	 * @return
 	 */
-	<T> T get(Class<T> clazz, String path);
+	<T> T get(Class<T> clazz, Object id);
 
 }

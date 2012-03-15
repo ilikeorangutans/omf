@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.omf.om.api.annotation.Entity;
+import com.omf.om.api.annotation.Id;
 import com.omf.om.api.annotation.Property;
 import com.omf.om.api.annotation.PropertyNameStrategy;
 import com.omf.om.api.exception.MappingException;
@@ -67,7 +68,10 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 			propertyName = field.getName();
 		}
 
-		return new ImmutablePropertyMapping(field.getName(), nameStrategy, propertyName, field.getType(), annotation.defaultValue(),
+		final Id idAnnotation = field.getAnnotation(Id.class);
+		final boolean isId = idAnnotation != null;
+
+		return new ImmutablePropertyMapping(field.getName(), isId, nameStrategy, propertyName, field.getType(), annotation.defaultValue(),
 				annotation.missingStrategy(), annotation.missingException());
 	}
 }

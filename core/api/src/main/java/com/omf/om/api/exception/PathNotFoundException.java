@@ -1,6 +1,6 @@
 package com.omf.om.api.exception;
 
-import com.omf.om.api.Path;
+import com.omf.om.api.path.Path;
 
 public class PathNotFoundException extends ObjectMapperException {
 

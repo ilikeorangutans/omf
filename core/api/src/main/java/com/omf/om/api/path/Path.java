@@ -1,4 +1,4 @@
-package com.omf.om.api;
+package com.omf.om.api.path;
 
 /**
  * Describes a path. A path has always the following form:

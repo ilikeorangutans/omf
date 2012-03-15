@@ -1,5 +1,6 @@
 package com.omf.om.api.mapping;
 
+import com.omf.om.api.annotation.Id;
 import com.omf.om.api.annotation.PropertyMissingStrategy;
 import com.omf.om.api.annotation.PropertyNameStrategy;
 
@@ -63,5 +64,12 @@ public interface PropertyMapping {
 	 * @return
 	 */
 	Class<?> getPropertyType();
+
+	/**
+	 * Returns true if this mapping is an {@link Id} mapping.
+	 * 
+	 * @return
+	 */
+	boolean isId();
 
 }

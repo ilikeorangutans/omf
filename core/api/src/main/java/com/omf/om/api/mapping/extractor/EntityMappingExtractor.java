@@ -4,6 +4,7 @@ import com.omf.om.api.exception.MappingException;
 import com.omf.om.api.mapping.EntityMapping;
 
 /**
+ * Extracts {@link EntityMapping}s from a given class.
  * 
  * @author Jakob Külzer
  * 
