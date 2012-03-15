@@ -40,7 +40,9 @@
 	<modules>
 		<module>omf-parent</module>
 		<module>core</module>
+		<module>jcr</module>
 	</modules>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -78,4 +80,15 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<developers>
+		<developer>
+			<email>jakob.kuelzer@gmail.com</email>
+			<name>Jakob Külzer</name>
+			<id>ilikeorangutans</id>
+			<roles>
+				<role>I built this.</role>
+			</roles>
+		</developer>
+	</developers>
 </project>
