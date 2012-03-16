@@ -4,6 +4,12 @@ import javax.jcr.Session;
 
 import com.omf.om.api.persistence.PersistenceContext;
 
+/**
+ * {@link PersistenceContext} for JCR repositories.
+ * 
+ * @author Jakob Külzer
+ * 
+ */
 public class JcrPersistenceContext implements PersistenceContext {
 
 	private final Session session;

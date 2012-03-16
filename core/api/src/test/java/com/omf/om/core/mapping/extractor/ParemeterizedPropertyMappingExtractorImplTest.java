@@ -17,7 +17,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.omf.om.api.annotation.PropertyMissingStrategy;
 import com.omf.om.api.exception.PropertyMissingException;
 import com.omf.om.api.mapping.PropertyMapping;
-import com.omf.om.core.mapping.EntityWithPlainProperties;
+import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 
 @RunWith(Parameterized.class)
 public class ParemeterizedPropertyMappingExtractorImplTest {
@@ -34,19 +34,19 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 	public static List<Object[]> getParameters() {
 		List<Object[]> list = new ArrayList<Object[]>();
 
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithDefaultSettings", String.class, "fieldWithDefaultSettings", "",
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithDefaultSettings", String.class, "fieldWithDefaultSettings", "",
 				PropertyMissingStrategy.ReturnNull, PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithDefaultValue", String.class, "fieldWithDefaultValue", "1234",
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithDefaultValue", String.class, "fieldWithDefaultValue", "1234",
 				PropertyMissingStrategy.ReturnNull, PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithCustomName", String.class, "customName", "", PropertyMissingStrategy.ReturnNull,
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithCustomName", String.class, "customName", "", PropertyMissingStrategy.ReturnNull,
 				PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithMissingStrategy", String.class, "fieldWithMissingStrategy", "",
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithMissingStrategy", String.class, "fieldWithMissingStrategy", "",
 				PropertyMissingStrategy.DefaultValue, PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "fieldWithAllSettings", String.class, "customName", "custom default value",
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithAllSettings", String.class, "customName", "custom default value",
 				PropertyMissingStrategy.ThrowException, RuntimeException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "primitiveInt", int.class, "primitiveInt", "", PropertyMissingStrategy.ReturnNull,
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "primitiveInt", int.class, "primitiveInt", "", PropertyMissingStrategy.ReturnNull,
 				PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPlainProperties.class, "complexFloat", Float.class, "complexFloat", "", PropertyMissingStrategy.ReturnNull,
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "complexFloat", Float.class, "complexFloat", "", PropertyMissingStrategy.ReturnNull,
 				PropertyMissingException.class });
 
 		return list;

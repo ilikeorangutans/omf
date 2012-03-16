@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.omf.om.api.mapping.EntityMapping;
 import com.omf.om.api.persistence.PersistenceDelegate;
-import com.omf.om.core.mapping.EntityWithPlainProperties;
+import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.persistence.cglib.CglibPersistenceInterceptor;
 import com.omf.om.core.persistence.delegate.TestingPersistenceDelegate;
@@ -17,21 +17,22 @@ public class CglibPersistenceInterceptorTest {
 
 	@Test
 	public void testInterceptWithValidField() throws Throwable {
-		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPlainProperties.class);
-		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(null, entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
+		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(persistenceDelegate, entityMapping);
 
-		EntityWithPlainProperties entity = new EntityWithPlainProperties();
+		EntityWithPrimitiveProperties entity = new EntityWithPrimitiveProperties();
 
-		String result = (String) interceptor.intercept(entity, EntityWithPlainProperties.class.getMethod("getFieldWithDefaultSettings"), new Object[] {}, null);
+		String result = (String) interceptor.intercept(entity, EntityWithPrimitiveProperties.class.getMethod("getFieldWithDefaultSettings"), new Object[] {},
+				null);
 		assertThat(result, notNullValue());
 		assertThat(result, is("booyah"));
 	}
 
 	@Test
 	public void testIsGetter() {
-		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPlainProperties.class);
-		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(null, entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
+		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 
 		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(persistenceDelegate, entityMapping);
 		assertThat(interceptor.isGetter("getFoobar"), is(true));
@@ -43,8 +44,8 @@ public class CglibPersistenceInterceptorTest {
 
 	@Test
 	public void testExtractFieldName() {
-		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPlainProperties.class);
-		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(null, entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
+		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 
 		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(persistenceDelegate, entityMapping);
 		assertThat(interceptor.extractFieldName("getFoobar"), is("foobar"));

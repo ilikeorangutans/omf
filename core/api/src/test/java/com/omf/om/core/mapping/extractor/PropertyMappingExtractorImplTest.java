@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.omf.om.api.mapping.PropertyMapping;
-import com.omf.om.core.mapping.EntityWithPlainProperties;
+import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.EntityWithoutProperties;
 
 import static org.hamcrest.Matchers.*;
@@ -29,10 +29,10 @@ public class PropertyMappingExtractorImplTest {
 
 	@Test
 	public void testSimpleTypeWithBasicProperties() {
-		Set<PropertyMapping> extract = new PropertyMappingExtractorImpl().extract(EntityWithPlainProperties.class);
+		Set<PropertyMapping> extract = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 
 		assertThat(extract.isEmpty(), is(false));
-		assertThat(extract.size(), is(EntityWithPlainProperties.NUMBER_OF_FIELDS));
+		assertThat(extract.size(), is(EntityWithPrimitiveProperties.NUMBER_OF_FIELDS));
 	}
 
 }

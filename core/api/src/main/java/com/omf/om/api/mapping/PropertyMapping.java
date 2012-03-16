@@ -33,7 +33,7 @@ public interface PropertyMapping {
 	 * 
 	 * @return
 	 */
-	Class<Exception> getMissingException();
+	Class<RuntimeException> getMissingException();
 
 	/**
 	 * Strategy to be used when the given property cannot be found in the

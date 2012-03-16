@@ -19,4 +19,12 @@ public interface PersistenceDelegate {
 	 */
 	Object getProperty(PropertyMapping propertyMapping);
 
+	/**
+	 * Returns true if the delegate can provide a value for the given property.
+	 * If the underlying storage engine returns a null or cannot resolve the
+	 * implementation specific property, this method should return false.
+	 * 
+	 * @return true if the delegate can provide a value for the given property
+	 */
+	boolean hasProperty(PropertyMapping mapping);
 }

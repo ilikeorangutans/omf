@@ -38,6 +38,16 @@ public @interface Property {
 	 */
 	PropertyMissingStrategy missingStrategy() default PropertyMissingStrategy.ReturnNull;
 
+	/**
+	 * Exception to be thrown when the mapped property cannot be retrieved from
+	 * the underlying persistence layer and {@link #missingStrategy()} is set to
+	 * {@link PropertyMissingStrategy#ThrowException}.
+	 * 
+	 * The exception must have either a no-arg constructor or take one String
+	 * parameter.
+	 * 
+	 * @return
+	 */
 	Class<? extends Exception> missingException() default PropertyMissingException.class;
 
 }

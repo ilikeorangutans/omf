@@ -80,8 +80,8 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		return fieldname;
 	}
 
-	public Class<Exception> getMissingException() {
-		return (Class<Exception>) missingException;
+	public Class<RuntimeException> getMissingException() {
+		return (Class<RuntimeException>) missingException;
 	}
 
 	public PropertyMissingStrategy getMissingStrategy() {

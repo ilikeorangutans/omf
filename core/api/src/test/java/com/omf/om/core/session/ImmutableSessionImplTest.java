@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.omf.om.api.mapping.registry.MappingRegistry;
 import com.omf.om.api.session.Session;
-import com.omf.om.core.mapping.EntityWithPlainProperties;
+import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.mapping.registry.OnDemandMappingRegistry;
 import com.omf.om.core.persistence.cglib.CglibProxyFactory;
@@ -20,9 +20,9 @@ public class ImmutableSessionImplTest {
 	public void testGet() {
 		MappingRegistry mappingRegistry = new OnDemandMappingRegistry(new EntityMappingExtractorImpl());
 		Session session = new ImmutableSessionImpl(null, new TestingDelegateFactory(), mappingRegistry, new CglibProxyFactory());
-		EntityWithPlainProperties entity = session.get(EntityWithPlainProperties.class, "");
+		EntityWithPrimitiveProperties entity = session.get(EntityWithPrimitiveProperties.class, "");
 
 		assertThat(entity, notNullValue());
-		assertThat(entity instanceof EntityWithPlainProperties, is(true));
+		assertThat(entity instanceof EntityWithPrimitiveProperties, is(true));
 	}
 }

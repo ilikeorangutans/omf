@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.omf.om.api.mapping.EntityMapping;
 import com.omf.om.api.persistence.PersistenceContext;
 import com.omf.om.api.persistence.PersistenceDelegateFactory;
-import com.omf.om.core.mapping.EntityWithPlainProperties;
+import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.persistence.cglib.CglibProxyFactory;
 import com.omf.om.core.persistence.delegate.TestingDelegateFactory;
@@ -19,12 +19,12 @@ public class CglibProxyFactoryTest {
 
 	@Test
 	public void testThatCallsToProxyAreDelegated() {
-		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(EntityWithPlainProperties.class);
+		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		final PersistenceDelegateFactory delegateFactory = new TestingDelegateFactory();
 		final PersistenceContext persistenceContext = new TestingPersistenceContext().addProperty("fieldWithDefaultSettings", "BOOYAH!");
 		final CglibProxyFactory proxyFactory = new CglibProxyFactory();
 
-		EntityWithPlainProperties proxy = (EntityWithPlainProperties) proxyFactory.create(null, mapping,
+		EntityWithPrimitiveProperties proxy = (EntityWithPrimitiveProperties) proxyFactory.create(null, mapping,
 				delegateFactory.create(null, null, mapping, persistenceContext));
 
 		assertThat(proxy, notNullValue());
@@ -37,12 +37,12 @@ public class CglibProxyFactoryTest {
 
 	@Test
 	public void testThatCallsToNonMappedFields() {
-		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(EntityWithPlainProperties.class);
+		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		final PersistenceDelegateFactory delegateFactory = new TestingDelegateFactory();
 		final PersistenceContext persistenceContext = new TestingPersistenceContext().addProperty("fieldWithDefaultSettings", "BOOYAH!");
 		final CglibProxyFactory proxyFactory = new CglibProxyFactory();
 
-		EntityWithPlainProperties proxy = (EntityWithPlainProperties) proxyFactory.create(null, mapping,
+		EntityWithPrimitiveProperties proxy = (EntityWithPrimitiveProperties) proxyFactory.create(null, mapping,
 				delegateFactory.create(null, null, mapping, persistenceContext));
 
 		assertThat(proxy, notNullValue());

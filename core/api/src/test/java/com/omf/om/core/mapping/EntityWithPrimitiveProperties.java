@@ -5,7 +5,7 @@ import com.omf.om.api.annotation.Property;
 import com.omf.om.api.annotation.PropertyMissingStrategy;
 
 @Entity
-public class EntityWithPlainProperties {
+public class EntityWithPrimitiveProperties {
 
 	public static final int NUMBER_OF_FIELDS = 7;
 
@@ -32,7 +32,7 @@ public class EntityWithPlainProperties {
 
 	private String unmappedField;
 
-	public EntityWithPlainProperties() {
+	public EntityWithPrimitiveProperties() {
 		unmappedField = "unmapped";
 	}
 

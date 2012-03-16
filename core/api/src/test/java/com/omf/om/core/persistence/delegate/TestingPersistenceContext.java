@@ -19,4 +19,8 @@ public class TestingPersistenceContext implements PersistenceContext {
 		return this;
 	}
 
+	public boolean hasProperty(String propertyName) {
+		return properties.containsKey(propertyName);
+	}
+
 }
