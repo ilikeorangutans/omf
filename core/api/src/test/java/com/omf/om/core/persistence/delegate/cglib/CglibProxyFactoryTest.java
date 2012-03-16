@@ -14,6 +14,7 @@ import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.persistence.cglib.CglibProxyFactory;
 import com.omf.om.core.persistence.delegate.TestingDelegateFactory;
 import com.omf.om.core.persistence.delegate.TestingPersistenceContext;
+import com.omf.om.core.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
 
 public class CglibProxyFactoryTest {
 
@@ -22,7 +23,7 @@ public class CglibProxyFactoryTest {
 		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		final PersistenceDelegateFactory delegateFactory = new TestingDelegateFactory();
 		final PersistenceContext persistenceContext = new TestingPersistenceContext().addProperty("fieldWithDefaultSettings", "BOOYAH!");
-		final CglibProxyFactory proxyFactory = new CglibProxyFactory();
+		final CglibProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
 
 		EntityWithPrimitiveProperties proxy = (EntityWithPrimitiveProperties) proxyFactory.create(null, mapping,
 				delegateFactory.create(null, null, mapping, persistenceContext));
@@ -40,7 +41,7 @@ public class CglibProxyFactoryTest {
 		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		final PersistenceDelegateFactory delegateFactory = new TestingDelegateFactory();
 		final PersistenceContext persistenceContext = new TestingPersistenceContext().addProperty("fieldWithDefaultSettings", "BOOYAH!");
-		final CglibProxyFactory proxyFactory = new CglibProxyFactory();
+		final CglibProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
 
 		EntityWithPrimitiveProperties proxy = (EntityWithPrimitiveProperties) proxyFactory.create(null, mapping,
 				delegateFactory.create(null, null, mapping, persistenceContext));

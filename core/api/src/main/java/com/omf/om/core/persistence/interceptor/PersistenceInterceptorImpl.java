@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import com.omf.om.api.mapping.PropertyMapping;
 import com.omf.om.api.persistence.PersistenceDelegate;
-import com.omf.om.api.persistence.PersistenceInterceptor;
+import com.omf.om.api.persistence.interceptor.PersistenceInterceptor;
 
 public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 

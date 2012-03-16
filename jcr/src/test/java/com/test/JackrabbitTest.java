@@ -15,6 +15,7 @@ import com.omf.om.api.session.factory.SessionFactory;
 import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.mapping.registry.OnDemandMappingRegistry;
 import com.omf.om.core.persistence.cglib.CglibProxyFactory;
+import com.omf.om.core.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
 import com.omf.om.core.persistence.jcr.JcrPersistenceContext;
 import com.omf.om.core.persistence.jcr.JcrPersistenceDelegateFactory;
 import com.omf.om.core.session.factory.ImmutableSessionFactory;
@@ -40,7 +41,7 @@ public class JackrabbitTest {
 		recurse(rootNode);
 
 		SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
-				new EntityMappingExtractorImpl()), new CglibProxyFactory());
+				new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
 
 		com.omf.om.api.session.Session s = sessionFactory.getSession(new JcrPersistenceContext(session));
 

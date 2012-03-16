@@ -13,13 +13,15 @@ import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.mapping.registry.OnDemandMappingRegistry;
 import com.omf.om.core.persistence.cglib.CglibProxyFactory;
 import com.omf.om.core.persistence.delegate.TestingDelegateFactory;
+import com.omf.om.core.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
 
 public class ImmutableSessionImplTest {
 
 	@Test
 	public void testGet() {
 		MappingRegistry mappingRegistry = new OnDemandMappingRegistry(new EntityMappingExtractorImpl());
-		Session session = new ImmutableSessionImpl(null, new TestingDelegateFactory(), mappingRegistry, new CglibProxyFactory());
+		Session session = new ImmutableSessionImpl(null, new TestingDelegateFactory(), mappingRegistry, new CglibProxyFactory(
+				new PersistenceInterceptorFactoryImpl()));
 		EntityWithPrimitiveProperties entity = session.get(EntityWithPrimitiveProperties.class, "");
 
 		assertThat(entity, notNullValue());

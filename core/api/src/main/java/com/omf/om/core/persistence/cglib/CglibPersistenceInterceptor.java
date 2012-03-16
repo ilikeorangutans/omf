@@ -12,12 +12,11 @@ import org.slf4j.LoggerFactory;
 
 import com.omf.om.api.mapping.EntityMapping;
 import com.omf.om.api.mapping.PropertyMapping;
-import com.omf.om.api.persistence.PersistenceDelegate;
+import com.omf.om.api.persistence.interceptor.PersistenceInterceptor;
 
 /**
  * {@link MethodInterceptor} that will intercept all calls to getters for mapped
  * entities. All other method calls will be dispatched to the original object.
- * 
  * 
  * @author Jakob Külzer
  * 
@@ -27,12 +26,12 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 	private static final Logger LOG = LoggerFactory.getLogger(CglibPersistenceInterceptor.class);
 	private static final Pattern PATTERN = Pattern.compile("(get|is)([A-Z])([a-zA-Z0-9_]*)");
 
-	private final PersistenceDelegate persistenceDelegate;
 	private final EntityMapping entityMapping;
+	private final PersistenceInterceptor interceptor;
 
-	public CglibPersistenceInterceptor(PersistenceDelegate persistenceDelegate, EntityMapping mapping) {
-		this.persistenceDelegate = persistenceDelegate;
-		this.entityMapping = mapping;
+	public CglibPersistenceInterceptor(EntityMapping entityMapping, PersistenceInterceptor interceptor) {
+		this.interceptor = interceptor;
+		this.entityMapping = entityMapping;
 	}
 
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
@@ -55,7 +54,7 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 		final PropertyMapping propertyMapping = entityMapping.getPropertyByField(fieldName);
 		LOG.trace("Retrieved property mapping {}", propertyMapping);
 
-		return persistenceDelegate.getProperty(propertyMapping);
+		return interceptor.getProperty(propertyMapping);
 	}
 
 	public String extractFieldName(String name) {
