@@ -74,4 +74,12 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 		}
 
 	}
+
+	public boolean hasProperty(PropertyMapping mapping) {
+		try {
+			return node.hasProperty(mapping.getPropertyName());
+		} catch (RepositoryException e) {
+			throw new ObjectMapperException("Could not retrieve property.", e);
+		}
+	}
 }
