@@ -72,4 +72,12 @@ public interface PropertyMapping {
 	 */
 	boolean isId();
 
+	/**
+	 * Returns if the type of the property is either Java simple type (int,
+	 * float, double, ...) or java.lang.String.
+	 * 
+	 * @return
+	 */
+	boolean isSimpleType();
+
 }

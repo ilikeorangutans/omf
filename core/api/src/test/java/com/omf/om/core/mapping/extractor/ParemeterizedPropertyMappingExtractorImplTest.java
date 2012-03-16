@@ -74,6 +74,7 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 		assertThat(mapping.getPropertyName(), is(propertyName));
 		assertThat(mapping.getDefaultValue(), is(defaultValue));
 		assertThat(mapping.getMissingStrategy(), is(missingStrategy));
+		assertThat(mapping.isSimpleType(), is(true));
 		assertEquals(propertyType, mapping.getPropertyType());
 		assertEquals(missingException, mapping.getMissingException());
 	}

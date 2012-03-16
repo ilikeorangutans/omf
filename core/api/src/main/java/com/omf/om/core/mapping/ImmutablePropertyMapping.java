@@ -1,10 +1,17 @@
 package com.omf.om.core.mapping;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.omf.om.api.annotation.PropertyMissingStrategy;
 import com.omf.om.api.annotation.PropertyNameStrategy;
 import com.omf.om.api.mapping.PropertyMapping;
 
 public class ImmutablePropertyMapping implements PropertyMapping {
+
+	private static final Set<Class<?>> AUTOBOXING_TYPES = new HashSet(Arrays.asList(Boolean.class, Character.class, Byte.class, Short.class, Integer.class,
+			Long.class, Float.class, Double.class));
 
 	private final String defaultValue;
 	private final String fieldname;
@@ -13,7 +20,8 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 	private final PropertyNameStrategy nameStrategy;
 	private final String propertyName;
 	private final Class<?> propertyType;
-	private boolean isId;
+	private final boolean isId;
+	private final boolean simpleType;
 
 	public ImmutablePropertyMapping(String fieldname, boolean isId, PropertyNameStrategy nameStrategy, String propertyName, Class<?> propertyType,
 			String defaultValue, PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException) {
@@ -25,50 +33,7 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		this.defaultValue = defaultValue;
 		this.missingStrategy = missingStrategy;
 		this.missingException = missingException;
-	}
-
-	@Override
-	public String toString() {
-		return "ImmutablePropertyMapping [fieldname=" + fieldname + ", isId=" + isId + ", propertyName=" + propertyName + ", propertyType=" + propertyType
-				+ ", defaultValue=" + defaultValue + ", missingStrategy=" + missingStrategy + ", missingException=" + missingException + ", nameStrategy="
-				+ nameStrategy + "]";
-	}
-
-	public String getDefaultValue() {
-		return defaultValue;
-	}
-
-	public String getFieldname() {
-		return fieldname;
-	}
-
-	public Class<Exception> getMissingException() {
-		return (Class<Exception>) missingException;
-	}
-
-	public PropertyMissingStrategy getMissingStrategy() {
-		return missingStrategy;
-	}
-
-	public PropertyNameStrategy getNameStrategy() {
-		return nameStrategy;
-	}
-
-	public String getPropertyName() {
-		return propertyName;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((defaultValue == null) ? 0 : defaultValue.hashCode());
-		result = prime * result + ((fieldname == null) ? 0 : fieldname.hashCode());
-		result = prime * result + ((missingException == null) ? 0 : missingException.hashCode());
-		result = prime * result + ((missingStrategy == null) ? 0 : missingStrategy.hashCode());
-		result = prime * result + ((nameStrategy == null) ? 0 : nameStrategy.hashCode());
-		result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
-		return result;
+		simpleType = propertyType.isPrimitive() || String.class.equals(propertyType) || AUTOBOXING_TYPES.contains(propertyType);
 	}
 
 	@Override
@@ -107,11 +72,59 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		return true;
 	}
 
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public String getFieldname() {
+		return fieldname;
+	}
+
+	public Class<Exception> getMissingException() {
+		return (Class<Exception>) missingException;
+	}
+
+	public PropertyMissingStrategy getMissingStrategy() {
+		return missingStrategy;
+	}
+
+	public PropertyNameStrategy getNameStrategy() {
+		return nameStrategy;
+	}
+
+	public String getPropertyName() {
+		return propertyName;
+	}
+
 	public Class<?> getPropertyType() {
 		return propertyType;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((defaultValue == null) ? 0 : defaultValue.hashCode());
+		result = prime * result + ((fieldname == null) ? 0 : fieldname.hashCode());
+		result = prime * result + ((missingException == null) ? 0 : missingException.hashCode());
+		result = prime * result + ((missingStrategy == null) ? 0 : missingStrategy.hashCode());
+		result = prime * result + ((nameStrategy == null) ? 0 : nameStrategy.hashCode());
+		result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
+		return result;
+	}
+
 	public boolean isId() {
 		return isId;
+	}
+
+	public boolean isSimpleType() {
+		return simpleType;
+	}
+
+	@Override
+	public String toString() {
+		return "ImmutablePropertyMapping [fieldname=" + fieldname + ", isId=" + isId + ", propertyName=" + propertyName + ", propertyType=" + propertyType
+				+ ", defaultValue=" + defaultValue + ", missingStrategy=" + missingStrategy + ", missingException=" + missingException + ", nameStrategy="
+				+ nameStrategy + "]";
 	}
 }
