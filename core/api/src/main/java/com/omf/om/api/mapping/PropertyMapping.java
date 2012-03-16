@@ -78,6 +78,6 @@ public interface PropertyMapping {
 	 * 
 	 * @return
 	 */
-	boolean isSimpleType();
+	boolean isPrimitiveOrWrappedType();
 
 }

@@ -3,11 +3,12 @@ package com.omf.om.core.mapping;
 import com.omf.om.api.annotation.Entity;
 import com.omf.om.api.annotation.Property;
 import com.omf.om.api.annotation.PropertyMissingStrategy;
+import com.omf.om.api.exception.PropertyMissingException;
 
 @Entity
 public class EntityWithPrimitiveProperties {
 
-	public static final int NUMBER_OF_FIELDS = 7;
+	public static final int NUMBER_OF_FIELDS = 8;
 
 	@Property
 	private String fieldWithDefaultSettings;
@@ -18,10 +19,10 @@ public class EntityWithPrimitiveProperties {
 	@Property(name = "customName")
 	private String fieldWithCustomName;
 
-	@Property(missingStrategy = PropertyMissingStrategy.DefaultValue)
+	@Property(missingStrategy = PropertyMissingStrategy.DefaultValue, defaultValue = "default value")
 	private String fieldWithMissingStrategy;
 
-	@Property(defaultValue = "custom default value", missingException = RuntimeException.class, missingStrategy = PropertyMissingStrategy.ThrowException, name = "customName")
+	@Property(defaultValue = "custom default value", missingException = PropertyMissingException.class, missingStrategy = PropertyMissingStrategy.ThrowException, name = "customName")
 	private String fieldWithAllSettings;
 
 	@Property
@@ -31,6 +32,9 @@ public class EntityWithPrimitiveProperties {
 	private Float complexFloat;
 
 	private String unmappedField;
+
+	@Property(defaultValue = "2706", missingStrategy = PropertyMissingStrategy.DefaultValue)
+	private int primitiveIntWithDefaultValue;
 
 	public EntityWithPrimitiveProperties() {
 		unmappedField = "unmapped";
@@ -94,5 +98,9 @@ public class EntityWithPrimitiveProperties {
 
 	public void setComplexFloat(Float complexFloat) {
 		this.complexFloat = complexFloat;
+	}
+
+	public int getPrimitiveIntWithDefaultValue() {
+		return primitiveIntWithDefaultValue;
 	}
 }

@@ -117,7 +117,7 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		return isId;
 	}
 
-	public boolean isSimpleType() {
+	public boolean isPrimitiveOrWrappedType() {
 		return simpleType;
 	}
 

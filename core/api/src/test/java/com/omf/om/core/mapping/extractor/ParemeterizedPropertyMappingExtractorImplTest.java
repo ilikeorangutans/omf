@@ -40,10 +40,10 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 				PropertyMissingStrategy.ReturnNull, PropertyMissingException.class });
 		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithCustomName", String.class, "customName", "", PropertyMissingStrategy.ReturnNull,
 				PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithMissingStrategy", String.class, "fieldWithMissingStrategy", "",
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithMissingStrategy", String.class, "fieldWithMissingStrategy", "default value",
 				PropertyMissingStrategy.DefaultValue, PropertyMissingException.class });
 		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithAllSettings", String.class, "customName", "custom default value",
-				PropertyMissingStrategy.ThrowException, RuntimeException.class });
+				PropertyMissingStrategy.ThrowException, PropertyMissingException.class });
 		list.add(new Object[] { EntityWithPrimitiveProperties.class, "primitiveInt", int.class, "primitiveInt", "", PropertyMissingStrategy.ReturnNull,
 				PropertyMissingException.class });
 		list.add(new Object[] { EntityWithPrimitiveProperties.class, "complexFloat", Float.class, "complexFloat", "", PropertyMissingStrategy.ReturnNull,
@@ -74,7 +74,7 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 		assertThat(mapping.getPropertyName(), is(propertyName));
 		assertThat(mapping.getDefaultValue(), is(defaultValue));
 		assertThat(mapping.getMissingStrategy(), is(missingStrategy));
-		assertThat(mapping.isSimpleType(), is(true));
+		assertThat(mapping.isPrimitiveOrWrappedType(), is(true));
 		assertEquals(propertyType, mapping.getPropertyType());
 		assertEquals(missingException, mapping.getMissingException());
 	}
