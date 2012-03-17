@@ -27,8 +27,21 @@ public @interface Property {
 	 */
 	String name() default "";
 
+	/**
+	 * Default value to use if {@link #missingStrategy()} is set to
+	 * {@link PropertyMissingStrategy#DefaultValue}. The returned value must be
+	 * translatable into the type of the field, otherwise a conversion error
+	 * will occur.
+	 * 
+	 * @return
+	 */
 	String defaultValue() default DEFAULT_VALUE;
 
+	/**
+	 * How should the name of the property be determined.
+	 * 
+	 * @return
+	 */
 	PropertyNameStrategy namingStrategy() default PropertyNameStrategy.FieldName;
 
 	/**

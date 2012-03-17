@@ -20,7 +20,7 @@ public interface EntityMapping {
 	 */
 	Class<?> getTypeClass();
 
-	Set<PropertyMapping> getPropertyMappings();
+	PropertyMap getPropertyMappings();
 
 	/**
 	 * Returns true if this entity mapping has a property with the given name.

@@ -1,6 +1,7 @@
 package com.omf.om.core.mapping;
 
 import com.omf.om.api.annotation.Entity;
+import com.omf.om.api.annotation.Id;
 import com.omf.om.api.annotation.Property;
 import com.omf.om.api.annotation.PropertyMissingStrategy;
 import com.omf.om.api.exception.PropertyMissingException;
@@ -8,7 +9,11 @@ import com.omf.om.api.exception.PropertyMissingException;
 @Entity
 public class EntityWithPrimitiveProperties {
 
-	public static final int NUMBER_OF_FIELDS = 8;
+	public static final int NUMBER_OF_FIELDS = 9;
+
+	@Id
+	@Property
+	private String id;
 
 	@Property
 	private String fieldWithDefaultSettings;
@@ -22,7 +27,7 @@ public class EntityWithPrimitiveProperties {
 	@Property(missingStrategy = PropertyMissingStrategy.DefaultValue, defaultValue = "default value")
 	private String fieldWithMissingStrategy;
 
-	@Property(defaultValue = "custom default value", missingException = PropertyMissingException.class, missingStrategy = PropertyMissingStrategy.ThrowException, name = "customName")
+	@Property(defaultValue = "custom default value", missingException = PropertyMissingException.class, missingStrategy = PropertyMissingStrategy.ThrowException, name = "differentCustomName")
 	private String fieldWithAllSettings;
 
 	@Property
@@ -40,67 +45,71 @@ public class EntityWithPrimitiveProperties {
 		unmappedField = "unmapped";
 	}
 
-	public String getUnmappedField() {
-		return unmappedField;
-	}
-
-	public String getFieldWithDefaultSettings() {
-		return fieldWithDefaultSettings;
-	}
-
-	public void setFieldWithDefaultSettings(String fieldWithDefaultSettings) {
-		this.fieldWithDefaultSettings = fieldWithDefaultSettings;
-	}
-
-	public String getFieldWithDefaultValue() {
-		return fieldWithDefaultValue;
-	}
-
-	public void setFieldWithDefaultValue(String fieldWithDefaultValue) {
-		this.fieldWithDefaultValue = fieldWithDefaultValue;
-	}
-
-	public String getFieldWithCustomName() {
-		return fieldWithCustomName;
-	}
-
-	public void setFieldWithCustomName(String fieldWithCustomName) {
-		this.fieldWithCustomName = fieldWithCustomName;
-	}
-
-	public String getFieldWithMissingStrategy() {
-		return fieldWithMissingStrategy;
-	}
-
-	public void setFieldWithMissingStrategy(String fieldWithMissingStrategy) {
-		this.fieldWithMissingStrategy = fieldWithMissingStrategy;
+	public Float getComplexFloat() {
+		return complexFloat;
 	}
 
 	public String getFieldWithAllSettings() {
 		return fieldWithAllSettings;
 	}
 
-	public void setFieldWithAllSettings(String fieldWithAllSettings) {
-		this.fieldWithAllSettings = fieldWithAllSettings;
+	public String getFieldWithCustomName() {
+		return fieldWithCustomName;
+	}
+
+	public String getFieldWithDefaultSettings() {
+		return fieldWithDefaultSettings;
+	}
+
+	public String getFieldWithDefaultValue() {
+		return fieldWithDefaultValue;
+	}
+
+	public String getFieldWithMissingStrategy() {
+		return fieldWithMissingStrategy;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public int getPrimitiveInt() {
 		return primitiveInt;
 	}
 
-	public void setPrimitiveInt(int primitiveInt) {
-		this.primitiveInt = primitiveInt;
+	public int getPrimitiveIntWithDefaultValue() {
+		return primitiveIntWithDefaultValue;
 	}
 
-	public Float getComplexFloat() {
-		return complexFloat;
+	public String getUnmappedField() {
+		return unmappedField;
 	}
 
 	public void setComplexFloat(Float complexFloat) {
 		this.complexFloat = complexFloat;
 	}
 
-	public int getPrimitiveIntWithDefaultValue() {
-		return primitiveIntWithDefaultValue;
+	public void setFieldWithAllSettings(String fieldWithAllSettings) {
+		this.fieldWithAllSettings = fieldWithAllSettings;
+	}
+
+	public void setFieldWithCustomName(String fieldWithCustomName) {
+		this.fieldWithCustomName = fieldWithCustomName;
+	}
+
+	public void setFieldWithDefaultSettings(String fieldWithDefaultSettings) {
+		this.fieldWithDefaultSettings = fieldWithDefaultSettings;
+	}
+
+	public void setFieldWithDefaultValue(String fieldWithDefaultValue) {
+		this.fieldWithDefaultValue = fieldWithDefaultValue;
+	}
+
+	public void setFieldWithMissingStrategy(String fieldWithMissingStrategy) {
+		this.fieldWithMissingStrategy = fieldWithMissingStrategy;
+	}
+
+	public void setPrimitiveInt(int primitiveInt) {
+		this.primitiveInt = primitiveInt;
 	}
 }

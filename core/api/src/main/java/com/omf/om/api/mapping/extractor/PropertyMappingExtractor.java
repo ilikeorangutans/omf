@@ -1,8 +1,7 @@
 package com.omf.om.api.mapping.extractor;
 
-import java.util.Set;
-
 import com.omf.om.api.exception.MappingException;
+import com.omf.om.api.mapping.PropertyMap;
 import com.omf.om.api.mapping.PropertyMapping;
 
 /**
@@ -20,6 +19,6 @@ public interface PropertyMappingExtractor {
 	 * @return
 	 * @throws MappingException
 	 */
-	Set<PropertyMapping> extract(Class<?> type) throws MappingException;
+	PropertyMap extract(Class<?> type) throws MappingException;
 
 }

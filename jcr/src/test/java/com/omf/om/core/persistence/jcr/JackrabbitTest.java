@@ -37,6 +37,7 @@ public class JackrabbitTest {
 		Node bar = foo.addNode("bar");
 
 		bar.setProperty("foobar", "Horray!!");
+		bar.setProperty("mycoolfield", "1000000");
 
 		recurse(rootNode);
 
@@ -50,7 +51,7 @@ public class JackrabbitTest {
 		System.out.println("JackrabbitTest.testFoo() " + testEntity);
 
 		System.out.println("JackrabbitTest.testFoo() " + testEntity.getFoobar());
-
+		System.out.println("JackrabbitTest.testFoo() " + testEntity.getBlargh());
 	}
 
 	private void recurse(Node node) throws RepositoryException {
