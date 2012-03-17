@@ -1,17 +1,14 @@
 package com.omf.om.core.mapping;
 
-import java.util.Collections;
-import java.util.Set;
-
 import com.omf.om.api.exception.MappingException;
 import com.omf.om.api.mapping.EntityMapping;
+import com.omf.om.api.mapping.PropertyMap;
 import com.omf.om.api.mapping.PropertyMapping;
 
 public class EntityMappingImpl implements EntityMapping {
 
 	private final Class<?> type;
-	private Set<PropertyMapping> propertyMappings;
-	private PropertyMapping idPropertyMapping;
+	private PropertyMap propertyMappings;
 
 	public EntityMappingImpl(Class<?> type) {
 		this.type = type;
@@ -21,48 +18,28 @@ public class EntityMappingImpl implements EntityMapping {
 		return type;
 	}
 
-	public Set<PropertyMapping> getPropertyMappings() {
+	public PropertyMap getPropertyMappings() {
 		return propertyMappings;
 	}
 
-	public void setPropertyMappings(Set<? extends PropertyMapping> propertyMappings) {
-		this.propertyMappings = Collections.unmodifiableSet(propertyMappings);
+	public void setPropertyMap(PropertyMap propertyMappings) {
+		this.propertyMappings = propertyMappings;
 	}
 
 	public boolean hasField(String field) {
-		for (PropertyMapping pm : propertyMappings) {
-			if (pm.getFieldname().equals(field)) {
-				return true;
-			}
-		}
-		return false;
+		return propertyMappings.hasField(field);
 	}
 
 	public boolean hasProperty(String property) {
-		return false;
+		return propertyMappings.hasProperty(property);
 	}
 
 	public PropertyMapping getPropertyByField(String fieldname) {
-		for (PropertyMapping pm : propertyMappings) {
-			if (pm.getFieldname().equals(fieldname)) {
-				return pm;
-			}
-		}
-
-		throw new MappingException("Requested field " + fieldname + " is not mapped in entity " + this);
+		return propertyMappings.getField(fieldname);
 	}
 
 	public PropertyMapping getIdProperty() {
-		if (idPropertyMapping == null) {
-			for (PropertyMapping pm : propertyMappings) {
-				if (pm.isId()) {
-					idPropertyMapping = pm;
-					break;
-				}
-			}
-		}
-
-		return idPropertyMapping;
+		return propertyMappings.getIdProperty();
 	}
 
 	public void validate() throws MappingException {

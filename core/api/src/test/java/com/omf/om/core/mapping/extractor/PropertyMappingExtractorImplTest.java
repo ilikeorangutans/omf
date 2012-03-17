@@ -8,6 +8,7 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.omf.om.api.mapping.PropertyMap;
 import com.omf.om.api.mapping.PropertyMapping;
 import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.EntityWithoutProperties;
@@ -22,17 +23,24 @@ public class PropertyMappingExtractorImplTest {
 
 	@Test
 	public void testSimpleTypeWithoutProperties() {
-		Set<PropertyMapping> extract = new PropertyMappingExtractorImpl().extract(EntityWithoutProperties.class);
+		PropertyMap extract = new PropertyMappingExtractorImpl().extract(EntityWithoutProperties.class);
 
 		assertThat(extract.isEmpty(), is(true));
 	}
 
 	@Test
 	public void testSimpleTypeWithBasicProperties() {
-		Set<PropertyMapping> extract = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		PropertyMap extract = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 
 		assertThat(extract.isEmpty(), is(false));
-		assertThat(extract.size(), is(EntityWithPrimitiveProperties.NUMBER_OF_FIELDS));
+		assertThat(extract.getSize(), is(EntityWithPrimitiveProperties.NUMBER_OF_FIELDS));
+	}
+
+	@Test
+	public void testExtractIdProperty() {
+		PropertyMap extract = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		PropertyMapping mapping = extract.getIdProperty();
+
 	}
 
 }

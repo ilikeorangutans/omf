@@ -4,18 +4,25 @@ import java.lang.reflect.Field;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.omf.om.api.annotation.Entity;
 import com.omf.om.api.annotation.Id;
 import com.omf.om.api.annotation.Property;
 import com.omf.om.api.annotation.PropertyNameStrategy;
 import com.omf.om.api.exception.MappingException;
+import com.omf.om.api.mapping.PropertyMap;
 import com.omf.om.api.mapping.PropertyMapping;
 import com.omf.om.api.mapping.extractor.PropertyMappingExtractor;
+import com.omf.om.core.mapping.ImmutablePropertyMap;
 import com.omf.om.core.mapping.ImmutablePropertyMapping;
 
 public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 
-	public Set<PropertyMapping> extract(Class<?> type) {
+	private static final Logger LOGGER = LoggerFactory.getLogger(PropertyMappingExtractorImpl.class);
+
+	public PropertyMap extract(Class<?> type) {
 		if (type == null)
 			throw new NullPointerException("Cannot extract entity mapping, type is null!");
 
@@ -28,15 +35,19 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 		for (Field field : type.getDeclaredFields()) {
 
 			final Property annotation = field.getAnnotation(Property.class);
-			if (annotation == null)
+			if (annotation == null) {
+				LOGGER.debug("Field {} is not annotated, ignoring in mapping.", field.getName());
 				continue;
+			}
+
+			LOGGER.debug("Found annotated field {}", field.getName());
 
 			final PropertyMapping propertyMapping = fromField(field);
 			mappings.add(propertyMapping);
 
 		}
 
-		return mappings;
+		return new ImmutablePropertyMap(mappings);
 	}
 
 	/**

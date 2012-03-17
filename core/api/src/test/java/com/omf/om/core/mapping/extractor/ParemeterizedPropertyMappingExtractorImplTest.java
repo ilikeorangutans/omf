@@ -42,7 +42,7 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 				PropertyMissingException.class });
 		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithMissingStrategy", String.class, "fieldWithMissingStrategy", "default value",
 				PropertyMissingStrategy.DefaultValue, PropertyMissingException.class });
-		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithAllSettings", String.class, "customName", "custom default value",
+		list.add(new Object[] { EntityWithPrimitiveProperties.class, "fieldWithAllSettings", String.class, "differentCustomName", "custom default value",
 				PropertyMissingStrategy.ThrowException, PropertyMissingException.class });
 		list.add(new Object[] { EntityWithPrimitiveProperties.class, "primitiveInt", int.class, "primitiveInt", "", PropertyMissingStrategy.ReturnNull,
 				PropertyMissingException.class });
