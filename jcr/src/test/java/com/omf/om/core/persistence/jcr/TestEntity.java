@@ -1,4 +1,4 @@
-package com.test;
+package com.omf.om.core.persistence.jcr;
 
 import com.omf.om.api.annotation.Entity;
 import com.omf.om.api.annotation.Property;
