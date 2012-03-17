@@ -1,10 +1,6 @@
 package org.om.core.impl.persistence.jcr.impl;
 
-import javax.jcr.Session;
-
-import junit.framework.Assert;
-
-import org.junit.Test;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositorySessionFactory;
 
 /**
@@ -12,17 +8,11 @@ import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositoryS
  * @author tome
  * 
  */
-public class TestTransientRepositorySessionFactory {
-	@Test
-	public void test() {
-		try {
-			TransientRepositorySessionFactory sessionFactory = new TransientRepositorySessionFactory("target/testtransientrepo");
-			Session session = sessionFactory.getSession();
-			Assert.assertNotNull(session);
-			session.logout();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
+public class TestTransientRepositorySessionFactory extends BaseTestSessionFactory {
+
+	@Override
+	protected SessionFactory getSessionFactory() {
+		return new TransientRepositorySessionFactory("target/testtransientrepo");
 	}
+
 }

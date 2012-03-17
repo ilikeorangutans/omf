@@ -1,10 +1,6 @@
 package org.om.core.impl.persistence.jcr.impl;
 
-import javax.jcr.Session;
-
-import junit.framework.Assert;
-
-import org.junit.Test;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.ConfiguredSessionFactory;
 
 /**
@@ -12,18 +8,10 @@ import org.om.core.impl.persistence.jcr.impl.sessionfactory.ConfiguredSessionFac
  * @author tome
  * 
  */
-public class TestConfiguredSessionFactory {
+public class TestConfiguredSessionFactory extends BaseTestSessionFactory {
 
-	@Test
-	public void test() {
-		try {
-			ConfiguredSessionFactory sessionFactory = new ConfiguredSessionFactory("/configuredsessionfactory.properties");
-			Session session = sessionFactory.getSession();
-			Assert.assertNotNull(session);
-			session.logout();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
+	@Override
+	protected SessionFactory getSessionFactory() {
+		return new ConfiguredSessionFactory("/configuredsessionfactory.properties");
 	}
 }
