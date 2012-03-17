@@ -1,8 +1,8 @@
 Object Mapper
 =============
 
-A JPA like framework for JCR
----------------------------- 
+A JPA like framework for JCR (and other things...)
+--------------------------------------------------
 
 
 Short Example
