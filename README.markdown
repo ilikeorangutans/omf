@@ -59,6 +59,12 @@ we'll use a JcrPersistenceContext:
 	
 	myPojo.getName();
 	
-	
-	
-	
+Current Limitations
+===================
+
+Only method level access will be intercepted and mapped to the actual persistence backend. The implemented ProxyFactory uses cglib 
+to generate dynamic proxies. Cglib only allows for method level intercept and not field level. That means directly accessing a mapped
+field will not return anything as of now. To obtain a mapped property, the appropriate getter has to be used.
+
+As soon as the core stabilizes I'll implement a ProxyFactory using a different bytecode library, maybe Javassist, that allows for field
+level access. 
