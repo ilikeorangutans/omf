@@ -1,10 +1,10 @@
 package com.omf.om.core.persistence.delegate;
 
-import com.omf.om.api.mapping.EntityMapping;
-import com.omf.om.api.persistence.PersistenceContext;
-import com.omf.om.api.persistence.PersistenceDelegate;
-import com.omf.om.api.persistence.PersistenceDelegateFactory;
-import com.omf.om.api.session.Session;
+import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.persistence.PersistenceContext;
+import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceDelegateFactory;
+import org.om.core.api.session.Session;
 
 public class TestingDelegateFactory implements PersistenceDelegateFactory {
 

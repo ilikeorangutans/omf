@@ -7,9 +7,9 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.om.core.api.mapping.PropertyMap;
+import org.om.core.api.mapping.PropertyMapping;
 
-import com.omf.om.api.mapping.PropertyMap;
-import com.omf.om.api.mapping.PropertyMapping;
 import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.EntityWithoutProperties;
 

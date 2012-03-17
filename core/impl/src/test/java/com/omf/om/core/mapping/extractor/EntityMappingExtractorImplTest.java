@@ -7,9 +7,9 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.om.core.api.exception.MappingException;
+import org.om.core.api.mapping.EntityMapping;
 
-import com.omf.om.api.exception.MappingException;
-import com.omf.om.api.mapping.EntityMapping;
 import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.EntityWithoutProperties;
 

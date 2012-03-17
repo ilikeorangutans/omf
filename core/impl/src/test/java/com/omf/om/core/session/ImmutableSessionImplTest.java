@@ -5,9 +5,9 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import org.om.core.api.mapping.registry.MappingRegistry;
+import org.om.core.api.session.Session;
 
-import com.omf.om.api.mapping.registry.MappingRegistry;
-import com.omf.om.api.session.Session;
 import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.mapping.registry.OnDemandMappingRegistry;

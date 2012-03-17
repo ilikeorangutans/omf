@@ -3,8 +3,9 @@ package com.omf.om.core.persistence.delegate;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.omf.om.api.mapping.PropertyMapping;
-import com.omf.om.api.persistence.PersistenceContext;
+import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.persistence.PersistenceContext;
+
 
 public class TestingPersistenceContext implements PersistenceContext {
 

@@ -5,10 +5,10 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.persistence.PersistenceContext;
+import org.om.core.api.persistence.PersistenceDelegateFactory;
 
-import com.omf.om.api.mapping.EntityMapping;
-import com.omf.om.api.persistence.PersistenceContext;
-import com.omf.om.api.persistence.PersistenceDelegateFactory;
 import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.persistence.cglib.CglibProxyFactory;

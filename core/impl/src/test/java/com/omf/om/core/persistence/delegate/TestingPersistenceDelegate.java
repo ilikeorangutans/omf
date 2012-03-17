@@ -1,9 +1,9 @@
 package com.omf.om.core.persistence.delegate;
 
-import com.omf.om.api.mapping.EntityMapping;
-import com.omf.om.api.mapping.PropertyMapping;
-import com.omf.om.api.persistence.PersistenceContext;
-import com.omf.om.api.persistence.PersistenceDelegate;
+import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.persistence.PersistenceContext;
+import org.om.core.api.persistence.PersistenceDelegate;
 
 public class TestingPersistenceDelegate implements PersistenceDelegate {
 

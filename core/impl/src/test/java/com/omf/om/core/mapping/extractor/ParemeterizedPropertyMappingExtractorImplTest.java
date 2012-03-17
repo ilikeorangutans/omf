@@ -13,10 +13,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.om.core.api.annotation.PropertyMissingStrategy;
+import org.om.core.api.exception.PropertyMissingException;
+import org.om.core.api.mapping.PropertyMapping;
 
-import com.omf.om.api.annotation.PropertyMissingStrategy;
-import com.omf.om.api.exception.PropertyMissingException;
-import com.omf.om.api.mapping.PropertyMapping;
 import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 
 @RunWith(Parameterized.class)

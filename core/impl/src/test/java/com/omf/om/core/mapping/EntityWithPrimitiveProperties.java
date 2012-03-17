@@ -1,10 +1,10 @@
 package com.omf.om.core.mapping;
 
-import com.omf.om.api.annotation.Entity;
-import com.omf.om.api.annotation.Id;
-import com.omf.om.api.annotation.Property;
-import com.omf.om.api.annotation.PropertyMissingStrategy;
-import com.omf.om.api.exception.PropertyMissingException;
+import org.om.core.api.annotation.Entity;
+import org.om.core.api.annotation.Id;
+import org.om.core.api.annotation.Property;
+import org.om.core.api.annotation.PropertyMissingStrategy;
+import org.om.core.api.exception.PropertyMissingException;
 
 @Entity
 public class EntityWithPrimitiveProperties {

@@ -7,10 +7,10 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.om.core.api.exception.PropertyMissingException;
+import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.PropertyMapping;
 
-import com.omf.om.api.exception.PropertyMissingException;
-import com.omf.om.api.mapping.EntityMapping;
-import com.omf.om.api.mapping.PropertyMapping;
 import com.omf.om.core.mapping.EntityWithPrimitiveProperties;
 import com.omf.om.core.mapping.extractor.EntityMappingExtractorImpl;
 import com.omf.om.core.persistence.delegate.TestingPersistenceContext;
