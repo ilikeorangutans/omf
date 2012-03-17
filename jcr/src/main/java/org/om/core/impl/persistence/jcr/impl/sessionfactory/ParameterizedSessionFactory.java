@@ -47,10 +47,10 @@ public class ParameterizedSessionFactory implements SessionFactory {
 
 	public Session getSession() throws JCRException {
 		try {
-			Repository repository = JcrUtils.getRepository(url);
-			SimpleCredentials creds = new SimpleCredentials(this.username, this.password.toCharArray());
+			final Repository repository = JcrUtils.getRepository(url);
+			final SimpleCredentials creds = new SimpleCredentials(username, password.toCharArray());
 			return repository.login(creds, workspace);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new JCRException("Exception in getSession", e);
 		}
 	}

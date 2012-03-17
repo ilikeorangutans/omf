@@ -12,21 +12,15 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  */
 public class JNDISessionFactory implements SessionFactory {
 	/**
-	 * JNDI Name
-	 */
-	private final String jndiName;
-
-	/**
 	 * ctor
 	 */
 	public JNDISessionFactory(String jndiName) {
-		this.jndiName = jndiName;
 	}
 
 	public Session getSession() throws JCRException {
 		try {
 			throw new Exception("Not Implemented");
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new JCRException("Exception in getSession", e);
 		}
 	}

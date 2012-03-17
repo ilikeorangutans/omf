@@ -17,14 +17,9 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JcrPersistenceDelegate.class);
 
-	private final EntityMapping entityMapping;
-	private final Session session;
-
 	private final Node node;
 
 	public JcrPersistenceDelegate(Session session, EntityMapping entityMapping, Node node) {
-		this.session = session;
-		this.entityMapping = entityMapping;
 		this.node = node;
 	}
 
@@ -47,13 +42,13 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 				case ThrowException:
 					try {
 						throw propertyMapping.getMissingException().newInstance();
-					} catch (InstantiationException e) {
+					} catch (final InstantiationException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (IllegalAccessException e) {
+					} catch (final IllegalAccessException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (Exception e) {
+					} catch (final Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -68,7 +63,7 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 
 			return property.getValue().getString();
 
-		} catch (RepositoryException e) {
+		} catch (final RepositoryException e) {
 			throw new ObjectMapperException("Could not retrieve property " + propertyName, e);
 		}
 
@@ -77,7 +72,7 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 	public boolean hasProperty(PropertyMapping mapping) {
 		try {
 			return node.hasProperty(mapping.getPropertyName());
-		} catch (RepositoryException e) {
+		} catch (final RepositoryException e) {
 			throw new ObjectMapperException("Could not retrieve property.", e);
 		}
 	}

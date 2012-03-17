@@ -13,25 +13,25 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  * @author tome
  */
 public class TransientRepositorySessionFactory implements SessionFactory {
-   /**
-    * path
-    */
-   private final String path;
+	/**
+	 * path
+	 */
+	private final String path;
 
-   /**
-    * ctor
-    */
-   public TransientRepositorySessionFactory(String path) {
-      this.path = path;
-   }
+	/**
+	 * ctor
+	 */
+	public TransientRepositorySessionFactory(String path) {
+		this.path = path;
+	}
 
-   public Session getSession() throws JCRException {
-      try {
-         File file = new File(".");
-         Repository repository = new TransientRepository(new File(file, path));
-         return repository.login();
-      } catch (Exception e) {
-         throw new JCRException("Exception in getSession", e);
-      }
-   }
+	public Session getSession() throws JCRException {
+		try {
+			final File file = new File(".");
+			final Repository repository = new TransientRepository(new File(file, path));
+			return repository.login();
+		} catch (final Exception e) {
+			throw new JCRException("Exception in getSession", e);
+		}
+	}
 }

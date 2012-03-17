@@ -19,9 +19,9 @@ public class JcrPersistenceDelegateFactory implements PersistenceDelegateFactory
 		try {
 			final Node node = context.getSession().getRootNode().getNode((String) id);
 			return new JcrPersistenceDelegate(session, mapping, node);
-		} catch (PathNotFoundException e) {
+		} catch (final PathNotFoundException e) {
 			throw new org.om.core.api.exception.PathNotFoundException(null);
-		} catch (RepositoryException e) {
+		} catch (final RepositoryException e) {
 			throw new ObjectMapperException("Could not create persistence delegate", e);
 		}
 	}

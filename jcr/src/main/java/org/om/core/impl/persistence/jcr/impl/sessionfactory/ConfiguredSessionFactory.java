@@ -34,21 +34,21 @@ public class ConfiguredSessionFactory implements SessionFactory {
 			/*
 			 * get the props file
 			 */
-			InputStream inputStream = ConfiguredSessionFactory.class.getResourceAsStream(propertiesFile);
+			final InputStream inputStream = ConfiguredSessionFactory.class.getResourceAsStream(propertiesFile);
 			if (null != inputStream) {
 				/*
 				 * load props
 				 */
-				Properties properties = new Properties();
+				final Properties properties = new Properties();
 				properties.load(inputStream);
 				/*
 				 * go for it
 				 */
-				Repository repository = JcrUtils.getRepository(properties.getProperty("url"));
-				SimpleCredentials creds = new SimpleCredentials(properties.getProperty("username"), properties.getProperty("password").toCharArray());
+				final Repository repository = JcrUtils.getRepository(properties.getProperty("url"));
+				final SimpleCredentials creds = new SimpleCredentials(properties.getProperty("username"), properties.getProperty("password").toCharArray());
 				String workspace = null;
 				if (properties.contains("workspace")) {
-					String ws = properties.getProperty("workspace").trim();
+					final String ws = properties.getProperty("workspace").trim();
 					if ((null != ws) && (ws.length() > 0)) {
 						workspace = ws;
 					}
@@ -57,7 +57,7 @@ public class ConfiguredSessionFactory implements SessionFactory {
 			} else {
 				throw new Exception("Unable to find '" + propertiesFile + "'");
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new JCRException("Exception in getSession", e);
 		}
 	}
