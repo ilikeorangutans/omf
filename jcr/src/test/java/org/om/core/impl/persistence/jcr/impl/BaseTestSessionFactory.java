@@ -21,7 +21,7 @@ public abstract class BaseTestSessionFactory {
 	protected abstract SessionFactory getSessionFactory();
 
 	private void recurse(Node node) throws RepositoryException {
-		System.out.println("JackrabbitTest.recurse() " + node.getPath());
+		System.out.println("BaseTestSessionFactory.recurse() " + node.getPath());
 
 		if (node.hasNodes()) {
 			for (final NodeIterator ni = node.getNodes(); ni.hasNext();) {
