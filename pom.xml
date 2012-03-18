@@ -41,6 +41,7 @@
 		<module>omf-parent</module>
 		<module>core</module>
 		<module>dao</module>
+		<module>jcr2pojo</module>
 	</modules>
 
 	<build>

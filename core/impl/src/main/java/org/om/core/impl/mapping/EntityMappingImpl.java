@@ -14,6 +14,13 @@ public class EntityMappingImpl implements EntityMapping {
 		this.type = type;
 	}
 
+	/**
+	 * ctor for use by JCR2POJO
+	 */
+	public EntityMappingImpl() {
+		this.type = null;
+	}
+
 	public Class<?> getTypeClass() {
 		return type;
 	}
