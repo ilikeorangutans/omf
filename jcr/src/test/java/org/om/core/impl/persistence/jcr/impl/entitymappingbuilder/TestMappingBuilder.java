@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
-import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 
 /**
@@ -80,7 +79,7 @@ public class TestMappingBuilder {
 			final EntityMapping entityMapping = entityMappingBuilder.build("foo/bar", session);
 			Assert.assertNotNull(entityMapping);
 			Assert.assertNotNull(entityMapping.getPropertyMappings());
-			Assert.assertTrue(entityMapping.getPropertyMappings().getSize() == 3);
+			Assert.assertTrue(entityMapping.getPropertyMappings().getSize() == 2);
 		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();

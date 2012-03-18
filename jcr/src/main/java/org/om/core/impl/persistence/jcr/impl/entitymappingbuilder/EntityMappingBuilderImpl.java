@@ -20,6 +20,11 @@ import org.om.core.impl.persistence.jcr.util.PropertyTypeToClass;
  */
 public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 
+	/**
+	 * namespaces we want to not map
+	 */
+	private static final String[] ignoreNamespaces = { "jcr" };
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -34,6 +39,11 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 			 */
 			final Node node = session.getRootNode().getNode(jcrPath);
 			if (null != node) {
+				/*
+				 * node type
+				 */
+				// NodeType nodeType = node.getPrimaryNodeType();
+				// System.out.println(nodeType.getName());
 				/*
 				 * mapping
 				 */
@@ -50,23 +60,28 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 					 */
 					final Property property = iter.nextProperty();
 					/*
-					 * field name
+					 * map it?
 					 */
-					final String fieldName = fixName(property.getName());
-					/*
-					 * jcr type
-					 */
-					int jcrType = property.getType();
-					/*
-					 * java type
-					 */
-					Class<?> type = PropertyTypeToClass.getClassForType(jcrType);
-					/*
-					 * mapping
-					 */
-					final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), type, null, null,
-							null, jcrType);
-					propertyMap.add(propertyMapping);
+					if (this.isMappableProperty(property.getName())) {
+						/*
+						 * field name
+						 */
+						final String fieldName = fixName(property.getName());
+						/*
+						 * jcr type
+						 */
+						int jcrType = property.getType();
+						/*
+						 * java type
+						 */
+						Class<?> type = PropertyTypeToClass.getClassForType(jcrType);
+						/*
+						 * mapping
+						 */
+						final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), type, null,
+								null, null, jcrType);
+						propertyMap.add(propertyMapping);
+					}
 				}
 				/*
 				 * done
@@ -93,6 +108,27 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 			return ret;
 		} else {
 			return name;
+		}
+	}
+
+	/**
+	 * check if we want to map this, or ignore it
+	 */
+	private boolean isMappableProperty(String propertyName) {
+		final int i = propertyName.indexOf(":");
+		if (-1 != i) {
+			String namespace = propertyName.substring(0, i);
+			for (int j = 0; j < ignoreNamespaces.length; j++) {
+				if (ignoreNamespaces[j].compareTo(namespace) == 0) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			/*
+			 * if there is no namespace, map it
+			 */
+			return true;
 		}
 	}
 }

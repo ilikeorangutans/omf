@@ -88,7 +88,7 @@ public class TestPOJOGenerator2 {
 			final EntityMapping entityMapping = entityMappingBuilder.build("foo/bar", session);
 			Assert.assertNotNull(entityMapping);
 			Assert.assertNotNull(entityMapping.getPropertyMappings());
-			Assert.assertTrue(entityMapping.getPropertyMappings().getSize() == 3);
+			Assert.assertTrue(entityMapping.getPropertyMappings().getSize() == 2);
 			/*
 			 * class
 			 */
