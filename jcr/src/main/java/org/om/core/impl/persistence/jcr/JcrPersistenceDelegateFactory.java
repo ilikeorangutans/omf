@@ -14,6 +14,11 @@ import org.om.core.api.persistence.PersistenceDelegate;
 import org.om.core.api.persistence.PersistenceDelegateFactory;
 import org.om.core.api.session.Session;
 
+/**
+ * @author Jakob Külzer
+ * @author tome
+ * 
+ */
 public class JcrPersistenceDelegateFactory implements PersistenceDelegateFactory {
 
 	@SuppressWarnings("deprecation")
