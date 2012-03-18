@@ -6,10 +6,10 @@ import javax.jcr.PropertyIterator;
 import javax.jcr.Session;
 
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.impl.mapping.BasicPropertyMap;
 import org.om.core.impl.mapping.EntityMappingImpl;
+import org.om.core.impl.mapping.ImmutablePropertyMapping;
 import org.om.jcr2pojo.exception.JCR2POJOException;
-import org.om.jcr2pojo.mapping.BasicPropertyMap;
-import org.om.jcr2pojo.mapping.BasicPropertyMapping;
 
 /**
  * 
@@ -50,7 +50,8 @@ public class EntityMappingBuilder {
 					/*
 					 * mapping
 					 */
-					final BasicPropertyMapping propertyMapping = new BasicPropertyMapping(fieldName, property.getName(), String.class);
+					final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), String.class,
+							null, null, null);
 					propertyMap.addField(fieldName, propertyMapping);
 					propertyMap.addProperty(property.getName(), propertyMapping);
 				}

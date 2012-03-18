@@ -1,4 +1,4 @@
-package org.om.jcr2pojo.mapping;
+package org.om.core.impl.mapping;
 
 import java.util.Collection;
 import java.util.HashMap;

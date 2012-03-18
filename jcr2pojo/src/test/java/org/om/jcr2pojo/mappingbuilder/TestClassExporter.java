@@ -5,10 +5,10 @@ import java.io.ByteArrayOutputStream;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.om.core.impl.mapping.BasicPropertyMap;
 import org.om.core.impl.mapping.EntityMappingImpl;
+import org.om.core.impl.mapping.ImmutablePropertyMapping;
 import org.om.jcr2pojo.classexporter.ClassExporter;
-import org.om.jcr2pojo.mapping.BasicPropertyMap;
-import org.om.jcr2pojo.mapping.BasicPropertyMapping;
 
 /**
  * 
@@ -29,10 +29,10 @@ public class TestClassExporter {
 			/*
 			 * add some fields
 			 */
-			propertyMap.addField("a", new BasicPropertyMapping("a", "om:a", String.class));
-			propertyMap.addField("b", new BasicPropertyMapping("b", "om:a", String.class));
-			propertyMap.addField("c", new BasicPropertyMapping("c", "om:a", String.class));
-			propertyMap.addField("d", new BasicPropertyMapping("d", "om:a", String.class));
+			propertyMap.addField("a", new ImmutablePropertyMapping("a", false, null, "om:a", String.class, null, null, null));
+			propertyMap.addField("b", new ImmutablePropertyMapping("a", false, null, "om:b", String.class, null, null, null));
+			propertyMap.addField("c", new ImmutablePropertyMapping("a", false, null, "om:c", String.class, null, null, null));
+			propertyMap.addField("d", new ImmutablePropertyMapping("a", false, null, "om:d", String.class, null, null, null));
 			/*
 			 * generate some java
 			 */
