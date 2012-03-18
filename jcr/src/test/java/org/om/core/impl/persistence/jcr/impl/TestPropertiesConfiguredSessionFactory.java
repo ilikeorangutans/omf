@@ -8,7 +8,7 @@ import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfigured
  * @author tome
  * 
  */
-public class TestConfiguredSessionFactory extends BaseTestSessionFactory {
+public class TestPropertiesConfiguredSessionFactory extends BaseTestSessionFactory {
 
 	@Override
 	protected SessionFactory getSessionFactory() {
