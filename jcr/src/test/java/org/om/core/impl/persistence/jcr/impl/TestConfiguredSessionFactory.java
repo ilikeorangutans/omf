@@ -1,7 +1,7 @@
 package org.om.core.impl.persistence.jcr.impl;
 
 import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.ConfiguredSessionFactory;
+import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredSessionFactory;
 
 /**
  * 
@@ -12,6 +12,6 @@ public class TestConfiguredSessionFactory extends BaseTestSessionFactory {
 
 	@Override
 	protected SessionFactory getSessionFactory() {
-		return new ConfiguredSessionFactory("/configuredsessionfactory.properties");
+		return new PropertiesConfiguredSessionFactory("/configuredsessionfactory.properties");
 	}
 }

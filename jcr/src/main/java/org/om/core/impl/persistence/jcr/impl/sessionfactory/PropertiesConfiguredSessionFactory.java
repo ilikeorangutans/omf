@@ -17,7 +17,7 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  *         come from here are one-per-thread.
  * 
  */
-public class ConfiguredSessionFactory implements SessionFactory {
+public class PropertiesConfiguredSessionFactory implements SessionFactory {
 
 	/**
 	 * the threadlocal primary session
@@ -37,14 +37,14 @@ public class ConfiguredSessionFactory implements SessionFactory {
 	/**
 	 * ctor
 	 */
-	public ConfiguredSessionFactory() {
+	public PropertiesConfiguredSessionFactory() {
 		propertiesFile = DEFAULT_PROPERTIES_FILE;
 	}
 
 	/**
 	 * ctor
 	 */
-	public ConfiguredSessionFactory(String propertiesFile) {
+	public PropertiesConfiguredSessionFactory(String propertiesFile) {
 		this.propertiesFile = propertiesFile;
 	}
 
@@ -90,7 +90,7 @@ public class ConfiguredSessionFactory implements SessionFactory {
 			/*
 			 * get the props file
 			 */
-			final InputStream inputStream = ConfiguredSessionFactory.class.getResourceAsStream(propertiesFile);
+			final InputStream inputStream = PropertiesConfiguredSessionFactory.class.getResourceAsStream(propertiesFile);
 			if (null == inputStream) {
 				throw new Exception("Unable to find '" + propertiesFile + "'");
 			}

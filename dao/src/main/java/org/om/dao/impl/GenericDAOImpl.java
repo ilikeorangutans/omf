@@ -9,7 +9,7 @@ import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFa
 import org.om.core.impl.persistence.jcr.JcrPersistenceContext;
 import org.om.core.impl.persistence.jcr.JcrPersistenceDelegateFactory;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.ConfiguredSessionFactory;
+import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredSessionFactory;
 import org.om.core.impl.session.factory.ImmutableSessionFactory;
 import org.om.dao.api.GenericDAO;
 
@@ -78,7 +78,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
 					new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
 
-			return sessionFactory.getSession(new JcrPersistenceContext(new ConfiguredSessionFactory().getSession()));
+			return sessionFactory.getSession(new JcrPersistenceContext(new PropertiesConfiguredSessionFactory().getSession()));
 
 		} catch (final Exception e) {
 			throw new JCRException("Exception in getSession", e);

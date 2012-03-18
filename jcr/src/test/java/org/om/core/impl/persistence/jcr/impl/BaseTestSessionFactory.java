@@ -44,7 +44,6 @@ public abstract class BaseTestSessionFactory {
 		SessionFactory sessionFactory = getSessionFactory();
 		Session session = sessionFactory.getSession();
 		Assert.assertNotNull(session);
-		Assert.assertNotNull(session);
 		/*
 		 * get the root node
 		 */
@@ -59,5 +58,6 @@ public abstract class BaseTestSessionFactory {
 		bar.setProperty("mycoolfield", "1000000");
 
 		recurse(rootNode);
+		session.logout();
 	}
 }

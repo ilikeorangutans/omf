@@ -7,7 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.ConfiguredSessionFactory;
+import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredSessionFactory;
 
 /**
  * 
@@ -23,7 +23,7 @@ public class TestGenericDAO {
 	@Before
 	public void setUp() {
 		try {
-			Session session = new ConfiguredSessionFactory().getSession();
+			Session session = new PropertiesConfiguredSessionFactory().getSession();
 			Assert.assertNotNull(session);
 			/*
 			 * get the root node
