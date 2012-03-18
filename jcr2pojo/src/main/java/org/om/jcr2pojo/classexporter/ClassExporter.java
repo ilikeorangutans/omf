@@ -68,7 +68,8 @@ public class ClassExporter {
 					/*
 					 * typename
 					 */
-					final String typename = "String";
+					final Class<?> type = propertyMapping.getPropertyType();
+					String typename = type.getSimpleName();
 					final String fieldname = propertyMapping.getFieldname();
 
 					/*

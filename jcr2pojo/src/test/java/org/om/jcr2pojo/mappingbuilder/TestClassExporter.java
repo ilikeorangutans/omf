@@ -29,10 +29,10 @@ public class TestClassExporter {
 			/*
 			 * add some fields
 			 */
-			propertyMap.addField("a", new BasicPropertyMapping("a", "om:a"));
-			propertyMap.addField("b", new BasicPropertyMapping("b", "om:a"));
-			propertyMap.addField("c", new BasicPropertyMapping("c", "om:a"));
-			propertyMap.addField("d", new BasicPropertyMapping("d", "om:a"));
+			propertyMap.addField("a", new BasicPropertyMapping("a", "om:a", String.class));
+			propertyMap.addField("b", new BasicPropertyMapping("b", "om:a", String.class));
+			propertyMap.addField("c", new BasicPropertyMapping("c", "om:a", String.class));
+			propertyMap.addField("d", new BasicPropertyMapping("d", "om:a", String.class));
 			/*
 			 * generate some java
 			 */
