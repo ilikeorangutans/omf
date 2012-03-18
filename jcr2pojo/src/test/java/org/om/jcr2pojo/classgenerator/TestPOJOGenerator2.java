@@ -13,6 +13,8 @@ import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
 import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.DefaultPropertyNamingStrategy;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.NodeIdentifierClassNamingStrategy;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 import org.om.core.impl.persistence.jcr.util.RecursiveDelete;
 
@@ -94,7 +96,8 @@ public class TestPOJOGenerator2 {
 			/*
 			 * mappings
 			 */
-			final EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilderImpl();
+			final EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilderImpl(new NodeIdentifierClassNamingStrategy(),
+					new DefaultPropertyNamingStrategy());
 			final EntityMapping entityMapping = entityMappingBuilder.build("foo/bar", session);
 			Assert.assertNotNull(entityMapping);
 			Assert.assertNotNull(entityMapping.getPropertyMappings());
@@ -104,7 +107,7 @@ public class TestPOJOGenerator2 {
 			 */
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			final POJOGenerator pojoGenerator = new POJOGenerator();
-			pojoGenerator.generatePOJO("TestClass", "com.khubla", entityMapping, baos);
+			pojoGenerator.generatePOJO("com.khubla", entityMapping, baos);
 			System.out.println(baos.toString());
 		} catch (final Exception e) {
 			e.printStackTrace();

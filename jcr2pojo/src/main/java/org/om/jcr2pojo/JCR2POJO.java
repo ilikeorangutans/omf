@@ -7,6 +7,8 @@ import javax.jcr.Session;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
 import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.DefaultPropertyNamingStrategy;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.NodeIdentifierClassNamingStrategy;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 import org.om.jcr2pojo.classgenerator.POJOGenerator;
 
@@ -19,7 +21,8 @@ public class JCR2POJO {
 	/**
 	 * stuff we need
 	 */
-	private static EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilderImpl();
+	private static EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilderImpl(new NodeIdentifierClassNamingStrategy(),
+			new DefaultPropertyNamingStrategy());
 	private static POJOGenerator pojoGenerator = new POJOGenerator();
 
 	/**
@@ -30,10 +33,6 @@ public class JCR2POJO {
 		 * path
 		 */
 		final String jcrPath = args[0];
-		/*
-		 * classname
-		 */
-		final String className = args[1];
 		/*
 		 * package name
 		 */
@@ -52,7 +51,7 @@ public class JCR2POJO {
 				 * build the class
 				 */
 				final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				pojoGenerator.generatePOJO(className, packageName, entityMapping, baos);
+				pojoGenerator.generatePOJO(packageName, entityMapping, baos);
 				System.out.println(baos.toString());
 			}
 			/*

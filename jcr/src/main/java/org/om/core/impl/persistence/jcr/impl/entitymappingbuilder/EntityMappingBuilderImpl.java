@@ -10,6 +10,8 @@ import org.om.core.impl.mapping.BasicPropertyMap;
 import org.om.core.impl.mapping.EntityMappingImpl;
 import org.om.core.impl.mapping.ImmutablePropertyMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
+import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.namingstrategy.ClassNamingStrategy;
+import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.namingstrategy.PropertyNamingStrategy;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 import org.om.core.impl.persistence.jcr.util.PropertyTypeToClass;
 
@@ -19,11 +21,28 @@ import org.om.core.impl.persistence.jcr.util.PropertyTypeToClass;
  * 
  */
 public class EntityMappingBuilderImpl implements EntityMappingBuilder {
+	/**
+	 * class naming strategy
+	 */
+	private final ClassNamingStrategy classNamingStrategy;
+	/**
+	 * property naming strategy
+	 */
+	private final PropertyNamingStrategy propertyNamingStrategy;
 
 	/**
 	 * namespaces we want to not map
 	 */
 	private static final String[] ignoreNamespaces = { "jcr" };
+
+	/**
+	 * ctor
+	 */
+	public EntityMappingBuilderImpl(ClassNamingStrategy classNamingStrategy, PropertyNamingStrategy propertyNamingStrategy) {
+		this.classNamingStrategy = classNamingStrategy;
+		this.propertyNamingStrategy = propertyNamingStrategy;
+
+	}
 
 	public EntityMapping build(Node node) throws JCRException {
 		try {
@@ -36,7 +55,7 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 			/*
 			 * mapping
 			 */
-			final EntityMappingImpl entityMappingImpl = new EntityMappingImpl();
+			final EntityMappingImpl entityMappingImpl = new EntityMappingImpl(classNamingStrategy.generateName(node));
 			final BasicPropertyMap propertyMap = new BasicPropertyMap();
 			entityMappingImpl.setPropertyMap(propertyMap);
 			/*
@@ -55,7 +74,7 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 					/*
 					 * field name
 					 */
-					final String fieldName = fixName(property.getName());
+					final String fieldName = propertyNamingStrategy.generateName(property);
 					/*
 					 * jcr type
 					 */
@@ -101,22 +120,6 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 			}
 		} catch (final Exception e) {
 			throw new JCRException("Exception in build for path '" + jcrPath + "'", e);
-		}
-	}
-
-	/**
-	 * make a valid java field name from a jcr property name
-	 */
-	private String fixName(String name) {
-		final int i = name.indexOf(":");
-		if (-1 != i) {
-			final char[] b = name.toCharArray();
-			b[i + 1] = Character.toUpperCase(b[i + 1]);
-			String ret = new String(b);
-			ret = ret.replaceAll(":", "");
-			return ret;
-		} else {
-			return name;
 		}
 	}
 

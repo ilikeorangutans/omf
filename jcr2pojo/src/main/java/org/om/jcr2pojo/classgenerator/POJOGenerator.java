@@ -24,7 +24,7 @@ public class POJOGenerator {
 	/**
 	 * generate a POJO
 	 */
-	public void generatePOJO(String className, String namespace, EntityMapping entityMapping, OutputStream outputStream) throws JCR2POJOException {
+	public void generatePOJO(String namespace, EntityMapping entityMapping, OutputStream outputStream) throws JCR2POJOException {
 		try {
 			/*
 			 * writer
@@ -56,7 +56,7 @@ public class POJOGenerator {
 			 * declare the class
 			 */
 			writer.println("@Entity");
-			writer.println("public class " + className + "{");
+			writer.println("public class " + entityMapping.getName() + "{");
 			writer.println();
 			/*
 			 * walk fields

@@ -24,7 +24,7 @@ public class TestPOJOGenerator {
 			/*
 			 * build some mappings
 			 */
-			final EntityMappingImpl entityMappingImpl = new EntityMappingImpl();
+			final EntityMappingImpl entityMappingImpl = new EntityMappingImpl("TestClass");
 			final BasicPropertyMap propertyMap = new BasicPropertyMap();
 			entityMappingImpl.setPropertyMap(propertyMap);
 			/*
@@ -39,7 +39,7 @@ public class TestPOJOGenerator {
 			 */
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			final POJOGenerator pojoGenerator = new POJOGenerator();
-			pojoGenerator.generatePOJO("TestClass", "com.khubla", entityMappingImpl, baos);
+			pojoGenerator.generatePOJO("com.khubla", entityMappingImpl, baos);
 			System.out.println(baos.toString());
 		} catch (final Exception e) {
 			e.printStackTrace();

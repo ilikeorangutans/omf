@@ -1,10 +1,7 @@
 package org.om.core.api.mapping;
 
-import java.util.Set;
-
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.exception.MappingException;
-
 
 /**
  * Describes the mapping for an {@link Entity}.
@@ -59,4 +56,9 @@ public interface EntityMapping {
 	 * Validates the mapping.
 	 */
 	void validate() throws MappingException;
+
+	/**
+	 * name
+	 */
+	String getName();
 }

@@ -9,6 +9,8 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.DefaultPropertyNamingStrategy;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.NodeIdentifierClassNamingStrategy;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 import org.om.core.impl.persistence.jcr.util.ImportUtil;
 
@@ -43,7 +45,8 @@ public class TestEngine {
 			/*
 			 * go for it
 			 */
-			final ReverseEngineeringEngine engine = new ReverseEngineeringEngine(rootNode, "com.khubla.revenge.test");
+			final ReverseEngineeringEngine engine = new ReverseEngineeringEngine(rootNode, "com.khubla.revenge.test", new NodeIdentifierClassNamingStrategy(),
+					new DefaultPropertyNamingStrategy());
 			engine.execute();
 		} catch (final Exception e) {
 			e.printStackTrace();
