@@ -1,6 +1,7 @@
 package org.om.jcr2pojo.reveng;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -13,6 +14,7 @@ import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.namingstrategy.
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.namingstrategy.PropertyNamingStrategy;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
+import org.om.jcr2pojo.classgenerator.DAOGenerator;
 import org.om.jcr2pojo.classgenerator.POJOGenerator;
 
 /**
@@ -20,7 +22,7 @@ import org.om.jcr2pojo.classgenerator.POJOGenerator;
  * @author tome
  * 
  */
-public class ReverseEngineeringEngine {
+public class JCRJavaPersistenceGenerator {
 	/**
 	 * class naming strategy
 	 */
@@ -37,15 +39,25 @@ public class ReverseEngineeringEngine {
 	 * root node to look at
 	 */
 	private final Node node;
+	/**
+	 * output path
+	 */
+	private final String outputPath;
 
 	/**
 	 * ctor
 	 */
-	public ReverseEngineeringEngine(Node node, String namespace, ClassNamingStrategy classNamingStrategy, PropertyNamingStrategy propertyNamingStrategy) {
+	public JCRJavaPersistenceGenerator(Node node, String namespace, String outputPath, ClassNamingStrategy classNamingStrategy,
+			PropertyNamingStrategy propertyNamingStrategy) {
 		this.node = node;
 		this.namespace = namespace;
 		this.classNamingStrategy = classNamingStrategy;
 		this.propertyNamingStrategy = propertyNamingStrategy;
+		this.outputPath = outputPath;
+		/*
+		 * make the output dir
+		 */
+		new File(outputPath + "/").mkdirs();
 	}
 
 	/**
@@ -66,7 +78,8 @@ public class ReverseEngineeringEngine {
 					final String key = iter.next();
 					final EntityMapping entityMapping = mappings.get(key);
 					if (entityMapping.getPropertyMappings().getSize() > 0) {
-						generateJava(entityMapping);
+						generatePOJO(entityMapping);
+						generateDAO(entityMapping);
 					}
 				}
 			}
@@ -76,14 +89,26 @@ public class ReverseEngineeringEngine {
 	}
 
 	/**
-	 * generate .java file
+	 * generate POJO
 	 */
-	private void generateJava(EntityMapping entityMapping) throws JCRException {
+	private void generatePOJO(EntityMapping entityMapping) throws JCRException {
 		try {
-			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			final FileOutputStream fos = new FileOutputStream(outputPath + "/" + entityMapping.getName() + ".java");
 			final POJOGenerator pojoGenerator = new POJOGenerator();
-			pojoGenerator.generatePOJO(namespace, entityMapping, baos);
-			System.out.println(baos.toString());
+			pojoGenerator.generatePOJO(namespace, entityMapping, fos);
+		} catch (final Exception e) {
+			throw new JCRException("Exception in generateJava", e);
+		}
+	}
+
+	/**
+	 * generate DAO
+	 */
+	private void generateDAO(EntityMapping entityMapping) throws JCRException {
+		try {
+			final FileOutputStream fos = new FileOutputStream(outputPath + "/" + entityMapping.getName() + "DAO" + ".java");
+			final DAOGenerator daoGenerator = new DAOGenerator();
+			daoGenerator.generateDAO(entityMapping.getName() + "DAO", namespace, fos);
 		} catch (final Exception e) {
 			throw new JCRException("Exception in generateJava", e);
 		}

@@ -17,7 +17,7 @@ public class NodeIdentifierClassNamingStrategy implements ClassNamingStrategy {
 
 	public String generateName(Node node) throws JCRException {
 		try {
-			return node.getIdentifier();
+			return new String("Id_") + node.getIdentifier().replaceAll("-", "_");
 		} catch (final Exception e) {
 			throw new JCRException("Exception in generateName", e);
 		}

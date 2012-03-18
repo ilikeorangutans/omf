@@ -19,12 +19,12 @@ import org.om.core.impl.persistence.jcr.util.ImportUtil;
  * @author tome
  * 
  */
-public class TestEngine {
+public class TestJCRJavaPersistenceGenerator {
 
 	@Before
 	public void setUp() {
 		try {
-			final InputStream is = TestEngine.class.getResourceAsStream("/test.xml");
+			final InputStream is = TestJCRJavaPersistenceGenerator.class.getResourceAsStream("/test.xml");
 			ImportUtil.importXML("test", is);
 		} catch (final Exception e) {
 			e.printStackTrace();
@@ -45,8 +45,8 @@ public class TestEngine {
 			/*
 			 * go for it
 			 */
-			final ReverseEngineeringEngine engine = new ReverseEngineeringEngine(rootNode, "com.khubla.revenge.test", new NodeIdentifierClassNamingStrategy(),
-					new DefaultPropertyNamingStrategy());
+			final JCRJavaPersistenceGenerator engine = new JCRJavaPersistenceGenerator(rootNode, "com.khubla.revenge.test", "target/reveng",
+					new NodeIdentifierClassNamingStrategy(), new DefaultPropertyNamingStrategy());
 			engine.execute();
 		} catch (final Exception e) {
 			e.printStackTrace();
