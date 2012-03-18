@@ -18,8 +18,13 @@ public class BasicPropertyMap implements PropertyMap {
 	 * properties
 	 */
 	private final Map<String, PropertyMapping> properties = new HashMap<String, PropertyMapping>();
+	private final Map<String, PropertyMapping> fields = new HashMap<String, PropertyMapping>();
 
-	public void add(String name, PropertyMapping propertyMapping) {
+	public void addField(String name, PropertyMapping propertyMapping) {
+		fields.put(name, propertyMapping);
+	}
+
+	public void addProperty(String name, PropertyMapping propertyMapping) {
 		properties.put(name, propertyMapping);
 	}
 
@@ -28,12 +33,10 @@ public class BasicPropertyMap implements PropertyMap {
 	}
 
 	public PropertyMapping getField(String fieldname) {
-
-		return null;
+		return fields.get(fieldname);
 	}
 
 	public PropertyMapping getIdProperty() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -46,8 +49,7 @@ public class BasicPropertyMap implements PropertyMap {
 	}
 
 	public boolean hasField(String name) {
-
-		return false;
+		return fields.containsKey(name);
 	}
 
 	public boolean hasProperty(String name) {
@@ -57,5 +59,4 @@ public class BasicPropertyMap implements PropertyMap {
 	public boolean isEmpty() {
 		return getSize() == 0;
 	}
-
 }

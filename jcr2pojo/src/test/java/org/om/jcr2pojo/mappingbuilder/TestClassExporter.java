@@ -26,11 +26,13 @@ public class TestClassExporter {
 			final EntityMappingImpl entityMappingImpl = new EntityMappingImpl();
 			final BasicPropertyMap propertyMap = new BasicPropertyMap();
 			entityMappingImpl.setPropertyMap(propertyMap);
-
-			propertyMap.add("a", new BasicPropertyMapping("a"));
-			propertyMap.add("b", new BasicPropertyMapping("b"));
-			propertyMap.add("c", new BasicPropertyMapping("c"));
-			propertyMap.add("d", new BasicPropertyMapping("d"));
+			/*
+			 * add some fields
+			 */
+			propertyMap.addField("a", new BasicPropertyMapping("a", "om:a"));
+			propertyMap.addField("b", new BasicPropertyMapping("b", "om:a"));
+			propertyMap.addField("c", new BasicPropertyMapping("c", "om:a"));
+			propertyMap.addField("d", new BasicPropertyMapping("d", "om:a"));
 			/*
 			 * generate some java
 			 */
@@ -38,7 +40,6 @@ public class TestClassExporter {
 			final ClassExporter classExporter = new ClassExporter();
 			classExporter.exportClass("TestClass", "com.khubla", entityMappingImpl, baos);
 			System.out.println(baos.toString());
-
 		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();

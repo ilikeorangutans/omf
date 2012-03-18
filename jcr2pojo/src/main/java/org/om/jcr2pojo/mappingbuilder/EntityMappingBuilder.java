@@ -50,8 +50,9 @@ public class EntityMappingBuilder {
 					/*
 					 * mapping
 					 */
-					final BasicPropertyMapping basicPropertyMapping = new BasicPropertyMapping(fieldName);
-					propertyMap.add(fieldName, basicPropertyMapping);
+					final BasicPropertyMapping propertyMapping = new BasicPropertyMapping(fieldName, property.getName());
+					propertyMap.addField(fieldName, propertyMapping);
+					propertyMap.addProperty(property.getName(), propertyMapping);
 				}
 				/*
 				 * done

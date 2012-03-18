@@ -12,9 +12,11 @@ import org.om.core.api.mapping.PropertyMapping;
 public class BasicPropertyMapping implements PropertyMapping {
 
 	private String fieldname;
+	private String propertyName;
 
-	public BasicPropertyMapping(String fieldname) {
+	public BasicPropertyMapping(String fieldname, String propertyName) {
 		this.fieldname = fieldname;
+		this.propertyName = propertyName;
 	}
 
 	public String getDefaultValue() {
@@ -39,7 +41,7 @@ public class BasicPropertyMapping implements PropertyMapping {
 	}
 
 	public String getPropertyName() {
-		return null;
+		return propertyName;
 	}
 
 	public Class<?> getPropertyType() {
@@ -59,5 +61,9 @@ public class BasicPropertyMapping implements PropertyMapping {
 
 	public void setFieldname(String fieldname) {
 		this.fieldname = fieldname;
+	}
+
+	public void setPropertyName(String propertyName) {
+		this.propertyName = propertyName;
 	}
 }

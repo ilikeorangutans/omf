@@ -80,7 +80,6 @@ public class TestClassExporter2 {
 			 */
 			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
 			Assert.assertNotNull(session);
-
 			/*
 			 * mappings
 			 */
