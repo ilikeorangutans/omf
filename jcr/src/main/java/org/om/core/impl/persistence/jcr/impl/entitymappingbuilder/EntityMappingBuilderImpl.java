@@ -11,6 +11,7 @@ import org.om.core.impl.mapping.EntityMappingImpl;
 import org.om.core.impl.mapping.ImmutablePropertyMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
+import org.om.core.impl.persistence.jcr.util.PropertyTypeToClass;
 
 /**
  * 
@@ -53,10 +54,18 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 					 */
 					final String fieldName = fixName(property.getName());
 					/*
+					 * jcr type
+					 */
+					int jcrType = property.getType();
+					/*
+					 * java type
+					 */
+					Class<?> type = PropertyTypeToClass.getClassForType(jcrType);
+					/*
 					 * mapping
 					 */
-					final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), String.class,
-							null, null, null);
+					final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), type, null, null,
+							null);
 					propertyMap.add(propertyMapping);
 				}
 				/*

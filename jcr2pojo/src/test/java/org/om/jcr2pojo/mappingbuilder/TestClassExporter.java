@@ -1,6 +1,7 @@
 package org.om.jcr2pojo.mappingbuilder;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Date;
 
 import junit.framework.Assert;
 
@@ -30,9 +31,9 @@ public class TestClassExporter {
 			 * add some fields
 			 */
 			propertyMap.add(new ImmutablePropertyMapping("a", false, null, "om:a", String.class, null, null, null));
-			propertyMap.add(new ImmutablePropertyMapping("b", false, null, "om:b", String.class, null, null, null));
-			propertyMap.add(new ImmutablePropertyMapping("c", false, null, "om:c", String.class, null, null, null));
-			propertyMap.add(new ImmutablePropertyMapping("d", false, null, "om:d", String.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("b", false, null, "om:b", Integer.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("c", false, null, "om:c", Float.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("d", false, null, "om:d", Date.class, null, null, null));
 			/*
 			 * generate some java
 			 */
