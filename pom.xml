@@ -40,7 +40,6 @@
 	<modules>
 		<module>omf-parent</module>
 		<module>core</module>
-		<module>jcr</module>
 		<module>dao</module>
 	</modules>
 
@@ -93,6 +92,25 @@
 		</developer>
 	</developers>
 	<name>Object Mapper</name>
+
+	<profiles>
+		<profile>
+			<id>jcr</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>jcr</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>daycq4</id>
+			<modules>
+				<module>daycq4</module>
+			</modules>
+		</profile>
+	</profiles>
 
 	<properties>
 
