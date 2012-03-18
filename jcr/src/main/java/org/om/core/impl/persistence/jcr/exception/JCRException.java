@@ -3,7 +3,7 @@ package org.om.core.impl.persistence.jcr.exception;
 /**
  * @author tome
  */
-public class JCRException extends Exception {
+public class JCRException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public JCRException(Exception e) {

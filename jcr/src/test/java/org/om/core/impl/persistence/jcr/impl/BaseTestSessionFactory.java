@@ -32,43 +32,32 @@ public abstract class BaseTestSessionFactory {
 	}
 
 	@Test
-	public void testlogin() {
-		try {
-			SessionFactory sessionFactory = getSessionFactory();
-			Session session = sessionFactory.getSession();
-			Assert.assertNotNull(session);
-			session.logout();
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
+	public void testlogin() throws Exception {
+		SessionFactory sessionFactory = getSessionFactory();
+		Session session = sessionFactory.getSession();
+		Assert.assertNotNull(session);
+		session.logout();
 	}
 
 	@Test
-	public void testJCR() {
-		try {
-			SessionFactory sessionFactory = getSessionFactory();
-			Session session = sessionFactory.getSession();
-			Assert.assertNotNull(session);
-			Assert.assertNotNull(session);
-			/*
-			 * get the root node
-			 */
-			final Node rootNode = session.getRootNode();
-			Assert.assertNotNull(rootNode);
-			/*
-			 * add two nodes, one of which has properties
-			 */
-			final Node foo = rootNode.addNode("foo");
-			final Node bar = foo.addNode("bar");
-			bar.setProperty("foobar", "Horray!!");
-			bar.setProperty("mycoolfield", "1000000");
+	public void testJCR() throws Exception {
+		SessionFactory sessionFactory = getSessionFactory();
+		Session session = sessionFactory.getSession();
+		Assert.assertNotNull(session);
+		Assert.assertNotNull(session);
+		/*
+		 * get the root node
+		 */
+		final Node rootNode = session.getRootNode();
+		Assert.assertNotNull(rootNode);
+		/*
+		 * add two nodes, one of which has properties
+		 */
+		final Node foo = rootNode.addNode("foo");
+		final Node bar = foo.addNode("bar");
+		bar.setProperty("foobar", "Horray!!");
+		bar.setProperty("mycoolfield", "1000000");
 
-			recurse(rootNode);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
+		recurse(rootNode);
 	}
 }

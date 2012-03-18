@@ -17,6 +17,7 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  * 
  */
 public class ConfiguredSessionFactory implements SessionFactory {
+
 	/**
 	 * propertiesFile
 	 */
@@ -29,34 +30,31 @@ public class ConfiguredSessionFactory implements SessionFactory {
 		this.propertiesFile = propertiesFile;
 	}
 
-	public Session getSession() throws JCRException {
+	public Session getSession() {
 		try {
 			/*
 			 * get the props file
 			 */
 			final InputStream inputStream = ConfiguredSessionFactory.class.getResourceAsStream(propertiesFile);
-			if (null != inputStream) {
-				/*
-				 * load props
-				 */
-				final Properties properties = new Properties();
-				properties.load(inputStream);
-				/*
-				 * go for it
-				 */
-				final Repository repository = JcrUtils.getRepository(properties.getProperty("url"));
-				final SimpleCredentials creds = new SimpleCredentials(properties.getProperty("username"), properties.getProperty("password").toCharArray());
-				String workspace = null;
-				if (properties.contains("workspace")) {
-					final String ws = properties.getProperty("workspace").trim();
-					if ((null != ws) && (ws.length() > 0)) {
-						workspace = ws;
-					}
-				}
-				return repository.login(creds, workspace);
-			} else {
+			if (null == inputStream) {
 				throw new Exception("Unable to find '" + propertiesFile + "'");
 			}
+
+			// load props
+			final Properties properties = new Properties();
+			properties.load(inputStream);
+
+			// go for it
+			final Repository repository = JcrUtils.getRepository(properties.getProperty("url"));
+			final SimpleCredentials creds = new SimpleCredentials(properties.getProperty("username"), properties.getProperty("password").toCharArray());
+			String workspace = null;
+			if (properties.contains("workspace")) {
+				final String ws = properties.getProperty("workspace").trim();
+				if ((null != ws) && (ws.length() > 0)) {
+					workspace = ws;
+				}
+			}
+			return repository.login(creds, workspace);
 		} catch (final Exception e) {
 			throw new JCRException("Exception in getSession", e);
 		}
