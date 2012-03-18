@@ -18,4 +18,5 @@ public interface Session {
 	 */
 	<T> T get(Class<T> clazz, Object id);
 
+	void close();
 }

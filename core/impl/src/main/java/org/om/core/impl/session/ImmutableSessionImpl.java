@@ -34,4 +34,9 @@ public class ImmutableSessionImpl implements Session {
 		final PersistenceDelegate persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext);
 		return (T) proxyFactory.create(this, entityMapping, persistenceDelegate);
 	}
+
+	public void close() {
+		// TODO Auto-generated method stub
+
+	}
 }

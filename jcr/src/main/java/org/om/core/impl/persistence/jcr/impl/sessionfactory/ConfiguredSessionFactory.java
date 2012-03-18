@@ -13,10 +13,21 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
 
 /**
  * 
- * @author tome
+ * @author tome. This is the "PROD" session factory. Note that sessions that
+ *         come from here are one-per-thread.
  * 
  */
 public class ConfiguredSessionFactory implements SessionFactory {
+
+	/**
+	 * the threadlocal primary session
+	 */
+	private static ThreadLocal<Session> threadLocalSession = null;
+
+	/**
+	 * default properties file (
+	 */
+	private static final String DEFAULT_PROPERTIES_FILE = "/objectmanager.properties";
 
 	/**
 	 * propertiesFile
@@ -26,11 +37,55 @@ public class ConfiguredSessionFactory implements SessionFactory {
 	/**
 	 * ctor
 	 */
+	public ConfiguredSessionFactory() {
+		propertiesFile = DEFAULT_PROPERTIES_FILE;
+	}
+
+	/**
+	 * ctor
+	 */
 	public ConfiguredSessionFactory(String propertiesFile) {
 		this.propertiesFile = propertiesFile;
 	}
 
-	public Session getSession() {
+	public Session getSession() throws JCRException {
+		try {
+			/*
+			 * create if needed
+			 */
+			if (null == threadLocalSession) {
+				/*
+				 * get the session for this thread
+				 */
+				final Session session = doGetSession();
+				/*
+				 * check
+				 */
+				if (null != session) {
+					/*
+					 * create the var
+					 */
+					threadLocalSession = new ThreadLocal<Session>();
+					/*
+					 * set
+					 */
+					threadLocalSession.set(session);
+				}
+			}
+			/*
+			 * return
+			 */
+			if (null != threadLocalSession) {
+				return threadLocalSession.get();
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			throw new JCRException("Exception in getSession", e);
+		}
+	}
+
+	private Session doGetSession() throws JCRException {
 		try {
 			/*
 			 * get the props file
@@ -56,7 +111,7 @@ public class ConfiguredSessionFactory implements SessionFactory {
 			}
 			return repository.login(creds, workspace);
 		} catch (final Exception e) {
-			throw new JCRException("Exception in getSession", e);
+			throw new JCRException("Exception in doGetSession", e);
 		}
 	}
 }
