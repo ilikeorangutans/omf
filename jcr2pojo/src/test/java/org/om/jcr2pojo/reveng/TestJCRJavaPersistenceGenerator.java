@@ -28,9 +28,13 @@ public class TestJCRJavaPersistenceGenerator {
 			File[] files = new File("src/test/resources/examples").listFiles();
 			for (int i = 0; i < files.length; i++) {
 				/*
+				 * drop a message
+				 */
+				System.out.println("Generating java persistence for JCR XML:" + files[i].getName());
+				/*
 				 * test name
 				 */
-				String testname = "test" + i;
+				String testname = files[i].getName();
 				/*
 				 * import some data
 				 */
