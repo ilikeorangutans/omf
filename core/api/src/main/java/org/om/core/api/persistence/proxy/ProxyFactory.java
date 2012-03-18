@@ -1,4 +1,4 @@
-package org.om.core.api.session.proxy;
+package org.om.core.api.persistence.proxy;
 
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.persistence.PersistenceDelegate;
