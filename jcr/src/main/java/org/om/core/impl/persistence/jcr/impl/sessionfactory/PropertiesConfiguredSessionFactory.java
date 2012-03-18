@@ -20,11 +20,6 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
 public class PropertiesConfiguredSessionFactory implements SessionFactory {
 
 	/**
-	 * the threadlocal primary session
-	 */
-	private static ThreadLocal<Session> threadLocalSession = null;
-
-	/**
 	 * default properties file (
 	 */
 	private static final String DEFAULT_PROPERTIES_FILE = "/objectmanager.properties";
@@ -49,43 +44,6 @@ public class PropertiesConfiguredSessionFactory implements SessionFactory {
 	}
 
 	public Session getSession() throws JCRException {
-		try {
-			/*
-			 * create if needed
-			 */
-			if (null == threadLocalSession) {
-				/*
-				 * get the session for this thread
-				 */
-				final Session session = doGetSession();
-				/*
-				 * check
-				 */
-				if (null != session) {
-					/*
-					 * create the var
-					 */
-					threadLocalSession = new ThreadLocal<Session>();
-					/*
-					 * set
-					 */
-					threadLocalSession.set(session);
-				}
-			}
-			/*
-			 * return
-			 */
-			if (null != threadLocalSession) {
-				return threadLocalSession.get();
-			} else {
-				return null;
-			}
-		} catch (Exception e) {
-			throw new JCRException("Exception in getSession", e);
-		}
-	}
-
-	private Session doGetSession() throws JCRException {
 		try {
 			/*
 			 * get the props file
