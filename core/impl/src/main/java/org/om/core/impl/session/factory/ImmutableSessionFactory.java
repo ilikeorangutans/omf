@@ -3,9 +3,9 @@ package org.om.core.impl.session.factory;
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceDelegateFactory;
+import org.om.core.api.persistence.proxy.ProxyFactory;
 import org.om.core.api.session.Session;
 import org.om.core.api.session.factory.SessionFactory;
-import org.om.core.api.session.proxy.ProxyFactory;
 import org.om.core.impl.session.ImmutableSessionImpl;
 
 public class ImmutableSessionFactory implements SessionFactory {

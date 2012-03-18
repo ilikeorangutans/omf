@@ -5,8 +5,8 @@ import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceDelegate;
 import org.om.core.api.persistence.PersistenceDelegateFactory;
+import org.om.core.api.persistence.proxy.ProxyFactory;
 import org.om.core.api.session.Session;
-import org.om.core.api.session.proxy.ProxyFactory;
 
 public class ImmutableSessionImpl implements Session {
 

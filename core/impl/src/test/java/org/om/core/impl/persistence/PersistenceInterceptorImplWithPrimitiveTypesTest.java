@@ -15,6 +15,7 @@ import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.persistence.delegate.TestingPersistenceContext;
 import org.om.core.impl.persistence.delegate.TestingPersistenceDelegate;
 import org.om.core.impl.persistence.interceptor.PersistenceInterceptorImpl;
+import org.om.core.impl.persistence.interceptor.handler.PropertyHandlerFactoryImpl;
 
 public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 
@@ -26,7 +27,7 @@ public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 	public void setUp() {
 		entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		persistenceContext = new TestingPersistenceContext();
-		interceptor = new PersistenceInterceptorImpl(new TestingPersistenceDelegate(entityMapping, persistenceContext));
+		interceptor = new PersistenceInterceptorImpl(new PropertyHandlerFactoryImpl(), new TestingPersistenceDelegate(entityMapping, persistenceContext));
 	}
 
 	@Test

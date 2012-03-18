@@ -6,8 +6,8 @@ import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.persistence.PersistenceDelegate;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.interceptor.factory.PersistenceInterceptorFactory;
+import org.om.core.api.persistence.proxy.ProxyFactory;
 import org.om.core.api.session.Session;
-import org.om.core.api.session.proxy.ProxyFactory;
 
 public class CglibProxyFactory implements ProxyFactory {
 
