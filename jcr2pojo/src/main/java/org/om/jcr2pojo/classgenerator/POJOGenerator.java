@@ -71,7 +71,7 @@ public class POJOGenerator {
 					 * typename
 					 */
 					final Class<?> type = propertyMapping.getPropertyType();
-					String typename = type.getSimpleName();
+					final String typename = type.getSimpleName();
 					final String fieldname = propertyMapping.getFieldname();
 
 					/*
@@ -108,7 +108,7 @@ public class POJOGenerator {
 			writer.flush();
 			writer.close();
 		} catch (final Exception e) {
-			throw new JCR2POJOException("Exception in exportClass", e);
+			throw new JCR2POJOException("Exception in generatePOJO", e);
 		}
 	}
 
