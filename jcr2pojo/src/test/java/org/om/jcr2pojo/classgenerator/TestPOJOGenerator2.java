@@ -14,6 +14,7 @@ import org.om.core.api.mapping.EntityMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
 import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
+import org.om.core.impl.persistence.jcr.util.RecursiveDelete;
 
 /**
  * 
@@ -32,12 +33,21 @@ public class TestPOJOGenerator2 {
 			final Node rootNode = session.getRootNode();
 			Assert.assertNotNull(rootNode);
 			/*
+			 * delete existing nodes
+			 */
+			RecursiveDelete.recursiveDelete(rootNode);
+			session.save();
+			/*
 			 * add two nodes, one of which has properties
 			 */
 			final Node foo = rootNode.addNode("foo");
 			final Node bar = foo.addNode("bar");
 			bar.setProperty("foobar", "Horray!!");
 			bar.setProperty("mycoolfield", "1000000");
+			bar.setProperty("price", 1234);
+			bar.setProperty("isAmortized", false);
+			bar.setProperty("rate", 1.2);
+
 			/*
 			 * save to the jcr
 			 */
@@ -88,7 +98,7 @@ public class TestPOJOGenerator2 {
 			final EntityMapping entityMapping = entityMappingBuilder.build("foo/bar", session);
 			Assert.assertNotNull(entityMapping);
 			Assert.assertNotNull(entityMapping.getPropertyMappings());
-			Assert.assertTrue(entityMapping.getPropertyMappings().getSize() == 2);
+			Assert.assertTrue(entityMapping.getPropertyMappings().getSize() == 5);
 			/*
 			 * class
 			 */
