@@ -13,8 +13,7 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
 
 /**
  * 
- * @author tome. This is the "PROD" session factory. Note that sessions that
- *         come from here are one-per-thread.
+ * @author tome.
  * 
  */
 public class PropertiesConfiguredSessionFactory implements SessionFactory {
