@@ -20,7 +20,9 @@ public class TestClassExporter {
 	@Test
 	public void test1() {
 		try {
-
+			/*
+			 * build some mappings
+			 */
 			final EntityMappingImpl entityMappingImpl = new EntityMappingImpl();
 			final BasicPropertyMap propertyMap = new BasicPropertyMap();
 			entityMappingImpl.setPropertyMap(propertyMap);
@@ -29,10 +31,12 @@ public class TestClassExporter {
 			propertyMap.add("b", new BasicPropertyMapping("b"));
 			propertyMap.add("c", new BasicPropertyMapping("c"));
 			propertyMap.add("d", new BasicPropertyMapping("d"));
-
+			/*
+			 * generate some java
+			 */
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			final ClassExporter classExporter = new ClassExporter();
-			classExporter.exportClass("testname", "com.khubla", entityMappingImpl, baos);
+			classExporter.exportClass("TestClass", "com.khubla", entityMappingImpl, baos);
 			System.out.println(baos.toString());
 
 		} catch (final Exception e) {

@@ -94,7 +94,7 @@ public class TestClassExporter2 {
 			 */
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			final ClassExporter classExporter = new ClassExporter();
-			classExporter.exportClass("testname", "com.khubla", entityMapping, baos);
+			classExporter.exportClass("TestClass", "com.khubla", entityMapping, baos);
 			System.out.println(baos.toString());
 		} catch (final Exception e) {
 			e.printStackTrace();

@@ -74,7 +74,6 @@ public class TestMappingBuilder {
 		try {
 			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
 			Assert.assertNotNull(session);
-
 			final EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilder();
 			final EntityMapping entityMapping = entityMappingBuilder.build("foo/bar", session);
 			Assert.assertNotNull(entityMapping);
