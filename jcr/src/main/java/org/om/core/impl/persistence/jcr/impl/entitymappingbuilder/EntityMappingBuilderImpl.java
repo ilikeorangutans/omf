@@ -1,4 +1,4 @@
-package org.om.jcr2pojo.mappingbuilder;
+package org.om.core.impl.persistence.jcr.impl.entitymappingbuilder;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
@@ -6,22 +6,27 @@ import javax.jcr.PropertyIterator;
 import javax.jcr.Session;
 
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.impl.mapping.BasicPropertyMap;
 import org.om.core.impl.mapping.EntityMappingImpl;
-import org.om.jcr2pojo.exception.JCR2POJOException;
-import org.om.jcr2pojo.mapping.BasicPropertyMap;
-import org.om.jcr2pojo.mapping.BasicPropertyMapping;
+import org.om.core.impl.mapping.ImmutablePropertyMapping;
+import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
+import org.om.core.impl.persistence.jcr.exception.JCRException;
 
 /**
  * 
  * @author tome
  * 
  */
-public class EntityMappingBuilder {
+public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 
-	/**
-	 * build entity mapping
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.om.core.impl.persistence.jcr.impl.mappingbuilder.EntityMappingBuilder
+	 * #build(java.lang.String, javax.jcr.Session)
 	 */
-	public EntityMapping build(String jcrPath, Session session) throws JCR2POJOException {
+	public EntityMapping build(String jcrPath, Session session) throws JCRException {
 		try {
 			/*
 			 * get the node
@@ -50,9 +55,9 @@ public class EntityMappingBuilder {
 					/*
 					 * mapping
 					 */
-					final BasicPropertyMapping propertyMapping = new BasicPropertyMapping(fieldName, property.getName(), String.class);
-					propertyMap.addField(fieldName, propertyMapping);
-					propertyMap.addProperty(property.getName(), propertyMapping);
+					final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), String.class,
+							null, null, null);
+					propertyMap.add(propertyMapping);
 				}
 				/*
 				 * done
@@ -62,7 +67,7 @@ public class EntityMappingBuilder {
 				throw new Exception("Unable to find node '" + jcrPath + "'");
 			}
 		} catch (final Exception e) {
-			throw new JCR2POJOException("Exception in build for path '" + jcrPath + "'", e);
+			throw new JCRException("Exception in build for path '" + jcrPath + "'", e);
 		}
 	}
 

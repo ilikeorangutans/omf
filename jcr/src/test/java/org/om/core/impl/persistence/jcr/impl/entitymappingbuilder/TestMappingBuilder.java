@@ -1,4 +1,4 @@
-package org.om.jcr2pojo.mappingbuilder;
+package org.om.core.impl.persistence.jcr.impl.entitymappingbuilder;
 
 import javax.jcr.Node;
 import javax.jcr.Session;
@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 
 /**
@@ -74,7 +76,7 @@ public class TestMappingBuilder {
 		try {
 			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
 			Assert.assertNotNull(session);
-			final EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilder();
+			final EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilderImpl();
 			final EntityMapping entityMapping = entityMappingBuilder.build("foo/bar", session);
 			Assert.assertNotNull(entityMapping);
 			Assert.assertNotNull(entityMapping.getPropertyMappings());

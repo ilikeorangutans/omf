@@ -1,4 +1,4 @@
-package org.om.jcr2pojo.mapping;
+package org.om.core.impl.mapping;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,12 +20,10 @@ public class BasicPropertyMap implements PropertyMap {
 	private final Map<String, PropertyMapping> properties = new HashMap<String, PropertyMapping>();
 	private final Map<String, PropertyMapping> fields = new HashMap<String, PropertyMapping>();
 
-	public void addField(String name, PropertyMapping propertyMapping) {
-		fields.put(name, propertyMapping);
-	}
+	public void add(PropertyMapping propertyMapping) {
+		fields.put(propertyMapping.getFieldname(), propertyMapping);
+		properties.put(propertyMapping.getPropertyName(), propertyMapping);
 
-	public void addProperty(String name, PropertyMapping propertyMapping) {
-		properties.put(name, propertyMapping);
 	}
 
 	public Collection<PropertyMapping> getAll() {

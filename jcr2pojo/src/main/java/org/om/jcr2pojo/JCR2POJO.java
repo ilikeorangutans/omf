@@ -5,9 +5,10 @@ import java.io.ByteArrayOutputStream;
 import javax.jcr.Session;
 
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 import org.om.jcr2pojo.classexporter.ClassExporter;
-import org.om.jcr2pojo.mappingbuilder.EntityMappingBuilder;
 
 /**
  * 
@@ -18,7 +19,7 @@ public class JCR2POJO {
 	/**
 	 * stuff we need
 	 */
-	private static EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilder();
+	private static EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilderImpl();
 	private static ClassExporter classExporter = new ClassExporter();
 
 	/**

@@ -1,4 +1,4 @@
-package org.om.core.impl.persistence.jcr.impl;
+package org.om.core.impl.persistence.jcr.impl.sessionfactory;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
