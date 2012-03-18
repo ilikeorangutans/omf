@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<otrunk xmlns:jcr="http://www.jcp.org/jcr/1.0"
+xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+xmlns:sv="http://www.jcp.org/jcr/sv/1.0"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:fn="http://www.w3.org/2005/xpath-functions"
+xmlns:fn_old="http://www.w3.org/2004/10/xpath-functions"
+xmlns:mix="http://www.jcp.org/jcr/mix/1.0" xmlns:rep="internal"
+jcr:primaryType="nt:unstructured"
+id="874b8410-3938-012a-b543-0017f2cc694e">
+  <imports jcr:primaryType="nt:unstructured">
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.OTSystem" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.view.OTViewEntry" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.view.OTViewBundle" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.script.OTScriptEngineBundle" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.script.OTScriptEngineEntry" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.view.document.OTCompoundDoc" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.view.document.OTTextObject" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunkmw.OTModelerPage" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.ui.OTText" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.ui.snapshot.OTSnapshot" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.ui.snapshot.OTSnapshotButton" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.ui.snapshot.OTSnapshotAlbum" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.view.document.OTDocumentViewConfig" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.script.ui.OTScriptObject" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.script.ui.OTScriptVariable" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.script.ui.OTScriptVariableComponent" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.script.js.OTJavascript" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.datagraph.state.OTDataGraph" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.datagraph.state.OTDataCollector" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.datagraph.state.OTDataAxis" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.datagraph.state.OTDataGraphable" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.data.state.OTDataStore" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.data.state.OTDataChannelDescription" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.ui.OTTextPane" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.ui.OTPlacementContainer" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.otrunk.ui.OTPlacement" />
+    <import jcr:primaryType="nt:unstructured"
+    class="org.concord.framework.otrunk.view.OTFrame" />
+  </imports>
+  <objects jcr:primaryType="nt:unstructured">
+    <OTSystem jcr:primaryType="nt:unstructured">
+      <bundles jcr:primaryType="nt:unstructured">
+        <OTViewBundle jcr:primaryType="nt:unstructured"
+        showLeftPanel="false">
+          <views jcr:primaryType="nt:unstructured">
+            <OTViewEntry jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.otrunkmw.OTModelerPage"
+            viewClass="org.concord.otrunkmw.OTModelerPageView" />
+            <OTViewEntry jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.otrunk.ui.OTTextPane"
+            viewClass="org.concord.otrunk.ui.swing.OTTextPaneView" />
+            <OTViewEntry jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.otrunk.ui.OTPlacementContainer"
+            viewClass="org.concord.otrunk.ui.swing.OTPlacementContainerView" />
+            <OTViewEntry jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.otrunk.script.ui.OTScriptObject"
+            viewClass="org.concord.otrunk.script.ui.OTScriptObjectView" />
+            <OTDocumentViewConfig jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.otrunk.view.document.OTDocument"
+            viewClass="org.concord.otrunk.view.document.OTDocumentView">
+
+              <css jcr:primaryType="nt:unstructured">body {
+              font-size: medium; font-family: verdana;
+              background-color: white; } .sub { font-size: x-small;
+              } .header { font-size: large; font-weight: bold;
+              }</css>
+            </OTDocumentViewConfig>
+            <OTViewEntry jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.otrunk.ui.snapshot.OTSnapshotButton"
+            viewClass="org.concord.otrunk.ui.snapshot.OTSnapshotButtonView" />
+            <OTViewEntry jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.otrunk.ui.snapshot.OTSnapshotAlbum"
+            viewClass="org.concord.otrunk.ui.snapshot.OTSnapshotAlbumView" />
+            <OTViewEntry jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.datagraph.state.OTDataGraph"
+            viewClass="org.concord.datagraph.state.OTDataGraphView" />
+            <OTViewEntry jcr:primaryType="nt:unstructured"
+            objectClass="org.concord.datagraph.state.OTDataCollector"
+            viewClass="org.concord.datagraph.state.OTDataCollectorNonEditableView" />
+          </views>
+          <frame jcr:primaryType="nt:unstructured">
+            <OTFrame jcr:primaryType="nt:unstructured" height="640"
+            width="850" />
+          </frame>
+        </OTViewBundle>
+        <OTScriptEngineBundle jcr:primaryType="nt:unstructured">
+          <engines jcr:primaryType="nt:unstructured">
+            <OTScriptEngineEntry jcr:primaryType="nt:unstructured"
+            engineClass="org.concord.otrunk.script.js.OTJavascriptEngine"
+            objectClass="org.concord.otrunk.script.js.OTJavascript" />
+          </engines>
+        </OTScriptEngineBundle>
+      </bundles>
+      <root jcr:primaryType="nt:unstructured">
+        <OTCompoundDoc jcr:primaryType="nt:unstructured">
+          <bodyText jcr:primaryType="nt:unstructured">
+            <p jcr:primaryType="nt:unstructured">
+              <center jcr:primaryType="nt:unstructured">
+                <font jcr:primaryType="nt:unstructured" size="6">
+                  <b jcr:primaryType="nt:unstructured">this is our
+                  new value DEBUG</b>
+                </font>
+              </center>
+            </p>
+            <p jcr:primaryType="nt:unstructured">
+              <font jcr:primaryType="nt:unstructured" size="4">
+              Before you conduct your investigation look at Mary's
+              study and suggest how she could improve it.</font>
+            </p>
+            <p jcr:primaryType="nt:unstructured">
+              <font jcr:primaryType="nt:unstructured" size="4">Mary
+              has one question: How does the motion of the cup and
+              counter molecules change when a hot cup is placed on
+              a glass counter?</font>
+            </p>
+            <p jcr:primaryType="nt:unstructured">
+              <font jcr:primaryType="nt:unstructured" size="4">
+              Mary's experiment: Check below to make sure Mary's
+              setting: (1) Glass counter; (2) Cup temperature: 70;
+              (3) Counter temperature: 60; (4) Observation time:
+              1.</font>
+            </p>
+            <p jcr:primaryType="nt:unstructured">
+              <font jcr:primaryType="nt:unstructured" size="4">
+              Click "Run" to run the model. Remember to check the
+              settings so that they represent the values that Mary
+              set up when you reset and re-run the model.</font>
+            </p>
+            <center jcr:primaryType="nt:unstructured">
+              <object jcr:primaryType="nt:unstructured"
+              refid="${model}" />
+              <object jcr:primaryType="nt:unstructured"
+              refid="${graph}" />
+            </center>
+            <p jcr:primaryType="nt:unstructured">
+              <font jcr:primaryType="nt:unstructured" size="4">
+              Mary's analysis of the result: Mary explained that
+              when the cup is put on the table for 1 minute, the
+              temperature of the cup and table went down, and the
+              motion of the molecules did not change.</font>
+            </p>
+            <object jcr:primaryType="nt:unstructured"
+            refid="${script}" />
+          </bodyText>
+          <documentRefs jcr:primaryType="nt:unstructured">
+            <OTModelerPage jcr:primaryType="nt:unstructured"
+            authoredDataURL="http://svn.concord.org/svn/projects/trunk/common/java/otrunk/otrunk-examples/MolecularWorkbench/thermal-conduction-models/Mary-01.cml"
+            local_id="model" />
+            <OTDataCollector jcr:primaryType="nt:unstructured"
+            autoScaleEnabled="false" local_id="graph"
+            multipleGraphableEnabled="false" name="Model Data">
+              <graphables jcr:primaryType="nt:unstructured">
+                <OTDataGraphable jcr:primaryType="nt:unstructured"
+                color="0x6f9400" connectPoints="true"
+                drawMarks="false" local_id="atom_ck" name="Ck Temp"
+                xColumn="0" yColumn="1">
+                  <dataStore jcr:primaryType="nt:unstructured">
+                    <OTDataStore jcr:primaryType="nt:unstructured"
+                    local_id="atom_ck_datastore"
+                    numberChannels="2">
+                      <channelDescriptions jcr:primaryType="nt:unstructured">
+
+                        <OTDataChannelDescription jcr:primaryType="nt:unstructured"
+                        precision="0" unit="s" />
+                        <OTDataChannelDescription jcr:primaryType="nt:unstructured"
+                        precision="-2" unit="degC" />
+                      </channelDescriptions>
+                      <valuesString jcr:primaryType="nt:unstructured" />
+                    </OTDataStore>
+                  </dataStore>
+                </OTDataGraphable>
+                <OTDataGraphable jcr:primaryType="nt:unstructured"
+                color="0x5959df" connectPoints="true"
+                drawMarks="false" local_id="atom_ws" name="Ws Temp"
+                xColumn="0" yColumn="1">
+                  <dataStore jcr:primaryType="nt:unstructured">
+                    <OTDataStore jcr:primaryType="nt:unstructured"
+                    local_id="atom_ws_datastore"
+                    numberChannels="2">
+                      <channelDescriptions jcr:primaryType="nt:unstructured">
+
+                        <OTDataChannelDescription jcr:primaryType="nt:unstructured"
+                        precision="0" unit="s" />
+                        <OTDataChannelDescription jcr:primaryType="nt:unstructured"
+                        precision="-2" unit="degC" />
+                      </channelDescriptions>
+                      <valuesString jcr:primaryType="nt:unstructured" />
+                    </OTDataStore>
+                  </dataStore>
+                </OTDataGraphable>
+                <OTDataGraphable jcr:primaryType="nt:unstructured"
+                color="0xc900c9" connectPoints="true"
+                drawMarks="false" local_id="atom_pl" name="Pl Temp"
+                xColumn="0" yColumn="1">
+                  <dataStore jcr:primaryType="nt:unstructured">
+                    <OTDataStore jcr:primaryType="nt:unstructured"
+                    local_id="atom_pl_datastore"
+                    numberChannels="2">
+                      <channelDescriptions jcr:primaryType="nt:unstructured">
+
+                        <OTDataChannelDescription jcr:primaryType="nt:unstructured"
+                        precision="0" unit="s" />
+                        <OTDataChannelDescription jcr:primaryType="nt:unstructured"
+                        precision="-2" unit="degC" />
+                      </channelDescriptions>
+                      <valuesString jcr:primaryType="nt:unstructured" />
+                    </OTDataStore>
+                  </dataStore>
+                </OTDataGraphable>
+                <OTDataGraphable jcr:primaryType="nt:unstructured"
+                color="0xa9a9a9" connectPoints="true"
+                drawMarks="false" local_id="atom_nt" name="Nt Temp"
+                xColumn="0" yColumn="1">
+                  <dataStore jcr:primaryType="nt:unstructured">
+                    <OTDataStore jcr:primaryType="nt:unstructured"
+                    local_id="atom_nt_datastore"
+                    numberChannels="2">
+                      <channelDescriptions jcr:primaryType="nt:unstructured">
+
+                        <OTDataChannelDescription jcr:primaryType="nt:unstructured"
+                        precision="0" unit="s" />
+                        <OTDataChannelDescription jcr:primaryType="nt:unstructured"
+                        precision="-2" unit="degC" />
+                      </channelDescriptions>
+                      <valuesString jcr:primaryType="nt:unstructured" />
+                    </OTDataStore>
+                  </dataStore>
+                </OTDataGraphable>
+              </graphables>
+              <xDataAxis jcr:primaryType="nt:unstructured">
+                <OTDataAxis jcr:primaryType="nt:unstructured"
+                label="Time" local_id="xAxis" max="56" min="-1"
+                units="s">
+                  <graphables jcr:primaryType="nt:unstructured">
+                    <object jcr:primaryType="nt:unstructured"
+                    refid="${atom_ck}" />
+                    <object jcr:primaryType="nt:unstructured"
+                    refid="${atom_ws}" />
+                    <object jcr:primaryType="nt:unstructured"
+                    refid="${atom_pl}" />
+                    <object jcr:primaryType="nt:unstructured"
+                    refid="${atom_nt}" />
+                  </graphables>
+                </OTDataAxis>
+              </xDataAxis>
+              <yDataAxis jcr:primaryType="nt:unstructured">
+                <OTDataAxis jcr:primaryType="nt:unstructured"
+                label="Temperature" local_id="yAxis" max="100"
+                min="-10" units="degC">
+                  <graphables jcr:primaryType="nt:unstructured">
+                    <object jcr:primaryType="nt:unstructured"
+                    refid="${atom_ck}" />
+                    <object jcr:primaryType="nt:unstructured"
+                    refid="${atom_ws}" />
+                    <object jcr:primaryType="nt:unstructured"
+                    refid="${atom_pl}" />
+                    <object jcr:primaryType="nt:unstructured"
+                    refid="${atom_nt}" />
+                  </graphables>
+                </OTDataAxis>
+              </yDataAxis>
+            </OTDataCollector>
+            <OTScriptObject jcr:primaryType="nt:unstructured"
+            local_id="script">
+              <variables jcr:primaryType="nt:unstructured">
+                <OTScriptVariable jcr:primaryType="nt:unstructured"
+                name="datastore_ck"
+                reference="${atom_ck_datastore}" />
+                <OTScriptVariable jcr:primaryType="nt:unstructured"
+                name="datastore_ws"
+                reference="${atom_ws_datastore}" />
+                <OTScriptVariable jcr:primaryType="nt:unstructured"
+                name="datastore_pl"
+                reference="${atom_pl_datastore}" />
+                <OTScriptVariable jcr:primaryType="nt:unstructured"
+                name="datastore_nt"
+                reference="${atom_nt_datastore}" />
+                <OTScriptVariableComponent jcr:primaryType="nt:unstructured"
+                name="modelComponent" reference="${model}" />
+                <OTScriptVariableComponent jcr:primaryType="nt:unstructured"
+                name="graph" reference="${graph}" />
+              </variables>
+              <script jcr:primaryType="nt:unstructured">
+                <OTJavascript jcr:primaryType="nt:unstructured"
+                src="http://svn.concord.org/svn/projects/trunk/common/java/otrunk/otrunk-examples/MolecularWorkbench/document-heat-and-temp-thermal-conduction-mary.js" />
+              </script>
+            </OTScriptObject>
+          </documentRefs>
+        </OTCompoundDoc>
+      </root>
+    </OTSystem>
+  </objects>
+</otrunk>
