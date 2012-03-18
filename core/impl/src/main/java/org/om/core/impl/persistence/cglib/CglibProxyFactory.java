@@ -18,7 +18,7 @@ public class CglibProxyFactory implements ProxyFactory {
 	}
 
 	public Object create(Session session, EntityMapping entityMapping, PersistenceDelegate persistenceDelegate) {
-		PersistenceInterceptor persistenceInterceptor = interceptorFactory.create(persistenceDelegate);
+		PersistenceInterceptor persistenceInterceptor = interceptorFactory.create(session, persistenceDelegate);
 		final CglibPersistenceInterceptor methodInterceptor = new CglibPersistenceInterceptor(entityMapping, persistenceInterceptor);
 		return Enhancer.create(entityMapping.getTypeClass(), methodInterceptor);
 	}

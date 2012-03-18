@@ -20,7 +20,7 @@ public class CglibPersistenceInterceptorTest {
 	public void testInterceptWithValidField() throws Throwable {
 		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
-		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(
+		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(null,
 				new PropertyHandlerFactoryImpl(), persistenceDelegate));
 
 		EntityWithPrimitiveProperties entity = new EntityWithPrimitiveProperties();
@@ -36,7 +36,7 @@ public class CglibPersistenceInterceptorTest {
 		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 
-		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(
+		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(null,
 				new PropertyHandlerFactoryImpl(), persistenceDelegate));
 		assertThat(interceptor.isGetter("getFoobar"), is(true));
 		assertThat(interceptor.isGetter("getfoobar"), is(false));
@@ -50,7 +50,7 @@ public class CglibPersistenceInterceptorTest {
 		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 
-		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(
+		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(null,
 				new PropertyHandlerFactoryImpl(), persistenceDelegate));
 		assertThat(interceptor.extractFieldName("getFoobar"), is("foobar"));
 		assertThat(interceptor.extractFieldName("isFoobar"), is("foobar"));

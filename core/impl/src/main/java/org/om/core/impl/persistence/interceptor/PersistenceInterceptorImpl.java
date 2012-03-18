@@ -8,6 +8,7 @@ import org.om.core.api.persistence.PersistenceDelegate;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.interceptor.handler.PropertyHandler;
 import org.om.core.api.persistence.interceptor.handler.PropertyHandlerFactory;
+import org.om.core.api.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,10 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 
 	private final PropertyHandlerFactory handlerFactory;
 
-	public PersistenceInterceptorImpl(PropertyHandlerFactory handlerFactory, PersistenceDelegate delegate) {
+	private final Session session;
+
+	public PersistenceInterceptorImpl(Session session, PropertyHandlerFactory handlerFactory, PersistenceDelegate delegate) {
+		this.session = session;
 		this.handlerFactory = handlerFactory;
 		this.delegate = delegate;
 	}
@@ -29,7 +33,7 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 		if (propertyMapping == null)
 			throw new NullPointerException("propertyMapping is null");
 
-		final PropertyHandler handler = handlerFactory.get(propertyMapping);
+		final PropertyHandler handler = handlerFactory.get(session, propertyMapping);
 		final boolean propertyMissing = !delegate.hasProperty(propertyMapping);
 
 		if (propertyMissing && propertyMapping.getMissingStrategy() == PropertyMissingStrategy.ThrowException) {

@@ -1,4 +1,4 @@
-package org.om.core.impl.persistence;
+package org.om.core.impl.persistence.interceptor;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -27,7 +27,7 @@ public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 	public void setUp() {
 		entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		persistenceContext = new TestingPersistenceContext();
-		interceptor = new PersistenceInterceptorImpl(new PropertyHandlerFactoryImpl(), new TestingPersistenceDelegate(entityMapping, persistenceContext));
+		interceptor = new PersistenceInterceptorImpl(null, new PropertyHandlerFactoryImpl(), new TestingPersistenceDelegate(entityMapping, persistenceContext));
 	}
 
 	@Test
