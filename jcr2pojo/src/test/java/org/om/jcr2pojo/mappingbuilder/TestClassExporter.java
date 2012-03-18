@@ -29,10 +29,10 @@ public class TestClassExporter {
 			/*
 			 * add some fields
 			 */
-			propertyMap.addField("a", new ImmutablePropertyMapping("a", false, null, "om:a", String.class, null, null, null));
-			propertyMap.addField("b", new ImmutablePropertyMapping("a", false, null, "om:b", String.class, null, null, null));
-			propertyMap.addField("c", new ImmutablePropertyMapping("a", false, null, "om:c", String.class, null, null, null));
-			propertyMap.addField("d", new ImmutablePropertyMapping("a", false, null, "om:d", String.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("a", false, null, "om:a", String.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("b", false, null, "om:b", String.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("c", false, null, "om:c", String.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("d", false, null, "om:d", String.class, null, null, null));
 			/*
 			 * generate some java
 			 */

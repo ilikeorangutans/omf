@@ -19,8 +19,12 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  */
 public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 
-	/* (non-Javadoc)
-	 * @see org.om.core.impl.persistence.jcr.impl.mappingbuilder.EntityMappingBuilder#build(java.lang.String, javax.jcr.Session)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.om.core.impl.persistence.jcr.impl.mappingbuilder.EntityMappingBuilder
+	 * #build(java.lang.String, javax.jcr.Session)
 	 */
 	public EntityMapping build(String jcrPath, Session session) throws JCRException {
 		try {
@@ -53,8 +57,7 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 					 */
 					final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), String.class,
 							null, null, null);
-					propertyMap.addField(fieldName, propertyMapping);
-					propertyMap.addProperty(property.getName(), propertyMapping);
+					propertyMap.add(propertyMapping);
 				}
 				/*
 				 * done
