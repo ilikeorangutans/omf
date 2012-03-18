@@ -7,7 +7,7 @@ import javax.jcr.Session;
  * 
  * @author tome
  */
-public interface SessionFactory {
+public interface JCRSessionFactory {
 	/**
 	 * get a JCR Session
 	 */

@@ -8,7 +8,7 @@ import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
 import org.apache.jackrabbit.commons.JcrUtils;
-import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 
 /**
@@ -16,7 +16,7 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  * @author tome.
  * 
  */
-public class PropertiesConfiguredSessionFactory implements SessionFactory {
+public class PropertiesConfiguredJCRSessionFactory implements JCRSessionFactory {
 
 	/**
 	 * default properties file (
@@ -31,14 +31,14 @@ public class PropertiesConfiguredSessionFactory implements SessionFactory {
 	/**
 	 * ctor
 	 */
-	public PropertiesConfiguredSessionFactory() {
+	public PropertiesConfiguredJCRSessionFactory() {
 		propertiesFile = DEFAULT_PROPERTIES_FILE;
 	}
 
 	/**
 	 * ctor
 	 */
-	public PropertiesConfiguredSessionFactory(String propertiesFile) {
+	public PropertiesConfiguredJCRSessionFactory(String propertiesFile) {
 		this.propertiesFile = propertiesFile;
 	}
 
@@ -47,7 +47,7 @@ public class PropertiesConfiguredSessionFactory implements SessionFactory {
 			/*
 			 * get the props file
 			 */
-			final InputStream inputStream = PropertiesConfiguredSessionFactory.class.getResourceAsStream(propertiesFile);
+			final InputStream inputStream = PropertiesConfiguredJCRSessionFactory.class.getResourceAsStream(propertiesFile);
 			if (null == inputStream) {
 				throw new Exception("Unable to find '" + propertiesFile + "'");
 			}

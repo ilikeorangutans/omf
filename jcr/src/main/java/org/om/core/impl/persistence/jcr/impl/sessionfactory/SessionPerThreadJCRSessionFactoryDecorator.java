@@ -2,7 +2,7 @@ package org.om.core.impl.persistence.jcr.impl.sessionfactory;
 
 import javax.jcr.Session;
 
-import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 
 /**
@@ -10,12 +10,12 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  * @author tome
  * 
  */
-public class SessionPerThreadSessionFactoryDecorator implements SessionFactory {
+public class SessionPerThreadJCRSessionFactoryDecorator implements JCRSessionFactory {
 
 	/**
 	 * the session factory to decorate
 	 */
-	private final SessionFactory sessionFactory;
+	private final JCRSessionFactory sessionFactory;
 	/**
 	 * the threadlocal primary session
 	 */
@@ -24,7 +24,7 @@ public class SessionPerThreadSessionFactoryDecorator implements SessionFactory {
 	/**
 	 * ctor
 	 */
-	public SessionPerThreadSessionFactoryDecorator(SessionFactory sessionFactory) {
+	public SessionPerThreadJCRSessionFactoryDecorator(JCRSessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 
 	}

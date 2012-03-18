@@ -5,7 +5,7 @@ import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
 import org.apache.jackrabbit.commons.JcrUtils;
-import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 
 /**
@@ -15,7 +15,7 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  *         localhost
  *         </p>
  */
-public class ParameterizedSessionFactory implements SessionFactory {
+public class ParameterizedJCRSessionFactory implements JCRSessionFactory {
 	/**
 	 * url
 	 */
@@ -37,7 +37,7 @@ public class ParameterizedSessionFactory implements SessionFactory {
 	/**
 	 * ctor
 	 */
-	public ParameterizedSessionFactory(String url, String workspace, String username, String password) {
+	public ParameterizedJCRSessionFactory(String url, String workspace, String username, String password) {
 		this.url = url;
 		this.password = password;
 		this.username = username;

@@ -8,7 +8,7 @@ import javax.jcr.Session;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
 
 /**
  * session factory testing base class
@@ -18,7 +18,7 @@ import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
  */
 public abstract class BaseTestSessionFactory {
 
-	protected abstract SessionFactory getSessionFactory();
+	protected abstract JCRSessionFactory getSessionFactory();
 
 	private void recurse(Node node) throws RepositoryException {
 		System.out.println("BaseTestSessionFactory.recurse() " + node.getPath());
@@ -33,7 +33,7 @@ public abstract class BaseTestSessionFactory {
 
 	@Test
 	public void testlogin() throws Exception {
-		SessionFactory sessionFactory = getSessionFactory();
+		JCRSessionFactory sessionFactory = getSessionFactory();
 		Session session = sessionFactory.getSession();
 		Assert.assertNotNull(session);
 		session.logout();
@@ -41,7 +41,7 @@ public abstract class BaseTestSessionFactory {
 
 	@Test
 	public void testJCR() throws Exception {
-		SessionFactory sessionFactory = getSessionFactory();
+		JCRSessionFactory sessionFactory = getSessionFactory();
 		Session session = sessionFactory.getSession();
 		Assert.assertNotNull(session);
 		/*

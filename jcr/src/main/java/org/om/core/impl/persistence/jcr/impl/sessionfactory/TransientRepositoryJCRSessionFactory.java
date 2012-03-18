@@ -6,13 +6,13 @@ import javax.jcr.Repository;
 import javax.jcr.Session;
 
 import org.apache.jackrabbit.core.TransientRepository;
-import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 
 /**
  * @author tome
  */
-public class TransientRepositorySessionFactory implements SessionFactory {
+public class TransientRepositoryJCRSessionFactory implements JCRSessionFactory {
 	/**
 	 * path
 	 */
@@ -21,7 +21,7 @@ public class TransientRepositorySessionFactory implements SessionFactory {
 	/**
 	 * ctor
 	 */
-	public TransientRepositorySessionFactory(String path) {
+	public TransientRepositoryJCRSessionFactory(String path) {
 		this.path = path;
 	}
 

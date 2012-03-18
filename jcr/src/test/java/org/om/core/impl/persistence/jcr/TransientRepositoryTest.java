@@ -2,7 +2,7 @@ package org.om.core.impl.persistence.jcr;
 
 import javax.jcr.Session;
 
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositorySessionFactory;
+import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositoryJCRSessionFactory;
 
 /**
  * 
@@ -13,7 +13,7 @@ public class TransientRepositoryTest extends BaseJCRSessionTest {
 
 	@Override
 	protected Session getSession() {
-		return new TransientRepositorySessionFactory("target/repository").getSession();
+		return new TransientRepositoryJCRSessionFactory("target/repository").getSession();
 	}
 
 }

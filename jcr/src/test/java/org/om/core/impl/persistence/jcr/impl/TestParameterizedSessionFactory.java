@@ -1,7 +1,7 @@
 package org.om.core.impl.persistence.jcr.impl;
 
-import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.ParameterizedSessionFactory;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
+import org.om.core.impl.persistence.jcr.impl.sessionfactory.ParameterizedJCRSessionFactory;
 
 /**
  * 
@@ -19,7 +19,7 @@ public class TestParameterizedSessionFactory extends BaseTestSessionFactory {
 	private static final String JACKRABBIT_2_4_0_RMI = "http://localhost:8080/rmi";
 
 	@Override
-	protected SessionFactory getSessionFactory() {
-		return new ParameterizedSessionFactory(JACKRABBIT_2_4_0_RMI, null, "admin", "admin");
+	protected JCRSessionFactory getSessionFactory() {
+		return new ParameterizedJCRSessionFactory(JACKRABBIT_2_4_0_RMI, null, "admin", "admin");
 	}
 }

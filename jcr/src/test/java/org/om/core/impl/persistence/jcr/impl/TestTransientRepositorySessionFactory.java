@@ -1,7 +1,7 @@
 package org.om.core.impl.persistence.jcr.impl;
 
-import org.om.core.impl.persistence.jcr.api.sessionfactory.SessionFactory;
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositorySessionFactory;
+import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
+import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositoryJCRSessionFactory;
 
 /**
  * 
@@ -11,8 +11,8 @@ import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositoryS
 public class TestTransientRepositorySessionFactory extends BaseTestSessionFactory {
 
 	@Override
-	protected SessionFactory getSessionFactory() {
-		return new TransientRepositorySessionFactory("target/testtransientrepo");
+	protected JCRSessionFactory getSessionFactory() {
+		return new TransientRepositoryJCRSessionFactory("target/testtransientrepo");
 	}
 
 }
