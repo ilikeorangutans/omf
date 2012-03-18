@@ -32,17 +32,9 @@ public abstract class BaseTestSessionFactory {
 	}
 
 	@Test
-	public void testlogin() throws Exception {
-		JCRSessionFactory sessionFactory = getSessionFactory();
-		Session session = sessionFactory.getSession();
-		Assert.assertNotNull(session);
-		session.logout();
-	}
-
-	@Test
 	public void testJCR() throws Exception {
-		JCRSessionFactory sessionFactory = getSessionFactory();
-		Session session = sessionFactory.getSession();
+		final JCRSessionFactory sessionFactory = getSessionFactory();
+		final Session session = sessionFactory.getSession();
 		Assert.assertNotNull(session);
 		/*
 		 * get the root node
@@ -58,6 +50,14 @@ public abstract class BaseTestSessionFactory {
 		bar.setProperty("mycoolfield", "1000000");
 
 		recurse(rootNode);
+		session.logout();
+	}
+
+	@Test
+	public void testlogin() throws Exception {
+		final JCRSessionFactory sessionFactory = getSessionFactory();
+		final Session session = sessionFactory.getSession();
+		Assert.assertNotNull(session);
 		session.logout();
 	}
 }

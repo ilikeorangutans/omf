@@ -56,7 +56,7 @@ public abstract class BaseJCRSessionTest {
 			 */
 			Assert.assertNotNull(testEntity.getFoobar());
 			Assert.assertTrue(testEntity.getFoobar().compareTo("Horray!!") == 0);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();
 		}

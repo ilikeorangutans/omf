@@ -25,9 +25,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	 * @see org.om.core.impl.persistence.jcr.dao.GenericJCRDAO#delete(T)
 	 */
 	public void delete(T t) throws Exception {
-		Session session = null;
 		try {
-			session = SessionUtil.getSession();
+			SessionUtil.getSession();
 		} catch (final Exception e) {
 			throw new Exception("Exception in delete", e);
 		}
@@ -55,9 +54,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	 * @see org.om.core.impl.persistence.jcr.dao.GenericJCRDAO#save(T)
 	 */
 	public void save(T t) throws Exception {
-		Session session = null;
 		try {
-			session = SessionUtil.getSession();
+			SessionUtil.getSession();
 		} catch (final Exception e) {
 			throw new Exception("Exception in save", e);
 		}

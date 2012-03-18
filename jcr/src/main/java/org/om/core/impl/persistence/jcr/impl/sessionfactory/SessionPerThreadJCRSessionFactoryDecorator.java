@@ -61,7 +61,7 @@ public class SessionPerThreadJCRSessionFactoryDecorator implements JCRSessionFac
 			} else {
 				return null;
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new JCRException("Exception in getSession", e);
 		}
 	}

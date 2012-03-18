@@ -23,7 +23,7 @@ public class TestGenericDAO {
 	@Before
 	public void setUp() {
 		try {
-			Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
+			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
 			Assert.assertNotNull(session);
 			/*
 			 * get the root node
@@ -37,7 +37,7 @@ public class TestGenericDAO {
 			final Node bar = foo.addNode("bar");
 			bar.setProperty("foobar", "Horray!!");
 			bar.setProperty("mycoolfield", "1000000");
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();
 		}
@@ -49,18 +49,18 @@ public class TestGenericDAO {
 			/*
 			 * DAO
 			 */
-			TestEntityDAO testEntityDAO = new TestEntityDAO();
+			final TestEntityDAO testEntityDAO = new TestEntityDAO();
 			/*
 			 * use the DAO to get the Entity
 			 */
-			TestEntity testEntity = testEntityDAO.get("foo/bar");
+			final TestEntity testEntity = testEntityDAO.get("foo/bar");
 			Assert.assertNotNull(testEntity);
 			/*
 			 * check
 			 */
 			Assert.assertNotNull(testEntity.getFoobar());
 			Assert.assertTrue(testEntity.getFoobar().compareTo("Horray!!") == 0);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();
 		}

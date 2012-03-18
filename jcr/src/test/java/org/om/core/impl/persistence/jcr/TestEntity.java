@@ -21,12 +21,12 @@ public class TestEntity {
 	public TestEntity() {
 	}
 
-	public String getFoobar() {
-		return foobar;
-	}
-
 	public int getBlargh() {
 		return blargh;
+	}
+
+	public String getFoobar() {
+		return foobar;
 	}
 
 	public String getId() {
