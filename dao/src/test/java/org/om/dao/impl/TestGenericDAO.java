@@ -5,6 +5,7 @@ import javax.jcr.Session;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.om.core.api.path.Path;
@@ -38,6 +39,35 @@ public class TestGenericDAO {
 			final Node bar = foo.addNode("bar");
 			bar.setProperty("foobar", "Horray!!");
 			bar.setProperty("mycoolfield", "1000000");
+			/*
+			 * save to the jcr
+			 */
+			session.save();
+		} catch (final Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+	@After
+	public void tearDown() {
+		try {
+			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
+			Assert.assertNotNull(session);
+			/*
+			 * get the root node
+			 */
+			final Node rootNode = session.getRootNode();
+			Assert.assertNotNull(rootNode);
+			/*
+			 * remove foo
+			 */
+			rootNode.getNode("foo/bar").remove();
+			rootNode.getNode("foo").remove();
+			/*
+			 * save to the jcr
+			 */
+			session.save();
 		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();
