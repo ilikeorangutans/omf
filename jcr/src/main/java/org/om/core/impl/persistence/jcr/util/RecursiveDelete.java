@@ -13,21 +13,21 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
 public class RecursiveDelete {
 	public static void recursiveDelete(Node node) throws JCRException {
 		try {
-			NodeIterator iter = node.getNodes();
+			final NodeIterator iter = node.getNodes();
 			while (iter.hasNext()) {
-				Node n = iter.nextNode();
+				final Node n = iter.nextNode();
 				if (-1 == n.getName().indexOf(":")) {
 					if (n.hasNodes()) {
 						recursiveDelete(n);
 					}
 					try {
 						n.remove();
-					} catch (Exception e) {
+					} catch (final Exception e) {
 
 					}
 				}
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw new JCRException("Exception in recursiveDelete", e);
 		}
 	}

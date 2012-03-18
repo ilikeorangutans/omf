@@ -25,6 +25,62 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 	 */
 	private static final String[] ignoreNamespaces = { "jcr" };
 
+	public EntityMapping build(Node node) throws JCRException {
+		try {
+
+			/*
+			 * node type
+			 */
+			// NodeType nodeType = node.getPrimaryNodeType();
+			// System.out.println(nodeType.getName());
+			/*
+			 * mapping
+			 */
+			final EntityMappingImpl entityMappingImpl = new EntityMappingImpl();
+			final BasicPropertyMap propertyMap = new BasicPropertyMap();
+			entityMappingImpl.setPropertyMap(propertyMap);
+			/*
+			 * get properties
+			 */
+			final PropertyIterator iter = node.getProperties();
+			while (iter.hasNext()) {
+				/*
+				 * property
+				 */
+				final Property property = iter.nextProperty();
+				/*
+				 * map it?
+				 */
+				if (isMappableProperty(property.getName())) {
+					/*
+					 * field name
+					 */
+					final String fieldName = fixName(property.getName());
+					/*
+					 * jcr type
+					 */
+					final int jcrType = property.getType();
+					/*
+					 * java type
+					 */
+					final Class<?> type = PropertyTypeToClass.getClassForType(jcrType);
+					/*
+					 * mapping
+					 */
+					final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), type, null, null,
+							null, jcrType);
+					propertyMap.add(propertyMapping);
+				}
+			}
+			/*
+			 * done
+			 */
+			return entityMappingImpl;
+		} catch (final Exception e) {
+			throw new JCRException("Exception in build", e);
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -39,54 +95,7 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 			 */
 			final Node node = session.getRootNode().getNode(jcrPath);
 			if (null != node) {
-				/*
-				 * node type
-				 */
-				// NodeType nodeType = node.getPrimaryNodeType();
-				// System.out.println(nodeType.getName());
-				/*
-				 * mapping
-				 */
-				final EntityMappingImpl entityMappingImpl = new EntityMappingImpl();
-				final BasicPropertyMap propertyMap = new BasicPropertyMap();
-				entityMappingImpl.setPropertyMap(propertyMap);
-				/*
-				 * get properties
-				 */
-				final PropertyIterator iter = node.getProperties();
-				while (iter.hasNext()) {
-					/*
-					 * property
-					 */
-					final Property property = iter.nextProperty();
-					/*
-					 * map it?
-					 */
-					if (this.isMappableProperty(property.getName())) {
-						/*
-						 * field name
-						 */
-						final String fieldName = fixName(property.getName());
-						/*
-						 * jcr type
-						 */
-						int jcrType = property.getType();
-						/*
-						 * java type
-						 */
-						Class<?> type = PropertyTypeToClass.getClassForType(jcrType);
-						/*
-						 * mapping
-						 */
-						final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), type, null,
-								null, null, jcrType);
-						propertyMap.add(propertyMapping);
-					}
-				}
-				/*
-				 * done
-				 */
-				return entityMappingImpl;
+				return build(node);
 			} else {
 				throw new Exception("Unable to find node '" + jcrPath + "'");
 			}
@@ -117,7 +126,7 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 	private boolean isMappableProperty(String propertyName) {
 		final int i = propertyName.indexOf(":");
 		if (-1 != i) {
-			String namespace = propertyName.substring(0, i);
+			final String namespace = propertyName.substring(0, i);
 			for (int j = 0; j < ignoreNamespaces.length; j++) {
 				if (ignoreNamespaces[j].compareTo(namespace) == 0) {
 					return false;

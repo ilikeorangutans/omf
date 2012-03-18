@@ -25,8 +25,9 @@ public class PropertyTypeToClass {
 	}
 
 	public static Class<?> getClassForType(int type) {
-		if (type >= TYPES.length || type < 0)
+		if ((type >= TYPES.length) || (type < 0)) {
 			throw new IllegalArgumentException("Don't know how to map type " + type + " to a class.");
+		}
 
 		return TYPES[type];
 	}

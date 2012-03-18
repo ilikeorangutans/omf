@@ -31,7 +31,7 @@ public class JcrPersistenceDelegateFactory implements PersistenceDelegateFactory
 			} else if (id instanceof Path) {
 				node = context.getSession().getRootNode().getNode(((Path) id).toString());
 			} else if (id instanceof UUID) {
-				String uuid = ((UUID) id).toString();
+				final String uuid = ((UUID) id).toString();
 				node = context.getSession().getNodeByUUID(uuid);
 			}
 			return new JcrPersistenceDelegate(session, mapping, node);
