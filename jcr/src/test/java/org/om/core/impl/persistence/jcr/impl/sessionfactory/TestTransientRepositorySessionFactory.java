@@ -1,4 +1,4 @@
-package org.om.core.impl.persistence.jcr.impl;
+package org.om.core.impl.persistence.jcr.impl.sessionfactory;
 
 import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositoryJCRSessionFactory;

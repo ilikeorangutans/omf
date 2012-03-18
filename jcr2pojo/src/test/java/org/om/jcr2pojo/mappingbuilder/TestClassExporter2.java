@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 import org.om.jcr2pojo.classexporter.ClassExporter;
 
@@ -83,7 +85,7 @@ public class TestClassExporter2 {
 			/*
 			 * mappings
 			 */
-			final EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilder();
+			final EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilderImpl();
 			final EntityMapping entityMapping = entityMappingBuilder.build("foo/bar", session);
 			Assert.assertNotNull(entityMapping);
 			Assert.assertNotNull(entityMapping.getPropertyMappings());
