@@ -41,6 +41,7 @@
 		<module>omf-parent</module>
 		<module>core</module>
 		<module>jcr</module>
+		<module>dao</module>
 	</modules>
 
 	<build>
