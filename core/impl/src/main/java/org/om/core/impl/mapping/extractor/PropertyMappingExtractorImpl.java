@@ -82,6 +82,6 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 		final boolean isId = idAnnotation != null;
 
 		return new ImmutablePropertyMapping(field.getName(), isId, nameStrategy, propertyName, field.getType(), annotation.defaultValue(),
-				annotation.missingStrategy(), annotation.missingException());
+				annotation.missingStrategy(), annotation.missingException(), 0);
 	}
 }

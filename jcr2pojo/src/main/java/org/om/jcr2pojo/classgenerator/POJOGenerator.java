@@ -1,4 +1,4 @@
-package org.om.jcr2pojo.classexporter;
+package org.om.jcr2pojo.classgenerator;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
+
+import javax.jcr.PropertyType;
 
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.PropertyMap;
@@ -17,12 +19,12 @@ import org.om.jcr2pojo.exception.JCR2POJOException;
  * @author tome
  * 
  */
-public class ClassExporter {
+public class POJOGenerator {
 
 	/**
 	 * generate a POJO
 	 */
-	public void exportClass(String className, String namespace, EntityMapping entityMapping, OutputStream outputStream) throws JCR2POJOException {
+	public void generatePOJO(String className, String namespace, EntityMapping entityMapping, OutputStream outputStream) throws JCR2POJOException {
 		try {
 			/*
 			 * writer
@@ -76,7 +78,8 @@ public class ClassExporter {
 					 * declare property. for now, as string.
 					 */
 					writer.println("\t/**");
-					writer.println("\t * " + propertyMapping.getPropertyName());
+					writer.println("\t * " + propertyMapping.getPropertyName() + " (PropertyType."
+							+ PropertyType.nameFromValue(propertyMapping.getJcrPropertyType()) + ")");
 					writer.println("\t */");
 					writer.println("\t@Property");
 					writer.println("\tprivate " + typename + " " + fieldname + ";");

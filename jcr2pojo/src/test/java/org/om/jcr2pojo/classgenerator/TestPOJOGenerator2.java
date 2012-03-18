@@ -1,4 +1,4 @@
-package org.om.jcr2pojo.mappingbuilder;
+package org.om.jcr2pojo.classgenerator;
 
 import java.io.ByteArrayOutputStream;
 
@@ -14,14 +14,13 @@ import org.om.core.api.mapping.EntityMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
 import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
-import org.om.jcr2pojo.classexporter.ClassExporter;
 
 /**
  * 
  * @author tome
  * 
  */
-public class TestClassExporter2 {
+public class TestPOJOGenerator2 {
 	@Before
 	public void setUp() {
 		try {
@@ -94,8 +93,8 @@ public class TestClassExporter2 {
 			 * class
 			 */
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			final ClassExporter classExporter = new ClassExporter();
-			classExporter.exportClass("TestClass", "com.khubla", entityMapping, baos);
+			final POJOGenerator pojoGenerator = new POJOGenerator();
+			pojoGenerator.generatePOJO("TestClass", "com.khubla", entityMapping, baos);
 			System.out.println(baos.toString());
 		} catch (final Exception e) {
 			e.printStackTrace();

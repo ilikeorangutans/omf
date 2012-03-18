@@ -8,7 +8,7 @@ import org.om.core.api.mapping.EntityMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
 import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
-import org.om.jcr2pojo.classexporter.ClassExporter;
+import org.om.jcr2pojo.classgenerator.POJOGenerator;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class JCR2POJO {
 	 * stuff we need
 	 */
 	private static EntityMappingBuilder entityMappingBuilder = new EntityMappingBuilderImpl();
-	private static ClassExporter classExporter = new ClassExporter();
+	private static POJOGenerator pojoGenerator = new POJOGenerator();
 
 	/**
 	 * Ah "C", I knew you well!
@@ -52,7 +52,7 @@ public class JCR2POJO {
 				 * build the class
 				 */
 				final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				classExporter.exportClass(className, packageName, entityMapping, baos);
+				pojoGenerator.generatePOJO(className, packageName, entityMapping, baos);
 				System.out.println(baos.toString());
 			}
 			/*

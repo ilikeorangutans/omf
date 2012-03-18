@@ -22,9 +22,10 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 	private final Class<?> propertyType;
 	private final boolean isId;
 	private final boolean simpleType;
+	private final int jcrPropertyType;
 
 	public ImmutablePropertyMapping(String fieldname, boolean isId, PropertyNameStrategy nameStrategy, String propertyName, Class<?> propertyType,
-			String defaultValue, PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException) {
+			String defaultValue, PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException, int jcrPropertyType) {
 		this.fieldname = fieldname;
 		this.isId = isId;
 		this.nameStrategy = nameStrategy;
@@ -34,6 +35,11 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		this.missingStrategy = missingStrategy;
 		this.missingException = missingException;
 		simpleType = propertyType.isPrimitive() || String.class.equals(propertyType) || AUTOBOXING_TYPES.contains(propertyType);
+		this.jcrPropertyType = jcrPropertyType;
+	}
+
+	public int getJcrPropertyType() {
+		return jcrPropertyType;
 	}
 
 	@Override
