@@ -10,7 +10,7 @@ import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.DefaultPropertyNamingStrategy;
-import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.NodeIdentifierClassNamingStrategy;
+import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.NodeNameClassNamingStrategy;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 import org.om.core.impl.persistence.jcr.util.ImportUtil;
 
@@ -46,7 +46,7 @@ public class TestJCRJavaPersistenceGenerator {
 			 * go for it
 			 */
 			final JCRJavaPersistenceGenerator engine = new JCRJavaPersistenceGenerator(rootNode, "com.khubla.revenge.test", "target/reveng",
-					new NodeIdentifierClassNamingStrategy(), new DefaultPropertyNamingStrategy());
+					new NodeNameClassNamingStrategy(), new DefaultPropertyNamingStrategy());
 			engine.execute();
 		} catch (final Exception e) {
 			e.printStackTrace();

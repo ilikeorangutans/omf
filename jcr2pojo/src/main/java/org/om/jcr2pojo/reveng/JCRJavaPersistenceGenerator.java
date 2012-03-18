@@ -89,19 +89,6 @@ public class JCRJavaPersistenceGenerator {
 	}
 
 	/**
-	 * generate POJO
-	 */
-	private void generatePOJO(EntityMapping entityMapping) throws JCRException {
-		try {
-			final FileOutputStream fos = new FileOutputStream(outputPath + "/" + entityMapping.getName() + ".java");
-			final POJOGenerator pojoGenerator = new POJOGenerator();
-			pojoGenerator.generatePOJO(namespace, entityMapping, fos);
-		} catch (final Exception e) {
-			throw new JCRException("Exception in generateJava", e);
-		}
-	}
-
-	/**
 	 * generate DAO
 	 */
 	private void generateDAO(EntityMapping entityMapping) throws JCRException {
@@ -109,6 +96,19 @@ public class JCRJavaPersistenceGenerator {
 			final FileOutputStream fos = new FileOutputStream(outputPath + "/" + entityMapping.getName() + "DAO" + ".java");
 			final DAOGenerator daoGenerator = new DAOGenerator();
 			daoGenerator.generateDAO(entityMapping.getName() + "DAO", namespace, fos);
+		} catch (final Exception e) {
+			throw new JCRException("Exception in generateJava", e);
+		}
+	}
+
+	/**
+	 * generate POJO
+	 */
+	private void generatePOJO(EntityMapping entityMapping) throws JCRException {
+		try {
+			final FileOutputStream fos = new FileOutputStream(outputPath + "/" + entityMapping.getName() + ".java");
+			final POJOGenerator pojoGenerator = new POJOGenerator();
+			pojoGenerator.generatePOJO(namespace, entityMapping, fos);
 		} catch (final Exception e) {
 			throw new JCRException("Exception in generateJava", e);
 		}

@@ -8,16 +8,13 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
 /**
  * 
  * @author tome
- *         <p>
- *         Name the generated java classes based on the Node ID
- *         </p>
  * 
  */
-public class NodeIdentifierClassNamingStrategy implements ClassNamingStrategy {
+public class NodePathClassNamingStrategy implements ClassNamingStrategy {
 
 	public String generateName(Node node) throws JCRException {
 		try {
-			return new String("Id_") + node.getIdentifier().replaceAll("-", "_");
+			return node.getPath();
 		} catch (final Exception e) {
 			throw new JCRException("Exception in generateName", e);
 		}
