@@ -1,5 +1,8 @@
 package org.om.dao.impl;
 
+import java.util.UUID;
+
+import org.om.core.api.path.Path;
 import org.om.core.api.session.Session;
 import org.om.dao.api.GenericDAO;
 
@@ -38,11 +41,21 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	 * @see
 	 * org.om.core.impl.persistence.jcr.dao.GenericJCRDAO#get(java.lang.String)
 	 */
-	public T get(String jcrPath) throws Exception {
+	public T get(Path path) throws Exception {
 		Session session = null;
 		try {
 			session = SessionUtil.getSession();
-			return session.get(persistentClass, jcrPath);
+			return session.get(persistentClass, path);
+		} catch (final Exception e) {
+			throw new Exception("Exception in get", e);
+		}
+	}
+
+	public T get(UUID uuid) throws Exception {
+		Session session = null;
+		try {
+			session = SessionUtil.getSession();
+			return session.get(persistentClass, uuid);
 		} catch (final Exception e) {
 			throw new Exception("Exception in get", e);
 		}

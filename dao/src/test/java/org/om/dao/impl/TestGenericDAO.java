@@ -7,6 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.om.core.api.path.Path;
 import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 
 /**
@@ -53,7 +54,7 @@ public class TestGenericDAO {
 			/*
 			 * use the DAO to get the Entity
 			 */
-			final TestEntity testEntity = testEntityDAO.get("foo/bar");
+			final TestEntity testEntity = testEntityDAO.get(new Path("foo/bar"));
 			Assert.assertNotNull(testEntity);
 			/*
 			 * check

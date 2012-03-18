@@ -1,5 +1,9 @@
 package org.om.dao.api;
 
+import java.util.UUID;
+
+import org.om.core.api.path.Path;
+
 /**
  * 
  * @author tome
@@ -16,7 +20,12 @@ public interface GenericDAO<T> {
 	/**
 	 * get
 	 */
-	T get(String jcrPath) throws Exception;
+	T get(Path path) throws Exception;
+
+	/**
+	 * get
+	 */
+	T get(UUID uuid) throws Exception;
 
 	/**
 	 * save
