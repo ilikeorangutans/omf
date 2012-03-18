@@ -7,13 +7,11 @@ import java.util.Iterator;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
-import javax.jcr.Session;
 
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 import org.om.jcr2pojo.classgenerator.POJOGenerator;
 
 /**
@@ -21,38 +19,43 @@ import org.om.jcr2pojo.classgenerator.POJOGenerator;
  * @author tome
  * 
  */
-public class Engine {
+public class ReverseEngineeringEngine {
+
+	/**
+	 * namespace to place classes in
+	 */
+	private final String namespace;
+	/**
+	 * root node to look at
+	 */
+	private final Node node;
+
+	/**
+	 * ctor
+	 */
+	public ReverseEngineeringEngine(Node node, String namespace) {
+		this.node = node;
+		this.namespace = namespace;
+
+	}
+
+	/**
+	 * generate .java file
+	 */
 	private void generateJava(EntityMapping entityMapping) throws JCRException {
 		try {
 			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			final POJOGenerator pojoGenerator = new POJOGenerator();
-			pojoGenerator.generatePOJO("TestClass", "com.khubla", entityMapping, baos);
+			pojoGenerator.generatePOJO("TestClass", namespace, entityMapping, baos);
 			System.out.println(baos.toString());
 		} catch (final Exception e) {
 			throw new JCRException("Exception in generateJava", e);
 		}
 	}
 
-	private Collection<EntityMapping> generateMappings() throws JCRException {
-		try {
-			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
-			if (null != session) {
-
-				final Node rootNode = session.getRootNode();
-				if (null != rootNode) {
-					return mapNode(rootNode);
-				} else {
-					return null;
-				}
-			} else {
-				throw new JCRException("Unable to get session");
-			}
-
-		} catch (final Exception e) {
-			throw new JCRException("Exception in generateMappings", e);
-		}
-	}
-
+	/**
+	 * map all nodes that can be found
+	 */
 	private Collection<EntityMapping> mapNode(Node node) throws JCRException {
 		try {
 			final Collection<EntityMapping> ret = new ArrayList<EntityMapping>();
@@ -79,12 +82,15 @@ public class Engine {
 		}
 	}
 
-	public void reverseEngineer() throws JCRException {
+	/**
+	 * map nodes and produce java to the console
+	 */
+	public void execute() throws JCRException {
 		try {
 			/*
 			 * get the mappings
 			 */
-			final Collection<EntityMapping> mappings = generateMappings();
+			final Collection<EntityMapping> mappings = mapNode(this.node);
 			if ((null != mappings) && (mappings.size() > 0)) {
 				/*
 				 * walk

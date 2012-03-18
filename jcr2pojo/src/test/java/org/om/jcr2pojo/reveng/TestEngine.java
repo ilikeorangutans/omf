@@ -2,10 +2,14 @@ package org.om.jcr2pojo.reveng;
 
 import java.io.InputStream;
 
+import javax.jcr.Node;
+import javax.jcr.Session;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
 import org.om.core.impl.persistence.jcr.util.ImportUtil;
 
 /**
@@ -29,8 +33,18 @@ public class TestEngine {
 	@Test
 	public void test1() {
 		try {
-			final Engine engine = new Engine();
-			engine.reverseEngineer();
+			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
+			Assert.assertNotNull(session);
+			/*
+			 * get the root node
+			 */
+			final Node rootNode = session.getRootNode();
+			Assert.assertNotNull(rootNode);
+			/*
+			 * go for it
+			 */
+			final ReverseEngineeringEngine engine = new ReverseEngineeringEngine(rootNode, "com.khubla.revenge.test");
+			engine.execute();
 		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();
