@@ -8,6 +8,14 @@
 			</argument>
 		</arguments>
 	</bean>
+	<bean name="jcrpersistencecontext">
+		<class>org.om.core.impl.persistence.jcr.JcrPersistenceContext</class>
+		<arguments>
+			<argument reference="true">
+				<value>jcrsessionfactory</value>
+			</argument>
+		</arguments>
+	</bean>
 	<bean name="persistencedelegatefactory">
 		<class>org.om.core.impl.persistence.jcr.JcrPersistenceDelegateFactory</class>
 	</bean>

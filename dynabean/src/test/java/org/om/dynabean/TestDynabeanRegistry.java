@@ -23,7 +23,7 @@ public class TestDynabeanRegistry {
 			dynabeanRegistry.load(is);
 			Assert.assertNotNull(dynabeanRegistry);
 			Assert.assertNotNull(dynabeanRegistry.find("jcrsessionfactory"));
-			final File f = (File) dynabeanRegistry.find("omfactory");
+			File f = (File) dynabeanRegistry.find("omfactory");
 			Assert.assertNotNull(f);
 			Assert.assertTrue(f.getPath().compareTo("target/repository") == 0);
 		} catch (final Exception e) {

@@ -2,7 +2,6 @@ package org.om.dao.util;
 
 import org.om.core.api.session.Session;
 import org.om.core.api.session.factory.SessionFactory;
-import org.om.core.impl.persistence.jcr.JcrPersistenceContext;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 import org.om.dao.config.ObjectManagerConfiguration;
 import org.om.dao.config.impl.XMLObjectManagerConfiguration;
@@ -31,11 +30,11 @@ public class SessionUtil {
 			/*
 			 * the sessionfactory
 			 */
-			final SessionFactory sessionFactory = objectManagerConfiguration.getSession();
+			final SessionFactory sessionFactory = objectManagerConfiguration.getSessionFactory();
 			/*
-			 * session
+			 * session, via the JCR context
 			 */
-			return sessionFactory.getSession(new JcrPersistenceContext(objectManagerConfiguration.getJCRSessionFactory().getSession()));
+			return sessionFactory.getSession(objectManagerConfiguration.getJcrPersistenceContext());
 
 		} catch (final Exception e) {
 			throw new JCRException("Exception in getSession", e);

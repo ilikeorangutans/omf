@@ -17,7 +17,8 @@ public class TestXMLObjectManagerConfiguration {
 		try {
 			final ObjectManagerConfiguration objectManagerConfiguration = XMLObjectManagerConfiguration.getObjectManagerConfiguration();
 			Assert.assertNotNull(objectManagerConfiguration);
-			Assert.assertNotNull(objectManagerConfiguration.getJCRSessionFactory());
+			Assert.assertNotNull(objectManagerConfiguration.getJcrPersistenceContext());
+			Assert.assertNotNull(objectManagerConfiguration.getSessionFactory());
 		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();

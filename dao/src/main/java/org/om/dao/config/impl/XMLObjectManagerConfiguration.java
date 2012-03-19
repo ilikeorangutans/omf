@@ -3,8 +3,8 @@ package org.om.dao.config.impl;
 import java.io.InputStream;
 
 import org.om.core.api.session.factory.SessionFactory;
+import org.om.core.impl.persistence.jcr.JcrPersistenceContext;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
-import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 import org.om.dao.config.ObjectManagerConfiguration;
 import org.om.dynabean.DynabeanRegistry;
 import org.om.dynabean.impl.DefaultDynabeanRegistry;
@@ -32,9 +32,9 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 	private SessionFactory sessionFactory;
 
 	/**
-	 * JCR session factory
+	 * persistence context
 	 */
-	private JCRSessionFactory jcrSessionFactory;
+	private JcrPersistenceContext jcrPersistenceContext;
 
 	/**
 	 * singleton
@@ -52,11 +52,7 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 		}
 	}
 
-	public JCRSessionFactory getJCRSessionFactory() throws Exception {
-		return jcrSessionFactory;
-	}
-
-	public SessionFactory getSession() throws Exception {
+	public SessionFactory getSessionFactory() throws Exception {
 		return sessionFactory;
 	}
 
@@ -76,7 +72,10 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 				 */
 				final DynabeanRegistry dynabeanRegistry = new DefaultDynabeanRegistry();
 				dynabeanRegistry.load(inputStream);
-				jcrSessionFactory = (JCRSessionFactory) dynabeanRegistry.find("jcrsessionfactory");
+				/*
+				 * populate the beans we need
+				 */
+				jcrPersistenceContext = (JcrPersistenceContext) dynabeanRegistry.find("jcrpersistencecontext");
 				sessionFactory = (SessionFactory) dynabeanRegistry.find("omsessionfactory");
 			} else {
 				throw new Exception("Unable to load '" + ObjectManagerConfiguration.DEFAULT_OBJECTMANAGER_CONFIGURATION + "'");
@@ -86,4 +85,7 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 		}
 	}
 
+	public JcrPersistenceContext getJcrPersistenceContext() throws Exception {
+		return this.jcrPersistenceContext;
+	}
 }

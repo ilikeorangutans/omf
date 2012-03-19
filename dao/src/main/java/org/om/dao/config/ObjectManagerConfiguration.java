@@ -1,7 +1,7 @@
 package org.om.dao.config;
 
 import org.om.core.api.session.factory.SessionFactory;
-import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
+import org.om.core.impl.persistence.jcr.JcrPersistenceContext;
 
 /**
  * 
@@ -15,12 +15,12 @@ public interface ObjectManagerConfiguration {
 	public final static String DEFAULT_OBJECTMANAGER_CONFIGURATION = "/objectmanager.xml";
 
 	/**
-	 * get a JCR sesssion
+	 * get JCR persistence context
 	 */
-	public JCRSessionFactory getJCRSessionFactory() throws Exception;
+	public JcrPersistenceContext getJcrPersistenceContext() throws Exception;
 
 	/**
-	 * get a fully configured OM session
+	 * get a fully configured OM session factory
 	 */
-	public SessionFactory getSession() throws Exception;
+	public SessionFactory getSessionFactory() throws Exception;
 }
