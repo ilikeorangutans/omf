@@ -2,11 +2,12 @@ package org.om.dao.config.impl;
 
 import java.io.InputStream;
 
-import org.apache.commons.digester3.Digester;
 import org.om.core.api.session.factory.SessionFactory;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 import org.om.dao.config.ObjectManagerConfiguration;
+import org.om.dynabean.DynabeanRegistry;
+import org.om.dynabean.impl.DefaultDynabeanRegistry;
 
 /**
  * 
@@ -64,7 +65,6 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 	 */
 	private void parseConfiguration() throws JCRException {
 		try {
-
 			/*
 			 * get file
 			 */
@@ -72,23 +72,12 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 					.getResourceAsStream(ObjectManagerConfiguration.DEFAULT_OBJECTMANAGER_CONFIGURATION);
 			if (null != inputStream) {
 				/*
-				 * digester
+				 * dynamic xml beans
 				 */
-				final Digester digester = new Digester();
-				digester.addObjectCreate("datasources/datasource", "DataSource");
-				digester.addCallMethod("datasources/datasource/name", "setName", 0);
-				digester.addCallMethod("datasources/datasource/driver", "setDriver", 0);
+				final DynabeanRegistry dynabeanRegistry = new DefaultDynabeanRegistry();
+				dynabeanRegistry.load(inputStream);
+				jcrSessionFactory = (JCRSessionFactory) dynabeanRegistry.find("jcrsessionfactory");
 
-				/*
-				 * parse XML
-				 */
-				// ObjectManagerConfig objectManagerConfig =
-				// ObjectManagerConfigurationXMLMarshaller.unmarshall(inputStream);
-				/*
-				 * the JCR factory
-				 */
-				// this.jcrSessionFactory =
-				// createJCRSessionFactory(objectManagerConfig.getJcrfactory());
 			} else {
 				throw new Exception("Unable to load '" + ObjectManagerConfiguration.DEFAULT_OBJECTMANAGER_CONFIGURATION + "'");
 			}

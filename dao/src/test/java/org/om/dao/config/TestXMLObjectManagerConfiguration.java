@@ -2,7 +2,6 @@ package org.om.dao.config;
 
 import junit.framework.Assert;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.om.dao.config.impl.XMLObjectManagerConfiguration;
 
@@ -14,7 +13,6 @@ import org.om.dao.config.impl.XMLObjectManagerConfiguration;
 public class TestXMLObjectManagerConfiguration {
 
 	@Test
-	@Ignore
 	public void testInstantiation() {
 		try {
 			final ObjectManagerConfiguration objectManagerConfiguration = XMLObjectManagerConfiguration.getObjectManagerConfiguration();

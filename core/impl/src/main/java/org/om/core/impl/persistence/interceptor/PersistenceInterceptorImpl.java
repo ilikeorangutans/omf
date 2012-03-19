@@ -9,12 +9,8 @@ import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.interceptor.handler.PropertyHandler;
 import org.om.core.api.persistence.interceptor.handler.PropertyHandlerFactory;
 import org.om.core.api.session.Session;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PersistenceInterceptorImpl implements PersistenceInterceptor {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceInterceptorImpl.class);
 
 	private final PersistenceDelegate delegate;
 

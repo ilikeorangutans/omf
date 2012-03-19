@@ -10,8 +10,9 @@ import org.om.core.api.mapping.PropertyMapping;
 
 public class ImmutablePropertyMapping implements PropertyMapping {
 
-	private static final Set<Class<?>> AUTOBOXING_TYPES = new HashSet(Arrays.asList(Boolean.class, Character.class, Byte.class, Short.class, Integer.class,
-			Long.class, Float.class, Double.class));
+	@SuppressWarnings("unchecked")
+	private static final Set<Class<?>> AUTOBOXING_TYPES = new HashSet<Class<?>>(Arrays.asList(Boolean.class, Character.class, Byte.class, Short.class,
+			Integer.class, Long.class, Float.class, Double.class));
 
 	private final String defaultValue;
 	private final String fieldname;
@@ -86,6 +87,7 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		return fieldname;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Class<RuntimeException> getMissingException() {
 		return (Class<RuntimeException>) missingException;
 	}

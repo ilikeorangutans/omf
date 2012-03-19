@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <beans xmlns="http://org.om.dynabean">
 	<bean name="jcrsessionfactory">
-		<class>org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfiguredJCRSessionFactory</class>
+		<class>java.io.File</class>
 		<arguments>
-			<argument>/objectmanagerjcr.properties</argument>
+			<argument>target/repository</argument>
 		</arguments>
 	</bean>
 </beans>
