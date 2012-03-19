@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<objectManagerConfig xmlns="http://org.om.core">
+
+	<omfactory>
+		<class>org.om.core.impl.session.factory.ImmutableSessionFactory</class>
+	</omfactory>
+	<jcrfactory>
+		<class>org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositoryJCRSessionFactory</class>
+		<arguments>
+			<argument>target/repository</argument>
+		</arguments>
+	</jcrfactory>
+</objectManagerConfig>

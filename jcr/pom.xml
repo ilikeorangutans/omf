@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>objectmapper</artifactId>
@@ -54,5 +53,36 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-xjc-plugin</artifactId>
+				<version>2.3.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>xsdtojava</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<xsdOptions>
+						<xsdOption>
+							<xsd>${basedir}/src/main/resources/objectmanagerconfig.xsd</xsd>
+							<packagename>com.om.core.impl.persistence.jcr.impl.config</packagename>
+						</xsdOption>
+					</xsdOptions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

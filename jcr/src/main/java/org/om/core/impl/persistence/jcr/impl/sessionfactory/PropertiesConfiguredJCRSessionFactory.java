@@ -21,7 +21,7 @@ public class PropertiesConfiguredJCRSessionFactory implements JCRSessionFactory 
 	/**
 	 * default properties file (
 	 */
-	private static final String DEFAULT_PROPERTIES_FILE = "/objectmanager.properties";
+	private static final String DEFAULT_PROPERTIES_FILE = "/objectmanagerjcr.properties";
 
 	/**
 	 * propertiesFile
