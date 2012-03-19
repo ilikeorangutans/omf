@@ -2,7 +2,7 @@ package org.om.core.impl.persistence.jcr;
 
 import javax.jcr.Session;
 
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositoryJCRSessionFactory;
+import org.om.core.impl.persistence.jcr.sessionfactory.impl.TransientRepositoryJCRSessionFactory;
 
 /**
  * 

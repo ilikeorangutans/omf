@@ -7,7 +7,7 @@ import javax.jcr.Node;
 import javax.jcr.Session;
 
 import org.om.core.impl.persistence.jcr.exception.JCRException;
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
+import org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfiguredJCRSessionFactory;
 
 /**
  * 

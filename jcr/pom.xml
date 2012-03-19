@@ -54,35 +54,15 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-			<version>1.8.3</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-digester3</artifactId>
+			<version>3.2</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-xjc-plugin</artifactId>
-				<version>2.3.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>xsdtojava</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<xsdOptions>
-						<xsdOption>
-							<xsd>${basedir}/src/main/resources/objectmanagerconfig.xsd</xsd>
-							<packagename>com.om.core.impl.persistence.jcr.impl.config</packagename>
-						</xsdOption>
-					</xsdOptions>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 </project>

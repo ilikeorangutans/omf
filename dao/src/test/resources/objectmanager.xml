@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<objectManagerConfig xmlns="http://org.om.core">
+	<bean name="jcrsessionfactory">
+	<class>org.om.core.impl.persistence.jcr.impl.sessionfactory.TransientRepositoryJCRSessionFactory</class>
+		<constructorarguments>
+			<constructorargument>target/repository</constructorargument>
+		</constructorarguments>
+	</bean>
+</objectManagerConfig>

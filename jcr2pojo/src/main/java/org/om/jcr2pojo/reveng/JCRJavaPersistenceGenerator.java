@@ -9,13 +9,13 @@ import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.EntityMappingBuilder;
-import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.namingstrategy.ClassNamingStrategy;
-import org.om.core.impl.persistence.jcr.api.entitymappingbuilder.namingstrategy.PropertyNamingStrategy;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
-import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.EntityMappingBuilderImpl;
 import org.om.jcr2pojo.classgenerator.DAOGenerator;
 import org.om.jcr2pojo.classgenerator.POJOGenerator;
+import org.om.jcr2pojo.entitymappingbuilder.EntityMappingBuilder;
+import org.om.jcr2pojo.entitymappingbuilder.impl.EntityMappingBuilderImpl;
+import org.om.jcr2pojo.entitymappingbuilder.namingstrategy.ClassNamingStrategy;
+import org.om.jcr2pojo.entitymappingbuilder.namingstrategy.PropertyNamingStrategy;
 
 /**
  * 

@@ -10,10 +10,10 @@ import javax.jcr.Session;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.DefaultPropertyNamingStrategy;
-import org.om.core.impl.persistence.jcr.impl.entitymappingbuilder.namingstrategy.NodeNameClassNamingStrategy;
-import org.om.core.impl.persistence.jcr.impl.sessionfactory.PropertiesConfiguredJCRSessionFactory;
+import org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfiguredJCRSessionFactory;
 import org.om.core.impl.persistence.jcr.util.ImportUtil;
+import org.om.jcr2pojo.entitymappingbuilder.namingstrategy.impl.DefaultPropertyNamingStrategy;
+import org.om.jcr2pojo.entitymappingbuilder.namingstrategy.impl.NodeNameClassNamingStrategy;
 
 /**
  * 
@@ -25,7 +25,7 @@ public class TestJCRJavaPersistenceGenerator {
 	@Test
 	public void testAllFiles() {
 		try {
-			File[] files = new File("src/test/resources/examples").listFiles();
+			final File[] files = new File("src/test/resources/examples").listFiles();
 			for (int i = 0; i < files.length; i++) {
 				/*
 				 * drop a message
@@ -34,7 +34,7 @@ public class TestJCRJavaPersistenceGenerator {
 				/*
 				 * test name
 				 */
-				String testname = files[i].getName();
+				final String testname = files[i].getName();
 				/*
 				 * import some data
 				 */
