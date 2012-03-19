@@ -2,14 +2,8 @@ package org.om.dao.util;
 
 import org.om.core.api.session.Session;
 import org.om.core.api.session.factory.SessionFactory;
-import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
-import org.om.core.impl.mapping.registry.OnDemandMappingRegistry;
-import org.om.core.impl.persistence.cglib.CglibProxyFactory;
-import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
 import org.om.core.impl.persistence.jcr.JcrPersistenceContext;
-import org.om.core.impl.persistence.jcr.JcrPersistenceDelegateFactory;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
-import org.om.core.impl.session.factory.ImmutableSessionFactory;
 import org.om.dao.config.ObjectManagerConfiguration;
 import org.om.dao.config.impl.XMLObjectManagerConfiguration;
 
@@ -35,11 +29,12 @@ public class SessionUtil {
 			 */
 			init();
 			/*
-			 * the session
+			 * the sessionfactory
 			 */
-			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
-					new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
-
+			final SessionFactory sessionFactory = objectManagerConfiguration.getSession();
+			/*
+			 * session
+			 */
 			return sessionFactory.getSession(new JcrPersistenceContext(objectManagerConfiguration.getJCRSessionFactory().getSession()));
 
 		} catch (final Exception e) {

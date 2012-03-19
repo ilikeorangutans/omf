@@ -8,5 +8,16 @@
 			</argument>
 		</arguments>
 	</bean>
+	<bean name="persistencedelegatefactory">
+		<class>org.om.core.impl.persistence.jcr.JcrPersistenceDelegateFactory</class>
+	</bean>
+	<bean name="omsessionfactory">
+		<class>org.om.core.impl.session.factory.DefaultSessionFactory</class>
+		<arguments>
+			<argument reference="true">
+				<value>persistencedelegatefactory</value>
+			</argument>
+		</arguments>
+	</bean>
 </beans>
 

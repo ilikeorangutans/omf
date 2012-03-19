@@ -77,7 +77,7 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 				final DynabeanRegistry dynabeanRegistry = new DefaultDynabeanRegistry();
 				dynabeanRegistry.load(inputStream);
 				jcrSessionFactory = (JCRSessionFactory) dynabeanRegistry.find("jcrsessionfactory");
-
+				sessionFactory = (SessionFactory) dynabeanRegistry.find("omsessionfactory");
 			} else {
 				throw new Exception("Unable to load '" + ObjectManagerConfiguration.DEFAULT_OBJECTMANAGER_CONFIGURATION + "'");
 			}

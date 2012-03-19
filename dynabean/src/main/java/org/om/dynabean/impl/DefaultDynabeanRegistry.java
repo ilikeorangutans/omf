@@ -41,25 +41,28 @@ public class DefaultDynabeanRegistry implements DynabeanRegistry {
 			/*
 			 * collect the arguments
 			 */
-			List<Argument> allArguments = bean.getArguments().getArgument();
-			final Object[] arguments = new Object[allArguments.size()];
-			for (int i = 0; i < allArguments.size(); i++) {
-				/*
-				 * single argument
-				 */
-				Argument arg = allArguments.get(i);
-				if (arg.isReference()) {
+			Object[] arguments = null;
+			if (null != bean.getArguments()) {
+				final List<Argument> allArguments = bean.getArguments().getArgument();
+				arguments = new Object[allArguments.size()];
+				for (int i = 0; i < allArguments.size(); i++) {
 					/*
-					 * resolve the argument by name
+					 * single argument
 					 */
-					Object o = find(arg.getValue());
-					if (null != o) {
-						arguments[i] = o;
+					final Argument arg = allArguments.get(i);
+					if (arg.isReference()) {
+						/*
+						 * resolve the argument by name
+						 */
+						final Object o = find(arg.getValue());
+						if (null != o) {
+							arguments[i] = o;
+						} else {
+							throw new DynabeanException("Unable to find argument named '" + arg.getValue() + "' for bean '" + bean.getName() + "'");
+						}
 					} else {
-						throw new DynabeanException("Unable to find argument named '" + arg.getValue() + "' for bean '" + bean.getName() + "'");
+						arguments[i] = arg.getValue();
 					}
-				} else {
-					arguments[i] = arg.getValue();
 				}
 			}
 			/*
@@ -72,7 +75,7 @@ public class DefaultDynabeanRegistry implements DynabeanRegistry {
 			return ConstructorUtils.invokeConstructor(clazz, arguments);
 
 		} catch (final Exception e) {
-			throw new DynabeanException("Exception in instantiateBean ctor", e);
+			throw new DynabeanException("Exception in instantiateBean for bean '" + bean.getName() + "' of type '" + bean.getClazz() + "'", e);
 		}
 
 	}
