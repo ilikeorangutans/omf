@@ -43,18 +43,18 @@ public class DefaultDynabeanRegistry implements DynabeanRegistry {
 			 */
 			Object[] arguments = null;
 			if (null != bean.getArguments()) {
-				List<Argument> allArguments = bean.getArguments().getArgument();
+				final List<Argument> allArguments = bean.getArguments().getArgument();
 				arguments = new Object[allArguments.size()];
 				for (int i = 0; i < allArguments.size(); i++) {
 					/*
 					 * single argument
 					 */
-					Argument arg = allArguments.get(i);
+					final Argument arg = allArguments.get(i);
 					if (arg.isReference()) {
 						/*
 						 * resolve the argument by name
 						 */
-						Object o = find(arg.getValue());
+						final Object o = find(arg.getValue());
 						if (null != o) {
 							arguments[i] = o;
 						} else {

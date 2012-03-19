@@ -52,6 +52,10 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 		}
 	}
 
+	public JcrPersistenceContext getJcrPersistenceContext() throws Exception {
+		return jcrPersistenceContext;
+	}
+
 	public SessionFactory getSessionFactory() throws Exception {
 		return sessionFactory;
 	}
@@ -83,9 +87,5 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 		} catch (final Exception e) {
 			throw new JCRException("Exception in parseConfiguration ctor", e);
 		}
-	}
-
-	public JcrPersistenceContext getJcrPersistenceContext() throws Exception {
-		return this.jcrPersistenceContext;
 	}
 }
