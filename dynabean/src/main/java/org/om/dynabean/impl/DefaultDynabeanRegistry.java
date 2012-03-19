@@ -9,6 +9,7 @@ import org.om.dynabean.DynabeanRegistry;
 import org.om.dynabean.exception.DynabeanException;
 import org.om.dynabean.xml.DynabeansXMLMarshaller;
 
+import com.om.dynabean.xml.Argument;
 import com.om.dynabean.xml.Bean;
 import com.om.dynabean.xml.Beans;
 
@@ -40,9 +41,26 @@ public class DefaultDynabeanRegistry implements DynabeanRegistry {
 			/*
 			 * collect the arguments
 			 */
-			final Object[] arguments = new Object[bean.getArguments().getArgument().size()];
-			for (int i = 0; i < bean.getArguments().getArgument().size(); i++) {
-				arguments[i] = bean.getArguments().getArgument().get(i);
+			List<Argument> allArguments = bean.getArguments().getArgument();
+			final Object[] arguments = new Object[allArguments.size()];
+			for (int i = 0; i < allArguments.size(); i++) {
+				/*
+				 * single argument
+				 */
+				Argument arg = allArguments.get(i);
+				if (arg.isReference()) {
+					/*
+					 * resolve the argument by name
+					 */
+					Object o = find(arg.getValue());
+					if (null != o) {
+						arguments[i] = o;
+					} else {
+						throw new DynabeanException("Unable to find argument named '" + arg.getValue() + "' for bean '" + bean.getName() + "'");
+					}
+				} else {
+					arguments[i] = arg.getValue();
+				}
 			}
 			/*
 			 * get the class
@@ -79,6 +97,5 @@ public class DefaultDynabeanRegistry implements DynabeanRegistry {
 		} catch (final Exception e) {
 			throw new DynabeanException("Exception in load", e);
 		}
-
 	}
 }

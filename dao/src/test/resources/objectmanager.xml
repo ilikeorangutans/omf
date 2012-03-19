@@ -3,7 +3,9 @@
 	<bean name="jcrsessionfactory">
 		<class>org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfiguredJCRSessionFactory</class>
 		<arguments>
-			<argument>/objectmanagerjcr.properties</argument>
+			<argument>
+				<value>/objectmanagerjcr.properties</value>
+			</argument>
 		</arguments>
 	</bean>
 </beans>

@@ -20,8 +20,17 @@
 	<xs:element name="arguments">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="argument" type="xs:string" maxOccurs="unbounded" />
+				<xs:element ref="argument" maxOccurs="unbounded" />
 			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="argument">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="value" type="xs:string" maxOccurs="1" minOccurs="1" />
+			</xs:sequence>
+			<xs:attribute name="reference" type="xs:boolean" default="false"/>
+			<xs:attribute name="name" type="xs:string" />
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
