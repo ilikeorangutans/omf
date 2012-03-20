@@ -8,19 +8,19 @@
 			</argument>
 		</arguments>
 	</bean>
-	<bean name="strstr">
-		<class>java.lang.String</class>
-		<arguments>
-			<argument>
-				<value>target/repository</value>
-			</argument>
-		</arguments>
-	</bean>
 	<bean name="omfactory">
 		<class>java.io.File</class>
 		<arguments>
 			<argument reference="true">
 				<value>strstr</value>
+			</argument>
+		</arguments>
+	</bean>
+	<bean name="strstr">
+		<class>java.lang.String</class>
+		<arguments>
+			<argument>
+				<value>target/repository</value>
 			</argument>
 		</arguments>
 	</bean>
