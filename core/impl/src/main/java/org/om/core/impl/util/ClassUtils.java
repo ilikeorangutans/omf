@@ -6,8 +6,9 @@ import java.util.Set;
 
 public class ClassUtils {
 
-	private static final Set<Class<?>> AUTOBOXING_TYPES = new HashSet(Arrays.asList(Boolean.class, Character.class, Byte.class, Short.class, Integer.class,
-			Long.class, Float.class, Double.class));
+	@SuppressWarnings("unchecked")
+	private static final Set<Class<?>> AUTOBOXING_TYPES = new HashSet<Class<?>>(Arrays.asList(Boolean.class, Character.class, Byte.class, Short.class,
+			Integer.class, Long.class, Float.class, Double.class));
 
 	/**
 	 * 
