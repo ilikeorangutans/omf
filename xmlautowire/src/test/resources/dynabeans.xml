@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <beans xmlns="http://org.om.dynabean">
-	<bean name="jcrsessionfactory">
+	<bean name="jcrsessionfactory" autocreate="true" cache="true">
 		<class>java.io.File</class>
 		<arguments>
 			<argument>
@@ -8,7 +8,7 @@
 			</argument>
 		</arguments>
 	</bean>
-	<bean name="omfactory">
+	<bean name="omfactory" autocreate="false" cache="false">
 		<class>java.io.File</class>
 		<arguments>
 			<argument reference="true">
@@ -16,7 +16,7 @@
 			</argument>
 		</arguments>
 	</bean>
-	<bean name="strstr">
+	<bean name="strstr" autocreate="false" cache="false">
 		<class>java.lang.String</class>
 		<arguments>
 			<argument>

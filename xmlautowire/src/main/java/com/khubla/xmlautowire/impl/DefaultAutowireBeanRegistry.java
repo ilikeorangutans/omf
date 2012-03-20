@@ -24,7 +24,7 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 	/**
 	 * beans
 	 */
-	private Hashtable<String, Object> beanCache = new Hashtable<String, Object>();
+	private final Hashtable<String, Object> beanCache = new Hashtable<String, Object>();
 	/**
 	 * bean definitions
 	 */
@@ -43,7 +43,7 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 					/*
 					 * get bean definition
 					 */
-					Bean bean = beanDefinitions.get(name);
+					final Bean bean = beanDefinitions.get(name);
 					if (null != bean) {
 						/*
 						 * create it
@@ -107,7 +107,7 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 			/*
 			 * create
 			 */
-			Object o = ConstructorUtils.invokeConstructor(clazz, arguments);
+			final Object o = ConstructorUtils.invokeConstructor(clazz, arguments);
 			/*
 			 * cache?
 			 */
@@ -154,12 +154,12 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 	 */
 	private void preInstantiateBeans() throws AutowireBeanRegistryException {
 		try {
-			Enumeration<String> enumer = beanDefinitions.keys();
+			final Enumeration<String> enumer = beanDefinitions.keys();
 			while (enumer.hasMoreElements()) {
-				String key = enumer.nextElement();
-				Bean bean = beanDefinitions.get(key);
+				final String key = enumer.nextElement();
+				final Bean bean = beanDefinitions.get(key);
 				if (bean.isAutocreate()) {
-					final Object o = instantiateBean(bean);
+					instantiateBean(bean);
 				}
 			}
 		} catch (final Exception e) {
