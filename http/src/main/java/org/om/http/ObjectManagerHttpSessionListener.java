@@ -21,13 +21,13 @@ public class ObjectManagerHttpSessionListener implements HttpSessionListener {
 	 */
 	public void sessionCreated(HttpSessionEvent httpSessionEvent) {
 		try {
-			Session session = SessionUtil.getSession();
+			final Session session = SessionUtil.getSession();
 			if (null != session) {
 				httpSessionEvent.getSession().setAttribute(SESSION_OBJECT_NAME, session);
 			} else {
 				throw new Exception("Unable to create session");
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 
@@ -38,11 +38,11 @@ public class ObjectManagerHttpSessionListener implements HttpSessionListener {
 	 */
 	public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
 		try {
-			Session session = (Session) httpSessionEvent.getSession().getAttribute(SESSION_OBJECT_NAME);
+			final Session session = (Session) httpSessionEvent.getSession().getAttribute(SESSION_OBJECT_NAME);
 			if (null != session) {
 				session.close();
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 	}
