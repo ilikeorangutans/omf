@@ -8,7 +8,7 @@ import javax.jcr.Session;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.om.core.impl.persistence.jcr.api.sessionfactory.JCRSessionFactory;
+import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 /**
  * session factory testing base class

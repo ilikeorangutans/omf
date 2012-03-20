@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<beans xmlns="http://org.om.dynabean">
+	<bean name="jcrsessionfactory">
+		<class>java.io.File</class>
+		<arguments>
+			<argument>
+				<value>target/repository</value>
+			</argument>
+		</arguments>
+	</bean>
+	<bean name="strstr">
+		<class>java.lang.String</class>
+		<arguments>
+			<argument>
+				<value>target/repository</value>
+			</argument>
+		</arguments>
+	</bean>
+	<bean name="omfactory">
+		<class>java.io.File</class>
+		<arguments>
+			<argument reference="true">
+				<value>strstr</value>
+			</argument>
+		</arguments>
+	</bean>
+</beans>
+

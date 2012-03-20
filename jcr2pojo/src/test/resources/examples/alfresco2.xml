@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view:view 
+  xmlns:d="http://www.alfresco.org/model/dictionary/1.0" 
+  xmlns:cm="http://www.alfresco.org/model/content/1.0" 
+  xmlns:view="http://www.alfresco.org/view/repository/1.0">
+ 
+ <cm:person view:childName="cm:person">
+    <cm:userName>fredb</cm:userName>
+    <cm:firstName>Fred</cm:firstName>
+    <cm:lastName>Bloggs</cm:lastName>
+    <cm:middleName></cm:middleName>
+    <cm:email>fredb@alfresco.org</cm:email>
+ </cm:person>
+ <cm:person view:childName="cm:person">
+    <cm:userName>sues</cm:userName>
+    <cm:firstName>Sue</cm:firstName>
+    <cm:lastName>Sanderson</cm:lastName>
+    <cm:middleName></cm:middleName>
+    <cm:email>sues@alfresco.org</cm:email>
+ </cm:person>
+</view:view>

@@ -12,6 +12,7 @@ import org.om.core.api.mapping.EntityMapping;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.EntityWithoutProperties;
 
+@SuppressWarnings("unused")
 public class EntityMappingExtractorImplTest {
 
 	@Before
@@ -20,6 +21,7 @@ public class EntityMappingExtractorImplTest {
 
 	@Test(expected = MappingException.class)
 	public void testEntityWithoutAnnotation() throws Exception {
+
 		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(getClass());
 	}
 

@@ -26,6 +26,7 @@ public class ImmutableSessionImpl implements Session {
 		this.proxyFactory = proxyFactory;
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T get(Class<T> clazz, Object id) {
 		if (clazz == null)
 			throw new NullPointerException("Class is null.");

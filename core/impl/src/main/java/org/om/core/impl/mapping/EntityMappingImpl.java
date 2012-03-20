@@ -9,16 +9,23 @@ public class EntityMappingImpl implements EntityMapping {
 
 	private final Class<?> type;
 	private PropertyMap propertyMappings;
+	private String name;
+
+	public String getName() {
+		return name;
+	}
 
 	public EntityMappingImpl(Class<?> type) {
 		this.type = type;
+		this.name = null;
 	}
 
 	/**
 	 * ctor for use by JCR2POJO
 	 */
-	public EntityMappingImpl() {
+	public EntityMappingImpl(String name) {
 		this.type = null;
+		this.name = name;
 	}
 
 	public Class<?> getTypeClass() {

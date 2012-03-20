@@ -2,6 +2,11 @@ package org.om.core.api.exception;
 
 public class MappingException extends ObjectMapperException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public MappingException(String message, Throwable cause) {
 		super(message, cause);
 	}

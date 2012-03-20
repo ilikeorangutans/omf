@@ -11,6 +11,7 @@ import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.mapping.registry.OnDemandMappingRegistry;
 import org.om.core.impl.persistence.cglib.CglibProxyFactory;
 import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
+import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 import org.om.core.impl.session.factory.ImmutableSessionFactory;
 
 /**
@@ -19,12 +20,12 @@ import org.om.core.impl.session.factory.ImmutableSessionFactory;
  * 
  */
 public abstract class BaseJCRSessionTest {
-	protected abstract Session getSession();
+	protected abstract JCRSessionFactory getSessionFactory();
 
 	@Test
 	public void test1() {
 		try {
-			final Session session = getSession();
+			final Session session = getSessionFactory().getSession();
 			Assert.assertNotNull(session);
 			/*
 			 * get the root node
@@ -44,7 +45,7 @@ public abstract class BaseJCRSessionTest {
 			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
 					new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
 
-			final org.om.core.api.session.Session s = sessionFactory.getSession(new JcrPersistenceContext(session));
+			final org.om.core.api.session.Session s = sessionFactory.getSession(new JcrPersistenceContext(getSessionFactory()));
 			Assert.assertNotNull(s);
 			/*
 			 * get the entity
