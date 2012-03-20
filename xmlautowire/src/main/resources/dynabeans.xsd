@@ -15,6 +15,8 @@
 				<xs:element ref="arguments" maxOccurs="1" minOccurs="0" />
 			</xs:sequence>
 			<xs:attribute name="name" type="xs:string" />
+			<xs:attribute name="autocreate" type="xs:boolean" default="false"/>
+			<xs:attribute name="cache" type="xs:boolean" default="false"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="arguments">

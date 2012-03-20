@@ -7,7 +7,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.khubla.xmlautowire.AutowireBeanRegistry;
 import com.khubla.xmlautowire.impl.DefaultAutowireBeanRegistry;
 
 /**
@@ -24,8 +23,8 @@ public class TestAutowireBeanRegistry {
 			final InputStream is = TestAutowireBeanRegistry.class.getResourceAsStream("/dynabeans.xml");
 			dynabeanRegistry.load(is);
 			Assert.assertNotNull(dynabeanRegistry);
-			Assert.assertNotNull(dynabeanRegistry.find("jcrsessionfactory"));
-			File f = (File) dynabeanRegistry.find("omfactory");
+			Assert.assertNotNull(dynabeanRegistry.getBean("jcrsessionfactory"));
+			File f = (File) dynabeanRegistry.getBean("omfactory");
 			Assert.assertNotNull(f);
 			Assert.assertTrue(f.getPath().compareTo("target/repository") == 0);
 		} catch (final Exception e) {

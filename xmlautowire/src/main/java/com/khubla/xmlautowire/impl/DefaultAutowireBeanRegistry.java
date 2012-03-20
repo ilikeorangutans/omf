@@ -1,6 +1,7 @@
 package com.khubla.xmlautowire.impl;
 
 import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -23,18 +24,52 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 	/**
 	 * beans
 	 */
-	private Hashtable<String, Object> dynabeans = null;
+	private Hashtable<String, Object> beanCache = new Hashtable<String, Object>();
+	/**
+	 * bean definitions
+	 */
+	private Hashtable<String, Bean> beanDefinitions = null;
 
-	public Object find(String name) throws AutowireBeanRegistryException {
+	public Object getBean(String name) throws AutowireBeanRegistryException {
 		try {
-			return dynabeans.get(name);
+			if (null != name) {
+				Object ret = beanCache.get(name);
+				if (null != ret) {
+					/*
+					 * was in cache
+					 */
+					return ret;
+				} else {
+					/*
+					 * get bean definition
+					 */
+					Bean bean = beanDefinitions.get(name);
+					if (null != bean) {
+						/*
+						 * create it
+						 */
+						ret = instantiateBean(bean);
+						/*
+						 * done
+						 */
+						return ret;
+					} else {
+						throw new Exception("Unknown bean name '" + name + "'");
+					}
+				}
+			} else {
+				return null;
+			}
 		} catch (final Exception e) {
-			throw new AutowireBeanRegistryException("Exception in find", e);
+			throw new AutowireBeanRegistryException("Exception in get", e);
 		}
 	}
 
 	/**
-	 * instantiate bean
+	 * instantiate bean. This is 2-recursive. "instantiateBean" calls "getBean"
+	 * on referenced beans, which in turn calls "instantiateBean". This allows
+	 * us to crete beans which are declared in the XML before the beans they
+	 * reference.
 	 */
 	private Object instantiateBean(Bean bean) throws AutowireBeanRegistryException {
 		try {
@@ -54,7 +89,7 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 						/*
 						 * resolve the argument by name
 						 */
-						final Object o = find(arg.getValue());
+						final Object o = getBean(arg.getValue());
 						if (null != o) {
 							arguments[i] = o;
 						} else {
@@ -72,8 +107,17 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 			/*
 			 * create
 			 */
-			return ConstructorUtils.invokeConstructor(clazz, arguments);
-
+			Object o = ConstructorUtils.invokeConstructor(clazz, arguments);
+			/*
+			 * cache?
+			 */
+			if (bean.isCache()) {
+				beanCache.put(bean.getName(), o);
+			}
+			/*
+			 * done
+			 */
+			return o;
 		} catch (final Exception e) {
 			throw new AutowireBeanRegistryException("Exception in instantiateBean for bean '" + bean.getName() + "' of type '" + bean.getClazz() + "'", e);
 		}
@@ -87,18 +131,39 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 			 */
 			final Beans beans = AutowireBeanRegistryXMLMarshaller.unmarshall(inputStream);
 			if (null != beans) {
-				dynabeans = new Hashtable<String, Object>();
+				beanDefinitions = new Hashtable<String, Bean>();
 				final List<Bean> lst = beans.getBean();
 				if ((null != lst) && (lst.size() > 0)) {
 					for (int i = 0; i < lst.size(); i++) {
 						final Bean bean = lst.get(i);
-						final Object o = instantiateBean(bean);
-						dynabeans.put(bean.getName().trim(), o);
+						beanDefinitions.put(bean.getName().trim(), bean);
 					}
 				}
 			}
+			/*
+			 * autocreate
+			 */
+			preInstantiateBeans();
 		} catch (final Exception e) {
 			throw new AutowireBeanRegistryException("Exception in load", e);
+		}
+	}
+
+	/**
+	 * create and cache all the autocreate beans
+	 */
+	private void preInstantiateBeans() throws AutowireBeanRegistryException {
+		try {
+			Enumeration<String> enumer = beanDefinitions.keys();
+			while (enumer.hasMoreElements()) {
+				String key = enumer.nextElement();
+				Bean bean = beanDefinitions.get(key);
+				if (bean.isAutocreate()) {
+					final Object o = instantiateBean(bean);
+				}
+			}
+		} catch (final Exception e) {
+			throw new AutowireBeanRegistryException("Exception in preInstantiateBeans", e);
 		}
 	}
 }

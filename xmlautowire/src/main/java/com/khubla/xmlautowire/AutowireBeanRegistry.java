@@ -12,9 +12,9 @@ import com.khubla.xmlautowire.exception.AutowireBeanRegistryException;
 public interface AutowireBeanRegistry {
 
 	/**
-	 * get
+	 * get a bean
 	 */
-	Object find(String name) throws AutowireBeanRegistryException;
+	Object getBean(String name) throws AutowireBeanRegistryException;
 
 	/**
 	 * load

@@ -80,8 +80,8 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 				/*
 				 * populate the beans we need
 				 */
-				jcrPersistenceContext = (JcrPersistenceContext) dynabeanRegistry.find("jcrpersistencecontext");
-				sessionFactory = (SessionFactory) dynabeanRegistry.find("omsessionfactory");
+				jcrPersistenceContext = (JcrPersistenceContext) dynabeanRegistry.getBean("jcrpersistencecontext");
+				sessionFactory = (SessionFactory) dynabeanRegistry.getBean("omsessionfactory");
 			} else {
 				throw new Exception("Unable to load '" + ObjectManagerConfiguration.DEFAULT_OBJECTMANAGER_CONFIGURATION + "'");
 			}
