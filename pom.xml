@@ -44,6 +44,7 @@
 		<module>dao</module>
 		<module>jcr2pojo</module>
 		<module>examples</module>
+		<module>objectmanager-maven-plugin</module>
 	</modules>
 
 	<build>
