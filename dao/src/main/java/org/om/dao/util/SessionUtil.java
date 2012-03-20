@@ -50,7 +50,7 @@ public class SessionUtil {
 				objectManagerConfiguration = XMLObjectManagerConfiguration.getObjectManagerConfiguration();
 			}
 		} catch (final Exception e) {
-			throw new JCRException("Exception constructing init", e);
+			throw new JCRException("Exception in init", e);
 		}
 	}
 }

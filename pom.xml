@@ -43,6 +43,7 @@
 		<module>dynabean</module>	
 		<module>dao</module>
 		<module>jcr2pojo</module>
+		<module>examples</module>
 	</modules>
 
 	<build>
