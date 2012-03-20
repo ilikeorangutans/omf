@@ -7,8 +7,8 @@ import org.om.core.impl.persistence.jcr.JcrPersistenceContext;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 import org.om.dao.config.ObjectManagerConfiguration;
 
-import com.khubla.xmlautowire.AutowireBeanRegistry;
-import com.khubla.xmlautowire.impl.DefaultAutowireBeanRegistry;
+import com.khubla.xmlautobeans.AutowireBeanRegistry;
+import com.khubla.xmlautobeans.impl.DefaultAutowireBeanRegistry;
 
 /**
  * 

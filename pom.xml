@@ -39,7 +39,6 @@
 
 	<modules>
 		<module>omf-parent</module>
-		<module>xmlautowire</module>	
 		<module>core</module>
 		<module>dao</module>
 		<module>http</module>
