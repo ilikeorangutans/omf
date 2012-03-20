@@ -1,18 +1,11 @@
 package org.om.core.impl.mapping;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.om.core.api.annotation.PropertyMissingStrategy;
 import org.om.core.api.annotation.PropertyNameStrategy;
 import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.impl.util.ClassUtils;
 
 public class ImmutablePropertyMapping implements PropertyMapping {
-
-	@SuppressWarnings("unchecked")
-	private static final Set<Class<?>> AUTOBOXING_TYPES = new HashSet<Class<?>>(Arrays.asList(Boolean.class, Character.class, Byte.class, Short.class,
-			Integer.class, Long.class, Float.class, Double.class));
 
 	private final String defaultValue;
 	private final String fieldname;
@@ -23,10 +16,9 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 	private final Class<?> propertyType;
 	private final boolean isId;
 	private final boolean simpleType;
-	private final int jcrPropertyType;
 
 	public ImmutablePropertyMapping(String fieldname, boolean isId, PropertyNameStrategy nameStrategy, String propertyName, Class<?> propertyType,
-			String defaultValue, PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException, int jcrPropertyType) {
+			String defaultValue, PropertyMissingStrategy missingStrategy, Class<? extends Exception> missingException) {
 		this.fieldname = fieldname;
 		this.isId = isId;
 		this.nameStrategy = nameStrategy;
@@ -35,12 +27,7 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		this.defaultValue = defaultValue;
 		this.missingStrategy = missingStrategy;
 		this.missingException = missingException;
-		simpleType = propertyType.isPrimitive() || String.class.equals(propertyType) || AUTOBOXING_TYPES.contains(propertyType);
-		this.jcrPropertyType = jcrPropertyType;
-	}
-
-	public int getJcrPropertyType() {
-		return jcrPropertyType;
+		simpleType = String.class.equals(propertyType) || ClassUtils.isPrimitiveOrAutoboxed(propertyType);
 	}
 
 	@Override

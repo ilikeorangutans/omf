@@ -40,7 +40,7 @@ public class ReferencePropertyHandlerTest {
 		ReferencePropertyHandler handler = new ReferencePropertyHandler(session);
 
 		Object retrieve = handler.retrieve(new ImmutablePropertyMapping("fieldname", false, PropertyNameStrategy.FieldName, "fieldname",
-				EntityWithPrimitiveProperties.class, null, PropertyMissingStrategy.ReturnNull, null, 0), "/foo/bar");
+				EntityWithPrimitiveProperties.class, null, PropertyMissingStrategy.ReturnNull, null), "/foo/bar");
 
 		assertThat(retrieve, notNullValue());
 	}

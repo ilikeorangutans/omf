@@ -80,10 +80,4 @@ public interface PropertyMapping {
 	 */
 	boolean isPrimitiveOrWrappedType();
 
-	/**
-	 * the jcr Property type
-	 * 
-	 * @return
-	 */
-	int getJcrPropertyType();
 }

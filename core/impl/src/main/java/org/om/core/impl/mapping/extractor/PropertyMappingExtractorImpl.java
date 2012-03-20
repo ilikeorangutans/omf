@@ -12,8 +12,10 @@ import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.PropertyMap;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.mapping.extractor.PropertyMappingExtractor;
+import org.om.core.impl.mapping.ImmutableCollectionMapping;
 import org.om.core.impl.mapping.ImmutablePropertyMap;
 import org.om.core.impl.mapping.ImmutablePropertyMapping;
+import org.om.core.impl.util.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,8 +68,9 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 			throw new NullPointerException("Cannot extract property mapping from field, it's null.");
 
 		final Property annotation = field.getAnnotation(Property.class);
+		final String fieldname = field.getName();
 		if (annotation == null)
-			throw new MappingException("Cannot extract mapping from field " + field.getName() + ", no annotation!");
+			throw new MappingException("Cannot extract mapping from field " + fieldname + ", no annotation!");
 
 		final PropertyNameStrategy nameStrategy = annotation.namingStrategy();
 		final String propertyName;
@@ -75,13 +78,21 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 		if (nameStrategy == PropertyNameStrategy.ProvidedName || hasNameSetOnAnnotation) {
 			propertyName = annotation.name();
 		} else {
-			propertyName = field.getName();
+			propertyName = fieldname;
 		}
 
 		final Id idAnnotation = field.getAnnotation(Id.class);
 		final boolean isId = idAnnotation != null;
+		final Class<?> type = field.getType();
 
-		return new ImmutablePropertyMapping(field.getName(), isId, nameStrategy, propertyName, field.getType(), annotation.defaultValue(),
-				annotation.missingStrategy(), annotation.missingException(), 0);
+		if (ClassUtils.isPrimitiveOrAutoboxed(type)) {
+			return new ImmutablePropertyMapping(fieldname, isId, nameStrategy, propertyName, type, annotation.defaultValue(), annotation.missingStrategy(),
+					annotation.missingException());
+		} else if (false /* type instanceof Collection */) {
+			return new ImmutableCollectionMapping();
+		} else {
+			throw new RuntimeException("BAM");
+		}
+
 	}
 }
