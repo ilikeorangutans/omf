@@ -1,4 +1,4 @@
-package org.om.dynabean.xml;
+package com.khubla.xmlautowire.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,13 +11,11 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import com.om.dynabean.xml.Beans;
-
 /**
  * @author tom
  */
 @SuppressWarnings("restriction")
-public class DynabeansXMLMarshaller {
+public class AutowireBeanRegistryXMLMarshaller {
 	/**
 	 * marshall
 	 */
@@ -40,7 +38,7 @@ public class DynabeansXMLMarshaller {
 			final Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty("jaxb.formatted.output", true);
 			final SchemaFactory schemaFactory = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			final Schema schema = schemaFactory.newSchema(DynabeansXMLMarshaller.class.getResource("/dynabeans.xsd"));
+			final Schema schema = schemaFactory.newSchema(AutowireBeanRegistryXMLMarshaller.class.getResource("/dynabeans.xsd"));
 			marshaller.setSchema(schema);
 			marshaller.marshal(beans, outputStream);
 		} catch (final Exception e) {
@@ -56,7 +54,7 @@ public class DynabeansXMLMarshaller {
 			final JAXBContext jaxbContext = JAXBContext.newInstance(Beans.class);
 			final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			final SchemaFactory schemaFactory = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			final Schema schema = schemaFactory.newSchema(DynabeansXMLMarshaller.class.getResource("/dynabeans.xsd"));
+			final Schema schema = schemaFactory.newSchema(AutowireBeanRegistryXMLMarshaller.class.getResource("/dynabeans.xsd"));
 			unmarshaller.setSchema(schema);
 			return (Beans) unmarshaller.unmarshal(xml);
 		} catch (final Exception e) {

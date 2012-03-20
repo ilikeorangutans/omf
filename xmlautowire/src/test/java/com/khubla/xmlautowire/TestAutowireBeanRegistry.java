@@ -1,4 +1,4 @@
-package org.om.dynabean;
+package com.khubla.xmlautowire;
 
 import java.io.File;
 import java.io.InputStream;
@@ -6,20 +6,22 @@ import java.io.InputStream;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.om.dynabean.impl.DefaultDynabeanRegistry;
+
+import com.khubla.xmlautowire.AutowireBeanRegistry;
+import com.khubla.xmlautowire.impl.DefaultAutowireBeanRegistry;
 
 /**
  * 
  * @author tome
  * 
  */
-public class TestDynabeanRegistry {
+public class TestAutowireBeanRegistry {
 
 	@Test
 	public void test1() {
 		try {
-			final DynabeanRegistry dynabeanRegistry = new DefaultDynabeanRegistry();
-			final InputStream is = TestDynabeanRegistry.class.getResourceAsStream("/dynabeans.xml");
+			final AutowireBeanRegistry dynabeanRegistry = new DefaultAutowireBeanRegistry();
+			final InputStream is = TestAutowireBeanRegistry.class.getResourceAsStream("/dynabeans.xml");
 			dynabeanRegistry.load(is);
 			Assert.assertNotNull(dynabeanRegistry);
 			Assert.assertNotNull(dynabeanRegistry.find("jcrsessionfactory"));

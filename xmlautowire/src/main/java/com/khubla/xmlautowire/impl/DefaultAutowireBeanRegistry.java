@@ -1,42 +1,42 @@
-package org.om.dynabean.impl;
+package com.khubla.xmlautowire.impl;
 
 import java.io.InputStream;
 import java.util.Hashtable;
 import java.util.List;
 
 import org.apache.commons.beanutils.ConstructorUtils;
-import org.om.dynabean.DynabeanRegistry;
-import org.om.dynabean.exception.DynabeanException;
-import org.om.dynabean.xml.DynabeansXMLMarshaller;
 
-import com.om.dynabean.xml.Argument;
-import com.om.dynabean.xml.Bean;
-import com.om.dynabean.xml.Beans;
+import com.khubla.xmlautowire.AutowireBeanRegistry;
+import com.khubla.xmlautowire.exception.AutowireBeanRegistryException;
+import com.khubla.xmlautowire.xml.Argument;
+import com.khubla.xmlautowire.xml.AutowireBeanRegistryXMLMarshaller;
+import com.khubla.xmlautowire.xml.Bean;
+import com.khubla.xmlautowire.xml.Beans;
 
 /**
  * 
  * @author tome
  * 
  */
-public class DefaultDynabeanRegistry implements DynabeanRegistry {
+public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 
 	/**
 	 * beans
 	 */
 	private Hashtable<String, Object> dynabeans = null;
 
-	public Object find(String name) throws DynabeanException {
+	public Object find(String name) throws AutowireBeanRegistryException {
 		try {
 			return dynabeans.get(name);
 		} catch (final Exception e) {
-			throw new DynabeanException("Exception in find", e);
+			throw new AutowireBeanRegistryException("Exception in find", e);
 		}
 	}
 
 	/**
 	 * instantiate bean
 	 */
-	private Object instantiateBean(Bean bean) throws DynabeanException {
+	private Object instantiateBean(Bean bean) throws AutowireBeanRegistryException {
 		try {
 			/*
 			 * collect the arguments
@@ -58,7 +58,7 @@ public class DefaultDynabeanRegistry implements DynabeanRegistry {
 						if (null != o) {
 							arguments[i] = o;
 						} else {
-							throw new DynabeanException("Unable to find argument named '" + arg.getValue() + "' for bean '" + bean.getName() + "'");
+							throw new AutowireBeanRegistryException("Unable to find argument named '" + arg.getValue() + "' for bean '" + bean.getName() + "'");
 						}
 					} else {
 						arguments[i] = arg.getValue();
@@ -75,17 +75,17 @@ public class DefaultDynabeanRegistry implements DynabeanRegistry {
 			return ConstructorUtils.invokeConstructor(clazz, arguments);
 
 		} catch (final Exception e) {
-			throw new DynabeanException("Exception in instantiateBean for bean '" + bean.getName() + "' of type '" + bean.getClazz() + "'", e);
+			throw new AutowireBeanRegistryException("Exception in instantiateBean for bean '" + bean.getName() + "' of type '" + bean.getClazz() + "'", e);
 		}
 
 	}
 
-	public void load(InputStream inputStream) throws DynabeanException {
+	public void load(InputStream inputStream) throws AutowireBeanRegistryException {
 		try {
 			/*
 			 * read the xml
 			 */
-			final Beans beans = DynabeansXMLMarshaller.unmarshall(inputStream);
+			final Beans beans = AutowireBeanRegistryXMLMarshaller.unmarshall(inputStream);
 			if (null != beans) {
 				dynabeans = new Hashtable<String, Object>();
 				final List<Bean> lst = beans.getBean();
@@ -98,7 +98,7 @@ public class DefaultDynabeanRegistry implements DynabeanRegistry {
 				}
 			}
 		} catch (final Exception e) {
-			throw new DynabeanException("Exception in load", e);
+			throw new AutowireBeanRegistryException("Exception in load", e);
 		}
 	}
 }

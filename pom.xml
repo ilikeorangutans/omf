@@ -39,7 +39,7 @@
 
 	<modules>
 		<module>omf-parent</module>
-		<module>dynabean</module>	
+		<module>xmlautowire</module>	
 		<module>core</module>
 		<module>dao</module>
 		<module>jcr2pojo</module>
