@@ -42,6 +42,7 @@
 		<module>xmlautowire</module>	
 		<module>core</module>
 		<module>dao</module>
+		<module>http</module>
 		<module>jcr2pojo</module>
 		<module>examples</module>
 		<module>objectmanager-maven-plugin</module>
