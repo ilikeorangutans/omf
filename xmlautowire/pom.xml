@@ -36,7 +36,7 @@
 				<configuration>
 					<xsdOptions>
 						<xsdOption>
-							<xsd>${basedir}/src/main/resources/dynabeans.xsd</xsd>
+							<xsd>${basedir}/src/main/resources/autobeans.xsd</xsd>
 							<packagename>com.khubla.xmlautowire.xml</packagename>
 						</xsdOption>
 					</xsdOptions>

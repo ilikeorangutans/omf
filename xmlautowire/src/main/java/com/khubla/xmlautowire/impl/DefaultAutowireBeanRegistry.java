@@ -22,6 +22,11 @@ import com.khubla.xmlautowire.xml.Beans;
 public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 
 	/**
+	 * default bean file
+	 */
+	private final static String DEFAULT_BEAN_FILE = "/autobeans.xml";
+
+	/**
 	 * beans
 	 */
 	private final Hashtable<String, Object> beanCache = new Hashtable<String, Object>();
@@ -68,7 +73,7 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 	/**
 	 * instantiate bean. This is 2-recursive. "instantiateBean" calls "getBean"
 	 * on referenced beans, which in turn calls "instantiateBean". This allows
-	 * us to crete beans which are declared in the XML before the beans they
+	 * us to create beans which are declared in the XML before the beans they
 	 * reference.
 	 */
 	private Object instantiateBean(Bean bean) throws AutowireBeanRegistryException {
@@ -122,6 +127,19 @@ public class DefaultAutowireBeanRegistry implements AutowireBeanRegistry {
 			throw new AutowireBeanRegistryException("Exception in instantiateBean for bean '" + bean.getName() + "' of type '" + bean.getClazz() + "'", e);
 		}
 
+	}
+
+	public void load() throws AutowireBeanRegistryException {
+		try {
+			InputStream inputStream = DefaultAutowireBeanRegistry.class.getResourceAsStream(DEFAULT_BEAN_FILE);
+			if (null != inputStream) {
+				load(inputStream);
+			} else {
+				throw new Exception("Unable to find '" + DEFAULT_BEAN_FILE + "'");
+			}
+		} catch (Exception e) {
+			throw new AutowireBeanRegistryException("Exception in load", e);
+		}
 	}
 
 	public void load(InputStream inputStream) throws AutowireBeanRegistryException {

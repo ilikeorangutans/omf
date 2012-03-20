@@ -38,7 +38,7 @@ public class AutowireBeanRegistryXMLMarshaller {
 			final Marshaller marshaller = jaxbContext.createMarshaller();
 			marshaller.setProperty("jaxb.formatted.output", true);
 			final SchemaFactory schemaFactory = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			final Schema schema = schemaFactory.newSchema(AutowireBeanRegistryXMLMarshaller.class.getResource("/dynabeans.xsd"));
+			final Schema schema = schemaFactory.newSchema(AutowireBeanRegistryXMLMarshaller.class.getResource("/autobeans.xsd"));
 			marshaller.setSchema(schema);
 			marshaller.marshal(beans, outputStream);
 		} catch (final Exception e) {
@@ -54,7 +54,7 @@ public class AutowireBeanRegistryXMLMarshaller {
 			final JAXBContext jaxbContext = JAXBContext.newInstance(Beans.class);
 			final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			final SchemaFactory schemaFactory = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-			final Schema schema = schemaFactory.newSchema(AutowireBeanRegistryXMLMarshaller.class.getResource("/dynabeans.xsd"));
+			final Schema schema = schemaFactory.newSchema(AutowireBeanRegistryXMLMarshaller.class.getResource("/autobeans.xsd"));
 			unmarshaller.setSchema(schema);
 			return (Beans) unmarshaller.unmarshal(xml);
 		} catch (final Exception e) {

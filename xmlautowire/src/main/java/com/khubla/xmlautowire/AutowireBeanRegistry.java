@@ -20,4 +20,9 @@ public interface AutowireBeanRegistry {
 	 * load
 	 */
 	void load(InputStream inputStream) throws AutowireBeanRegistryException;
+
+	/**
+	 * load from default class path resource "autobeans.xml"
+	 */
+	void load() throws AutowireBeanRegistryException;
 }
