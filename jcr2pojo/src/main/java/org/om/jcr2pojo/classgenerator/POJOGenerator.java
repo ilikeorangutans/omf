@@ -12,6 +12,7 @@ import javax.jcr.PropertyType;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.PropertyMap;
 import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.impl.persistence.jcr.util.PropertyTypeToClass;
 import org.om.jcr2pojo.exception.JCR2POJOException;
 
 /**
@@ -78,8 +79,9 @@ public class POJOGenerator {
 					 * declare property. for now, as string.
 					 */
 					writer.println("\t/**");
+
 					writer.println("\t * " + propertyMapping.getPropertyName() + " (PropertyType."
-							+ PropertyType.nameFromValue(propertyMapping.getJcrPropertyType()) + ")");
+							+ PropertyType.nameFromValue(PropertyTypeToClass.getTypeForClass(propertyMapping.getPropertyType())) + ")");
 					writer.println("\t */");
 					writer.println("\t@Property");
 					writer.println("\tprivate " + typename + " " + fieldname + ";");

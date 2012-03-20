@@ -87,7 +87,7 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 
 		if (ClassUtils.isPrimitiveOrAutoboxed(type)) {
 			return new ImmutablePropertyMapping(fieldname, isId, nameStrategy, propertyName, type, annotation.defaultValue(), annotation.missingStrategy(),
-					annotation.missingException(), 0);
+					annotation.missingException());
 		} else if (false /* type instanceof Collection */) {
 			return new ImmutableCollectionMapping();
 		} else {

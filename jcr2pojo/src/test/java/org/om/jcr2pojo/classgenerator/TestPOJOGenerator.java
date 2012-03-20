@@ -2,8 +2,6 @@ package org.om.jcr2pojo.classgenerator;
 
 import java.io.ByteArrayOutputStream;
 
-import javax.jcr.PropertyType;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -30,10 +28,10 @@ public class TestPOJOGenerator {
 			/*
 			 * add some fields
 			 */
-			propertyMap.add(new ImmutablePropertyMapping("a", false, null, "om:a", String.class, null, null, null, PropertyType.STRING));
-			propertyMap.add(new ImmutablePropertyMapping("b", false, null, "om:b", Integer.class, null, null, null, PropertyType.LONG));
-			propertyMap.add(new ImmutablePropertyMapping("c", false, null, "om:c", Float.class, null, null, null, PropertyType.DECIMAL));
-			propertyMap.add(new ImmutablePropertyMapping("d", false, null, "om:d", Boolean.class, null, null, null, PropertyType.BOOLEAN));
+			propertyMap.add(new ImmutablePropertyMapping("a", false, null, "om:a", String.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("b", false, null, "om:b", Integer.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("c", false, null, "om:c", Float.class, null, null, null));
+			propertyMap.add(new ImmutablePropertyMapping("d", false, null, "om:d", Boolean.class, null, null, null));
 			/*
 			 * generate some java
 			 */
