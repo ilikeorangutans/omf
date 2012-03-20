@@ -1,6 +1,7 @@
 package org.om.core.impl.mapping.extractor;
 
 import java.lang.reflect.Field;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -85,13 +86,16 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 		final boolean isId = idAnnotation != null;
 		final Class<?> type = field.getType();
 
-		if (ClassUtils.isPrimitiveOrAutoboxed(type)) {
+		final boolean primitiveOrAutoboxed = ClassUtils.isPrimitiveOrAutoboxed(type) || String.class.equals(type);
+		final boolean collectionType = Collection.class.isAssignableFrom(type);
+		final boolean referenceType = !collectionType;
+		if (primitiveOrAutoboxed || referenceType) {
 			return new ImmutablePropertyMapping(fieldname, isId, nameStrategy, propertyName, type, annotation.defaultValue(), annotation.missingStrategy(),
 					annotation.missingException());
-		} else if (false /* type instanceof Collection */) {
+		} else if (collectionType) {
 			return new ImmutableCollectionMapping();
 		} else {
-			throw new RuntimeException("BAM");
+			throw new MappingException("Don't know how to map field " + fieldname + " of type " + type);
 		}
 
 	}
