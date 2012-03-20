@@ -87,7 +87,7 @@ public class EntityMappingBuilderImpl implements EntityMappingBuilder {
 					 * mapping
 					 */
 					final ImmutablePropertyMapping propertyMapping = new ImmutablePropertyMapping(fieldName, false, null, property.getName(), type, null, null,
-							null, jcrType);
+							null);
 					propertyMap.add(propertyMapping);
 				}
 			}

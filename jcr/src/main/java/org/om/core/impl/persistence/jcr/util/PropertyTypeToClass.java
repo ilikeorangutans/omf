@@ -15,7 +15,7 @@ public class PropertyTypeToClass {
 
 	private static final Class<?>[] TYPES;
 	static {
-		TYPES = new Class<?>[12];
+		TYPES = new Class<?>[13];
 		TYPES[PropertyType.STRING] = String.class;
 		TYPES[PropertyType.BINARY] = byte[].class;
 		TYPES[PropertyType.LONG] = long.class;
