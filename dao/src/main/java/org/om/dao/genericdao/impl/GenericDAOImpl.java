@@ -30,7 +30,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	 */
 	public void delete(T t) throws Exception {
 		try {
-			SessionUtil.getSession();
+			SessionUtil.getSession().delete(t);
 		} catch (final Exception e) {
 			throw new Exception("Exception in delete", e);
 		}
@@ -69,7 +69,7 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	 */
 	public void save(T t) throws Exception {
 		try {
-			SessionUtil.getSession();
+			SessionUtil.getSession().save(t);
 		} catch (final Exception e) {
 			throw new Exception("Exception in save", e);
 		}

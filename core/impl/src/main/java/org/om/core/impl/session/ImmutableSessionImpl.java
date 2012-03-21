@@ -1,5 +1,6 @@
 package org.om.core.impl.session;
 
+import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.persistence.PersistenceContext;
@@ -27,7 +28,7 @@ public class ImmutableSessionImpl implements Session {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T> T get(Class<T> clazz, Object id) {
+	public <T> T get(Class<T> clazz, Object id) throws ObjectMapperException {
 		if (clazz == null)
 			throw new NullPointerException("Class is null.");
 
@@ -36,8 +37,15 @@ public class ImmutableSessionImpl implements Session {
 		return (T) proxyFactory.create(this, entityMapping, persistenceDelegate);
 	}
 
-	public void close() {
-		// TODO Auto-generated method stub
+	public void close() throws ObjectMapperException {
+		throw new ObjectMapperException("not implemented");
+	}
 
+	public void save(Object o) throws ObjectMapperException {
+		throw new ObjectMapperException("not implemented");
+	}
+
+	public void delete(Object o) throws ObjectMapperException {
+		throw new ObjectMapperException("not implemented");
 	}
 }
