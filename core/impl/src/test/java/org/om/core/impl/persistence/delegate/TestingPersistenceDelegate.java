@@ -5,6 +5,10 @@ import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceDelegate;
 
+/**
+ * @author tome
+ * @author Jakob Külzer
+ */
 public class TestingPersistenceDelegate implements PersistenceDelegate {
 
 	private final EntityMapping entityMapping;
@@ -33,4 +37,8 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 		return persistenceContext.hasProperty(mapping.getPropertyName());
 	}
 
+	public void setProperty(PropertyMapping propertyMapping, Object object) {
+		persistenceContext.setProperty(propertyMapping, object);
+
+	}
 }

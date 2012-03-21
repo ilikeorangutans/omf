@@ -13,6 +13,12 @@ import org.om.core.api.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 
+ * @author Jakob Külzer
+ * @author tom
+ * 
+ */
 public class JcrPersistenceDelegate implements PersistenceDelegate {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JcrPersistenceDelegate.class);
@@ -75,5 +81,9 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 		} catch (final RepositoryException e) {
 			throw new ObjectMapperException("Could not retrieve property.", e);
 		}
+	}
+
+	public void setProperty(PropertyMapping propertyMapping, Object object) {
+		throw new ObjectMapperException("not implemented");
 	}
 }
