@@ -1,4 +1,4 @@
-package com.om.examples.example2.pojo;
+package com.om.examples.example3.pojo;
 
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;

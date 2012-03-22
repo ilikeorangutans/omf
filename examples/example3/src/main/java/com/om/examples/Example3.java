@@ -2,14 +2,14 @@ package com.om.examples;
 
 import org.om.core.api.path.Path;
 
-import com.om.examples.example2.dao.MyPojoDAO;
+import com.om.examples.example3.dao.MyPojoDAO;
 
 /**
  * 
  * @author tome
  * 
  */
-public class Example2 {
+public class Example3 {
 	/**
 	 * void main
 	 */
