@@ -1,4 +1,4 @@
-package org.om.http;
+package org.om.http.filter;
 
 import java.io.IOException;
 

@@ -12,7 +12,7 @@ import org.om.core.api.persistence.PersistenceContext;
  */
 public class TestingPersistenceContext implements PersistenceContext {
 
-	private final Map<String, Object> properties = new HashMap<String, Object>();
+	private static final Map<String, Object> properties = new HashMap<String, Object>();
 
 	public Object getProperty(PropertyMapping propertyMapping) {
 		return properties.get(propertyMapping.getPropertyName());

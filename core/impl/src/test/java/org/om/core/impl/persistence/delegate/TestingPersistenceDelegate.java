@@ -39,6 +39,5 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 
 	public void setProperty(PropertyMapping propertyMapping, Object object) {
 		persistenceContext.setProperty(propertyMapping, object);
-
 	}
 }

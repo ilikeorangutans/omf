@@ -8,6 +8,9 @@ import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.interceptor.PersistenceInterceptorImpl;
 import org.om.core.impl.persistence.interceptor.handler.PropertyHandlerFactoryImpl;
 
+/**
+ * @author Jakob Külzers
+ */
 public class PersistenceInterceptorFactoryImpl implements PersistenceInterceptorFactory {
 
 	private final PropertyHandlerFactory propertyHandlerFactory;

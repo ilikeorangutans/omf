@@ -18,6 +18,10 @@ import org.om.core.impl.persistence.delegate.TestingDelegateFactory;
 import org.om.core.impl.persistence.delegate.TestingPersistenceContext;
 import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
 
+/**
+ * @author Jakob Külzer
+ * @author tom
+ */
 public class ImmutableSessionImplTest {
 
 	@Test
@@ -70,8 +74,9 @@ public class ImmutableSessionImplTest {
 		/*
 		 * get it back
 		 */
-		EntityWithPrimitiveProperties ewpp2 = session.get(EntityWithPrimitiveProperties.class, "tge");
+		EntityWithPrimitiveProperties ewpp2 = session.get(EntityWithPrimitiveProperties.class, "");
 		Assert.assertNotNull(ewpp2);
+		System.out.println(ewpp2.getId());
 		Assert.assertTrue(ewpp2.getId().compareTo("tge") == 0);
 		Assert.assertTrue(ewpp2.getPrimitiveInt() == 15);
 	}

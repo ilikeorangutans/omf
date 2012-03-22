@@ -10,6 +10,9 @@ import org.om.core.api.persistence.interceptor.handler.PropertyHandler;
 import org.om.core.api.persistence.interceptor.handler.PropertyHandlerFactory;
 import org.om.core.api.session.Session;
 
+/**
+ * @author Jakob Külzer
+ */
 public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 
 	private final PersistenceDelegate delegate;
