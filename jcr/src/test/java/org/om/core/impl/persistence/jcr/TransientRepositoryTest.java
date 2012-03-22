@@ -1,7 +1,7 @@
 package org.om.core.impl.persistence.jcr;
 
-import org.junit.Ignore;
 import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
+import org.om.core.impl.persistence.jcr.sessionfactory.impl.SingletonJCRSessionFactoryDecorator;
 import org.om.core.impl.persistence.jcr.sessionfactory.impl.TransientRepositoryJCRSessionFactory;
 
 /**
@@ -9,13 +9,14 @@ import org.om.core.impl.persistence.jcr.sessionfactory.impl.TransientRepositoryJ
  * @author tome
  * 
  */
-@Ignore
 public class TransientRepositoryTest extends BaseJCRSessionTest {
 
 	@Override
 	protected JCRSessionFactory getSessionFactory() {
-		return new TransientRepositoryJCRSessionFactory("target/repository");
-
+		/*
+		 * here we need to ensure that we always get the same session per
+		 * thread.
+		 */
+		return new SingletonJCRSessionFactoryDecorator(new TransientRepositoryJCRSessionFactory("target/repository"));
 	}
-
 }
