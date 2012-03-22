@@ -3,7 +3,7 @@
 <bean name="jcrsessionfactory">
 		<class>org.om.core.impl.persistence.jcr.sessionfactory.impl.SessionPerThreadJCRSessionFactoryDecorator</class>
 		<arguments>
-			<argument>
+			<argument reference="true">
 				<value>jcrsessionactualfactory</value>
 			</argument>
 		</arguments>

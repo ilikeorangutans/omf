@@ -2,7 +2,6 @@ package org.om.examples.example2;
 
 import junit.framework.Assert;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.om.examples.example2.Example2;
@@ -14,7 +13,6 @@ import com.om.examples.example2.Example2;
  */
 public class TestExample {
 	@Test
-	@Ignore
 	public void test() {
 		try {
 			Example2.main(null);

@@ -29,7 +29,6 @@ public class LRUJCRPersistenceDelegateFactory implements PersistenceDelegateFact
 	public LRUJCRPersistenceDelegateFactory(PersistenceDelegateFactory persistenceDelegateFactory, int cacheSize) {
 		this.persistenceDelegateFactory = persistenceDelegateFactory;
 		this.cacheSize = cacheSize;
-
 	}
 
 	public PersistenceDelegate create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext) {

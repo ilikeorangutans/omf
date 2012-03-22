@@ -22,7 +22,7 @@
 			<argument reference="true">
 				<value>actualpersistencedelegatefactory</value>
 			</argument>
-			<argument reference="false">
+			<argument reference="false" valuetype="int">
 				<value>10</value>
 			</argument>
 		</arguments>
