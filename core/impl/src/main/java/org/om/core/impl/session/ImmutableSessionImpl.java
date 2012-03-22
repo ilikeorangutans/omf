@@ -80,7 +80,7 @@ public class ImmutableSessionImpl implements Session {
 				/*
 				 * save it
 				 */
-				persistenceDelegate.setProperty(propertyMapping, o);
+				persistenceDelegate.setProperty(propertyMapping, EntityUtils.getEntityPropertyValue(propertyMapping, o));
 			}
 		} catch (Exception e) {
 			throw new ObjectMapperException("Exception in save", e);

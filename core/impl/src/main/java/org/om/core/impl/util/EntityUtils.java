@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.PropertyMapping;
 
 /**
  * @author tome
@@ -43,5 +44,21 @@ public class EntityUtils {
 		} else {
 			return null;
 		}
+	}
+
+	public static Object getEntityPropertyValue(PropertyMapping propertyMapping, Object object) throws NoSuchFieldException, InvocationTargetException,
+			NoSuchMethodException, IllegalAccessException {
+		/*
+		 * the field name
+		 */
+		String fieldName = propertyMapping.getFieldname();
+		/*
+		 * get the getter
+		 */
+		Method getter = getGetter(object, fieldName);
+		/*
+		 * return the value
+		 */
+		return getter.invoke(object, (Object[]) null);
 	}
 }

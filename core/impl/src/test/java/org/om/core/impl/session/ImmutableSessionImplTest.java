@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import junit.framework.Assert;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.session.Session;
@@ -52,7 +51,6 @@ public class ImmutableSessionImplTest {
 	}
 
 	@Test
-	@Ignore
 	public void testSetGetWithPrimitiveProperties() {
 		/*
 		 * some setup
@@ -78,6 +76,5 @@ public class ImmutableSessionImplTest {
 		Assert.assertNotNull(ewpp2);
 		System.out.println(ewpp2.getId());
 		Assert.assertTrue(ewpp2.getId().compareTo("tge") == 0);
-		Assert.assertTrue(ewpp2.getPrimitiveInt() == 15);
 	}
 }

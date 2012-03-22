@@ -62,4 +62,44 @@ public abstract class BaseJCRSessionTest {
 			Assert.fail();
 		}
 	}
+
+	@Test
+	public void test2() {
+		try {
+			/*
+			 * get an OM session
+			 */
+			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
+					new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
+
+			final org.om.core.api.session.Session session = sessionFactory.getSession(new JcrPersistenceContext(getSessionFactory()));
+			Assert.assertNotNull(session);
+			/*
+			 * make an entity
+			 */
+			TestEntity testEntity1 = new TestEntity();
+			testEntity1.setFoobar("Horray!!");
+			testEntity1.setBlargh(1000000);
+			testEntity1.setId("foo/bar");
+			/*
+			 * save it
+			 */
+			session.save(testEntity1);
+			/*
+			 * get the entity
+			 */
+			final TestEntity testEntity2 = session.get(TestEntity.class, "foo/bar");
+			Assert.assertNotNull(testEntity2);
+			Assert.assertTrue(testEntity2.getId().compareTo("foo/bar") == 0);
+
+			/*
+			 * check
+			 */
+			Assert.assertNotNull(testEntity2.getFoobar());
+			Assert.assertTrue(testEntity2.getFoobar().compareTo("Horray!!") == 0);
+		} catch (final Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
 }

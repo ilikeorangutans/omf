@@ -72,7 +72,6 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 		} catch (final RepositoryException e) {
 			throw new ObjectMapperException("Could not retrieve property " + propertyName, e);
 		}
-
 	}
 
 	public boolean hasProperty(PropertyMapping mapping) {
@@ -84,6 +83,22 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 	}
 
 	public void setProperty(PropertyMapping propertyMapping, Object object) {
-		throw new ObjectMapperException("not implemented");
+		final String propertyName = propertyMapping.getPropertyName();
+		try {
+			Class<?> propertyType = propertyMapping.getPropertyType();
+			if (propertyType == String.class) {
+				node.setProperty(propertyName, (String) object);
+			} else if (propertyType == int.class) {
+				node.setProperty(propertyName, ((Integer) object).intValue());
+			} else if (propertyType == Integer.class) {
+				node.setProperty(propertyName, (Integer) object);
+			} else {
+				throw new ObjectMapperException("Unknown property type");
+			}
+
+		} catch (final RepositoryException e) {
+			throw new ObjectMapperException("Could not retrieve property " + propertyName, e);
+		}
+
 	}
 }

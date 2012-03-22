@@ -14,8 +14,8 @@ public class TransientRepositoryTest extends BaseJCRSessionTest {
 	@Override
 	protected JCRSessionFactory getSessionFactory() {
 		/*
-		 * here we need to ensure that we always get the same session per
-		 * thread.
+		 * here we need to ensure that we always get the same session: the
+		 * transient repo is single threaded.
 		 */
 		return new SingletonJCRSessionFactoryDecorator(new TransientRepositoryJCRSessionFactory("target/repository"));
 	}
