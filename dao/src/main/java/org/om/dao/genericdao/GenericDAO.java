@@ -3,6 +3,7 @@ package org.om.dao.genericdao;
 import java.util.UUID;
 
 import org.om.core.api.path.Path;
+import org.om.dao.exception.DAOException;
 
 /**
  * 
@@ -15,21 +16,21 @@ public interface GenericDAO<T> {
 	/**
 	 * delete
 	 */
-	void delete(T t) throws Exception;
+	void delete(T t) throws DAOException;
 
 	/**
 	 * get
 	 */
-	T get(Path path) throws Exception;
+	T get(Path path) throws DAOException;
 
 	/**
 	 * get
 	 */
-	T get(UUID uuid) throws Exception;
+	T get(UUID uuid) throws DAOException;
 
 	/**
 	 * save
 	 */
-	void save(T t) throws Exception;
+	void save(T t) throws DAOException;
 
 }

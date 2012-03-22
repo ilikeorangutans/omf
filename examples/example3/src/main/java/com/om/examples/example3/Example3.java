@@ -1,4 +1,4 @@
-package com.om.examples;
+package com.om.examples.example3;
 
 import org.om.core.api.path.Path;
 
@@ -14,15 +14,10 @@ public class Example3 {
 	 * void main
 	 */
 	public static void main(String args[]) throws java.io.IOException, java.io.FileNotFoundException {
-		try {
-			/*
-			 * declare the DAO
-			 */
-			final MyPojoDAO dao = new MyPojoDAO();
-			dao.get(new Path("/jcr/mystuff/myPojo"));
-		} catch (final Exception e) {
-
-		}
+		/*
+		 * declare the DAO
+		 */
+		final MyPojoDAO dao = new MyPojoDAO();
+		dao.get(new Path("/jcr/mystuff/myPojo"));
 	}
-
 }
