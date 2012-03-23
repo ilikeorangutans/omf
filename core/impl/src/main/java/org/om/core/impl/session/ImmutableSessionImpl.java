@@ -50,7 +50,7 @@ public class ImmutableSessionImpl implements Session {
 		}
 
 		final EntityMapping entityMapping = mappingRegistry.getMapping(clazz);
-		final PersistenceDelegate persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext);
+		final PersistenceDelegate persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, false);
 		return (T) proxyFactory.create(this, entityMapping, persistenceDelegate);
 	}
 
@@ -67,7 +67,7 @@ public class ImmutableSessionImpl implements Session {
 			/*
 			 * get a persistence delegate
 			 */
-			final PersistenceDelegate persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext);
+			final PersistenceDelegate persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, true);
 			/*
 			 * walk the fields and save them
 			 */

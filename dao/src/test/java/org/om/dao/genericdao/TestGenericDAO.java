@@ -1,15 +1,9 @@
 package org.om.dao.genericdao;
 
-import javax.jcr.Node;
-import javax.jcr.Session;
-
 import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
-import org.om.core.api.path.Path;
-import org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfiguredJCRSessionFactory;
 
 /**
  * 
@@ -22,75 +16,34 @@ import org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfigured
  */
 public class TestGenericDAO {
 
-	@Before
-	public void setUp() {
-		try {
-			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
-			Assert.assertNotNull(session);
-			/*
-			 * get the root node
-			 */
-			final Node rootNode = session.getRootNode();
-			Assert.assertNotNull(rootNode);
-			/*
-			 * add two nodes, one of which has properties
-			 */
-			final Node foo = rootNode.addNode("foo");
-			final Node bar = foo.addNode("bar");
-			bar.setProperty("foobar", "Horray!!");
-			bar.setProperty("mycoolfield", "1000000");
-			/*
-			 * save to the jcr
-			 */
-			session.save();
-		} catch (final Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
-
-	@After
-	public void tearDown() {
-		try {
-			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
-			Assert.assertNotNull(session);
-			/*
-			 * get the root node
-			 */
-			final Node rootNode = session.getRootNode();
-			Assert.assertNotNull(rootNode);
-			/*
-			 * remove foo
-			 */
-			rootNode.getNode("foo/bar").remove();
-			rootNode.getNode("foo").remove();
-			/*
-			 * save to the jcr
-			 */
-			session.save();
-		} catch (final Exception e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-	}
-
 	@Test
-	public void testRead() {
+	@Ignore
+	public void testWriteRead() {
 		try {
 			/*
 			 * DAO
 			 */
 			final TestEntityDAO testEntityDAO = new TestEntityDAO();
 			/*
-			 * use the DAO to get the Entity
+			 * entity
 			 */
-			final TestEntity testEntity = testEntityDAO.get(new Path("foo/bar"));
-			Assert.assertNotNull(testEntity);
+			TestEntity testEntity1 = new TestEntity();
+			testEntity1.setFoobar("Horray!!");
+			testEntity1.setBlargh(1000000);
+			testEntity1.setId("tge");
+			/*
+			 * save it
+			 */
+			testEntityDAO.save(testEntity1);
+			/*
+			 * get it
+			 */
+			TestEntity testEntity2 = testEntityDAO.get("tge");
 			/*
 			 * check
 			 */
-			Assert.assertNotNull(testEntity.getFoobar());
-			Assert.assertTrue(testEntity.getFoobar().compareTo("Horray!!") == 0);
+			Assert.assertTrue(testEntity1.getId().compareTo(testEntity2.getId()) == 0);
+			Assert.assertTrue(testEntity1.getFoobar().compareTo(testEntity2.getFoobar()) == 0);
 		} catch (final Exception e) {
 			e.printStackTrace();
 			Assert.fail();

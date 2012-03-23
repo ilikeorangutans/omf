@@ -1,5 +1,6 @@
 package org.om.core.api.persistence;
 
+import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.PropertyMapping;
 
 /**
@@ -18,7 +19,7 @@ public interface PersistenceDelegate {
 	 * @param propertyMapping
 	 * @return
 	 */
-	void setProperty(PropertyMapping propertyMapping, Object object);
+	void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException;
 
 	/**
 	 * Retrieve the property described by the given {@link PropertyMapping}.
@@ -26,7 +27,7 @@ public interface PersistenceDelegate {
 	 * @param propertyMapping
 	 * @return
 	 */
-	Object getProperty(PropertyMapping propertyMapping);
+	Object getProperty(PropertyMapping propertyMapping) throws ObjectMapperException;
 
 	/**
 	 * Returns true if the delegate can provide a value for the given property.
@@ -35,5 +36,10 @@ public interface PersistenceDelegate {
 	 * 
 	 * @return true if the delegate can provide a value for the given property
 	 */
-	boolean hasProperty(PropertyMapping mapping);
+	boolean hasProperty(PropertyMapping mapping) throws ObjectMapperException;
+
+	/**
+	 * delete a node
+	 */
+	void delete() throws ObjectMapperException;
 }

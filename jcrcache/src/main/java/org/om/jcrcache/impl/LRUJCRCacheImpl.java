@@ -1,5 +1,6 @@
 package org.om.jcrcache.impl;
 
+import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceDelegate;
 import org.om.jcrcache.JCRCache;
@@ -35,11 +36,11 @@ public class LRUJCRCacheImpl implements JCRCache {
 		cache = new LRUCache<String, Object>(this.cacheSize);
 	}
 
-	private String getKey(PropertyMapping mapping) {
+	private String getKey(PropertyMapping mapping) throws ObjectMapperException {
 		return mapping.getFieldname();
 	}
 
-	public Object getProperty(PropertyMapping propertyMapping) {
+	public Object getProperty(PropertyMapping propertyMapping) throws ObjectMapperException {
 		synchronized (this) {
 			/*
 			 * search the cache
@@ -55,14 +56,16 @@ public class LRUJCRCacheImpl implements JCRCache {
 		}
 	}
 
-	public boolean hasProperty(PropertyMapping mapping) {
-		/*
-		 * delegate
-		 */
-		return persistenceDelegate.hasProperty(mapping);
+	public boolean hasProperty(PropertyMapping mapping) throws ObjectMapperException {
+		synchronized (this) {
+			/*
+			 * delegate
+			 */
+			return persistenceDelegate.hasProperty(mapping);
+		}
 	}
 
-	public void setProperty(PropertyMapping propertyMapping, Object object) {
+	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
 		synchronized (this) {
 			if ((null != propertyMapping) && (null != object)) {
 				/*
@@ -88,5 +91,19 @@ public class LRUJCRCacheImpl implements JCRCache {
 
 	public int size() {
 		return cache.size();
+	}
+
+	public void delete() throws ObjectMapperException {
+		synchronized (this) {
+			/*
+			 * remove the cache
+			 */
+			cache.clear();
+			/*
+			 * delegate
+			 */
+			this.persistenceDelegate.delete();
+		}
+
 	}
 }

@@ -31,8 +31,8 @@ public class LRUJCRPersistenceDelegateFactory implements PersistenceDelegateFact
 		this.cacheSize = cacheSize;
 	}
 
-	public PersistenceDelegate create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext) {
-		PersistenceDelegate actualDelegate = persistenceDelegateFactory.create(session, id, mapping, persistenceContext);
+	public PersistenceDelegate create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
+		PersistenceDelegate actualDelegate = persistenceDelegateFactory.create(session, id, mapping, persistenceContext, createNode);
 		return new LRUJCRCacheImpl(actualDelegate, cacheSize);
 	}
 

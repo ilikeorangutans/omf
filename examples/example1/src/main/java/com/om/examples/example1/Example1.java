@@ -4,6 +4,7 @@ import org.om.core.api.session.Session;
 import org.om.dao.util.SessionUtil;
 
 import com.om.examples.example1.dao.MyPojoDAO;
+import com.om.examples.example1.pojo.MyPojo;
 
 /**
  * 
@@ -21,11 +22,30 @@ public class Example1 {
 		 * to and logged in to
 		 */
 		Session session = SessionUtil.getSession();
-		/*
-		 * declare the DAO
-		 */
-		final MyPojoDAO dao = new MyPojoDAO();
-		// dao.get(new Path("/jcr/mystuff/myPojo"));
+		if (null != session) {
+			/*
+			 * declare the DAO
+			 */
+			final MyPojoDAO dao = new MyPojoDAO();
+			/*
+			 * make an object
+			 */
+			MyPojo myPojo = new MyPojo();
+			myPojo.setCount(12);
+			myPojo.setId("tge");
+			myPojo.setRate(13.3);
+			/*
+			 * save the object
+			 */
+			// dao.save(myPojo);
+			/*
+			 * get the object back
+			 */
+			// MyPojo retrievedPojo = dao.get(myPojo.getId());
+			// System.out.println(retrievedPojo.getId());
+		} else {
+			System.out.println("Unable to get session, check your settings");
+		}
 	}
 
 }

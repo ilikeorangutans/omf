@@ -75,4 +75,8 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 			throw new DAOException("Exception in save", e);
 		}
 	}
+
+	public T get(String path) throws DAOException {
+		return get(new Path(path));
+	}
 }

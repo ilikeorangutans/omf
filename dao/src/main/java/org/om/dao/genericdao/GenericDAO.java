@@ -26,6 +26,11 @@ public interface GenericDAO<T> {
 	/**
 	 * get
 	 */
+	T get(String path) throws DAOException;
+
+	/**
+	 * get
+	 */
 	T get(UUID uuid) throws DAOException;
 
 	/**
