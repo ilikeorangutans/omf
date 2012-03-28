@@ -88,4 +88,8 @@ public class ImmutableSessionImpl implements Session {
 		}
 	}
 
+	public void commit() {
+		// TODO Auto-generated method stub
+	}
+
 }
