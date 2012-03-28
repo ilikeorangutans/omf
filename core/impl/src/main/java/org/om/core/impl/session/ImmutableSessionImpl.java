@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceDelegate;
@@ -71,16 +71,17 @@ public class ImmutableSessionImpl implements Session {
 			/*
 			 * walk the fields and save them
 			 */
-			Iterator<PropertyMapping> iter = entityMapping.getPropertyMappings().getAll().iterator();
+			Iterator<Mapping> iter = entityMapping.getItemMappings().getAll().iterator();
 			while (iter.hasNext()) {
 				/*
 				 * get property
 				 */
-				PropertyMapping propertyMapping = iter.next();
+				Mapping propertyMapping = iter.next();
 				/*
 				 * save it
 				 */
-				persistenceDelegate.setProperty(propertyMapping, EntityUtils.getEntityPropertyValue(propertyMapping, o));
+				// DISABLED // persistenceDelegate.setProperty(propertyMapping,
+				// EntityUtils.getEntityPropertyValue(propertyMapping, o));
 			}
 		} catch (Exception e) {
 			throw new ObjectMapperException("Exception in save", e);

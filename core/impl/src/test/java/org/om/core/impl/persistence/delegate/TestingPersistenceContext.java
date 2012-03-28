@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceContext;
 
 /**
