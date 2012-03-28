@@ -1,7 +1,7 @@
 package org.om.core.impl.persistence.interceptor.handler;
 
-import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.persistence.interceptor.handler.PropertyHandler;
+import org.om.core.api.mapping.Mapping;
+import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 import org.om.core.api.session.Session;
 
 /**
@@ -10,7 +10,7 @@ import org.om.core.api.session.Session;
  * @author Jakob Külzer
  * 
  */
-public class ReferencePropertyHandler implements PropertyHandler {
+public class ReferencePropertyHandler implements ItemHandler {
 
 	private final Session session;
 
@@ -18,11 +18,8 @@ public class ReferencePropertyHandler implements PropertyHandler {
 		this.session = session;
 	}
 
-	public Object retrieve(PropertyMapping propertyMapping, Object input) {
-		if (input == null)
-			throw new NullPointerException("Cannot resolve reference, value given as key is null");
-
-		return session.get(propertyMapping.getPropertyType(), input);
+	public Object retrieve(Mapping mapping, Object input) {
+		return session.get(mapping.getFieldType(), input);
 	}
 
 }

@@ -3,17 +3,27 @@ package org.om.core.impl.persistence.interceptor.handler;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 
-import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.persistence.interceptor.handler.PropertyHandler;
+import org.om.core.api.mapping.Mapping;
+import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 
-public class PrimitivePropertyHandler implements PropertyHandler {
+/**
+ * Property handler for primitive or autoboxed types. Will automatically perform
+ * type conversion if necessary.
+ * 
+ * TODO: This doesn't have support for parsing dates.
+ * 
+ * @author Jakob Külzer
+ * 
+ */
+public class PrimitivePropertyHandler implements ItemHandler {
 
-	public Object retrieve(PropertyMapping propertyMapping, Object input) {
+	public Object retrieve(Mapping mapping, Object input) {
+
 		if (input == null)
 			return null;
 
 		// If the returned object already has the correct type, just return it.
-		if (propertyMapping.getPropertyType() == input.getClass()) {
+		if (mapping.getFieldType() == input.getClass()) {
 			return input;
 		}
 
@@ -22,12 +32,12 @@ public class PrimitivePropertyHandler implements PropertyHandler {
 
 			// This is real ugly: PropertyEditors return boxed primitive
 			// types instead of exactly what you ask for.
-			final PropertyEditor editor = PropertyEditorManager.findEditor(propertyMapping.getPropertyType());
+			final PropertyEditor editor = PropertyEditorManager.findEditor(mapping.getFieldType());
 			editor.setAsText((String) input);
 			return editor.getValue();
 		}
 
-		assert false : "We have an unhandled primitive type " + propertyMapping.getPropertyType() + ".";
+		assert false : "We have an unhandled primitive type " + mapping.getFieldType() + ".";
 		return null;
 	}
 

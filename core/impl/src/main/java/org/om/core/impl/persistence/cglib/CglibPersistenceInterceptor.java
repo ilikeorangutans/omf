@@ -7,12 +7,11 @@ import java.util.regex.Pattern;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
+import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.Mapping;
+import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 
 /**
  * {@link MethodInterceptor} that will intercept all calls to getters for mapped
@@ -51,7 +50,7 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 			return proxy.invokeSuper(obj, args);
 		}
 
-		final PropertyMapping propertyMapping = entityMapping.getPropertyByField(fieldName);
+		final Mapping propertyMapping = entityMapping.getMappingByField(fieldName);
 		LOG.trace("Retrieved property mapping {}", propertyMapping);
 
 		return interceptor.getProperty(propertyMapping);
