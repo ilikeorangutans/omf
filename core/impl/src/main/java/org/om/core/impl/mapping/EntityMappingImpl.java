@@ -2,13 +2,14 @@ package org.om.core.impl.mapping;
 
 import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.PropertyMap;
+import org.om.core.api.mapping.ItemMap;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 
 public class EntityMappingImpl implements EntityMapping {
 
 	private final Class<?> type;
-	private PropertyMap propertyMappings;
+	private ItemMap propertyMappings;
 	private String name;
 
 	public String getName() {
@@ -32,11 +33,11 @@ public class EntityMappingImpl implements EntityMapping {
 		return type;
 	}
 
-	public PropertyMap getPropertyMappings() {
+	public ItemMap getItemMappings() {
 		return propertyMappings;
 	}
 
-	public void setPropertyMap(PropertyMap propertyMappings) {
+	public void setPropertyMap(ItemMap propertyMappings) {
 		this.propertyMappings = propertyMappings;
 	}
 
@@ -48,7 +49,7 @@ public class EntityMappingImpl implements EntityMapping {
 		return propertyMappings.hasProperty(property);
 	}
 
-	public PropertyMapping getPropertyByField(String fieldname) {
+	public Mapping getMappingByField(String fieldname) {
 		return propertyMappings.getField(fieldname);
 	}
 

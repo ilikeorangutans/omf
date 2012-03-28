@@ -1,7 +1,7 @@
 package org.om.core.api.mapping.extractor;
 
 import org.om.core.api.exception.MappingException;
-import org.om.core.api.mapping.PropertyMap;
+import org.om.core.api.mapping.ItemMap;
 import org.om.core.api.mapping.PropertyMapping;
 
 /**
@@ -10,7 +10,7 @@ import org.om.core.api.mapping.PropertyMapping;
  * @author Jakob Külzer
  * 
  */
-public interface PropertyMappingExtractor {
+public interface ItemMappingExtractor {
 
 	/**
 	 * Extracts all {@link PropertyMapping}s from the given type.
@@ -19,6 +19,6 @@ public interface PropertyMappingExtractor {
 	 * @return
 	 * @throws MappingException
 	 */
-	PropertyMap extract(Class<?> type) throws MappingException;
+	ItemMap extract(Class<?> type) throws MappingException;
 
 }

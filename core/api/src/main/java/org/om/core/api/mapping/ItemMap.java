@@ -8,14 +8,14 @@ import java.util.Collection;
  * @author Jakob Külzer
  * 
  */
-public interface PropertyMap {
+public interface ItemMap {
 
 	/**
-	 * Returns all {@link PropertyMapping}s.
+	 * Returns all {@link Mapping}s.
 	 * 
 	 * @return
 	 */
-	Collection<PropertyMapping> getAll();
+	Collection<Mapping> getAll();
 
 	/**
 	 * Returns true if this map contains a property with the given name.
@@ -40,9 +40,21 @@ public interface PropertyMap {
 	 */
 	PropertyMapping getIdProperty();
 
+	/**
+	 * Finds a property by name.
+	 * 
+	 * @param name
+	 * @return
+	 */
 	PropertyMapping getProperty(String name);
 
-	PropertyMapping getField(String fieldname);
+	/**
+	 * Finds a field by name.
+	 * 
+	 * @param fieldname
+	 * @return
+	 */
+	Mapping getField(String fieldname);
 
 	int getSize();
 

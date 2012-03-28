@@ -8,11 +8,11 @@ import java.util.Set;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
 import org.om.core.api.annotation.Property;
-import org.om.core.api.annotation.PropertyNameStrategy;
 import org.om.core.api.exception.MappingException;
-import org.om.core.api.mapping.PropertyMap;
+import org.om.core.api.mapping.ItemMap;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.mapping.extractor.PropertyMappingExtractor;
+import org.om.core.api.mapping.extractor.ItemMappingExtractor;
 import org.om.core.impl.mapping.ImmutableCollectionMapping;
 import org.om.core.impl.mapping.ImmutablePropertyMap;
 import org.om.core.impl.mapping.ImmutablePropertyMapping;
@@ -20,11 +20,11 @@ import org.om.core.impl.util.ClassUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
+public class ItemMappingExtractorImpl implements ItemMappingExtractor {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(PropertyMappingExtractorImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(ItemMappingExtractorImpl.class);
 
-	public PropertyMap extract(Class<?> type) {
+	public ItemMap extract(Class<?> type) {
 		if (type == null)
 			throw new NullPointerException("Cannot extract entity mapping, type is null!");
 
@@ -32,7 +32,7 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 		if (entityAnnotation == null)
 			throw new MappingException(type, "not annotated with @Entity, cannot extract property mapping");
 
-		final Set<PropertyMapping> mappings = new HashSet<PropertyMapping>();
+		final Set<Mapping> mappings = new HashSet<Mapping>();
 
 		for (Field field : type.getDeclaredFields()) {
 
@@ -44,8 +44,8 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 
 			LOGGER.debug("Found annotated field {}", field.getName());
 
-			final PropertyMapping propertyMapping = fromField(field);
-			mappings.add(propertyMapping);
+			final Mapping itemMapping = fromField(field);
+			mappings.add(itemMapping);
 
 		}
 
@@ -64,7 +64,7 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 	 *             if the mapping cannot be constructed or if there's no
 	 *             mapping.
 	 */
-	public PropertyMapping fromField(Field field) {
+	public Mapping fromField(Field field) {
 		if (field == null)
 			throw new NullPointerException("Cannot extract property mapping from field, it's null.");
 
@@ -73,10 +73,9 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 		if (annotation == null)
 			throw new MappingException("Cannot extract mapping from field " + fieldname + ", no annotation!");
 
-		final PropertyNameStrategy nameStrategy = annotation.namingStrategy();
 		final String propertyName;
 		final boolean hasNameSetOnAnnotation = annotation.name() != null && annotation.name().length() > 1;
-		if (nameStrategy == PropertyNameStrategy.ProvidedName || hasNameSetOnAnnotation) {
+		if (hasNameSetOnAnnotation) {
 			propertyName = annotation.name();
 		} else {
 			propertyName = fieldname;
@@ -90,10 +89,10 @@ public class PropertyMappingExtractorImpl implements PropertyMappingExtractor {
 		final boolean collectionType = Collection.class.isAssignableFrom(type);
 		final boolean referenceType = !collectionType;
 		if (primitiveOrAutoboxed || referenceType) {
-			return new ImmutablePropertyMapping(fieldname, isId, nameStrategy, propertyName, type, annotation.defaultValue(), annotation.missingStrategy(),
+			return new ImmutablePropertyMapping(fieldname, isId, propertyName, type, annotation.defaultValue(), annotation.missingStrategy(),
 					annotation.missingException());
 		} else if (collectionType) {
-			return new ImmutableCollectionMapping();
+			return new ImmutableCollectionMapping(fieldname, type, "", annotation.missingStrategy(), annotation.missingException());
 		} else {
 			throw new MappingException("Don't know how to map field " + fieldname + " of type " + type);
 		}

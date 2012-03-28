@@ -1,8 +1,7 @@
 package org.om.core.impl.mapping;
 
 import org.om.core.api.annotation.PropertyMissingStrategy;
-import org.om.core.api.annotation.PropertyNameStrategy;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.CollectionMapping;
 
 /**
  * Describes a mapping for collections.
@@ -10,51 +9,32 @@ import org.om.core.api.mapping.PropertyMapping;
  * @author Jakob Külzer
  * 
  */
-public class ImmutableCollectionMapping implements PropertyMapping {
+public class ImmutableCollectionMapping extends AbstractMapping implements CollectionMapping {
 
-	public String getDefaultValue() {
-		// TODO Auto-generated method stub
-		return null;
+	private final String location;
+
+	public ImmutableCollectionMapping(String fieldname, Class<?> fieldType, String location, PropertyMissingStrategy missingStrategy,
+			Class<? extends RuntimeException> missingException) {
+		super(fieldname, fieldType, missingStrategy, missingException);
+		this.location = location;
 	}
 
-	public String getFieldname() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Class<RuntimeException> getMissingException() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public PropertyMissingStrategy getMissingStrategy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public PropertyNameStrategy getNameStrategy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getPropertyName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Class<?> getPropertyType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	/**
+	 * Always returns false as a collection cannot serve as an identifier.
+	 */
 	public boolean isId() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * Always returns false.
+	 */
 	public boolean isPrimitiveOrWrappedType() {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public String getLocation() {
+		return location;
 	}
 
 }
