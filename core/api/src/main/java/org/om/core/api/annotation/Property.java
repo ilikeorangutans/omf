@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 import org.om.core.api.exception.PropertyMissingException;
 
-
 /**
  * Annotation that describes a property on an {@link Entity}.
  * 
@@ -21,8 +20,7 @@ public @interface Property {
 	static final String DEFAULT_VALUE = "";
 
 	/**
-	 * Name of the property. If not set, will use the name of the POJO property
-	 * name.
+	 * Name of the property. If not set, will use the POJO field name.
 	 * 
 	 * @return
 	 */
@@ -37,13 +35,6 @@ public @interface Property {
 	 * @return
 	 */
 	String defaultValue() default DEFAULT_VALUE;
-
-	/**
-	 * How should the name of the property be determined.
-	 * 
-	 * @return
-	 */
-	PropertyNameStrategy namingStrategy() default PropertyNameStrategy.FieldName;
 
 	/**
 	 * Defines how object mapper will react ot missing properties.
@@ -62,6 +53,6 @@ public @interface Property {
 	 * 
 	 * @return
 	 */
-	Class<? extends Exception> missingException() default PropertyMissingException.class;
+	Class<? extends RuntimeException> missingException() default PropertyMissingException.class;
 
 }
