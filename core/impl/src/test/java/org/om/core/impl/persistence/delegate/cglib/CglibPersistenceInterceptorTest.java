@@ -12,7 +12,7 @@ import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.persistence.cglib.CglibPersistenceInterceptor;
 import org.om.core.impl.persistence.delegate.TestingPersistenceDelegate;
 import org.om.core.impl.persistence.interceptor.PersistenceInterceptorImpl;
-import org.om.core.impl.persistence.interceptor.handler.PropertyHandlerFactoryImpl;
+import org.om.core.impl.persistence.interceptor.handler.ItemHandlerFactoryImpl;
 
 public class CglibPersistenceInterceptorTest {
 
@@ -21,7 +21,7 @@ public class CglibPersistenceInterceptorTest {
 		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(null,
-				new PropertyHandlerFactoryImpl(), persistenceDelegate));
+				new ItemHandlerFactoryImpl(), persistenceDelegate));
 
 		EntityWithPrimitiveProperties entity = new EntityWithPrimitiveProperties();
 
@@ -37,7 +37,7 @@ public class CglibPersistenceInterceptorTest {
 		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 
 		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(null,
-				new PropertyHandlerFactoryImpl(), persistenceDelegate));
+				new ItemHandlerFactoryImpl(), persistenceDelegate));
 		assertThat(interceptor.isGetter("getFoobar"), is(true));
 		assertThat(interceptor.isGetter("getfoobar"), is(false));
 
@@ -51,7 +51,7 @@ public class CglibPersistenceInterceptorTest {
 		PersistenceDelegate persistenceDelegate = new TestingPersistenceDelegate(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
 
 		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(null,
-				new PropertyHandlerFactoryImpl(), persistenceDelegate));
+				new ItemHandlerFactoryImpl(), persistenceDelegate));
 		assertThat(interceptor.extractFieldName("getFoobar"), is("foobar"));
 		assertThat(interceptor.extractFieldName("isFoobar"), is("foobar"));
 		assertThat(interceptor.extractFieldName("getXYZ"), is("xYZ"));

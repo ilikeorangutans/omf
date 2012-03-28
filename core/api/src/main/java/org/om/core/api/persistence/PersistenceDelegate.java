@@ -1,5 +1,6 @@
 package org.om.core.api.persistence;
 
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 
 /**
@@ -13,18 +14,19 @@ public interface PersistenceDelegate {
 
 	/**
 	 * Retrieve the property described by the given {@link PropertyMapping}.
+	 * This is used to retrieve single value entries.
 	 * 
 	 * @param propertyMapping
 	 * @return
 	 */
-	Object getProperty(PropertyMapping propertyMapping);
+	Object getProperty(Mapping mapping);
 
 	/**
-	 * Returns true if the delegate can provide a value for the given property.
+	 * Returns true if the delegate can provide a value for the given mapping.
 	 * If the underlying storage engine returns a null or cannot resolve the
 	 * implementation specific property, this method should return false.
 	 * 
 	 * @return true if the delegate can provide a value for the given property
 	 */
-	boolean hasProperty(PropertyMapping mapping);
+	boolean canProvide(Mapping mapping);
 }

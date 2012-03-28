@@ -66,7 +66,7 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 	public void test() throws Exception {
 		Field field = type.getDeclaredField(fieldName);
 
-		PropertyMapping mapping = new PropertyMappingExtractorImpl().fromField(field);
+		PropertyMapping mapping = (PropertyMapping) new ItemMappingExtractorImpl().fromField(field);
 
 		assertThat(mapping, notNullValue());
 		assertThat(mapping.getFieldname(), is(fieldName));
@@ -74,7 +74,7 @@ public class ParemeterizedPropertyMappingExtractorImplTest {
 		assertThat(mapping.getDefaultValue(), is(defaultValue));
 		assertThat(mapping.getMissingStrategy(), is(missingStrategy));
 		assertThat(mapping.isPrimitiveOrWrappedType(), is(true));
-		assertEquals(propertyType, mapping.getPropertyType());
+		assertEquals(propertyType, mapping.getFieldType());
 		assertEquals(missingException, mapping.getMissingException());
 	}
 }

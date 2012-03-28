@@ -18,5 +18,12 @@ public interface Session {
 	 */
 	<T> T get(Class<T> clazz, Object id);
 
+	/**
+	 * Closes the session.
+	 * 
+	 * TODO: What does this actually mean? Will the session not be able to
+	 * produce further objects? Will it close the underlying persistence layer?
+	 * We need to define the semantics.
+	 */
 	void close();
 }

@@ -1,7 +1,7 @@
 package org.om.core.impl.persistence.delegate;
 
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceDelegate;
 
@@ -20,17 +20,17 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 		return entityMapping;
 	}
 
-	public Object getProperty(PropertyMapping propertyMapping) {
-		return persistenceContext.getProperty(propertyMapping);
-	}
-
 	public TestingPersistenceDelegate addProperty(String propertyName, Object value) {
 		persistenceContext.addProperty(propertyName, value);
 		return this;
 	}
 
-	public boolean hasProperty(PropertyMapping mapping) {
-		return persistenceContext.hasProperty(mapping.getPropertyName());
+	public Object getProperty(Mapping propertyMapping) {
+		return persistenceContext.getProperty(propertyMapping);
+	}
+
+	public boolean canProvide(Mapping mapping) {
+		return persistenceContext.hasProperty(mapping.getFieldname());
 	}
 
 }

@@ -6,15 +6,15 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-import org.om.core.api.mapping.PropertyMap;
+import org.om.core.api.mapping.ItemMap;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
-import org.om.core.impl.mapping.extractor.PropertyMappingExtractorImpl;
+import org.om.core.impl.mapping.extractor.ItemMappingExtractorImpl;
 
 public class PrimitivePropertyHandlerTest {
 
 	@Test
 	public void testNullInput() {
-		PropertyMap mapping = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
 		Object retrieve = handler.retrieve(mapping.getField("fieldWithDefaultSettings"), null);
@@ -24,7 +24,7 @@ public class PrimitivePropertyHandlerTest {
 
 	@Test
 	public void testWithStringInput() {
-		PropertyMap mapping = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
 		String retrieve = (String) handler.retrieve(mapping.getField("fieldWithDefaultSettings"), "I'm a String!");
@@ -35,7 +35,7 @@ public class PrimitivePropertyHandlerTest {
 
 	@Test
 	public void testIntegerFieldWithStringInput() {
-		PropertyMap mapping = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
 		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), "1234");
@@ -46,7 +46,7 @@ public class PrimitivePropertyHandlerTest {
 
 	@Test(expected = NumberFormatException.class)
 	public void testIntegerFieldWithInvalidStringInput() {
-		PropertyMap mapping = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
 		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), "BAM");

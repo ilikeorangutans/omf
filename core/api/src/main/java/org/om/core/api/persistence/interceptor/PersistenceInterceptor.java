@@ -1,6 +1,6 @@
 package org.om.core.api.persistence.interceptor;
 
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.persistence.PersistenceDelegate;
 
 /**
@@ -12,6 +12,6 @@ import org.om.core.api.persistence.PersistenceDelegate;
  */
 public interface PersistenceInterceptor {
 
-	Object getProperty(PropertyMapping propertyMapping);
+	Object getProperty(Mapping propertyMapping);
 
 }
