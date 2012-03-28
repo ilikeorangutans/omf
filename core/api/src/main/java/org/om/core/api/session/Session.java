@@ -1,5 +1,7 @@
 package org.om.core.api.session;
 
+import org.om.core.api.exception.ObjectMapperException;
+
 /**
  * A single persistence session. A session acts as factory for entities.
  * 
@@ -7,16 +9,15 @@ package org.om.core.api.session;
  * only.
  * 
  * @author Jakob Külzer
+ * @author tom
  * 
  */
 public interface Session {
 
 	/**
-	 * @param clazz
-	 * @param path
-	 * @return
+	 * get an object by id
 	 */
-	<T> T get(Class<T> clazz, Object id);
+	<T> T get(Class<T> clazz, Object id) throws ObjectMapperException;
 
 	/**
 	 * Closes the session.
@@ -25,5 +26,16 @@ public interface Session {
 	 * produce further objects? Will it close the underlying persistence layer?
 	 * We need to define the semantics.
 	 */
-	void close();
+	void close() throws ObjectMapperException;
+
+	/**
+	 * save
+	 */
+	void save(Object o) throws ObjectMapperException;
+
+	/**
+	 * delete
+	 */
+	void delete(Object o) throws ObjectMapperException;
+
 }

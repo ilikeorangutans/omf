@@ -1,0 +1,1 @@
+example two shows configuration of OM DAO using a session-per-thread JCR session factory.  

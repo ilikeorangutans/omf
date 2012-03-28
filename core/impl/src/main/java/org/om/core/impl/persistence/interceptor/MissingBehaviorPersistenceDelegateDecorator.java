@@ -3,6 +3,7 @@ package org.om.core.impl.persistence.interceptor;
 import java.lang.reflect.InvocationTargetException;
 
 import org.om.core.api.annotation.PropertyMissingStrategy;
+import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceDelegate;
@@ -80,6 +81,14 @@ final class MissingBehaviorPersistenceDelegateDecorator implements PersistenceDe
 			throw new RuntimeException("Could not construct exception for missing property.", e);
 		}
 
+	}
+
+	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
+		// TODO Auto-generated method stub
+	}
+
+	public void delete() throws ObjectMapperException {
+		delegate.delete();
 	}
 
 }

@@ -8,5 +8,7 @@
 	<name>Object Mapper - Examples</name>
 	<modules>
 		<module>example1</module>
+		<module>example2</module>
+		<module>example3</module>
 	</modules>
 </project>

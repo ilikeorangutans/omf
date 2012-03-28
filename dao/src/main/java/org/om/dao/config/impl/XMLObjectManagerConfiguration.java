@@ -6,8 +6,9 @@ import org.om.core.api.session.factory.SessionFactory;
 import org.om.core.impl.persistence.jcr.JcrPersistenceContext;
 import org.om.core.impl.persistence.jcr.exception.JCRException;
 import org.om.dao.config.ObjectManagerConfiguration;
-import org.om.dynabean.DynabeanRegistry;
-import org.om.dynabean.impl.DefaultDynabeanRegistry;
+
+import com.khubla.xmlautobeans.AutowireBeanRegistry;
+import com.khubla.xmlautobeans.impl.DefaultAutowireBeanRegistry;
 
 /**
  * 
@@ -74,13 +75,13 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 				/*
 				 * dynamic xml beans
 				 */
-				final DynabeanRegistry dynabeanRegistry = new DefaultDynabeanRegistry();
+				final AutowireBeanRegistry dynabeanRegistry = new DefaultAutowireBeanRegistry();
 				dynabeanRegistry.load(inputStream);
 				/*
 				 * populate the beans we need
 				 */
-				jcrPersistenceContext = (JcrPersistenceContext) dynabeanRegistry.find("jcrpersistencecontext");
-				sessionFactory = (SessionFactory) dynabeanRegistry.find("omsessionfactory");
+				jcrPersistenceContext = (JcrPersistenceContext) dynabeanRegistry.getBean("jcrpersistencecontext");
+				sessionFactory = (SessionFactory) dynabeanRegistry.getBean("omsessionfactory");
 			} else {
 				throw new Exception("Unable to load '" + ObjectManagerConfiguration.DEFAULT_OBJECTMANAGER_CONFIGURATION + "'");
 			}

@@ -9,6 +9,9 @@ import org.om.core.api.persistence.interceptor.factory.PersistenceInterceptorFac
 import org.om.core.api.persistence.proxy.ProxyFactory;
 import org.om.core.api.session.Session;
 
+/**
+ * @author Jakob Külzer
+ */
 public class CglibProxyFactory implements ProxyFactory {
 
 	private final PersistenceInterceptorFactory interceptorFactory;

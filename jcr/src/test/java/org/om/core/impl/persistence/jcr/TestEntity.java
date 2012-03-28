@@ -8,6 +8,18 @@ import org.om.core.api.annotation.PropertyMissingStrategy;
 @Entity
 public class TestEntity {
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setFoobar(String foobar) {
+		this.foobar = foobar;
+	}
+
+	public void setBlargh(int blargh) {
+		this.blargh = blargh;
+	}
+
 	@Id
 	@Property
 	private String id;

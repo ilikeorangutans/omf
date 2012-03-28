@@ -1,0 +1,1 @@
+example two shows configuration of OM DAO using a simple LRU cache for JCR items 

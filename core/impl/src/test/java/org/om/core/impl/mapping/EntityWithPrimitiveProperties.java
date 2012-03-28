@@ -9,6 +9,14 @@ import org.om.core.api.exception.PropertyMissingException;
 @Entity
 public class EntityWithPrimitiveProperties {
 
+	public void setPrimitiveIntWithDefaultValue(int primitiveIntWithDefaultValue) {
+		this.primitiveIntWithDefaultValue = primitiveIntWithDefaultValue;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public static final int NUMBER_OF_FIELDS = 9;
 
 	@Id

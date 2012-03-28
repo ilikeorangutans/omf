@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>objectmapper</artifactId>
@@ -9,6 +8,13 @@
 	</parent>
 	<artifactId>dao</artifactId>
 	<name>Object Mapper - Generic DAO</name>
+	<repositories>
+		<repository>
+			<id>xmlautobeans</id>
+			<name>XML Auto beans</name>
+			<url>https://github.com/khubla/XMLAutobeanFramework/tree/master/maven/repository</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
@@ -25,10 +31,10 @@
 			<artifactId>jcr</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-	<dependency>
-			<groupId>org.objectmapper</groupId>
-			<artifactId>dynabean</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+		<dependency>
+			<groupId>com.khubla</groupId>
+			<artifactId>xmlautobeans</artifactId>
+			<version>1.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

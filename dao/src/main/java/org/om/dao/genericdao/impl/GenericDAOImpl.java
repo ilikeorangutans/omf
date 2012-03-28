@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.om.core.api.path.Path;
 import org.om.core.api.session.Session;
+import org.om.dao.exception.DAOException;
 import org.om.dao.genericdao.GenericDAO;
 import org.om.dao.util.SessionUtil;
 
@@ -28,11 +29,11 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	 * 
 	 * @see org.om.core.impl.persistence.jcr.dao.GenericJCRDAO#delete(T)
 	 */
-	public void delete(T t) throws Exception {
+	public void delete(T t) throws DAOException {
 		try {
-			SessionUtil.getSession();
+			SessionUtil.getSession().delete(t);
 		} catch (final Exception e) {
-			throw new Exception("Exception in delete", e);
+			throw new DAOException("Exception in delete", e);
 		}
 	}
 
@@ -42,23 +43,23 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	 * @see
 	 * org.om.core.impl.persistence.jcr.dao.GenericJCRDAO#get(java.lang.String)
 	 */
-	public T get(Path path) throws Exception {
+	public T get(Path path) throws DAOException {
 		Session session = null;
 		try {
 			session = SessionUtil.getSession();
 			return session.get(persistentClass, path);
 		} catch (final Exception e) {
-			throw new Exception("Exception in get", e);
+			throw new DAOException("Exception in get", e);
 		}
 	}
 
-	public T get(UUID uuid) throws Exception {
+	public T get(UUID uuid) throws DAOException {
 		Session session = null;
 		try {
 			session = SessionUtil.getSession();
 			return session.get(persistentClass, uuid);
 		} catch (final Exception e) {
-			throw new Exception("Exception in get", e);
+			throw new DAOException("Exception in get", e);
 		}
 	}
 
@@ -67,11 +68,15 @@ public class GenericDAOImpl<T> implements GenericDAO<T> {
 	 * 
 	 * @see org.om.core.impl.persistence.jcr.dao.GenericJCRDAO#save(T)
 	 */
-	public void save(T t) throws Exception {
+	public void save(T t) throws DAOException {
 		try {
-			SessionUtil.getSession();
+			SessionUtil.getSession().save(t);
 		} catch (final Exception e) {
-			throw new Exception("Exception in save", e);
+			throw new DAOException("Exception in save", e);
 		}
+	}
+
+	public T get(String path) throws DAOException {
+		return get(new Path(path));
 	}
 }

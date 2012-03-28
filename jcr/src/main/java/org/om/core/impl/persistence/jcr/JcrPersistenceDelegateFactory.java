@@ -1,7 +1,5 @@
 package org.om.core.impl.persistence.jcr;
 
-import java.util.UUID;
-
 import javax.jcr.Node;
 import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
@@ -21,18 +19,22 @@ import org.om.core.api.session.Session;
  */
 public class JcrPersistenceDelegateFactory implements PersistenceDelegateFactory {
 
-	@SuppressWarnings("deprecation")
-	public PersistenceDelegate create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext) {
+	public PersistenceDelegate create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
 		final JcrPersistenceContext context = (JcrPersistenceContext) persistenceContext;
 		try {
 			Node node = null;
 			if (id instanceof String) {
-				node = context.getSession().getRootNode().getNode((String) id);
+				if (true == context.getSession().getRootNode().hasNode((String) id)) {
+					node = context.getSession().getRootNode().getNode((String) id);
+				} else if (createNode) {
+					node = context.getSession().getRootNode().addNode((String) id);
+				}
 			} else if (id instanceof Path) {
-				node = context.getSession().getRootNode().getNode(((Path) id).toString());
-			} else if (id instanceof UUID) {
-				final String uuid = ((UUID) id).toString();
-				node = context.getSession().getNodeByUUID(uuid);
+				if (true == context.getSession().getRootNode().hasNode(((Path) id).toString())) {
+					node = context.getSession().getRootNode().getNode(((Path) id).toString());
+				} else if (createNode) {
+					node = context.getSession().getRootNode().addNode(((Path) id).toString());
+				}
 			}
 			return new JcrPersistenceDelegate(session, mapping, node);
 		} catch (final PathNotFoundException e) {

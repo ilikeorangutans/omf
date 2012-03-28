@@ -3,6 +3,7 @@ package org.om.core.impl.session;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
+import junit.framework.Assert;
 
 import org.junit.Test;
 import org.om.core.api.mapping.registry.MappingRegistry;
@@ -16,6 +17,10 @@ import org.om.core.impl.persistence.delegate.TestingDelegateFactory;
 import org.om.core.impl.persistence.delegate.TestingPersistenceContext;
 import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
 
+/**
+ * @author Jakob Külzer
+ * @author tom
+ */
 public class ImmutableSessionImplTest {
 
 	@Test
@@ -45,4 +50,31 @@ public class ImmutableSessionImplTest {
 		assertThat(referencedEntity, notNullValue());
 	}
 
+	@Test
+	public void testSetGetWithPrimitiveProperties() {
+		/*
+		 * some setup
+		 */
+		MappingRegistry mappingRegistry = new OnDemandMappingRegistry(new EntityMappingExtractorImpl());
+		Session session = new ImmutableSessionImpl(null, new TestingDelegateFactory(), mappingRegistry, new CglibProxyFactory(
+				new PersistenceInterceptorFactoryImpl()));
+		Assert.assertNotNull(session);
+		/*
+		 * an entity with an Id
+		 */
+		EntityWithPrimitiveProperties ewpp = new EntityWithPrimitiveProperties();
+		ewpp.setId("tge");
+		ewpp.setPrimitiveInt(15);
+		/*
+		 * save it
+		 */
+		session.save(ewpp);
+		/*
+		 * get it back
+		 */
+		EntityWithPrimitiveProperties ewpp2 = session.get(EntityWithPrimitiveProperties.class, "");
+		Assert.assertNotNull(ewpp2);
+		System.out.println(ewpp2.getId());
+		Assert.assertTrue(ewpp2.getId().compareTo("tge") == 0);
+	}
 }

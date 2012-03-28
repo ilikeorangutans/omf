@@ -39,9 +39,10 @@
 
 	<modules>
 		<module>omf-parent</module>
-		<module>dynabean</module>	
 		<module>core</module>
+		<module>jcrcache</module>
 		<module>dao</module>
+		<module>http</module>
 		<module>jcr2pojo</module>
 		<module>examples</module>
 		<module>objectmanager-maven-plugin</module>

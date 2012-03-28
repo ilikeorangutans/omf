@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<beans xmlns="http://org.om.dynabean">
+<bean name="jcrsessionfactory">
+		<class>org.om.core.impl.persistence.jcr.sessionfactory.impl.SessionPerThreadJCRSessionFactoryDecorator</class>
+		<arguments>
+			<argument reference="true">
+				<value>jcrsessionactualfactory</value>
+			</argument>
+		</arguments>
+	</bean>
+	<bean name="jcrsessionactualfactory">
+		<class>org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfiguredJCRSessionFactory</class>
+		<arguments>
+			<argument>
+				<value>/objectmanagerjcr.properties</value>
+			</argument>
+		</arguments>
+	</bean>
+	<bean name="jcrpersistencecontext">
+		<class>org.om.core.impl.persistence.jcr.JcrPersistenceContext</class>
+		<arguments>
+			<argument reference="true">
+				<value>jcrsessionfactory</value>
+			</argument>
+		</arguments>
+	</bean>
+	<bean name="persistencedelegatefactory">
+		<class>org.om.core.impl.persistence.jcr.JcrPersistenceDelegateFactory</class>
+	</bean>
+	<bean name="omsessionfactory">
+		<class>org.om.core.impl.session.factory.DefaultSessionFactory</class>
+		<arguments>
+			<argument reference="true">
+				<value>persistencedelegatefactory</value>
+			</argument>
+		</arguments>
+	</bean>
+</beans>
+
