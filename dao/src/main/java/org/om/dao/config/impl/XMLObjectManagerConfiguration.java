@@ -76,7 +76,7 @@ public class XMLObjectManagerConfiguration implements ObjectManagerConfiguration
 				 * dynamic xml beans
 				 */
 				final IOCBeanRegistry iocRegistry = new DefaultIOCBeanRegistry();
-				iocRegistry.load(inputStream, null);
+				iocRegistry.load(inputStream);
 				/*
 				 * populate the beans we need
 				 */

@@ -1,7 +1,5 @@
 package com.om.examples.example4.service;
 
-import org.om.dao.annotation.transactional.filter.TransactionalIOCInstantiationFilter;
-
 import com.khubla.simpleioc.IOCBeanRegistry;
 import com.khubla.simpleioc.impl.DefaultIOCBeanRegistry;
 
@@ -34,7 +32,7 @@ public class MyServiceFactory {
 	 */
 	private MyServiceFactory() {
 		ioc = new DefaultIOCBeanRegistry();
-		ioc.load("/objectmanager.xml", new TransactionalIOCInstantiationFilter());
+		ioc.load("/objectmanager.xml");
 	}
 
 	/**
