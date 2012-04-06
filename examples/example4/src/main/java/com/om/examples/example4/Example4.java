@@ -1,7 +1,8 @@
 package com.om.examples.example4;
 
+import com.khubla.simpleioc.IOCBeanRegistry;
+import com.khubla.simpleioc.impl.DefaultIOCBeanRegistry;
 import com.om.examples.example4.service.MyService;
-import com.om.examples.example4.service.MyServiceFactory;
 
 /**
  * 
@@ -10,10 +11,16 @@ import com.om.examples.example4.service.MyServiceFactory;
  */
 public class Example4 {
 	/**
+	 * service
+	 */
+	private static IOCBeanRegistry ioc = new DefaultIOCBeanRegistry();
+
+	/**
 	 * void main
 	 */
 	public static void main(String args[]) throws java.io.IOException, java.io.FileNotFoundException {
-		final MyService myService = MyServiceFactory.getInstance().getMyService();
-		myService.doStuff();
+		ioc.load("/objectmanager.xml");
+		MyService svc = (MyService) ioc.getBean("myservice");
+		svc.doStuff();
 	}
 }

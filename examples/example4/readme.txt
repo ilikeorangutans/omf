@@ -1,1 +1,2 @@
-example two shows configuration of OM DAO using a simple LRU cache for JCR items 
+example four shows the use of services and daos with the @Inject and @RegsitryBean annotations.
+

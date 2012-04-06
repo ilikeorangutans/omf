@@ -38,11 +38,16 @@
 			</argument>
 		</arguments>
 	</bean>
-	<bean name="myservice">
-		<class>com.om.examples.example4.service.MyServiceImpl</class>
-	</bean>
+<!-- 
 	<filter>
 		<class>org.om.dao.annotation.transactional.filter.TransactionalIOCInstantiationFilter</class>
 	</filter>
+	 -->
+	<filter>
+		<class>com.khubla.simpleioc.filter.impl.JSR330Filter</class>
+	</filter>
+	<package>
+		<name>com.om.examples.example4</name>
+	</package>
 </beans>
 

@@ -4,7 +4,11 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.khubla.simpleioc.IOCBeanRegistry;
+import com.khubla.simpleioc.impl.DefaultIOCBeanRegistry;
 import com.om.examples.example4.Example4;
+import com.om.examples.example4.service.MyService;
+import com.om.examples.example4.service.MyServiceImpl;
 
 /**
  * 
@@ -16,6 +20,23 @@ public class TestExample {
 	public void test() {
 		try {
 			Example4.main(null);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Assert.fail();
+		}
+	}
+
+	/**
+	 * test that we can get the service and that it has the DAO
+	 */
+	@Test
+	public void test2() {
+		try {
+			IOCBeanRegistry ioc = new DefaultIOCBeanRegistry();
+			ioc.load("/objectmanager.xml");
+			MyService svc = (MyService) ioc.getBean("myservice");
+			Assert.assertNotNull(svc);
+			Assert.assertNotNull(((MyServiceImpl) svc).getMypojodao());
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
