@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>com.khubla</groupId>
 			<artifactId>simpleioc</artifactId>
-			<version>1.0.5-SNAPSHOT</version>
+			<version>1.0.6-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.transaction</groupId>
