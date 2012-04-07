@@ -3,12 +3,13 @@ package org.om.examples.example4;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.om.dao.genericdao.GenericDAO;
 
 import com.khubla.simpleioc.IOCBeanRegistry;
 import com.khubla.simpleioc.impl.DefaultIOCBeanRegistry;
 import com.om.examples.example4.Example4;
+import com.om.examples.example4.pojo.MyPojo;
 import com.om.examples.example4.service.MyService;
-import com.om.examples.example4.service.MyServiceImpl;
 
 /**
  * 
@@ -36,7 +37,8 @@ public class TestExample {
 			ioc.load("/objectmanager.xml");
 			MyService svc = (MyService) ioc.getBean("myservice");
 			Assert.assertNotNull(svc);
-			Assert.assertNotNull(((MyServiceImpl) svc).getMypojodao());
+			GenericDAO<MyPojo> dao = svc.getMypojodao();
+			Assert.assertNotNull(dao);
 		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail();
