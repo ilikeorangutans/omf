@@ -1,9 +1,11 @@
 package org.om.core.impl.persistence.interceptor;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 
 import org.om.core.api.annotation.PropertyMissingStrategy;
 import org.om.core.api.exception.ObjectMapperException;
+import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceDelegate;
@@ -32,7 +34,7 @@ final class MissingBehaviorPersistenceDelegateDecorator implements PersistenceDe
 		return delegate.canProvide(mapping);
 	}
 
-	public Object getProperty(Mapping mapping) {
+	public Object getProperty(PropertyMapping mapping) {
 
 		final boolean canProvide = delegate.canProvide(mapping);
 		if (canProvide) {
@@ -89,6 +91,10 @@ final class MissingBehaviorPersistenceDelegateDecorator implements PersistenceDe
 
 	public void delete() throws ObjectMapperException {
 		delegate.delete();
+	}
+
+	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+		return delegate.getCollection(collectionMapping);
 	}
 
 }

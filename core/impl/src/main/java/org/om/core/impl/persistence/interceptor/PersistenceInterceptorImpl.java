@@ -36,8 +36,7 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 		final ItemHandler handler = handlerFactory.get(session, mapping);
 		assert handler != null : "No handler for property mapping " + mapping + " found.";
 
-		final Object value = delegate.getProperty(mapping);
-		return handler.retrieve(mapping, value);
+		return handler.retrieve(mapping, delegate);
 	}
 
 }

@@ -4,6 +4,8 @@ import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 
 import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.persistence.PersistenceDelegate;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 
 /**
@@ -17,7 +19,8 @@ import org.om.core.api.persistence.interceptor.handler.ItemHandler;
  */
 public class PrimitivePropertyHandler implements ItemHandler {
 
-	public Object retrieve(Mapping mapping, Object input) {
+	public Object retrieve(Mapping mapping, PersistenceDelegate delegate) {
+		final Object input = delegate.getProperty((PropertyMapping) mapping);
 
 		if (input == null)
 			return null;

@@ -1,6 +1,7 @@
 package org.om.core.api.persistence.interceptor.handler;
 
 import org.om.core.api.mapping.Mapping;
+import org.om.core.api.persistence.PersistenceDelegate;
 
 /**
  * Handles the actual translation from the storage repository provided value
@@ -12,12 +13,13 @@ import org.om.core.api.mapping.Mapping;
 public interface ItemHandler {
 
 	/**
-	 * Handles the given input value.
+	 * Retrieves the object described by the mapping form the given
+	 * {@link PersistenceDelegate}.
 	 * 
 	 * @param propertyMapping
 	 * @param input
 	 * @return
 	 */
-	Object retrieve(Mapping mapping, Object input);
+	Object retrieve(Mapping mapping, PersistenceDelegate delegate);
 
 }

@@ -12,6 +12,6 @@ import org.om.core.api.persistence.PersistenceDelegate;
  */
 public interface PersistenceInterceptor {
 
-	Object getProperty(Mapping propertyMapping);
+	Object getProperty(Mapping mapping);
 
 }

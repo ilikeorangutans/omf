@@ -1,5 +1,10 @@
 package org.om.core.api.annotation;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 import org.om.core.api.exception.PropertyMissingException;
 
 /**
@@ -12,6 +17,8 @@ import org.om.core.api.exception.PropertyMissingException;
  * @author Jakob Külzer
  * 
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
 public @interface Collection {
 
 	public static final String LOCATION_RELATIVE_USING_FIELDNAME = "";

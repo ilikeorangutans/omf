@@ -3,6 +3,7 @@ package org.om.core.impl.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.om.core.api.annotation.Entity;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.PropertyMapping;
 
@@ -60,5 +61,15 @@ public class EntityUtils {
 		 * return the value
 		 */
 		return getter.invoke(object, (Object[]) null);
+	}
+
+	/**
+	 * Returns true if the given class object is annotated with @{@link Entity}.
+	 * 
+	 * @param clazz
+	 * @return
+	 */
+	public static boolean isEntity(Class<?> clazz) {
+		return clazz.getAnnotation(Entity.class) != null;
 	}
 }

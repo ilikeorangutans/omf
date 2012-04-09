@@ -1,8 +1,12 @@
 package org.om.core.api.persistence;
 
-import org.om.core.api.mapping.Mapping;
+import java.util.Collection;
+
 import org.om.core.api.exception.ObjectMapperException;
+import org.om.core.api.mapping.CollectionMapping;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 
 /**
  * A persistence delegate implements actual access to properties through the
@@ -29,7 +33,22 @@ public interface PersistenceDelegate {
 	 * @param propertyMapping
 	 * @return
 	 */
-	Object getProperty(Mapping mapping) throws ObjectMapperException;
+	Object getProperty(PropertyMapping mapping) throws ObjectMapperException;
+
+	/**
+	 * Retrieves the given collection. Implementations should return a
+	 * collection that contains <b>all</b> identifiers for all elements in this
+	 * collection.
+	 * 
+	 * The idea is that the actual persistence backend should be able to
+	 * retrieve information like size of the collection or sequence of entries
+	 * in a more performant way than the backend agnostic
+	 * {@link PersistenceInterceptor} is able.
+	 * 
+	 * @param collectionMapping
+	 * @return
+	 */
+	Collection<?> getCollection(CollectionMapping collectionMapping);
 
 	/**
 	 * Returns true if the delegate can provide a value for the given mapping.

@@ -50,10 +50,10 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 			return proxy.invokeSuper(obj, args);
 		}
 
-		final Mapping propertyMapping = entityMapping.getMappingByField(fieldName);
-		LOG.trace("Retrieved property mapping {}", propertyMapping);
+		final Mapping mapping = entityMapping.getMappingByField(fieldName);
+		LOG.trace("Retrieved property mapping {}", mapping);
 
-		return interceptor.getProperty(propertyMapping);
+		return interceptor.getProperty(mapping);
 	}
 
 	public String extractFieldName(String name) {

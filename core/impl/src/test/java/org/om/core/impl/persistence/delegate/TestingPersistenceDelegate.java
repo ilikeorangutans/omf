@@ -1,6 +1,9 @@
 package org.om.core.impl.persistence.delegate;
 
+import java.util.Collection;
+
 import org.om.core.api.exception.ObjectMapperException;
+import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
@@ -31,7 +34,7 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 		return this;
 	}
 
-	public Object getProperty(Mapping propertyMapping) {
+	public Object getProperty(PropertyMapping propertyMapping) {
 		return persistenceContext.getProperty(propertyMapping);
 	}
 
@@ -45,6 +48,11 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 
 	public void delete() throws ObjectMapperException {
 		// do nothing
+	}
+
+	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

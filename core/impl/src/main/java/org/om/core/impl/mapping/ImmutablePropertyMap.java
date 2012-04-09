@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.om.core.api.exception.MappingException;
+import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.ItemMap;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
@@ -26,26 +27,31 @@ public class ImmutablePropertyMap implements ItemMap {
 	public ImmutablePropertyMap(Set<Mapping> mappings) {
 		final Map<String, PropertyMapping> tmpProps = new HashMap<String, PropertyMapping>();
 		final Map<String, Mapping> tmpFields = new HashMap<String, Mapping>();
-		for (Mapping im : mappings) {
+		for (Mapping mapping : mappings) {
 
-			if (im.isId()) {
+			if (mapping.isId()) {
 				if (id != null)
 					throw new MappingException("Found more than one @Id property!");
 
-				id = (PropertyMapping) im;
+				id = (PropertyMapping) mapping;
 			}
 
-			assert !tmpFields.containsKey(im.getFieldname()) : "How is this possible? Fieldname appeared twice in mapping.";
+			assert !tmpFields.containsKey(mapping.getFieldname()) : "How is this possible? Fieldname appeared twice in mapping.";
 
-			if (im instanceof PropertyMapping) {
-				PropertyMapping propertyMapping = (PropertyMapping) im;
+			if (mapping instanceof PropertyMapping) {
+				final PropertyMapping propertyMapping = (PropertyMapping) mapping;
 
 				if (tmpProps.containsKey(propertyMapping.getPropertyName()))
 					throw new MappingException("Property " + propertyMapping.getPropertyName() + " is mapped twice.");
 
 				tmpProps.put(propertyMapping.getPropertyName(), propertyMapping);
 			}
-			tmpFields.put(im.getFieldname(), im);
+
+			if (mapping instanceof CollectionMapping) {
+				final CollectionMapping collectionMapping = (CollectionMapping) mapping;
+
+			}
+			tmpFields.put(mapping.getFieldname(), mapping);
 		}
 
 		this.properties = Collections.unmodifiableMap(tmpProps);
@@ -77,7 +83,7 @@ public class ImmutablePropertyMap implements ItemMap {
 	}
 
 	public int getSize() {
-		return properties.size();
+		return fields.size();
 	}
 
 	public boolean isEmpty() {

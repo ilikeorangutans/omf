@@ -15,4 +15,11 @@ public interface CollectionMapping extends Mapping {
 	 */
 	String getLocation();
 
+	/**
+	 * Returns the type of collection members.
+	 * 
+	 * @return
+	 */
+	Class<?> getTargetType();
+
 }

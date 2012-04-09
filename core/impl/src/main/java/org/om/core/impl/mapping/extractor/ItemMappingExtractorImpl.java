@@ -1,10 +1,10 @@
 package org.om.core.impl.mapping.extractor;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.om.core.api.annotation.Collection;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
 import org.om.core.api.annotation.Property;
@@ -17,6 +17,7 @@ import org.om.core.impl.mapping.ImmutableCollectionMapping;
 import org.om.core.impl.mapping.ImmutablePropertyMap;
 import org.om.core.impl.mapping.ImmutablePropertyMapping;
 import org.om.core.impl.util.ClassUtils;
+import org.om.core.impl.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +69,10 @@ public class ItemMappingExtractorImpl implements ItemMappingExtractor {
 		if (field == null)
 			throw new NullPointerException("Cannot extract property mapping from field, it's null.");
 
+		LOGGER.trace("Extracting mapping for field {}", field.getName());
+
 		final Property annotation = field.getAnnotation(Property.class);
+		final Collection collection = field.getAnnotation(Collection.class);
 		final String fieldname = field.getName();
 		if (annotation == null)
 			throw new MappingException("Cannot extract mapping from field " + fieldname + ", no annotation!");
@@ -86,13 +90,22 @@ public class ItemMappingExtractorImpl implements ItemMappingExtractor {
 		final Class<?> type = field.getType();
 
 		final boolean primitiveOrAutoboxed = ClassUtils.isPrimitiveOrAutoboxed(type) || String.class.equals(type);
-		final boolean collectionType = Collection.class.isAssignableFrom(type);
+		final boolean collectionType = collection != null;
 		final boolean referenceType = !collectionType;
 		if (primitiveOrAutoboxed || referenceType) {
 			return new ImmutablePropertyMapping(fieldname, isId, propertyName, type, annotation.defaultValue(), annotation.missingStrategy(),
 					annotation.missingException());
 		} else if (collectionType) {
-			return new ImmutableCollectionMapping(fieldname, type, "", annotation.missingStrategy(), annotation.missingException());
+			final Class<?> targetType = collection.targetType();
+			// TODO: this behaviour should be moved into a separate model
+			// validator.
+			final boolean validTargetType = String.class.equals(targetType) || EntityUtils.isEntity(targetType)
+					|| ClassUtils.isPrimitiveOrAutoboxed(targetType);
+			if (!validTargetType)
+				throw new MappingException("Target type " + targetType.getName() + " is not an entity.");
+
+			// TODO: Add location
+			return new ImmutableCollectionMapping(fieldname, type, targetType, "", annotation.missingStrategy(), annotation.missingException());
 		} else {
 			throw new MappingException("Don't know how to map field " + fieldname + " of type " + type);
 		}

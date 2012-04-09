@@ -1,6 +1,8 @@
 package org.om.core.impl.persistence.interceptor.handler;
 
 import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.persistence.PersistenceDelegate;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 import org.om.core.api.session.Session;
 
@@ -18,8 +20,8 @@ public class ReferencePropertyHandler implements ItemHandler {
 		this.session = session;
 	}
 
-	public Object retrieve(Mapping mapping, Object input) {
-		return session.get(mapping.getFieldType(), input);
+	public Object retrieve(Mapping mapping, PersistenceDelegate delegate) {
+		return session.get(mapping.getFieldType(), delegate.getProperty((PropertyMapping) mapping));
 	}
 
 }
