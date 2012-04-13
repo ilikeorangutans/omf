@@ -10,8 +10,8 @@
 	<name>Object Mapper - Generic DAO</name>
 	<repositories>
 		<repository>
-			<id>xmlautobeans</id>
-			<name>XML Auto beans</name>
+			<id>simpleIOC</id>
+			<name>khubla.com simpleIOC</name>
 			<url>https://github.com/khubla/simpleioc/tree/master/maven/repository</url>
 		</repository>
 	</repositories>
@@ -32,9 +32,9 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.khubla</groupId>
-			<artifactId>simpleioc</artifactId>
-			<version>1.0.7-SNAPSHOT</version>
+			<groupId>com.khubla.simpleioc</groupId>
+			<artifactId>simpleioc-core</artifactId>
+			<version>1.0.12-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.transaction</groupId>
