@@ -8,4 +8,10 @@ package org.om.core.api.annotation;
  */
 public @interface FetchType {
 
+	public enum Strategy {
+		Eager, Lazy
+	}
+
+	public Strategy value() default Strategy.Eager;
+
 }

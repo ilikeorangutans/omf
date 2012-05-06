@@ -6,12 +6,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.ItemMap;
-import org.om.core.api.mapping.Mapping;
 import org.om.core.impl.mapping.EntityWithCollections;
 import org.om.core.impl.mapping.EntityWithInvalidCollectionMapping;
 

@@ -12,6 +12,12 @@ import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.interceptor.handler.collection.ListWrapper;
 
+/**
+ * An {@link ItemHandler} that access collections.
+ * 
+ * @author Jakob Külzer
+ * 
+ */
 public class CollectionPropertyHandler implements ItemHandler {
 
 	private final Session session;

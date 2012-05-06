@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.om.core.api.annotation;
 
 import java.lang.annotation.ElementType;
