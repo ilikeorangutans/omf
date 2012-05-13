@@ -1,8 +1,11 @@
 package org.om.core.impl.persistence.jcr;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.Property;
 import javax.jcr.RepositoryException;
 
@@ -45,6 +48,8 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 		this.node = node;
 		this.session = session;
 		this.entityMapping = entityMapping;
+
+		LOGGER.trace("New JcrPersistenceDelegate for {} with {}", node, entityMapping);
 	}
 
 	public Object getProperty(PropertyMapping propertyMapping) {
@@ -70,8 +75,22 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 
 	public Collection<?> getCollection(CollectionMapping collectionMapping) {
 
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			final List<String> paths = new LinkedList<String>();
+
+			final String location = collectionMapping.getLocation();
+			final Node collectionContainer = node.getNode(location);
+
+			for (NodeIterator ni = collectionContainer.getNodes(); ni.hasNext();) {
+				final Node child = ni.nextNode();
+				paths.add(child.getPath());
+			}
+
+			return paths;
+
+		} catch (RepositoryException e) {
+			throw new ObjectMapperException("Could not retrieve collection from ");
+		}
 	}
 
 	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
@@ -114,7 +133,7 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 			return false;
 
 		} catch (final RepositoryException e) {
-			throw new ObjectMapperException("Exception in hasProperty", e);
+			throw new ObjectMapperException("Exception while retrieving property " + mapping.getFieldname(), e);
 		}
 	}
 }

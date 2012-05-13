@@ -1,5 +1,7 @@
 package org.om.core.impl.persistence.cglib;
 
+import javax.inject.Inject;
+
 import net.sf.cglib.proxy.Enhancer;
 
 import org.om.core.api.mapping.EntityMapping;
@@ -16,6 +18,7 @@ public class CglibProxyFactory implements ProxyFactory {
 
 	private final PersistenceInterceptorFactory interceptorFactory;
 
+	@Inject
 	public CglibProxyFactory(PersistenceInterceptorFactory interceptorFactory) {
 		this.interceptorFactory = interceptorFactory;
 	}

@@ -49,7 +49,6 @@ public abstract class BaseTestSessionFactory {
 		bar.setProperty("foobar", "Horray!!");
 		bar.setProperty("mycoolfield", "1000000");
 
-		recurse(rootNode);
 		session.logout();
 	}
 

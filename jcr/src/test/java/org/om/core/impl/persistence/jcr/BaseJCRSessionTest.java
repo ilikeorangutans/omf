@@ -7,6 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.om.core.api.session.factory.SessionFactory;
+import org.om.core.impl.entity.TestEntity;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.mapping.registry.OnDemandMappingRegistry;
 import org.om.core.impl.persistence.cglib.CglibProxyFactory;

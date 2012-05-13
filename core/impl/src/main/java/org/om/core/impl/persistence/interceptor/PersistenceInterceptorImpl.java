@@ -1,5 +1,8 @@
 package org.om.core.impl.persistence.interceptor;
 
+import java.util.Collection;
+
+import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.persistence.PersistenceDelegate;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
@@ -37,6 +40,10 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 		assert handler != null : "No handler for property mapping " + mapping + " found.";
 
 		return handler.retrieve(mapping, delegate);
+	}
+
+	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+		return null;
 	}
 
 }

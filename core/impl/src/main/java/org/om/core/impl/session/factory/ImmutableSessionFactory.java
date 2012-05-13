@@ -1,5 +1,7 @@
 package org.om.core.impl.session.factory;
 
+import javax.inject.Inject;
+
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceDelegateFactory;
@@ -14,6 +16,7 @@ public class ImmutableSessionFactory implements SessionFactory {
 	private final ProxyFactory proxyFactory;
 	private final PersistenceDelegateFactory persistenceDelegateFactory;
 
+	@Inject
 	public ImmutableSessionFactory(PersistenceDelegateFactory persistenceDelegateFactory, MappingRegistry mappingRegistry, ProxyFactory proxyFactory) {
 		this.persistenceDelegateFactory = persistenceDelegateFactory;
 		this.mappingRegistry = mappingRegistry;

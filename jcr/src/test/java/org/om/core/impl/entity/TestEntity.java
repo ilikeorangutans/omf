@@ -1,4 +1,4 @@
-package org.om.core.impl.persistence.jcr;
+package org.om.core.impl.entity;
 
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;

@@ -22,20 +22,30 @@ public class JcrPersistenceDelegateFactory implements PersistenceDelegateFactory
 	public PersistenceDelegate create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
 		final JcrPersistenceContext context = (JcrPersistenceContext) persistenceContext;
 		try {
-			Node node = null;
+
+			final String path;
 			if (id instanceof String) {
-				if (true == context.getSession().getRootNode().hasNode((String) id)) {
-					node = context.getSession().getRootNode().getNode((String) id);
-				} else if (createNode) {
-					node = context.getSession().getRootNode().addNode((String) id);
-				}
+				path = (String) id;
 			} else if (id instanceof Path) {
-				if (true == context.getSession().getRootNode().hasNode(((Path) id).toString())) {
-					node = context.getSession().getRootNode().getNode(((Path) id).toString());
-				} else if (createNode) {
-					node = context.getSession().getRootNode().addNode(((Path) id).toString());
-				}
+				path = ((Path) id).toString();
+			} else {
+				throw new IllegalArgumentException();
 			}
+
+			final Node rootNode = context.getSession().getRootNode();
+			Node node = null;
+
+			if (true == rootNode.hasNode(path)) {
+				node = rootNode.getNode(path);
+			} else if (createNode) {
+				// TODO: If the node cannot be found, we should return a proxy
+				// object that records all changes and can be flushed if the
+				// transaction is committed.
+				node = rootNode.addNode(path);
+			} else {
+				throw new org.om.core.api.exception.PathNotFoundException(new Path(path));
+			}
+
 			return new JcrPersistenceDelegate(session, mapping, node);
 		} catch (final PathNotFoundException e) {
 			throw new org.om.core.api.exception.PathNotFoundException(null);
