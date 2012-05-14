@@ -33,7 +33,7 @@ public class TransientRepoTestEnv extends GuiceBerryModule {
 	@Provides
 	@Singleton
 	public Repository createRepository() {
-		System.out.println("SampleJcrEnv.createRepository() building repo");
+		System.out.println("SampleJcrEnv.createRepository() creating repo");
 		File dir = new File("target/transientrepo");
 		return new TransientRepository(dir);
 	}

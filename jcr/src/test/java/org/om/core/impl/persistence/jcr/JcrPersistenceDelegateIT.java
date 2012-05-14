@@ -7,7 +7,9 @@ import static org.junit.Assert.fail;
 
 import javax.inject.Inject;
 import javax.jcr.Node;
+import javax.jcr.NodeIterator;
 import javax.jcr.Repository;
+import javax.jcr.RepositoryException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -43,7 +45,7 @@ public class JcrPersistenceDelegateIT {
 
 	@Before
 	public void setUp() throws Exception {
-		rootnode = jcrSession.getRootNode().addNode("collection");
+		rootnode = jcrSession.getRootNode();
 	}
 
 	@After
@@ -52,12 +54,29 @@ public class JcrPersistenceDelegateIT {
 	}
 
 	@Test
+	public void testSimpleEntity() throws Exception {
+
+		Node node = rootnode.addNode("entity");
+
+		PersistenceContext persistenceContext = new JcrPersistenceContext(jcrSession);
+		Session session = sessionFactory.getSession(persistenceContext);
+
+		TestEntity testEntity = session.get(TestEntity.class, "entity");
+
+		assertThat(testEntity, notNullValue());
+		assertThat(testEntity.getBlargh(), is(3131));
+	}
+
+	@Test
 	public void testSimpleCollection() throws Exception {
 
-		rootnode.addNode("element1").setProperty("value", "first value");
-		rootnode.addNode("element2").setProperty("value", "second value");
+		Node node = rootnode.addNode("collection");
+		node.addNode("element1").setProperty("value", "first value");
+		node.addNode("element2").setProperty("value", "second value");
 
-		Session session = sessionFactory.getSession(new JcrPersistenceContext(jcrSessionFactory));
+		// recurse(rootnode);
+
+		Session session = sessionFactory.getSession(new JcrPersistenceContext(jcrSession));
 		System.out.println("JcrPersistenceDelegateIT.test() Got session " + session);
 
 		CollectionTestEntity entity = session.get(CollectionTestEntity.class, "collection");
@@ -67,17 +86,11 @@ public class JcrPersistenceDelegateIT {
 		fail("Not yet implemented");
 	}
 
-	@Test
-	public void testSimpleEntity() throws Exception {
+	private void recurse(Node node) throws RepositoryException {
+		System.out.println("JcrPersistenceDelegateIT.recurse() " + node.getPath());
+		for (NodeIterator ni = node.getNodes(); ni.hasNext();) {
+			recurse(ni.nextNode());
+		}
 
-		Node node = rootnode.addNode("entity");
-
-		PersistenceContext persistenceContext = new JcrPersistenceContext(jcrSessionFactory);
-		Session session = sessionFactory.getSession(persistenceContext);
-
-		TestEntity testEntity = session.get(TestEntity.class, "entity");
-
-		assertThat(testEntity, notNullValue());
-		assertThat(testEntity.getBlargh(), is(3131));
 	}
 }

@@ -5,11 +5,13 @@ import javax.jcr.Session;
 /**
  * A factory for JCR sessions.
  * 
+ * @author Jakob Külzer
  * @author tome
  */
 public interface JCRSessionFactory {
+
 	/**
-	 * get a JCR Session
+	 * Returns a JCR Session.
 	 */
 	Session getSession();
 }
