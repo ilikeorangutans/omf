@@ -5,6 +5,8 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -18,6 +20,7 @@ import org.junit.Test;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.session.Session;
 import org.om.core.api.session.factory.SessionFactory;
+import org.om.core.impl.entity.ChildEntity;
 import org.om.core.impl.entity.CollectionTestEntity;
 import org.om.core.impl.entity.TestEntity;
 import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
@@ -64,6 +67,7 @@ public class JcrPersistenceDelegateIT {
 		TestEntity testEntity = session.get(TestEntity.class, "entity");
 
 		assertThat(testEntity, notNullValue());
+		assertThat(testEntity.getId(), is(""));
 		assertThat(testEntity.getBlargh(), is(3131));
 	}
 
@@ -74,23 +78,15 @@ public class JcrPersistenceDelegateIT {
 		node.addNode("element1").setProperty("value", "first value");
 		node.addNode("element2").setProperty("value", "second value");
 
-		// recurse(rootnode);
-
 		Session session = sessionFactory.getSession(new JcrPersistenceContext(jcrSession));
 		System.out.println("JcrPersistenceDelegateIT.test() Got session " + session);
 
 		CollectionTestEntity entity = session.get(CollectionTestEntity.class, "collection");
 
-		System.out.println("JcrPersistenceDelegateIT.test() got entity " + entity);
-
-		fail("Not yet implemented");
-	}
-
-	private void recurse(Node node) throws RepositoryException {
-		System.out.println("JcrPersistenceDelegateIT.recurse() " + node.getPath());
-		for (NodeIterator ni = node.getNodes(); ni.hasNext();) {
-			recurse(ni.nextNode());
-		}
+		assertThat(entity, notNullValue());
+		List<ChildEntity> list = entity.getList();
+		assertThat(list, notNullValue());
 
 	}
+
 }

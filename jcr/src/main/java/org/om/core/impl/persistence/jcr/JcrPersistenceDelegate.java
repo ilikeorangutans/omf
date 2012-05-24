@@ -89,7 +89,7 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 			return paths;
 
 		} catch (RepositoryException e) {
-			throw new ObjectMapperException("Could not retrieve collection from ");
+			throw new ObjectMapperException("Could not retrieve collection from " + collectionMapping.getLocation());
 		}
 	}
 
