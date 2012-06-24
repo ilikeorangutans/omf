@@ -8,11 +8,18 @@ import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 
-public class TestingPassThroughPersistenceDelegate implements PersistenceAdapter {
+/**
+ * {@link PersistenceAdapter} that will just pass through the object given at
+ * construction time. Used for testing.
+ * 
+ * @author Jakob Külzer
+ * 
+ */
+public class TestingPassThroughPersistenceAdapter implements PersistenceAdapter {
 
 	private final Object object;
 
-	public TestingPassThroughPersistenceDelegate(Object object) {
+	public TestingPassThroughPersistenceAdapter(Object object) {
 		this.object = object;
 	}
 

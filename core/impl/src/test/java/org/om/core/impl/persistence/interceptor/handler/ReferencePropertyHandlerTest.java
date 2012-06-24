@@ -39,7 +39,7 @@ public class ReferencePropertyHandlerTest {
 
 		ReferencePropertyHandler handler = new ReferencePropertyHandler(session);
 
-		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("/foo/bar");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter("/foo/bar");
 		Object retrieve = handler.retrieve(new ImmutablePropertyMapping("fieldname", false, "fieldname", EntityWithPrimitiveProperties.class, null,
 				PropertyMissingStrategy.ReturnNull, null), delegate);
 

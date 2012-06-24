@@ -19,7 +19,7 @@ public class PrimitivePropertyHandlerTest {
 		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate(null);
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter(null);
 		Object retrieve = handler.retrieve(mapping.getField("fieldWithDefaultSettings"), delegate);
 
 		assertThat(retrieve, nullValue());
@@ -30,7 +30,7 @@ public class PrimitivePropertyHandlerTest {
 		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("I'm a String!");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter("I'm a String!");
 		String retrieve = (String) handler.retrieve(mapping.getField("fieldWithDefaultSettings"), delegate);
 
 		assertThat(retrieve, notNullValue());
@@ -42,7 +42,7 @@ public class PrimitivePropertyHandlerTest {
 		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("1234");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter("1234");
 		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), delegate);
 
 		assertThat(retrieve, notNullValue());
@@ -54,7 +54,7 @@ public class PrimitivePropertyHandlerTest {
 		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("BAM");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter("BAM");
 		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), delegate);
 
 		assertThat(retrieve, notNullValue());
