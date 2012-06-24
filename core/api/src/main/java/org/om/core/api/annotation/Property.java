@@ -37,7 +37,10 @@ public @interface Property {
 	String defaultValue() default DEFAULT_VALUE;
 
 	/**
-	 * Defines how object mapper will react ot missing properties.
+	 * Defines how object mapper will react to missing properties. The default
+	 * is to return <tt>null</tt> if the referenced property cannot be found.
+	 * 
+	 * @see PropertyMissingStrategy
 	 * 
 	 * @return
 	 */
