@@ -8,13 +8,6 @@
 	</parent>
 	<artifactId>dao</artifactId>
 	<name>Object Mapper - Generic DAO</name>
-	<repositories>
-		<repository>
-			<id>simpleIOC</id>
-			<name>khubla.com simpleIOC</name>
-			<url>https://github.com/khubla/simpleioc/tree/master/maven/repository</url>
-		</repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
@@ -30,11 +23,6 @@
 			<groupId>org.objectmapper</groupId>
 			<artifactId>jcr</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.khubla.simpleioc</groupId>
-			<artifactId>simpleioc-core</artifactId>
-			<version>1.0.12-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.transaction</groupId>

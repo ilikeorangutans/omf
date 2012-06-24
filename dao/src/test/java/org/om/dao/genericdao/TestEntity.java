@@ -7,41 +7,38 @@ import org.om.core.api.annotation.PropertyMissingStrategy;
 
 @Entity
 public class TestEntity {
+   @Id
+   @Property
+   private String id;
+   @Property
+   private String foobar;
+   @Property(defaultValue = "3131", missingStrategy = PropertyMissingStrategy.DefaultValue, name = "mycoolfield")
+   private int blargh;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+   public TestEntity() {
+   }
 
-	public void setFoobar(String foobar) {
-		this.foobar = foobar;
-	}
+   public int getBlargh() {
+      return blargh;
+   }
 
-	public void setBlargh(int blargh) {
-		this.blargh = blargh;
-	}
+   public String getFoobar() {
+      return foobar;
+   }
 
-	@Id
-	@Property
-	private String id;
+   public String getId() {
+      return id;
+   }
 
-	@Property
-	private String foobar;
+   public void setBlargh(int blargh) {
+      this.blargh = blargh;
+   }
 
-	@Property(defaultValue = "3131", missingStrategy = PropertyMissingStrategy.DefaultValue, name = "mycoolfield")
-	private int blargh;
+   public void setFoobar(String foobar) {
+      this.foobar = foobar;
+   }
 
-	public TestEntity() {
-	}
-
-	public int getBlargh() {
-		return blargh;
-	}
-
-	public String getFoobar() {
-		return foobar;
-	}
-
-	public String getId() {
-		return id;
-	}
+   public void setId(String id) {
+      this.id = id;
+   }
 }
