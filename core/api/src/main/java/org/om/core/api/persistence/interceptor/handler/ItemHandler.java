@@ -16,10 +16,10 @@ public interface ItemHandler {
 	 * Retrieves the object described by the mapping form the given
 	 * {@link PersistenceAdapter}.
 	 * 
-	 * @param propertyMapping
-	 * @param input
+	 * @param mapping
+	 * @param adapter
 	 * @return
 	 */
-	Object retrieve(Mapping mapping, PersistenceAdapter delegate);
+	Object retrieve(Mapping mapping, PersistenceAdapter adapter);
 
 }

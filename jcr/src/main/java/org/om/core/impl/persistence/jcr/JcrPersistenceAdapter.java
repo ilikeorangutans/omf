@@ -123,6 +123,9 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 
 	public boolean canProvide(Mapping mapping) throws ObjectMapperException {
 		try {
+			// TODO: This method doesn't properly reflect the fact that mappings
+			// might be referencing nodes instead of properties.
+
 			// Ugly:
 			if (mapping instanceof PropertyMapping) {
 				PropertyMapping prop = (PropertyMapping) mapping;

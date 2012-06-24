@@ -7,12 +7,14 @@ import javax.jcr.RepositoryException;
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.path.Path;
-import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.PersistenceAdapterFactory;
+import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.session.Session;
+import org.om.core.impl.persistence.jcr.util.NodeRetriever;
 
 /**
+ * 
  * @author Jakob Külzer
  * @author tome
  * 
@@ -22,20 +24,23 @@ public class JcrPersistenceAdapterFactory implements PersistenceAdapterFactory {
 	public PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
 		final JcrPersistenceContext context = (JcrPersistenceContext) persistenceContext;
 		final String path;
+
+		if (id == null)
+			throw new NullPointerException("Got null ID.");
+
 		if (id instanceof String) {
 			path = (String) id;
 		} else if (id instanceof Path) {
 			path = ((Path) id).toString();
 		} else {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Not sure how to deal with ID of type " + id.getClass().getName() + ": " + id);
 		}
+
+		final NodeRetriever nodeRetriever = new NodeRetriever(context.getSession());
 
 		try {
 
-			final Node rootNode = context.getSession().getRootNode();
-			Node node = null;
-
-			node = rootNode.getNode(path);
+			final Node node = nodeRetriever.getNode(path);
 			// if (true == rootNode.hasNode(path)) {
 			// } else if (createNode) {
 			// TODO: If the node cannot be found, we should return a proxy

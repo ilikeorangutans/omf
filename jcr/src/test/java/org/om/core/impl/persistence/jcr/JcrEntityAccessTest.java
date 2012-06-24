@@ -2,6 +2,8 @@ package org.om.core.impl.persistence.jcr;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import javax.inject.Inject;
@@ -67,7 +69,7 @@ public class JcrEntityAccessTest {
 		assertThat(entity.getTestEntity().getFoobar(), is("I like pie!"));
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testRetrieveEntityWithInvalidReference() throws Exception {
 		final Node rootNode = jcrSession.getRootNode();
 		final Node foo = rootNode.addNode("foo");
@@ -75,5 +77,9 @@ public class JcrEntityAccessTest {
 
 		Session session = sessionFactory.getSession(new JcrPersistenceContext(jcrSession));
 		EntityWithReference entity = session.get(EntityWithReference.class, "/foo");
+		assertThat(entity, notNullValue());
+		assertThat("Default behavior is to return null on missing properties", entity.getTestEntity(), nullValue());
+
+		entity.getReferenceThrowingExceptionOnMissing();
 	}
 }
