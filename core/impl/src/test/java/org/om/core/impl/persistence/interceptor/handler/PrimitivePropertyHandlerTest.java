@@ -6,28 +6,32 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
-import org.om.core.api.mapping.PropertyMap;
+import org.om.core.api.mapping.ItemMap;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
-import org.om.core.impl.mapping.extractor.PropertyMappingExtractorImpl;
+import org.om.core.impl.mapping.extractor.ItemMappingExtractorImpl;
+import org.om.core.impl.persistence.delegate.TestingPersistenceDelegate;
 
 public class PrimitivePropertyHandlerTest {
 
 	@Test
 	public void testNullInput() {
-		PropertyMap mapping = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		Object retrieve = handler.retrieve(mapping.getField("fieldWithDefaultSettings"), null);
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate(null);
+		Object retrieve = handler.retrieve(mapping.getField("fieldWithDefaultSettings"), delegate);
 
 		assertThat(retrieve, nullValue());
 	}
 
 	@Test
 	public void testWithStringInput() {
-		PropertyMap mapping = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		String retrieve = (String) handler.retrieve(mapping.getField("fieldWithDefaultSettings"), "I'm a String!");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("I'm a String!");
+		String retrieve = (String) handler.retrieve(mapping.getField("fieldWithDefaultSettings"), delegate);
 
 		assertThat(retrieve, notNullValue());
 		assertThat(retrieve, is("I'm a String!"));
@@ -35,10 +39,11 @@ public class PrimitivePropertyHandlerTest {
 
 	@Test
 	public void testIntegerFieldWithStringInput() {
-		PropertyMap mapping = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), "1234");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("1234");
+		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), delegate);
 
 		assertThat(retrieve, notNullValue());
 		assertThat(retrieve, is(1234));
@@ -46,10 +51,11 @@ public class PrimitivePropertyHandlerTest {
 
 	@Test(expected = NumberFormatException.class)
 	public void testIntegerFieldWithInvalidStringInput() {
-		PropertyMap mapping = new PropertyMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), "BAM");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("BAM");
+		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), delegate);
 
 		assertThat(retrieve, notNullValue());
 		assertThat(retrieve, is(1234));

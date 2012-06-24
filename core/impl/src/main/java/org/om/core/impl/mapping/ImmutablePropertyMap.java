@@ -7,48 +7,59 @@ import java.util.Map;
 import java.util.Set;
 
 import org.om.core.api.exception.MappingException;
-import org.om.core.api.mapping.PropertyMap;
+import org.om.core.api.mapping.CollectionMapping;
+import org.om.core.api.mapping.ItemMap;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 
 /**
- * Immutable implementation of {@link PropertyMap}.
+ * Immutable implementation of {@link ItemMap}.
  * 
  * @author Jakob Külzer
  * 
  */
-public class ImmutablePropertyMap implements PropertyMap {
+public class ImmutablePropertyMap implements ItemMap {
 
 	private final Map<String, PropertyMapping> properties;
-	private final Map<String, PropertyMapping> fields;
+	private final Map<String, Mapping> fields;
 	private PropertyMapping id;
 
-	public ImmutablePropertyMap(Set<PropertyMapping> properties) {
+	public ImmutablePropertyMap(Set<Mapping> mappings) {
 		final Map<String, PropertyMapping> tmpProps = new HashMap<String, PropertyMapping>();
-		final Map<String, PropertyMapping> tmpFields = new HashMap<String, PropertyMapping>();
-		for (PropertyMapping pm : properties) {
+		final Map<String, Mapping> tmpFields = new HashMap<String, Mapping>();
+		for (Mapping mapping : mappings) {
 
-			if (pm.isId()) {
+			if (mapping.isId()) {
 				if (id != null)
 					throw new MappingException("Found more than one @Id property!");
 
-				id = pm;
+				id = (PropertyMapping) mapping;
 			}
 
-			if (tmpProps.containsKey(pm.getPropertyName()))
-				throw new MappingException("Property " + pm.getPropertyName() + " is mapped twice.");
+			assert !tmpFields.containsKey(mapping.getFieldname()) : "How is this possible? Fieldname appeared twice in mapping.";
 
-			assert !tmpFields.containsKey(pm.getFieldname()) : "How is this possible? Fieldname appeared twice in mapping.";
+			if (mapping instanceof PropertyMapping) {
+				final PropertyMapping propertyMapping = (PropertyMapping) mapping;
 
-			tmpProps.put(pm.getPropertyName(), pm);
-			tmpFields.put(pm.getFieldname(), pm);
+				if (tmpProps.containsKey(propertyMapping.getPropertyName()))
+					throw new MappingException("Property " + propertyMapping.getPropertyName() + " is mapped twice.");
+
+				tmpProps.put(propertyMapping.getPropertyName(), propertyMapping);
+			}
+
+			if (mapping instanceof CollectionMapping) {
+				final CollectionMapping collectionMapping = (CollectionMapping) mapping;
+
+			}
+			tmpFields.put(mapping.getFieldname(), mapping);
 		}
 
 		this.properties = Collections.unmodifiableMap(tmpProps);
 		this.fields = Collections.unmodifiableMap(tmpFields);
 	}
 
-	public Collection<PropertyMapping> getAll() {
-		return properties.values();
+	public Collection<Mapping> getAll() {
+		return fields.values();
 	}
 
 	public boolean hasProperty(String name) {
@@ -67,12 +78,12 @@ public class ImmutablePropertyMap implements PropertyMap {
 		return properties.get(name);
 	}
 
-	public PropertyMapping getField(String fieldname) {
+	public Mapping getField(String fieldname) {
 		return fields.get(fieldname);
 	}
 
 	public int getSize() {
-		return properties.size();
+		return fields.size();
 	}
 
 	public boolean isEmpty() {

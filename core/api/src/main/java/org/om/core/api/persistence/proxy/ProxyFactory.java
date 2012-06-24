@@ -1,7 +1,7 @@
 package org.om.core.api.persistence.proxy;
 
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.session.Session;
 
 /**
@@ -19,11 +19,11 @@ public interface ProxyFactory {
 	 * object will be bound to the given session.
 	 * 
 	 * @param persistenceDelegate
-	 *            The {@link PersistenceDelegate} the created proxy will use to
+	 *            The {@link PersistenceAdapter} the created proxy will use to
 	 *            access the persistence backend.
 	 * 
 	 * @return A proxy object for the given type.
 	 */
-	Object create(Session session, EntityMapping entityMapping, PersistenceDelegate persistenceDelegate);
+	Object create(Session session, EntityMapping entityMapping, PersistenceAdapter persistenceDelegate);
 
 }

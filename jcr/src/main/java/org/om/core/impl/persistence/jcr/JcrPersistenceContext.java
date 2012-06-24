@@ -3,7 +3,6 @@ package org.om.core.impl.persistence.jcr;
 import javax.jcr.Session;
 
 import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 /**
  * {@link PersistenceContext} for JCR repositories.
@@ -13,14 +12,14 @@ import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
  */
 public class JcrPersistenceContext implements PersistenceContext {
 
-	private final JCRSessionFactory jcrSessionFactory;
+	private final Session session;
 
-	public JcrPersistenceContext(JCRSessionFactory jcrSessionFactory) {
-		this.jcrSessionFactory = jcrSessionFactory;
+	public JcrPersistenceContext(Session session) {
+		this.session = session;
 	}
 
 	public Session getSession() {
-		return jcrSessionFactory.getSession();
+		return session;
 	}
 
 }

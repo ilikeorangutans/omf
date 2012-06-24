@@ -1,22 +1,37 @@
 package org.om.jcrcache.impl;
 
+import java.util.Collection;
+
 import org.om.core.api.exception.ObjectMapperException;
+import org.om.core.api.mapping.CollectionMapping;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.jcrcache.JCRCache;
 
 /**
  * An LRU cache which wraps a JCR persistence delegate. This class is
  * thread-safe
  * 
+ * TODO: We need to evaluate how useful this cache is. It doesn't provide any
+ * invalidation mechanisms and it potentially could cause issues in low memory
+ * scenarios. IMHO it makes more sense to use weak references. Apart from these
+ * issues, a cache on the JCR level doesn't make that much sense as the JCR
+ * implementation makes these calls fast enough already.
+ * 
+ * TODO: If we decide to go with a cache on JCR level, it might make sense to
+ * build it on an existing cache layer (Guava for example has excellent caches)
+ * instead of building our own.
+ * 
  * @author tome
+ * @author Jakob Külzer (just comments and some cleanup)
  * 
  */
 public class LRUJCRCacheImpl implements JCRCache {
 	/**
 	 * the actual PersistenceDelegate
 	 */
-	private final PersistenceDelegate persistenceDelegate;
+	private final PersistenceAdapter persistenceAdapter;
 	/**
 	 * the cache
 	 */
@@ -30,8 +45,8 @@ public class LRUJCRCacheImpl implements JCRCache {
 	/**
 	 * ctor
 	 */
-	public LRUJCRCacheImpl(PersistenceDelegate persistenceDelegate, int cacheSize) {
-		this.persistenceDelegate = persistenceDelegate;
+	public LRUJCRCacheImpl(PersistenceAdapter persistenceDelegate, int cacheSize) {
+		this.persistenceAdapter = persistenceDelegate;
 		this.cacheSize = cacheSize;
 		cache = new LRUCache<String, Object>(this.cacheSize);
 	}
@@ -50,7 +65,7 @@ public class LRUJCRCacheImpl implements JCRCache {
 				/*
 				 * fine, use the delegate
 				 */
-				ret = persistenceDelegate.getProperty(propertyMapping);
+				ret = persistenceAdapter.getProperty(propertyMapping);
 			}
 			return ret;
 		}
@@ -61,7 +76,7 @@ public class LRUJCRCacheImpl implements JCRCache {
 			/*
 			 * delegate
 			 */
-			return persistenceDelegate.hasProperty(mapping);
+			return ((LRUJCRCacheImpl) persistenceAdapter).hasProperty(mapping);
 		}
 	}
 
@@ -71,7 +86,7 @@ public class LRUJCRCacheImpl implements JCRCache {
 				/*
 				 * set via the real delegate
 				 */
-				persistenceDelegate.setProperty(propertyMapping, object);
+				persistenceAdapter.setProperty(propertyMapping, object);
 				/*
 				 * item is cached?
 				 */
@@ -102,8 +117,18 @@ public class LRUJCRCacheImpl implements JCRCache {
 			/*
 			 * delegate
 			 */
-			this.persistenceDelegate.delete();
+			this.persistenceAdapter.delete();
 		}
 
+	}
+
+	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean canProvide(Mapping mapping) throws ObjectMapperException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

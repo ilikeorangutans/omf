@@ -1,16 +1,20 @@
 package org.om.core.impl.persistence.delegate;
 
+import java.util.Collection;
+
 import org.om.core.api.exception.ObjectMapperException;
+import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 
 /**
  * @author tome
  * @author Jakob Külzer
  */
-public class TestingPersistenceDelegate implements PersistenceDelegate {
+public class TestingPersistenceDelegate implements PersistenceAdapter {
 
 	private final EntityMapping entityMapping;
 
@@ -25,17 +29,17 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 		return entityMapping;
 	}
 
-	public Object getProperty(PropertyMapping propertyMapping) throws ObjectMapperException {
-		return persistenceContext.getProperty(propertyMapping);
-	}
-
-	public TestingPersistenceDelegate addProperty(String propertyName, Object value) throws ObjectMapperException {
+	public TestingPersistenceDelegate addProperty(String propertyName, Object value) {
 		persistenceContext.addProperty(propertyName, value);
 		return this;
 	}
 
-	public boolean hasProperty(PropertyMapping mapping) throws ObjectMapperException {
-		return persistenceContext.hasProperty(mapping.getPropertyName());
+	public Object getProperty(PropertyMapping propertyMapping) {
+		return persistenceContext.getProperty(propertyMapping);
+	}
+
+	public boolean canProvide(Mapping mapping) {
+		return persistenceContext.hasProperty(mapping.getFieldname());
 	}
 
 	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
@@ -45,4 +49,10 @@ public class TestingPersistenceDelegate implements PersistenceDelegate {
 	public void delete() throws ObjectMapperException {
 		// do nothing
 	}
+
+	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

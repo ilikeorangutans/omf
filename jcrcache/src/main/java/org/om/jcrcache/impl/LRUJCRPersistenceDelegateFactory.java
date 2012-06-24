@@ -1,9 +1,9 @@
 package org.om.jcrcache.impl;
 
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.persistence.PersistenceAdapter;
+import org.om.core.api.persistence.PersistenceAdapterFactory;
 import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.api.persistence.PersistenceDelegate;
-import org.om.core.api.persistence.PersistenceDelegateFactory;
 import org.om.core.api.session.Session;
 
 /**
@@ -11,7 +11,7 @@ import org.om.core.api.session.Session;
  * @author tome
  * 
  */
-public class LRUJCRPersistenceDelegateFactory implements PersistenceDelegateFactory {
+public class LRUJCRPersistenceDelegateFactory implements PersistenceAdapterFactory {
 
 	/**
 	 * cache size
@@ -21,18 +21,18 @@ public class LRUJCRPersistenceDelegateFactory implements PersistenceDelegateFact
 	/**
 	 * actual delegate factory
 	 */
-	private final PersistenceDelegateFactory persistenceDelegateFactory;
+	private final PersistenceAdapterFactory persistenceAdapterFactory;
 
 	/**
 	 * ctor
 	 */
-	public LRUJCRPersistenceDelegateFactory(PersistenceDelegateFactory persistenceDelegateFactory, int cacheSize) {
-		this.persistenceDelegateFactory = persistenceDelegateFactory;
+	public LRUJCRPersistenceDelegateFactory(PersistenceAdapterFactory persistenceAdapterFactory, int cacheSize) {
+		this.persistenceAdapterFactory = persistenceAdapterFactory;
 		this.cacheSize = cacheSize;
 	}
 
-	public PersistenceDelegate create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
-		PersistenceDelegate actualDelegate = persistenceDelegateFactory.create(session, id, mapping, persistenceContext, createNode);
+	public PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
+		PersistenceAdapter actualDelegate = persistenceAdapterFactory.create(session, id, mapping, persistenceContext, createNode);
 		return new LRUJCRCacheImpl(actualDelegate, cacheSize);
 	}
 

@@ -3,7 +3,7 @@ package org.om.core.impl.mapping.extractor;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.PropertyMap;
+import org.om.core.api.mapping.ItemMap;
 import org.om.core.api.mapping.extractor.EntityMappingExtractor;
 import org.om.core.impl.mapping.EntityMappingImpl;
 
@@ -19,7 +19,7 @@ public class EntityMappingExtractorImpl implements EntityMappingExtractor {
 
 		final EntityMappingImpl result = new EntityMappingImpl(type);
 
-		final PropertyMap propertyMap = new PropertyMappingExtractorImpl().extract(type);
+		final ItemMap propertyMap = new ItemMappingExtractorImpl().extract(type);
 		result.setPropertyMap(propertyMap);
 
 		if (result.getIdProperty() == null) {

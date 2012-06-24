@@ -9,12 +9,14 @@ import com.google.inject.ImplementedBy;
 /**
  * A factory for JCR sessions.
  * 
+ * @author Jakob Külzer
  * @author tome
  */
 @ImplementedBy(PropertiesConfiguredJCRSessionFactory.class)
 public interface JCRSessionFactory {
-   /**
-    * get a JCR Session
-    */
-   Session getSession();
+
+	/**
+	 * Returns a JCR Session.
+	 */
+	Session getSession();
 }

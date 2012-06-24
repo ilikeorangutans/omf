@@ -36,7 +36,7 @@ public class EntityMappingExtractorImplTest {
 
 		assertThat(mapping, notNullValue());
 		assertEquals(EntityWithPrimitiveProperties.class, mapping.getTypeClass());
-		assertThat(mapping.getPropertyMappings().getSize(), is(EntityWithPrimitiveProperties.NUMBER_OF_FIELDS));
+		assertThat(mapping.getItemMappings().getSize(), is(EntityWithPrimitiveProperties.NUMBER_OF_FIELDS));
 	}
 
 }

@@ -9,6 +9,7 @@ public class PathNotFoundException extends ObjectMapperException {
 	private final Path path;
 
 	public PathNotFoundException(Path path) {
+		super(path.toString() + " not found.");
 		this.path = path;
 	}
 

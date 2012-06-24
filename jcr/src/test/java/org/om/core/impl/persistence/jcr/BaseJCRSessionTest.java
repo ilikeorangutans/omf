@@ -7,6 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 import org.om.core.api.session.factory.SessionFactory;
+import org.om.core.impl.entity.TestEntity;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.mapping.registry.OnDemandMappingRegistry;
 import org.om.core.impl.persistence.cglib.CglibProxyFactory;
@@ -42,10 +43,10 @@ public abstract class BaseJCRSessionTest {
 			/*
 			 * test some OM stuff
 			 */
-			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
+			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceAdapterFactory(), new OnDemandMappingRegistry(
 					new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
 
-			final org.om.core.api.session.Session s = sessionFactory.getSession(new JcrPersistenceContext(getSessionFactory()));
+			final org.om.core.api.session.Session s = sessionFactory.getSession(new JcrPersistenceContext(session));
 			Assert.assertNotNull(s);
 			/*
 			 * get the entity
@@ -69,10 +70,10 @@ public abstract class BaseJCRSessionTest {
 			/*
 			 * get an OM session
 			 */
-			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
+			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceAdapterFactory(), new OnDemandMappingRegistry(
 					new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
 
-			final org.om.core.api.session.Session session = sessionFactory.getSession(new JcrPersistenceContext(getSessionFactory()));
+			final org.om.core.api.session.Session session = sessionFactory.getSession(new JcrPersistenceContext(getSessionFactory().getSession()));
 			Assert.assertNotNull(session);
 			/*
 			 * make an entity

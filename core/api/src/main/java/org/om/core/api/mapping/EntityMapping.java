@@ -18,7 +18,7 @@ public interface EntityMapping {
 	 */
 	Class<?> getTypeClass();
 
-	PropertyMap getPropertyMappings();
+	ItemMap getItemMappings();
 
 	/**
 	 * Returns true if this entity mapping has a property with the given name.
@@ -43,7 +43,7 @@ public interface EntityMapping {
 	 * @param fieldname
 	 * @return
 	 */
-	PropertyMapping getPropertyByField(String fieldname);
+	Mapping getMappingByField(String fieldname);
 
 	/**
 	 * Returns the {@link PropertyMapping} for the identifier field.

@@ -1,5 +1,7 @@
 package org.om.core.impl.mapping.registry;
 
+import javax.inject.Inject;
+
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.extractor.EntityMappingExtractor;
 import org.om.core.api.mapping.registry.MappingRegistry;
@@ -14,6 +16,7 @@ public class OnDemandMappingRegistry implements MappingRegistry {
 
 	private final EntityMappingExtractor entityMappingExtractor;
 
+	@Inject
 	public OnDemandMappingRegistry(EntityMappingExtractor entityMappingExtractor) {
 		this.entityMappingExtractor = entityMappingExtractor;
 	}
