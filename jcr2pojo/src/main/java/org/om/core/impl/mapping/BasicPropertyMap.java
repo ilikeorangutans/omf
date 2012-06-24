@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.om.core.api.mapping.ItemMap;
+import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 
 /**
@@ -17,8 +18,8 @@ public class BasicPropertyMap implements ItemMap {
 	/**
 	 * properties
 	 */
-	private final Map<String, PropertyMapping> properties = new HashMap<String, PropertyMapping>();
-	private final Map<String, PropertyMapping> fields = new HashMap<String, PropertyMapping>();
+	private final Map<String, Mapping> properties = new HashMap<String, Mapping>();
+	private final Map<String, Mapping> fields = new HashMap<String, Mapping>();
 
 	public void add(PropertyMapping propertyMapping) {
 		fields.put(propertyMapping.getFieldname(), propertyMapping);
@@ -26,12 +27,12 @@ public class BasicPropertyMap implements ItemMap {
 
 	}
 
-	public Collection<PropertyMapping> getAll() {
+	public Collection<Mapping> getAll() {
 		return properties.values();
 	}
 
 	public PropertyMapping getField(String fieldname) {
-		return fields.get(fieldname);
+		return (PropertyMapping) fields.get(fieldname);
 	}
 
 	public PropertyMapping getIdProperty() {
@@ -39,7 +40,7 @@ public class BasicPropertyMap implements ItemMap {
 	}
 
 	public PropertyMapping getProperty(String name) {
-		return properties.get(name);
+		return (PropertyMapping) properties.get(name);
 	}
 
 	public int getSize() {
