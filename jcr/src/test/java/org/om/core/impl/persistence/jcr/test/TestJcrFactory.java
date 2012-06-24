@@ -1,9 +1,11 @@
-package org.om.core.impl.persistence.jcr.sessionfactory;
+package org.om.core.impl.persistence.jcr.test;
 
 import javax.inject.Inject;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
+
+import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 import com.google.inject.Provider;
 import com.google.inject.Provides;
