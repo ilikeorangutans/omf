@@ -2,15 +2,14 @@ package org.om.core.impl.persistence.jcr.util;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import javax.inject.Inject;
 import javax.jcr.Node;
 
-import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
-import org.om.core.impl.persistence.jcr.TransientRepoTestEnv;
+import org.om.core.impl.persistence.jcr.test.TransientRepoTestEnv;
 
 import com.google.guiceberry.junit4.GuiceBerryRule;
 
@@ -21,11 +20,6 @@ public class NodeRetrieverTest {
 
 	@Inject
 	private javax.jcr.Session jcrSession;
-
-	@After
-	public void tearDown() throws Exception {
-		jcrSession.logout();
-	}
 
 	@Test
 	public void testAbsolutePath() throws Exception {

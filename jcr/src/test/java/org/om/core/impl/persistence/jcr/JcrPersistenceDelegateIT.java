@@ -24,6 +24,7 @@ import org.om.core.impl.entity.ChildEntity;
 import org.om.core.impl.entity.CollectionTestEntity;
 import org.om.core.impl.entity.TestEntity;
 import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
+import org.om.core.impl.persistence.jcr.test.TransientRepoTestEnv;
 
 import com.google.guiceberry.junit4.GuiceBerryRule;
 

@@ -105,7 +105,7 @@ public class ItemMappingExtractorImpl implements ItemMappingExtractor {
 				throw new MappingException("Target type " + targetType.getName() + " is not an entity.");
 
 			// TODO: Add location
-			return new ImmutableCollectionMapping(fieldname, type, targetType, "", annotation.missingStrategy(), annotation.missingException());
+			return new ImmutableCollectionMapping(fieldname, type, targetType, fieldname, annotation.missingStrategy(), annotation.missingException());
 		} else {
 			throw new MappingException("Don't know how to map field " + fieldname + " of type " + type);
 		}
