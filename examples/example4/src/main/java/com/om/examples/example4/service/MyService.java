@@ -8,7 +8,7 @@ import com.om.examples.example4.dao.MyPojoDAO;
  */
 @ImplementedBy(MyServiceImpl.class)
 public interface MyService {
-   void doStuff();
+	void doStuff();
 
-   MyPojoDAO getMypojodao();
+	MyPojoDAO getMypojodao();
 }

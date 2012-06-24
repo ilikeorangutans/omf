@@ -10,19 +10,19 @@ import com.om.examples.example4.dao.MyPojoDAO;
  * @author tome
  */
 public class MyServiceImpl implements MyService {
-   @Inject()
-   private MyPojoDAO mypojodao;
+	@Inject()
+	private MyPojoDAO mypojodao;
 
-   public MyPojoDAO getMypojodao() {
-      return mypojodao;
-   }
+	public MyPojoDAO getMypojodao() {
+		return mypojodao;
+	}
 
-   public void setMypojodao(MyPojoDAO mypojodao) {
-      this.mypojodao = mypojodao;
-   }
+	public void setMypojodao(MyPojoDAO mypojodao) {
+		this.mypojodao = mypojodao;
+	}
 
-   @Transactional()
-   public void doStuff() {
-      System.out.println("hi");
-   }
+	@Transactional()
+	public void doStuff() {
+		System.out.println("hi");
+	}
 }

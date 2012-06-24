@@ -53,7 +53,7 @@ public abstract class AbstractManagedCollection<E> implements Collection<E> {
 	}
 
 	public Object[] toArray() {
-		
+
 		return null;
 	}
 
