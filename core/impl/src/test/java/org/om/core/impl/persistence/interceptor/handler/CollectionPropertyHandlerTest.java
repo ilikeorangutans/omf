@@ -24,8 +24,8 @@ public class CollectionPropertyHandlerTest {
 		CollectionPropertyHandler handler = new CollectionPropertyHandler(session);
 
 		final CollectionMapping mapping = new ImmutableCollectionMapping("field", List.class, String.class, "", PropertyMissingStrategy.DefaultValue, null);
-		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter(new ArrayList<String>());
-		Collection<String> mapped = (Collection<String>) handler.retrieve(mapping, delegate);
+		PersistenceAdapter adapter = new TestingPassThroughPersistenceAdapter(new ArrayList<String>());
+		Collection<String> mapped = (Collection<String>) handler.retrieve(mapping, adapter);
 
 		assertThat(mapped, notNullValue());
 		assertThat(mapped, instanceOf(List.class));
@@ -41,8 +41,8 @@ public class CollectionPropertyHandlerTest {
 		final CollectionMapping mapping = new ImmutableCollectionMapping("field", List.class, String.class, "", PropertyMissingStrategy.DefaultValue, null);
 		List<String> inputList = new ArrayList<String>();
 		inputList.add("one");
-		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter(inputList);
-		Collection<String> mapped = (Collection<String>) handler.retrieve(mapping, delegate);
+		PersistenceAdapter adapter = new TestingPassThroughPersistenceAdapter(inputList);
+		Collection<String> mapped = (Collection<String>) handler.retrieve(mapping, adapter);
 
 		assertThat(mapped, notNullValue());
 		assertThat(mapped, instanceOf(List.class));
