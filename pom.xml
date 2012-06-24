@@ -40,15 +40,6 @@
 	<modules>
 		<module>omf-parent</module>
 		<module>core</module>
-		<module>jcrcache</module>
-		<module>dao</module>
-		<module>http</module>
-		<!--
-		Removed for now. 
-		<module>jcr2pojo</module>
-		<module>objectmanager-maven-plugin</module>
-		 -->
-		<module>examples</module>
 	</modules>
 
 	<build>
