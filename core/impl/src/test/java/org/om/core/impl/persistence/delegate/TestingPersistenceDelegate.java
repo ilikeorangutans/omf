@@ -8,13 +8,13 @@ import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 
 /**
  * @author tome
  * @author Jakob Külzer
  */
-public class TestingPersistenceDelegate implements PersistenceDelegate {
+public class TestingPersistenceDelegate implements PersistenceAdapter {
 
 	private final EntityMapping entityMapping;
 

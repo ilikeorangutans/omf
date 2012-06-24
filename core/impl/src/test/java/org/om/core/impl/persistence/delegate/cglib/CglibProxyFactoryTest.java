@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.api.persistence.PersistenceDelegateFactory;
+import org.om.core.api.persistence.PersistenceAdapterFactory;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.persistence.cglib.CglibProxyFactory;
@@ -23,7 +23,7 @@ public class CglibProxyFactoryTest {
 	@Test
 	public void testThatCallsToProxyAreDelegated() {
 		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
-		final PersistenceDelegateFactory delegateFactory = new TestingDelegateFactory();
+		final PersistenceAdapterFactory delegateFactory = new TestingDelegateFactory();
 		final PersistenceContext persistenceContext = new TestingPersistenceContext().addProperty("fieldWithDefaultSettings", "BOOYAH!");
 		final CglibProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
 
@@ -41,7 +41,7 @@ public class CglibProxyFactoryTest {
 	@Test
 	public void testThatCallsToNonMappedFields() {
 		final EntityMapping mapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
-		final PersistenceDelegateFactory delegateFactory = new TestingDelegateFactory();
+		final PersistenceAdapterFactory delegateFactory = new TestingDelegateFactory();
 		final PersistenceContext persistenceContext = new TestingPersistenceContext().addProperty("fieldWithDefaultSettings", "BOOYAH!");
 		final CglibProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
 

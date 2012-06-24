@@ -6,9 +6,9 @@ import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 
-public class TestingPassThroughPersistenceDelegate implements PersistenceDelegate {
+public class TestingPassThroughPersistenceDelegate implements PersistenceAdapter {
 
 	private final Object object;
 

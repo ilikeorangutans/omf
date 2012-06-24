@@ -1,6 +1,6 @@
 package org.om.core.impl.persistence.interceptor.factory;
 
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.interceptor.factory.PersistenceInterceptorFactory;
 import org.om.core.api.persistence.interceptor.handler.ItemHandlerFactory;
@@ -23,7 +23,7 @@ public class PersistenceInterceptorFactoryImpl implements PersistenceInterceptor
 		this.propertyHandlerFactory = propertyHandlerFactory;
 	}
 
-	public PersistenceInterceptor create(Session session, PersistenceDelegate delegate) {
+	public PersistenceInterceptor create(Session session, PersistenceAdapter delegate) {
 		return new PersistenceInterceptorImpl(session, propertyHandlerFactory, delegate);
 	}
 }

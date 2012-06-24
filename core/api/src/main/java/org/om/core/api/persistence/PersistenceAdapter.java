@@ -9,14 +9,14 @@ import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 
 /**
- * A persistence delegate implements actual access to properties through the
- * respective persistence layer.
+ * Implements actual access to properties through the respective persistence
+ * layer.
  * 
  * @author Jakob Külzer
  * @author tom
  * 
  */
-public interface PersistenceDelegate {
+public interface PersistenceAdapter {
 
 	/**
 	 * Set the property described by the given {@link PropertyMapping}.

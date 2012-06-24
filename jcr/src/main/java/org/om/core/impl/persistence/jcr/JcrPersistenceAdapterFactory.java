@@ -8,8 +8,8 @@ import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.path.Path;
 import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.api.persistence.PersistenceDelegate;
-import org.om.core.api.persistence.PersistenceDelegateFactory;
+import org.om.core.api.persistence.PersistenceAdapter;
+import org.om.core.api.persistence.PersistenceAdapterFactory;
 import org.om.core.api.session.Session;
 
 /**
@@ -17,9 +17,9 @@ import org.om.core.api.session.Session;
  * @author tome
  * 
  */
-public class JcrPersistenceDelegateFactory implements PersistenceDelegateFactory {
+public class JcrPersistenceAdapterFactory implements PersistenceAdapterFactory {
 
-	public PersistenceDelegate create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
+	public PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
 		final JcrPersistenceContext context = (JcrPersistenceContext) persistenceContext;
 		final String path;
 		if (id instanceof String) {
@@ -44,7 +44,7 @@ public class JcrPersistenceDelegateFactory implements PersistenceDelegateFactory
 			// node = rootNode.addNode(path);
 			// }
 
-			return new JcrPersistenceDelegate(session, mapping, node);
+			return new JcrPersistenceAdapter(session, mapping, node);
 		} catch (final PathNotFoundException e) {
 			throw new org.om.core.api.exception.PathNotFoundException(new Path(path));
 		} catch (final RepositoryException e) {

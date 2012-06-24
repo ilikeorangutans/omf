@@ -14,7 +14,7 @@ import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +25,9 @@ import org.slf4j.LoggerFactory;
  * @author tome
  * 
  */
-public class JcrPersistenceDelegate implements PersistenceDelegate {
+public class JcrPersistenceAdapter implements PersistenceAdapter {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(JcrPersistenceDelegate.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(JcrPersistenceAdapter.class);
 
 	/**
 	 * The node that backs all persistence operations on the enclosing entity.
@@ -44,7 +44,7 @@ public class JcrPersistenceDelegate implements PersistenceDelegate {
 	 */
 	private final EntityMapping entityMapping;
 
-	public JcrPersistenceDelegate(Session session, EntityMapping entityMapping, Node node) {
+	public JcrPersistenceAdapter(Session session, EntityMapping entityMapping, Node node) {
 		this.node = node;
 		this.session = session;
 		this.entityMapping = entityMapping;

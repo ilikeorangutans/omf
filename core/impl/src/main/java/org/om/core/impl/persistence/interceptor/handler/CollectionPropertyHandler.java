@@ -7,7 +7,7 @@ import java.util.Set;
 import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.Mapping;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.interceptor.handler.collection.ListWrapper;
@@ -26,7 +26,7 @@ public class CollectionPropertyHandler implements ItemHandler {
 		this.session = session;
 	}
 
-	public Object retrieve(Mapping mapping, PersistenceDelegate delegate) {
+	public Object retrieve(Mapping mapping, PersistenceAdapter delegate) {
 		final Collection<?> collection = delegate.getCollection((CollectionMapping) mapping);
 		final CollectionMapping collectionMapping = (CollectionMapping) mapping;
 

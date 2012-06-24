@@ -12,7 +12,7 @@ import java.util.List;
 import org.junit.Test;
 import org.om.core.api.annotation.PropertyMissingStrategy;
 import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.session.Session;
 import org.om.core.impl.mapping.ImmutableCollectionMapping;
 
@@ -24,7 +24,7 @@ public class CollectionPropertyHandlerTest {
 		CollectionPropertyHandler handler = new CollectionPropertyHandler(session);
 
 		final CollectionMapping mapping = new ImmutableCollectionMapping("field", List.class, String.class, "", PropertyMissingStrategy.DefaultValue, null);
-		PersistenceDelegate delegate = new TestingPassThroughPersistenceDelegate(new ArrayList<String>());
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate(new ArrayList<String>());
 		Collection<String> mapped = (Collection<String>) handler.retrieve(mapping, delegate);
 
 		assertThat(mapped, notNullValue());
@@ -41,7 +41,7 @@ public class CollectionPropertyHandlerTest {
 		final CollectionMapping mapping = new ImmutableCollectionMapping("field", List.class, String.class, "", PropertyMissingStrategy.DefaultValue, null);
 		List<String> inputList = new ArrayList<String>();
 		inputList.add("one");
-		PersistenceDelegate delegate = new TestingPassThroughPersistenceDelegate(inputList);
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate(inputList);
 		Collection<String> mapped = (Collection<String>) handler.retrieve(mapping, delegate);
 
 		assertThat(mapped, notNullValue());

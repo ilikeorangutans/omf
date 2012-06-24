@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.om.core.api.mapping.ItemMap;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.extractor.ItemMappingExtractorImpl;
 import org.om.core.impl.persistence.delegate.TestingPersistenceDelegate;
@@ -19,7 +19,7 @@ public class PrimitivePropertyHandlerTest {
 		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		PersistenceDelegate delegate = new TestingPassThroughPersistenceDelegate(null);
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate(null);
 		Object retrieve = handler.retrieve(mapping.getField("fieldWithDefaultSettings"), delegate);
 
 		assertThat(retrieve, nullValue());
@@ -30,7 +30,7 @@ public class PrimitivePropertyHandlerTest {
 		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		PersistenceDelegate delegate = new TestingPassThroughPersistenceDelegate("I'm a String!");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("I'm a String!");
 		String retrieve = (String) handler.retrieve(mapping.getField("fieldWithDefaultSettings"), delegate);
 
 		assertThat(retrieve, notNullValue());
@@ -42,7 +42,7 @@ public class PrimitivePropertyHandlerTest {
 		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		PersistenceDelegate delegate = new TestingPassThroughPersistenceDelegate("1234");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("1234");
 		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), delegate);
 
 		assertThat(retrieve, notNullValue());
@@ -54,7 +54,7 @@ public class PrimitivePropertyHandlerTest {
 		ItemMap mapping = new ItemMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		PrimitivePropertyHandler handler = new PrimitivePropertyHandler();
 
-		PersistenceDelegate delegate = new TestingPassThroughPersistenceDelegate("BAM");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("BAM");
 		Integer retrieve = (Integer) handler.retrieve(mapping.getField("primitiveInt"), delegate);
 
 		assertThat(retrieve, notNullValue());

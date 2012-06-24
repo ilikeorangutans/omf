@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.om.core.api.annotation.PropertyMissingStrategy;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.session.Session;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.ImmutablePropertyMapping;
@@ -39,7 +39,7 @@ public class ReferencePropertyHandlerTest {
 
 		ReferencePropertyHandler handler = new ReferencePropertyHandler(session);
 
-		PersistenceDelegate delegate = new TestingPassThroughPersistenceDelegate("/foo/bar");
+		PersistenceAdapter delegate = new TestingPassThroughPersistenceDelegate("/foo/bar");
 		Object retrieve = handler.retrieve(new ImmutablePropertyMapping("fieldname", false, "fieldname", EntityWithPrimitiveProperties.class, null,
 				PropertyMissingStrategy.ReturnNull, null), delegate);
 

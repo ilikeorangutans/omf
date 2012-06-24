@@ -8,7 +8,7 @@ import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +19,13 @@ import org.slf4j.LoggerFactory;
  * @author Jakob Külzer
  * 
  */
-final class MissingBehaviorPersistenceDelegateDecorator implements PersistenceDelegate {
+final class MissingBehaviorPersistenceDelegateDecorator implements PersistenceAdapter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MissingBehaviorPersistenceDelegateDecorator.class);
 
-	private final PersistenceDelegate delegate;
+	private final PersistenceAdapter delegate;
 
-	public MissingBehaviorPersistenceDelegateDecorator(PersistenceDelegate delegate) {
+	public MissingBehaviorPersistenceDelegateDecorator(PersistenceAdapter delegate) {
 		this.delegate = delegate;
 		LOGGER.trace("New decorator around {}", delegate);
 	}

@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.Mapping;
-import org.om.core.api.persistence.PersistenceDelegate;
+import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 import org.om.core.api.persistence.interceptor.handler.ItemHandlerFactory;
@@ -20,13 +20,13 @@ import org.om.core.api.session.Session;
  */
 public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 
-	private final PersistenceDelegate delegate;
+	private final PersistenceAdapter delegate;
 
 	private final ItemHandlerFactory handlerFactory;
 
 	private final Session session;
 
-	public PersistenceInterceptorImpl(Session session, ItemHandlerFactory handlerFactory, PersistenceDelegate delegate) {
+	public PersistenceInterceptorImpl(Session session, ItemHandlerFactory handlerFactory, PersistenceAdapter delegate) {
 		this.session = session;
 		this.handlerFactory = handlerFactory;
 		this.delegate = new MissingBehaviorPersistenceDelegateDecorator(delegate);

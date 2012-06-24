@@ -43,7 +43,7 @@ public abstract class BaseJCRSessionTest {
 			/*
 			 * test some OM stuff
 			 */
-			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
+			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceAdapterFactory(), new OnDemandMappingRegistry(
 					new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
 
 			final org.om.core.api.session.Session s = sessionFactory.getSession(new JcrPersistenceContext(session));
@@ -70,7 +70,7 @@ public abstract class BaseJCRSessionTest {
 			/*
 			 * get an OM session
 			 */
-			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceDelegateFactory(), new OnDemandMappingRegistry(
+			final SessionFactory sessionFactory = new ImmutableSessionFactory(new JcrPersistenceAdapterFactory(), new OnDemandMappingRegistry(
 					new EntityMappingExtractorImpl()), new CglibProxyFactory(new PersistenceInterceptorFactoryImpl()));
 
 			final org.om.core.api.session.Session session = sessionFactory.getSession(new JcrPersistenceContext(getSessionFactory().getSession()));
