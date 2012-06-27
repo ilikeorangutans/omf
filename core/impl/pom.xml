@@ -19,6 +19,13 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	<name>Object Mapper - Core - Implementation</name>
 </project>
