@@ -1,7 +1,9 @@
 package org.om.core.api.mapping.extractor;
 
+import java.lang.reflect.Field;
+
 import org.om.core.api.exception.MappingException;
-import org.om.core.api.mapping.ItemMap;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.PropertyMapping;
 
 /**
@@ -10,15 +12,15 @@ import org.om.core.api.mapping.PropertyMapping;
  * @author Jakob Külzer
  * 
  */
-public interface ItemMappingExtractor {
+public interface FieldMappingExtractor {
 
 	/**
-	 * Extracts all {@link PropertyMapping}s from the given type.
+	 * Extracts a {@link MappedField} from the given field.
 	 * 
 	 * @param type
 	 * @return
 	 * @throws MappingException
 	 */
-	ItemMap extract(Class<?> type) throws MappingException;
+	MappedField extract(Field field) throws MappingException;
 
 }

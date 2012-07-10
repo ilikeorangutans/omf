@@ -5,8 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.om.core.api.exception.PropertyMissingException;
-
 /**
  * Maps a collection.
  * 
@@ -22,28 +20,6 @@ import org.om.core.api.exception.PropertyMissingException;
 public @interface Collection {
 
 	public static final String LOCATION_RELATIVE_USING_FIELDNAME = "";
-
-	/**
-	 * Defines how object mapper should react if the underlying persistence
-	 * backend cannot resolve the nodes pointed to by {@link #location()}. Note
-	 * that {@link PropertyMissingStrategy#DefaultValue} will cause an empty
-	 * collection to be returned. This is the default.
-	 * 
-	 * @return
-	 */
-	PropertyMissingStrategy missingStrategy() default PropertyMissingStrategy.DefaultValue;
-
-	/**
-	 * Exception to be thrown when the mapped property cannot be retrieved from
-	 * the underlying persistence layer and {@link #missingStrategy()} is set to
-	 * {@link PropertyMissingStrategy#ThrowException}.
-	 * 
-	 * The exception must have either a no-arg constructor or take one String
-	 * parameter.
-	 * 
-	 * @return
-	 */
-	Class<? extends Exception> missingException() default PropertyMissingException.class;
 
 	/**
 	 * Describes the location of where to load the collection from. This has

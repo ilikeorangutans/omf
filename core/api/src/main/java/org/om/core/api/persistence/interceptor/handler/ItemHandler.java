@@ -1,5 +1,6 @@
 package org.om.core.api.persistence.interceptor.handler;
 
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 
@@ -20,6 +21,6 @@ public interface ItemHandler {
 	 * @param adapter
 	 * @return
 	 */
-	Object retrieve(Mapping mapping, PersistenceAdapter adapter);
+	Object retrieve(MappedField mappedField, PersistenceAdapter adapter);
 
 }

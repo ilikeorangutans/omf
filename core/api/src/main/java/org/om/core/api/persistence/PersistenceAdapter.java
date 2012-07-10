@@ -1,12 +1,11 @@
 package org.om.core.api.persistence;
 
-import java.util.Collection;
-
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
+import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.persistence.result.PersistenceResult;
 
 /**
  * Implements actual access to properties through the respective persistence
@@ -33,7 +32,7 @@ public interface PersistenceAdapter {
 	 * @param propertyMapping
 	 * @return
 	 */
-	Object getProperty(PropertyMapping mapping) throws ObjectMapperException;
+	PersistenceResult getProperty(PropertyMapping mapping) throws ObjectMapperException;
 
 	/**
 	 * Retrieves the given collection. Implementations should return a
@@ -48,16 +47,7 @@ public interface PersistenceAdapter {
 	 * @param collectionMapping
 	 * @return
 	 */
-	Collection<?> getCollection(CollectionMapping collectionMapping);
-
-	/**
-	 * Returns true if the delegate can provide a value for the given mapping.
-	 * If the underlying storage engine returns a null or cannot resolve the
-	 * implementation specific property, this method should return false.
-	 * 
-	 * @return true if the delegate can provide a value for the given property
-	 */
-	boolean canProvide(Mapping mapping) throws ObjectMapperException;
+	CollectionResult getCollection(CollectionMapping collectionMapping);
 
 	/**
 	 * delete a node

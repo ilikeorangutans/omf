@@ -1,40 +1,15 @@
 package org.om.core.api.mapping;
 
 import org.om.core.api.annotation.Id;
-import org.om.core.api.annotation.PropertyMissingStrategy;
+import org.om.core.api.annotation.Mapped;
 
+/**
+ * Describes the persistence manager specific part of a @{@link Mapped} field.
+ * 
+ * @author Jakob Külzer
+ * 
+ */
 public interface Mapping {
-
-	/**
-	 * Name of the field on the POJO.
-	 * 
-	 * @return
-	 */
-	String getFieldname();
-
-	/**
-	 * Exception to throw when {@link #getMissingStrategy()} is set to
-	 * {@link PropertyMissingStrategy#ThrowException} and the property cannot be
-	 * found.
-	 * 
-	 * @return
-	 */
-	Class<RuntimeException> getMissingException();
-
-	/**
-	 * Strategy to be used when the given property cannot be found in the
-	 * persistence layer.
-	 * 
-	 * @return
-	 */
-	PropertyMissingStrategy getMissingStrategy();
-
-	/**
-	 * Returns the type of the field.
-	 * 
-	 * @return
-	 */
-	Class<?> getFieldType();
 
 	/**
 	 * Returns true if this mapping is an {@link Id} mapping.

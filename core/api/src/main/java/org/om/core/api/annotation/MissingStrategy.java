@@ -6,7 +6,7 @@ package org.om.core.api.annotation;
  * @author Jakob Külzer
  * 
  */
-public enum PropertyMissingStrategy {
+public enum MissingStrategy {
 
 	/**
 	 * Return <tt>null</tt> if the property is not found. This applies both for

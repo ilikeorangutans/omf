@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * mapper needs to be annotated with this.
  * 
  * Each entity must have exactly one {@link Property} that acts as the
- * identifier property.
+ * identifier property which has to be annotated with {@link Id}.
  * 
  * 
  * @author Jakob Külzer

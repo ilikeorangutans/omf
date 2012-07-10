@@ -12,33 +12,16 @@ import org.om.core.api.exception.MappingException;
 public interface EntityMapping {
 
 	/**
-	 * Returns the class of the mapped type.
+	 * Returns the {@link PropertyMapping} for the identifier field.
 	 * 
 	 * @return
 	 */
-	Class<?> getTypeClass();
+	MappedField getIdProperty();
 
-	ItemMap getItemMappings();
-
-	/**
-	 * Returns true if this entity mapping has a property with the given name.
-	 * 
-	 * @param fieldName
-	 * @return
-	 */
-	boolean hasProperty(String property);
+	Fields getMappedFields();
 
 	/**
-	 * Returns true if this entity has a {@link PropertyMapping} for the given
-	 * field.
-	 * 
-	 * @param field
-	 * @return
-	 */
-	boolean hasField(String field);
-
-	/**
-	 * Returns the {@link PropertyMapping} for the given field.
+	 * Returns the {@link Mapping} for the given field.
 	 * 
 	 * @param fieldname
 	 * @return
@@ -46,11 +29,25 @@ public interface EntityMapping {
 	Mapping getMappingByField(String fieldname);
 
 	/**
-	 * Returns the {@link PropertyMapping} for the identifier field.
+	 * Returns the name of this entity.
+	 */
+	String getName();
+
+	/**
+	 * Returns the class of the mapped type.
 	 * 
 	 * @return
 	 */
-	PropertyMapping getIdProperty();
+	Class<?> getTypeClass();
+
+	/**
+	 * Returns true if this entity has a {@link MappedField} with the given
+	 * name.
+	 * 
+	 * @param field
+	 * @return
+	 */
+	boolean hasField(String field);
 
 	/**
 	 * Validates the mapping.
@@ -58,7 +55,9 @@ public interface EntityMapping {
 	void validate() throws MappingException;
 
 	/**
-	 * name
+	 * Returns a {@link MappedField} by name.
+	 * 
+	 * @param name
 	 */
-	String getName();
+	MappedField getByFieldName(String name);
 }

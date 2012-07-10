@@ -3,27 +3,19 @@ package org.om.core.api.mapping;
 import java.util.Collection;
 
 /**
- * Contains all {@link PropertyMapping}s for an {@link EntityMapping}.
+ * Contains all {@link MappedField}s for an {@link EntityMapping}.
  * 
  * @author Jakob Külzer
  * 
  */
-public interface ItemMap {
+public interface Fields extends Iterable<MappedField> {
 
 	/**
 	 * Returns all {@link Mapping}s.
 	 * 
 	 * @return
 	 */
-	Collection<Mapping> getAll();
-
-	/**
-	 * Returns true if this map contains a property with the given name.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	boolean hasProperty(String name);
+	Collection<MappedField> getAll();
 
 	/**
 	 * Returns true if this map contains a field with the given name.
@@ -38,15 +30,7 @@ public interface ItemMap {
 	 * 
 	 * @return
 	 */
-	PropertyMapping getIdProperty();
-
-	/**
-	 * Finds a property by name.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	PropertyMapping getProperty(String name);
+	MappedField getIdProperty();
 
 	/**
 	 * Finds a field by name.
@@ -54,9 +38,11 @@ public interface ItemMap {
 	 * @param fieldname
 	 * @return
 	 */
-	Mapping getField(String fieldname);
+	MappedField getField(String fieldname);
 
 	int getSize();
 
 	boolean isEmpty();
+
+	MappedField getFieldByMapping(Mapping mapping);
 }
