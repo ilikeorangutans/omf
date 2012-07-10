@@ -2,18 +2,37 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>core</artifactId>
+		<artifactId>omf-parent</artifactId>
 		<groupId>org.objectmapper</groupId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>..</relativePath>
+		<relativePath>../../omf-parent</relativePath>
 	</parent>
 	<artifactId>api</artifactId>
+	<packaging>bundle</packaging>
 	<dependencies>
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
-			<version>2.2.2</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-	<name>Object Mapper - Core - API</name>
+	<name>Object Mapper - API</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<version>2.3.7</version>
+				<configuration>
+					<instructions>
+						<Bundle-Category>omf</Bundle-Category>
+						<Embed-Dependency>*;scope=compile</Embed-Dependency>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
