@@ -3,10 +3,11 @@ package org.om.core.impl.persistence.interceptor.handler;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
+import org.om.core.api.persistence.result.PersistenceResult;
 
 /**
  * Property handler for primitive or autoboxed types. Will automatically perform
@@ -17,16 +18,21 @@ import org.om.core.api.persistence.interceptor.handler.ItemHandler;
  * @author Jakob Külzer
  * 
  */
-public class PrimitivePropertyHandler implements ItemHandler {
+public class PrimitiveHandler implements ItemHandler {
 
-	public Object retrieve(Mapping mapping, PersistenceAdapter delegate) {
-		final Object input = delegate.getProperty((PropertyMapping) mapping);
+	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
+		final PropertyMapping mapping = (PropertyMapping) mappedField.getMapping();
+		final PersistenceResult result = adapter.getProperty(mapping);
 
+		final Object input = result.getResult();
+
+		// If we get a null, we can just return null, no type checking
+		// necessary.
 		if (input == null)
 			return null;
 
 		// If the returned object already has the correct type, just return it.
-		if (mapping.getFieldType() == input.getClass()) {
+		if (mappedField.getType() == input.getClass()) {
 			return input;
 		}
 
@@ -35,13 +41,12 @@ public class PrimitivePropertyHandler implements ItemHandler {
 
 			// This is real ugly: PropertyEditors return boxed primitive
 			// types instead of exactly what you ask for.
-			final PropertyEditor editor = PropertyEditorManager.findEditor(mapping.getFieldType());
+			final PropertyEditor editor = PropertyEditorManager.findEditor(mappedField.getType());
 			editor.setAsText((String) input);
 			return editor.getValue();
 		}
 
-		assert false : "We have an unhandled primitive type " + mapping.getFieldType() + ".";
-		return null;
+		throw new IllegalStateException("We have an unhandled type " + mappedField.getType() + ".");
 	}
 
 }

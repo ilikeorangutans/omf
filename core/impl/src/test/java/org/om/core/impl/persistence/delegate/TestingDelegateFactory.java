@@ -12,7 +12,7 @@ import org.om.core.api.session.Session;
 public class TestingDelegateFactory implements PersistenceAdapterFactory {
 
 	public PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
-		return new TestingPersistenceDelegate(mapping, persistenceContext);
+		return new TestingPersistenceAdapter(mapping, persistenceContext);
 	}
 
 }

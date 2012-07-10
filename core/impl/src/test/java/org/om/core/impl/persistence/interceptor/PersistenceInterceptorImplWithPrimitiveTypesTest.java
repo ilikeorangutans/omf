@@ -7,13 +7,12 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.om.core.api.exception.PropertyMissingException;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
+import org.om.core.impl.persistence.delegate.TestingPersistenceAdapter;
 import org.om.core.impl.persistence.delegate.TestingPersistenceContext;
-import org.om.core.impl.persistence.delegate.TestingPersistenceDelegate;
 import org.om.core.impl.persistence.interceptor.handler.ItemHandlerFactoryImpl;
 
 public class PersistenceInterceptorImplWithPrimitiveTypesTest {
@@ -26,15 +25,15 @@ public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 	public void setUp() {
 		entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
 		persistenceContext = new TestingPersistenceContext();
-		interceptor = new PersistenceInterceptorImpl(null, new ItemHandlerFactoryImpl(), new TestingPersistenceDelegate(entityMapping, persistenceContext));
+		interceptor = new PersistenceInterceptorImpl(null, new ItemHandlerFactoryImpl(), new TestingPersistenceAdapter(entityMapping, persistenceContext));
 	}
 
 	@Test
 	public void testPrimitiveType() {
 		persistenceContext.addProperty("primitiveInt", "2706");
 
-		PropertyMapping propertyMapping = (PropertyMapping) entityMapping.getMappingByField("primitiveInt");
-		int property = (Integer) interceptor.getProperty(propertyMapping);
+		MappedField mappedField = entityMapping.getByFieldName("primitiveInt");
+		int property = (Integer) interceptor.get(mappedField);
 
 		assertThat(property, notNullValue());
 		assertThat(property, is(2706));
@@ -46,8 +45,8 @@ public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 	public void testStringType() {
 		persistenceContext.addProperty("fieldWithDefaultSettings", "I love Oreos!");
 
-		PropertyMapping propertyMapping = (PropertyMapping) entityMapping.getMappingByField("fieldWithDefaultSettings");
-		String property = (String) interceptor.getProperty(propertyMapping);
+		MappedField mappedField = entityMapping.getByFieldName("fieldWithDefaultSettings");
+		String property = (String) interceptor.get(mappedField);
 
 		assertThat(property, notNullValue());
 		assertEquals(String.class, property.getClass());
@@ -59,18 +58,17 @@ public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 	public void testAutoBoxingType() {
 		persistenceContext.addProperty("complexFloat", "27.06");
 
-		PropertyMapping propertyMapping = (PropertyMapping) entityMapping.getMappingByField("complexFloat");
-		Float property = (Float) interceptor.getProperty(propertyMapping);
+		MappedField mappedField = entityMapping.getByFieldName("complexFloat");
+		Float property = (Float) interceptor.get(mappedField);
 
 		assertThat(property, notNullValue());
 		assertThat(property, is(Float.valueOf(27.06F)));
 	}
 
-	@Test(expected = PropertyMissingException.class)
+	@Test(expected = RuntimeException.class)
 	public void testPropertyMissingThrowingException() {
-
-		PropertyMapping propertyMapping = (PropertyMapping) entityMapping.getMappingByField("fieldWithAllSettings");
-		Float property = (Float) interceptor.getProperty(propertyMapping);
+		MappedField mappedField = entityMapping.getByFieldName("fieldWithAllSettings");
+		Float property = (Float) interceptor.get(mappedField);
 
 		assertThat(property, notNullValue());
 		assertThat(property, is(Float.valueOf(27.06F)));
@@ -78,8 +76,8 @@ public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 
 	@Test
 	public void testPropertyMissingWithDefaultValue() {
-		PropertyMapping propertyMapping = (PropertyMapping) entityMapping.getMappingByField("fieldWithMissingStrategy");
-		String property = (String) interceptor.getProperty(propertyMapping);
+		MappedField mappedField = entityMapping.getByFieldName("fieldWithMissingStrategy");
+		String property = (String) interceptor.get(mappedField);
 
 		assertThat(property, notNullValue());
 		assertThat(property, is("default value"));
@@ -87,8 +85,8 @@ public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 
 	@Test
 	public void testPropertyMissingWithDefaultValueRequiringParsing() {
-		PropertyMapping propertyMapping = (PropertyMapping) entityMapping.getMappingByField("primitiveIntWithDefaultValue");
-		int property = (Integer) interceptor.getProperty(propertyMapping);
+		MappedField mappedField = entityMapping.getByFieldName("primitiveIntWithDefaultValue");
+		int property = (Integer) interceptor.get(mappedField);
 
 		assertThat(property, notNullValue());
 		assertThat(property, is(2706));

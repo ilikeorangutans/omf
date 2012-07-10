@@ -1,57 +1,59 @@
 package org.om.core.impl.mapping.extractor;
 
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.api.mapping.ItemMap;
+import org.om.core.api.mapping.MappedField;
+import org.om.core.api.mapping.extractor.FieldMappingExtractor;
 import org.om.core.impl.mapping.EntityWithCollections;
-import org.om.core.impl.mapping.EntityWithInvalidCollectionMapping;
+import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 
 public class ItemMappingExtractorCollectionTest {
 
-	private ItemMappingExtractorImpl extractor;
-
-	@Before
-	public void setUp() {
-		extractor = new ItemMappingExtractorImpl();
-	}
+	private FieldMappingExtractor extractor = new FieldMappingExtractorImpl();
 
 	@Test
-	public void test() {
+	public void testStringCollection() throws Exception {
 
-		ItemMap map = extractor.extract(EntityWithCollections.class);
+		MappedField mappedField = extractor.extract(EntityWithCollections.class.getDeclaredField("collectionWithStrings"));
 
-		assertThat(map, notNullValue());
-		assertThat(map.getSize(), is(4));
-		assertThat(map.hasField("collectionWithStrings"), is(true));
-
-		CollectionMapping mapping = (CollectionMapping) map.getField("collectionWithStrings");
+		assertThat(mappedField, notNullValue());
+		CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
 		assertThat(mapping, notNullValue());
+		assertThat(mapping, instanceOf(CollectionMapping.class));
+
 		assertEquals(String.class, mapping.getTargetType());
 	}
 
-	@Test(expected = MappingException.class)
-	public void testWithInvalidCollectionMappings() throws Exception {
+	@Test
+	public void testIntegerCollection() throws Exception {
 
-		extractor.extract(EntityWithInvalidCollectionMapping.class);
+		MappedField mappedField = extractor.extract(EntityWithCollections.class.getDeclaredField("collectionWithIntegers"));
 
+		assertThat(mappedField, notNullValue());
+		CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
+		assertThat(mapping, notNullValue());
+		assertThat(mapping, instanceOf(CollectionMapping.class));
+
+		assertEquals(Integer.class, mapping.getTargetType());
 	}
 
 	@Test
-	public void testWithInvalidAutboxedCollectionType() throws Exception {
+	public void testReferenceCollection() throws Exception {
 
-		ItemMap map = extractor.extract(EntityWithCollections.class);
+		MappedField mappedField = extractor.extract(EntityWithCollections.class.getDeclaredField("collectionWithReferenceTypes"));
 
-		assertThat(map, notNullValue());
-		CollectionMapping mapping = (CollectionMapping) map.getField("collectionWithIntegers");
+		assertThat(mappedField, notNullValue());
+		CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
 		assertThat(mapping, notNullValue());
-		assertEquals(mapping.getTargetType(), Integer.class);
-	}
+		assertThat(mapping, instanceOf(CollectionMapping.class));
 
+		assertEquals(EntityWithPrimitiveProperties.class, mapping.getTargetType());
+		assertThat(mapping.getLocation(), is("collectionWithReferenceTypes"));
+	}
 }

@@ -3,7 +3,7 @@ package org.om.core.impl.persistence.interceptor;
 import java.util.Collection;
 
 import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
@@ -20,26 +20,29 @@ import org.om.core.api.session.Session;
  */
 public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 
-	private final PersistenceAdapter delegate;
+	private final PersistenceAdapter adapter;
 
 	private final ItemHandlerFactory handlerFactory;
 
 	private final Session session;
 
-	public PersistenceInterceptorImpl(Session session, ItemHandlerFactory handlerFactory, PersistenceAdapter delegate) {
+	public PersistenceInterceptorImpl(Session session, ItemHandlerFactory handlerFactory, PersistenceAdapter adapter) {
 		this.session = session;
 		this.handlerFactory = handlerFactory;
-		this.delegate = new MissingBehaviorPersistenceDelegateDecorator(delegate);
+		// this.delegate = new
+		// MissingBehaviorPersistenceDelegateDecorator(delegate);
+		this.adapter = adapter;
 	}
 
-	public Object getProperty(Mapping mapping) {
-		if (mapping == null)
-			throw new NullPointerException("Mapping is null");
+	public Object get(MappedField mappedField) {
+		if (mappedField == null)
+			throw new NullPointerException("MappedField is null");
 
-		final ItemHandler handler = handlerFactory.get(session, mapping);
-		assert handler != null : "No handler for property mapping " + mapping + " found.";
+		final ItemHandler handler = handlerFactory.get(session, mappedField.getMapping());
+		if (handler == null)
+			throw new NullPointerException("No handler for mapped field " + mappedField.getName() + " found.");
 
-		return handler.retrieve(mapping, delegate);
+		return handler.retrieve(mappedField, adapter);
 	}
 
 	public Collection<?> getCollection(CollectionMapping collectionMapping) {

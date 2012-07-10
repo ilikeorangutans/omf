@@ -7,6 +7,10 @@ import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
+import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.persistence.result.PersistenceResult;
+import org.om.core.impl.persistence.result.ImmutableCollectionPersistenceResult;
+import org.om.core.impl.persistence.result.ImmutablePersistenceResult;
 
 /**
  * {@link PersistenceAdapter} that will just pass through the object given at
@@ -27,12 +31,12 @@ public class TestingPassThroughPersistenceAdapter implements PersistenceAdapter 
 		throw new IllegalStateException("Not implemented.");
 	}
 
-	public Object getProperty(PropertyMapping mapping) throws ObjectMapperException {
-		return object;
+	public PersistenceResult getProperty(PropertyMapping mapping) throws ObjectMapperException {
+		return new ImmutablePersistenceResult(object);
 	}
 
-	public Collection<?> getCollection(CollectionMapping collectionMapping) {
-		return (Collection<?>) object;
+	public CollectionResult getCollection(CollectionMapping collectionMapping) {
+		return new ImmutableCollectionPersistenceResult((Collection<?>) object);
 	}
 
 	public boolean canProvide(Mapping mapping) throws ObjectMapperException {

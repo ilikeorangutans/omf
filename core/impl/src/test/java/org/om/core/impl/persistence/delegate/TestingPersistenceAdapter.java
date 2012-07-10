@@ -1,26 +1,29 @@
 package org.om.core.impl.persistence.delegate;
 
-import java.util.Collection;
-
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.Mapping;
 import org.om.core.api.mapping.PropertyMapping;
-import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceAdapter;
+import org.om.core.api.persistence.PersistenceContext;
+import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.persistence.result.PersistenceResult;
+import org.om.core.impl.persistence.result.ImmutablePersistenceResult;
+import org.om.core.impl.persistence.result.MissingPersistenceResult;
 
 /**
  * @author tome
  * @author Jakob Külzer
  */
-public class TestingPersistenceDelegate implements PersistenceAdapter {
+public class TestingPersistenceAdapter implements PersistenceAdapter {
 
 	private final EntityMapping entityMapping;
 
 	private final TestingPersistenceContext persistenceContext;
 
-	public TestingPersistenceDelegate(EntityMapping entityMapping, PersistenceContext persistenceContext) {
+	public TestingPersistenceAdapter(EntityMapping entityMapping, PersistenceContext persistenceContext) {
 		this.entityMapping = entityMapping;
 		this.persistenceContext = (TestingPersistenceContext) (persistenceContext == null ? new TestingPersistenceContext() : persistenceContext);
 	}
@@ -29,17 +32,21 @@ public class TestingPersistenceDelegate implements PersistenceAdapter {
 		return entityMapping;
 	}
 
-	public TestingPersistenceDelegate addProperty(String propertyName, Object value) {
+	public TestingPersistenceAdapter addProperty(String propertyName, Object value) {
 		persistenceContext.addProperty(propertyName, value);
 		return this;
 	}
 
-	public Object getProperty(PropertyMapping propertyMapping) {
-		return persistenceContext.getProperty(propertyMapping);
+	public PersistenceResult getProperty(PropertyMapping propertyMapping) {
+		if (!persistenceContext.hasProperty(propertyMapping.getPropertyName())) {
+			MappedField mappedField = entityMapping.getMappedFields().getFieldByMapping(propertyMapping);
+			return MissingPersistenceResult.createMissing(mappedField);
+		}
+		return new ImmutablePersistenceResult(persistenceContext.getProperty(propertyMapping));
 	}
 
 	public boolean canProvide(Mapping mapping) {
-		return persistenceContext.hasProperty(mapping.getFieldname());
+		return false; // persistenceContext.hasProperty(mapping.get());
 	}
 
 	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
@@ -50,7 +57,7 @@ public class TestingPersistenceDelegate implements PersistenceAdapter {
 		// do nothing
 	}
 
-	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+	public CollectionResult getCollection(CollectionMapping collectionMapping) {
 		// TODO Auto-generated method stub
 		return null;
 	}

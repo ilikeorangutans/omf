@@ -5,12 +5,12 @@ import java.lang.reflect.Method;
 
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.PropertyMapping;
 
 /**
  * @author tome
  */
 public class EntityUtils {
+
 	/**
 	 * get the value of the @Id field of an @Entity
 	 */
@@ -19,7 +19,7 @@ public class EntityUtils {
 		/*
 		 * the id field
 		 */
-		String fieldName = entityMapping.getIdProperty().getFieldname();
+		String fieldName = entityMapping.getIdProperty().getName();
 		/*
 		 * get the getter
 		 */
@@ -47,21 +47,23 @@ public class EntityUtils {
 		}
 	}
 
-	public static Object getEntityPropertyValue(PropertyMapping propertyMapping, Object object) throws NoSuchFieldException, InvocationTargetException,
-			NoSuchMethodException, IllegalAccessException {
-		/*
-		 * the field name
-		 */
-		String fieldName = propertyMapping.getFieldname();
-		/*
-		 * get the getter
-		 */
-		Method getter = getGetter(object, fieldName);
-		/*
-		 * return the value
-		 */
-		return getter.invoke(object, (Object[]) null);
-	}
+	// public static Object getEntityPropertyValue(PropertyMapping
+	// propertyMapping, Object object) throws NoSuchFieldException,
+	// InvocationTargetException,
+	// NoSuchMethodException, IllegalAccessException {
+	// /*
+	// * the field name
+	// */
+	// String fieldName = propertyMapping.getName();
+	// /*
+	// * get the getter
+	// */
+	// Method getter = getGetter(object, fieldName);
+	// /*
+	// * return the value
+	// */
+	// return getter.invoke(object, (Object[]) null);
+	// }
 
 	/**
 	 * Returns true if the given class object is annotated with @{@link Entity}.

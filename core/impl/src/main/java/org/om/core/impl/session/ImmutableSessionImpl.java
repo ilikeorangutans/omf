@@ -71,18 +71,20 @@ public class ImmutableSessionImpl implements Session {
 			/*
 			 * walk the fields and save them
 			 */
-			Iterator<Mapping> iter = entityMapping.getItemMappings().getAll().iterator();
-			while (iter.hasNext()) {
-				/*
-				 * get property
-				 */
-				Mapping propertyMapping = iter.next();
-				/*
-				 * save it
-				 */
-				// DISABLED // persistenceDelegate.setProperty(propertyMapping,
-				// EntityUtils.getEntityPropertyValue(propertyMapping, o));
-			}
+
+			// Iterator<Mapping> iter =
+			// entityMapping.getItemMappings().getAll().iterator();
+			// while (iter.hasNext()) {
+			/*
+			 * get property
+			 */
+			// Mapping propertyMapping = iter.next();
+			/*
+			 * save it
+			 */
+			// DISABLED // persistenceDelegate.setProperty(propertyMapping,
+			// EntityUtils.getEntityPropertyValue(propertyMapping, o));
+			// }
 		} catch (Exception e) {
 			throw new ObjectMapperException("Exception in save", e);
 		}

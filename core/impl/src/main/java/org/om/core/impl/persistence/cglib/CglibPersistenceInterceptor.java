@@ -1,14 +1,15 @@
 package org.om.core.impl.persistence.cglib;
 
+import static org.om.core.impl.util.ClassUtils.extractFieldName;
+import static org.om.core.impl.util.ClassUtils.isGetter;
+
 import java.lang.reflect.Method;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +24,6 @@ import org.slf4j.LoggerFactory;
 public class CglibPersistenceInterceptor implements MethodInterceptor {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CglibPersistenceInterceptor.class);
-	private static final Pattern PATTERN = Pattern.compile("(get|is)([A-Z])([a-zA-Z0-9_]*)");
 
 	private final EntityMapping entityMapping;
 	private final PersistenceInterceptor interceptor;
@@ -50,27 +50,10 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 			return proxy.invokeSuper(obj, args);
 		}
 
-		final Mapping mapping = entityMapping.getMappingByField(fieldName);
-		LOG.trace("Retrieved property mapping {}", mapping);
+		final MappedField mappedField = entityMapping.getByFieldName(fieldName);
+		LOG.trace("Retrieved mapped field{}", mappedField);
 
-		return interceptor.getProperty(mapping);
-	}
-
-	public String extractFieldName(String name) {
-		Matcher matcher = PATTERN.matcher(name);
-		matcher.find();
-		final String fieldName = matcher.group(2).toLowerCase() + matcher.group(3);
-		return fieldName;
-	}
-
-	/**
-	 * Returns true if the given String is a Java Beans getter.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public boolean isGetter(String name) {
-		return PATTERN.matcher(name).find();
+		return interceptor.get(mappedField);
 	}
 
 }

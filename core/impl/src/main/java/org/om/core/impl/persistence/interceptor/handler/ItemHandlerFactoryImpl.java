@@ -11,12 +11,12 @@ public class ItemHandlerFactoryImpl implements ItemHandlerFactory {
 	public ItemHandler get(Session session, Mapping mapping) {
 
 		if (mapping.isPrimitiveOrWrappedType())
-			return new PrimitivePropertyHandler();
+			return new PrimitiveHandler();
 
 		if (mapping instanceof CollectionMapping)
-			return new CollectionPropertyHandler(session);
+			return new CollectionHandler(session);
 
-		return new ReferencePropertyHandler(session);
+		return new ReferenceHandler(session);
 	}
 
 }

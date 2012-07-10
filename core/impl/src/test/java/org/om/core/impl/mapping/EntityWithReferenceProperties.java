@@ -8,7 +8,6 @@ import org.om.core.api.annotation.Property;
 public class EntityWithReferenceProperties {
 
 	@Id
-	@Property
 	private String id;
 
 	@Property

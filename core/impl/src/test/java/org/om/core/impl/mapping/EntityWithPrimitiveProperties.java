@@ -2,40 +2,34 @@ package org.om.core.impl.mapping;
 
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
+import org.om.core.api.annotation.Mapped;
+import org.om.core.api.annotation.MissingStrategy;
 import org.om.core.api.annotation.Property;
-import org.om.core.api.annotation.PropertyMissingStrategy;
-import org.om.core.api.exception.PropertyMissingException;
 
 @Entity
 public class EntityWithPrimitiveProperties {
 
-	public void setPrimitiveIntWithDefaultValue(int primitiveIntWithDefaultValue) {
-		this.primitiveIntWithDefaultValue = primitiveIntWithDefaultValue;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public static final int NUMBER_OF_FIELDS = 9;
 
 	@Id
-	@Property
 	private String id;
 
 	@Property
 	private String fieldWithDefaultSettings;
 
+	@Mapped(missingStrategy = MissingStrategy.DefaultValue)
 	@Property(defaultValue = "1234")
 	private String fieldWithDefaultValue;
 
 	@Property(name = "customName")
 	private String fieldWithCustomName;
 
-	@Property(missingStrategy = PropertyMissingStrategy.DefaultValue, defaultValue = "default value")
+	@Mapped(missingStrategy = MissingStrategy.DefaultValue)
+	@Property(defaultValue = "default value")
 	private String fieldWithMissingStrategy;
 
-	@Property(defaultValue = "custom default value", missingException = PropertyMissingException.class, missingStrategy = PropertyMissingStrategy.ThrowException, name = "differentCustomName")
+	@Mapped(missingException = RuntimeException.class, missingStrategy = MissingStrategy.ThrowException)
+	@Property(defaultValue = "custom default value", name = "differentCustomName")
 	private String fieldWithAllSettings;
 
 	@Property
@@ -46,7 +40,8 @@ public class EntityWithPrimitiveProperties {
 
 	private String unmappedField;
 
-	@Property(defaultValue = "2706", missingStrategy = PropertyMissingStrategy.DefaultValue)
+	@Mapped(missingStrategy = MissingStrategy.DefaultValue)
+	@Property(defaultValue = "2706")
 	private int primitiveIntWithDefaultValue;
 
 	public EntityWithPrimitiveProperties() {
@@ -117,7 +112,15 @@ public class EntityWithPrimitiveProperties {
 		this.fieldWithMissingStrategy = fieldWithMissingStrategy;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public void setPrimitiveInt(int primitiveInt) {
 		this.primitiveInt = primitiveInt;
+	}
+
+	public void setPrimitiveIntWithDefaultValue(int primitiveIntWithDefaultValue) {
+		this.primitiveIntWithDefaultValue = primitiveIntWithDefaultValue;
 	}
 }

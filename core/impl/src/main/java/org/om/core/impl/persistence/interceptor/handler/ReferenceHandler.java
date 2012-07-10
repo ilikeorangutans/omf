@@ -1,7 +1,8 @@
 package org.om.core.impl.persistence.interceptor.handler;
 
 import org.om.core.api.exception.PathNotFoundException;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.CollectionMapping;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
@@ -13,20 +14,24 @@ import org.om.core.api.session.Session;
  * @author Jakob Külzer
  * 
  */
-public class ReferencePropertyHandler implements ItemHandler {
+public class ReferenceHandler implements ItemHandler {
 
 	private final Session session;
 
-	public ReferencePropertyHandler(Session session) {
+	public ReferenceHandler(Session session) {
 		this.session = session;
 	}
 
-	public Object retrieve(Mapping mapping, PersistenceAdapter adapter) {
+	@Override
+	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
+		final CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
+
 		try {
+			// TODO: Need code here to handle locations
 			final Object object = adapter.getProperty((PropertyMapping) mapping);
-			return session.get(mapping.getFieldType(), object);
+			return session.get(mapping.getTargetType(), object);
 		} catch (PathNotFoundException e) {
-			switch (mapping.getMissingStrategy()) {
+			switch (mappedField.getMissingStrategy()) {
 			case DefaultValue:
 				// TODO: This doesn't make much sense in this context. I'm not
 				// sure if I like the idea of a default value for a reference
@@ -36,13 +41,13 @@ public class ReferencePropertyHandler implements ItemHandler {
 
 			case ThrowException:
 				try {
-					throw mapping.getMissingException().newInstance();
+					throw mappedField.getMissingException().newInstance();
 				} catch (InstantiationException e1) {
-					throw new RuntimeException("Could not create exception " + mapping.getMissingException() + " to signal non-resolvable field "
-							+ mapping.getFieldname(), e1);
+					throw new RuntimeException("Could not create exception " + mappedField.getMissingException() + " to signal non-resolvable field "
+							+ mappedField.getName(), e1);
 				} catch (IllegalAccessException e1) {
-					throw new RuntimeException("Could not create exception " + mapping.getMissingException() + " to signal non-resolvable field "
-							+ mapping.getFieldname(), e1);
+					throw new RuntimeException("Could not create exception " + mappedField.getMissingException() + " to signal non-resolvable field "
+							+ mappedField.getName(), e1);
 				}
 
 			case ReturnNull:

@@ -10,7 +10,13 @@ import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFa
  * 
  * @author tome
  * 
+ * 
+ * Not quite sure what this class does, so I'm deprecating it. 
+ * 
+ * @author Jakob Külzer
+ * 
  */
+@Deprecated
 public class DefaultSessionFactory extends ImmutableSessionFactory {
 
 	public DefaultSessionFactory(PersistenceAdapterFactory persistenceDelegateFactory) {

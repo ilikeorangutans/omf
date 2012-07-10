@@ -1,7 +1,6 @@
 package org.om.core.impl.persistence.interceptor.handler;
 
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -10,11 +9,9 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.om.core.api.annotation.PropertyMissingStrategy;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.session.Session;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
-import org.om.core.impl.mapping.ImmutablePropertyMapping;
 
 @RunWith(JMock.class)
 public class ReferencePropertyHandlerTest {
@@ -37,12 +34,15 @@ public class ReferencePropertyHandlerTest {
 			}
 		});
 
-		ReferencePropertyHandler handler = new ReferencePropertyHandler(session);
+		ReferenceHandler handler = new ReferenceHandler(session);
 
 		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter("/foo/bar");
-		Object retrieve = handler.retrieve(new ImmutablePropertyMapping("fieldname", false, "fieldname", EntityWithPrimitiveProperties.class, null,
-				PropertyMissingStrategy.ReturnNull, null), delegate);
-
-		assertThat(retrieve, notNullValue());
+		// Object retrieve = handler.retrieve(new
+		// ImmutablePropertyMapping("fieldname", false, "fieldname",
+		// EntityWithPrimitiveProperties.class, null,
+		// MissingStrategy.ReturnNull, null), delegate);
+		//
+		// assertThat(retrieve, notNullValue());
+		fail("implement me");
 	}
 }
