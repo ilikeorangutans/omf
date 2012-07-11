@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>omf-parent</artifactId>
 		<groupId>org.objectmapper</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 		<relativePath>../../omf-parent</relativePath>
 	</parent>
 	<artifactId>api</artifactId>
@@ -24,7 +24,6 @@
 				<groupId>org.apache.felix</groupId>
 				<artifactId>maven-bundle-plugin</artifactId>
 				<extensions>true</extensions>
-				<version>2.3.7</version>
 				<configuration>
 					<instructions>
 						<Bundle-Category>omf</Bundle-Category>
