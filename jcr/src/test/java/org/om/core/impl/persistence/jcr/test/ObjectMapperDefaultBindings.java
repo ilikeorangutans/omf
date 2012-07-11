@@ -1,4 +1,4 @@
-package org.om.core.impl;
+package org.om.core.impl.persistence.jcr.test;
 
 import org.om.core.api.mapping.extractor.EntityMappingExtractor;
 import org.om.core.api.mapping.registry.MappingRegistry;

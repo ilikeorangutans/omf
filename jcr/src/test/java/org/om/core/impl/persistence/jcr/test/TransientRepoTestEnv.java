@@ -8,7 +8,6 @@ import javax.jcr.Repository;
 import javax.jcr.Session;
 
 import org.apache.jackrabbit.core.TransientRepository;
-import org.om.core.impl.ObjectMapperDefaultBindings;
 import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 import com.google.common.testing.TearDown;
