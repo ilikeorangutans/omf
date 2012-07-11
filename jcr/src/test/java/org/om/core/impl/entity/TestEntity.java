@@ -2,8 +2,9 @@ package org.om.core.impl.entity;
 
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
+import org.om.core.api.annotation.Mapped;
+import org.om.core.api.annotation.MissingStrategy;
 import org.om.core.api.annotation.Property;
-import org.om.core.api.annotation.PropertyMissingStrategy;
 
 @Entity
 public class TestEntity {
@@ -27,7 +28,8 @@ public class TestEntity {
 	@Property
 	private String foobar;
 
-	@Property(defaultValue = "3131", missingStrategy = PropertyMissingStrategy.DefaultValue, name = "mycoolfield")
+	@Mapped(missingStrategy = MissingStrategy.DefaultValue)
+	@Property(defaultValue = "3131", name = "mycoolfield")
 	private int blargh;
 
 	public TestEntity() {

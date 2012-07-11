@@ -8,6 +8,9 @@
 		<relativePath>../../omf-parent</relativePath>
 	</parent>
 	<artifactId>impl</artifactId>
+	<name>Object Mapper - Implementation</name>
+	<packaging>bundle</packaging>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
@@ -25,8 +28,6 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-	<name>Object Mapper - Implementation</name>
-	<packaging>bundle</packaging>
 	<build>
 		<plugins>
 			<plugin>
@@ -36,21 +37,9 @@
 				<configuration>
 					<instructions>
 						<Bundle-Category>omf</Bundle-Category>
-						<Export-Package>org.om.core.*</Export-Package>
+						<Export-Package>org.om.core.impl.*</Export-Package>
 					</instructions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-scr-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>generate-scr-scrdescriptor</id>
-						<goals>
-							<goal>scr</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

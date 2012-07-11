@@ -1,6 +1,5 @@
 package org.om.core.impl.persistence.jcr;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,10 +11,15 @@ import javax.jcr.RepositoryException;
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
+import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.persistence.result.PersistenceResult;
 import org.om.core.api.session.Session;
+import org.om.core.impl.persistence.result.ImmutableCollectionPersistenceResult;
+import org.om.core.impl.persistence.result.ImmutablePersistenceResult;
+import org.om.core.impl.persistence.result.MissingPersistenceResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +56,7 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		LOGGER.trace("New JcrPersistenceDelegate for {} with {}", node, entityMapping);
 	}
 
-	public Object getProperty(PropertyMapping propertyMapping) {
+	public PersistenceResult getProperty(PropertyMapping propertyMapping) {
 		// TODO: should check if the given mapping actually exists in
 		// entityMapping.
 
@@ -60,20 +64,25 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		final String propertyName = propertyMapping.getPropertyName();
 		try {
 
-			final Property property = node.getProperty(propertyName);
-			if (property.isMultiple()) {
-				LOGGER.warn("Cannot handle multi-value properties yet.");
-				return null;
+			if (!node.hasProperty(propertyName)) {
+				final MappedField mappedField = entityMapping.getMappedFields().getFieldByMapping(propertyMapping);
+				return MissingPersistenceResult.createMissing(mappedField);
 			}
 
-			return property.getValue().getString();
+			final Property property = node.getProperty(propertyName);
+			if (property.isMultiple()) {
+				throw new RuntimeException("Cannot handle multi-value properties yet.");
+			}
+
+			// TODO: this could be more efficient for binary types:
+			return new ImmutablePersistenceResult(property.getValue().getString());
 
 		} catch (final RepositoryException e) {
 			throw new ObjectMapperException("Exception in getProperty " + propertyName, e);
 		}
 	}
 
-	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+	public CollectionResult getCollection(CollectionMapping collectionMapping) {
 
 		try {
 			final List<String> paths = new LinkedList<String>();
@@ -86,7 +95,7 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 				paths.add(child.getPath());
 			}
 
-			return paths;
+			return new ImmutableCollectionPersistenceResult(paths);
 
 		} catch (RepositoryException e) {
 			throw new ObjectMapperException("Could not retrieve collection from " + collectionMapping.getLocation());
@@ -121,22 +130,4 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		// Disabled for now. Transaction semantics need to be defined.
 	}
 
-	public boolean canProvide(Mapping mapping) throws ObjectMapperException {
-		try {
-			// TODO: This method doesn't properly reflect the fact that mappings
-			// might be referencing nodes instead of properties.
-
-			// Ugly:
-			if (mapping instanceof PropertyMapping) {
-				PropertyMapping prop = (PropertyMapping) mapping;
-
-				return node.hasProperty(prop.getPropertyName());
-			}
-
-			return false;
-
-		} catch (final RepositoryException e) {
-			throw new ObjectMapperException("Exception while retrieving property " + mapping.getFieldname(), e);
-		}
-	}
 }

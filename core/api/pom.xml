@@ -9,13 +9,6 @@
 	</parent>
 	<artifactId>api</artifactId>
 	<packaging>bundle</packaging>
-	<dependencies>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
 	<name>Object Mapper - API</name>
 
 	<build>

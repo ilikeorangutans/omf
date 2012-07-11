@@ -1,7 +1,5 @@
 package org.om.core.impl.persistence.interceptor.factory;
 
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Service;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.interceptor.factory.PersistenceInterceptorFactory;
@@ -13,8 +11,6 @@ import org.om.core.impl.persistence.interceptor.handler.ItemHandlerFactoryImpl;
 /**
  * @author Jakob Külzers
  */
-@Service(value = PersistenceInterceptorFactory.class)
-@Component
 public class PersistenceInterceptorFactoryImpl implements PersistenceInterceptorFactory {
 
 	private final ItemHandlerFactory propertyHandlerFactory;

@@ -2,8 +2,9 @@ package org.om.core.impl.entity;
 
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
+import org.om.core.api.annotation.Mapped;
 import org.om.core.api.annotation.Property;
-import org.om.core.api.annotation.PropertyMissingStrategy;
+import org.om.core.api.annotation.MissingStrategy;
 
 @Entity
 public class EntityWithReference {
@@ -15,7 +16,8 @@ public class EntityWithReference {
 	@Property
 	private TestEntity testEntity;
 
-	@Property(missingStrategy = PropertyMissingStrategy.ThrowException)
+	@Mapped(missingStrategy = MissingStrategy.ThrowException)
+	@Property
 	private TestEntity referenceThrowingExceptionOnMissing;
 
 	public TestEntity getReferenceThrowingExceptionOnMissing() {
