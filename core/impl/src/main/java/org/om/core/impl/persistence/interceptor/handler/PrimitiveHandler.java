@@ -10,6 +10,7 @@ import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 import org.om.core.api.persistence.request.ImmutablePersistenceRequest;
 import org.om.core.api.persistence.request.Mode;
 import org.om.core.api.persistence.result.PersistenceResult;
+import org.om.core.impl.util.ClassUtils;
 
 /**
  * Property handler for primitive or autoboxed types. Will automatically perform
@@ -43,6 +44,14 @@ public class PrimitiveHandler implements ItemHandler {
 			return input;
 		}
 
+		// If the input is a primitive type, it's probably safe to return.
+		// TODO: I just wrote probably. So it's probably a bad thing.
+		if (ClassUtils.isPrimitiveOrAutoboxed(mappedField.getType()) && ClassUtils.isPrimitiveOrAutoboxed(input.getClass()))
+			return input;
+
+		// This is ugly, but necessary as boxed types are not the same class
+		// as primitive types.
+
 		// If the returned object is a String, we'll have to parse it.
 		if (String.class.equals(input.getClass())) {
 
@@ -55,5 +64,4 @@ public class PrimitiveHandler implements ItemHandler {
 
 		throw new IllegalStateException("We have an unhandled type " + mappedField.getType() + ".");
 	}
-
 }

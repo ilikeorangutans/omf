@@ -81,4 +81,5 @@ public class JcrEntityAccessTest {
 
 		entity.getReferenceThrowingExceptionOnMissing();
 	}
+
 }
