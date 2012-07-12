@@ -3,6 +3,8 @@ package org.om.core.impl.persistence.interceptor.handler;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 
+import org.om.core.api.exception.ObjectMapperException;
+import org.om.core.api.exception.PersistenceLayerException;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
@@ -25,7 +27,12 @@ public class PrimitiveHandler implements ItemHandler {
 
 	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
 		final PropertyMapping mapping = (PropertyMapping) mappedField.getMapping();
-		final PersistenceResult result = adapter.getProperty(new ImmutablePersistenceRequest(mapping.getPropertyName(), mappedField.getType(), Mode.Relative));
+		final PersistenceResult result;
+		try {
+			result = adapter.getProperty(new ImmutablePersistenceRequest(mapping.getPropertyName(), mappedField.getType(), Mode.Relative));
+		} catch (PersistenceLayerException e) {
+			throw new ObjectMapperException("Could not retrieve primitive for " + mappedField, e);
+		}
 
 		final Object input;
 		if (result.hasResult()) {

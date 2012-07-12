@@ -10,6 +10,7 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 
 import org.om.core.api.exception.ObjectMapperException;
+import org.om.core.api.exception.PersistenceLayerException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.MappedField;
@@ -177,14 +178,14 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 					|| Double.class == expectedType) {
 				value = property.getDouble();
 			} else if (boolean.class == expectedType || Boolean.class == expectedType) {
-				value = property.getDouble();
+				value = property.getBoolean();
 			} else {
 				value = property.getString();
 			}
 
 			return new ImmutablePersistenceResult(value);
 		} catch (RepositoryException e) {
-			throw new ObjectMapperException("Exception while retrieving " + request);
+			throw new PersistenceLayerException("Exception while retrieving " + request, e);
 		}
 	}
 }

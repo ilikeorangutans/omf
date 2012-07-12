@@ -16,6 +16,7 @@
 package org.om.core.api.persistence;
 
 import org.om.core.api.exception.ObjectMapperException;
+import org.om.core.api.exception.PersistenceLayerException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
@@ -76,7 +77,9 @@ public interface PersistenceAdapter {
 	 * 
 	 * @param request
 	 * @return a result object, never null.
+	 * @throws PersistenceLayerException
+	 *             if a unrecoverable error occurs on the persistence layer.
 	 */
-	PersistenceResult getProperty(PersistenceRequest request);
+	PersistenceResult getProperty(PersistenceRequest request) throws PersistenceLayerException;
 
 }

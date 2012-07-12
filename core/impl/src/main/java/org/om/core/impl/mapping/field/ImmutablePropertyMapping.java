@@ -32,4 +32,9 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		return simpleType;
 	}
 
+	@Override
+	public String toString() {
+		return "ImmutablePropertyMapping [propertyName=" + propertyName + ", simpleType=" + simpleType + ", defaultValue=" + defaultValue + "]";
+	}
+
 }

@@ -2,14 +2,19 @@ package org.om.core.api.persistence.request;
 
 public class ImmutablePersistenceRequest implements PersistenceRequest {
 
-	private final Mode mode;
 	private final Class<?> exptectedType;
+	private final Mode mode;
 	private final String path;
 
 	public ImmutablePersistenceRequest(String path, Class<?> exptectedType, Mode mode) {
 		this.path = path;
 		this.exptectedType = exptectedType;
 		this.mode = mode;
+	}
+
+	@Override
+	public Class<?> getExpectedType() {
+		return exptectedType;
 	}
 
 	@Override
@@ -23,8 +28,9 @@ public class ImmutablePersistenceRequest implements PersistenceRequest {
 	}
 
 	@Override
-	public Class<?> getExpectedType() {
-		return exptectedType;
+	public String toString() {
+		return "ImmutablePersistenceRequest [mode=" + mode + ", exptectedType=" + exptectedType + ", path=" + path
+				+ "]";
 	}
 
 }
