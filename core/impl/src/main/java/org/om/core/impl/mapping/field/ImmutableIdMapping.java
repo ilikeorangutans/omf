@@ -1,7 +1,7 @@
 package org.om.core.impl.mapping.field;
 
-import org.om.core.api.mapping.IdMapping;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.field.IdMapping;
+import org.om.core.api.mapping.field.Mapping;
 
 public class ImmutableIdMapping implements IdMapping {
 

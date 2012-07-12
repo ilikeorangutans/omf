@@ -13,14 +13,16 @@ import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
+import org.om.core.api.persistence.request.Mode;
+import org.om.core.api.persistence.request.PersistenceRequest;
 import org.om.core.api.persistence.result.CollectionResult;
 import org.om.core.api.persistence.result.PersistenceResult;
-import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.result.ImmutableCollectionPersistenceResult;
 import org.om.core.impl.persistence.result.ImmutablePersistenceResult;
 import org.om.core.impl.persistence.result.MissingPersistenceResult;
+import org.om.core.impl.persistence.result.NoValuePersistenceResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,18 +42,12 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 	private final Node node;
 
 	/**
-	 * The session
-	 */
-	private final Session session;
-
-	/**
 	 * The entity mapping for the entity that maps 1:1 to this node
 	 */
 	private final EntityMapping entityMapping;
 
-	public JcrPersistenceAdapter(Session session, EntityMapping entityMapping, Node node) {
+	public JcrPersistenceAdapter(EntityMapping entityMapping, Node node) {
 		this.node = node;
-		this.session = session;
 		this.entityMapping = entityMapping;
 
 		LOGGER.trace("New JcrPersistenceDelegate for {} with {}", node, entityMapping);
@@ -95,18 +91,25 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 
 			if (node.hasNode(location)) {
 				final Node collectionContainer = node.getNode(location);
+				LOGGER.debug("Retrieving from node {}", collectionContainer.getPath());
 
 				for (NodeIterator ni = collectionContainer.getNodes(); ni.hasNext();) {
 					final Node child = ni.nextNode();
+
+					LOGGER.trace("Adding {} to collection.", child.getPath());
+
 					paths.add(child.getPath());
 				}
 			} else if (node.hasProperty(location) && node.getProperty(location).isMultiple()) {
 				final Property property = node.getProperty(location);
+				LOGGER.debug("Retrieving from property {}", property.getPath());
 				for (Value v : property.getValues()) {
 					paths.add(v.getString());
 				}
 			} else {
-				throw new ObjectMapperException("Could not retrieve collection from " + collectionMapping.getLocation());
+				throw new ObjectMapperException(
+						"Cannot retrieve collection. Could not find a node or multi-value property with name "
+								+ collectionMapping.getLocation() + ".");
 			}
 
 			return new ImmutableCollectionPersistenceResult(paths);
@@ -144,4 +147,44 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		// Disabled for now. Transaction semantics need to be defined.
 	}
 
+	@Override
+	public PersistenceResult getProperty(PersistenceRequest request) {
+
+		try {
+
+			Node node = this.node;
+			if (request.getMode() == Mode.Absolute)
+				throw new UnsupportedOperationException("Implement absolute node retrieval!");
+
+			if (!node.hasProperty(request.getPath()))
+				return new NoValuePersistenceResult();
+
+			final Property property = node.getProperty(request.getPath());
+			if (property.isMultiple())
+				throw new UnsupportedOperationException("Implement support for multiple valued properties!");
+
+			final Class<?> expectedType = request.getExpectedType();
+
+			Object value;
+
+			// The following is probably not necessary, but should save us the
+			// overhead of going through conversion via property editors on the
+			// interceptor level.
+			if (int.class == expectedType || Integer.class == expectedType || long.class == expectedType
+					|| Long.class == expectedType) {
+				value = property.getLong();
+			} else if (float.class == expectedType || Float.class == expectedType || double.class == expectedType
+					|| Double.class == expectedType) {
+				value = property.getDouble();
+			} else if (boolean.class == expectedType || Boolean.class == expectedType) {
+				value = property.getDouble();
+			} else {
+				value = property.getString();
+			}
+
+			return new ImmutablePersistenceResult(value);
+		} catch (RepositoryException e) {
+			throw new ObjectMapperException("Exception while retrieving " + request);
+		}
+	}
 }

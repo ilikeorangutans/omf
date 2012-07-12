@@ -3,7 +3,7 @@ package org.om.core.impl.persistence.delegate;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.PersistenceContext;
 
 /**
@@ -29,6 +29,10 @@ public class TestingPersistenceContext implements PersistenceContext {
 
 	public boolean hasProperty(String propertyName) {
 		return properties.containsKey(propertyName);
+	}
+
+	public Object getProperty(String path) {
+		return properties.get(path);
 	}
 
 }

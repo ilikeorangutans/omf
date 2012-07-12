@@ -2,7 +2,7 @@ package org.om.core.impl.persistence.result;
 
 import org.om.core.api.annotation.MissingStrategy;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.result.PersistenceResult;
 
 public class MissingPersistenceResult {

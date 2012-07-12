@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.field.Mapping;
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceAdapter;

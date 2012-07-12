@@ -1,14 +1,14 @@
 package org.om.core.impl.persistence.interceptor;
 
-import java.util.Collection;
-
-import org.om.core.api.mapping.CollectionMapping;
+import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 import org.om.core.api.persistence.interceptor.handler.ItemHandlerFactory;
 import org.om.core.api.session.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of {@link PersistenceInterceptor}, takes care of calling the
@@ -20,6 +20,8 @@ import org.om.core.api.session.Session;
  */
 public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(PersistenceInterceptorImpl.class);
+
 	private final PersistenceAdapter adapter;
 
 	private final ItemHandlerFactory handlerFactory;
@@ -29,8 +31,6 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 	public PersistenceInterceptorImpl(Session session, ItemHandlerFactory handlerFactory, PersistenceAdapter adapter) {
 		this.session = session;
 		this.handlerFactory = handlerFactory;
-		// this.delegate = new
-		// MissingBehaviorPersistenceDelegateDecorator(delegate);
 		this.adapter = adapter;
 	}
 
@@ -40,13 +40,11 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 
 		final ItemHandler handler = handlerFactory.get(session, mappedField.getMapping());
 		if (handler == null)
-			throw new NullPointerException("No handler for mapped field " + mappedField.getName() + " found.");
+			throw new ObjectMapperException("No handler for mapped field " + mappedField.getName() + " found.");
+
+		LOGGER.trace("Retrieving field {} with handler {}", mappedField.getName(), handler);
 
 		return handler.retrieve(mappedField, adapter);
-	}
-
-	public Collection<?> getCollection(CollectionMapping collectionMapping) {
-		return null;
 	}
 
 }

@@ -1,4 +1,4 @@
-package org.om.core.api.mapping;
+package org.om.core.api.mapping.field;
 
 import org.om.core.api.annotation.Id;
 import org.om.core.api.annotation.Mapped;

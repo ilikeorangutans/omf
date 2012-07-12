@@ -1,11 +1,12 @@
 package org.om.core.impl.persistence.interceptor.handler;
 
-import org.om.core.api.exception.PathNotFoundException;
-import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.ReferenceMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
+import org.om.core.api.persistence.request.ImmutablePersistenceRequest;
+import org.om.core.api.persistence.request.Mode;
+import org.om.core.api.persistence.result.PersistenceResult;
 import org.om.core.api.session.Session;
 
 /**
@@ -24,36 +25,17 @@ public class ReferenceHandler implements ItemHandler {
 
 	@Override
 	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
-		final CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
+		final ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
 
-		try {
-			// TODO: Need code here to handle locations
-			final Object object = adapter.getProperty((PropertyMapping) mapping);
-			return session.get(mapping.getTargetType(), object);
-		} catch (PathNotFoundException e) {
-			switch (mappedField.getMissingStrategy()) {
-			case DefaultValue:
-				// TODO: This doesn't make much sense in this context. I'm not
-				// sure if I like the idea of a default value for a reference
-				// field as it requires a second pass through the persistence
-				// adapters.
-				return null;
-
-			case ThrowException:
-				try {
-					throw mappedField.getMissingException().newInstance();
-				} catch (InstantiationException e1) {
-					throw new RuntimeException("Could not create exception " + mappedField.getMissingException() + " to signal non-resolvable field "
-							+ mappedField.getName(), e1);
-				} catch (IllegalAccessException e1) {
-					throw new RuntimeException("Could not create exception " + mappedField.getMissingException() + " to signal non-resolvable field "
-							+ mappedField.getName(), e1);
-				}
-
-			case ReturnNull:
-			default:
-				return null;
-			}
+		// TODO: Need code here to handle locations
+		final PersistenceResult result = adapter.getProperty(new ImmutablePersistenceRequest(mapping.getPath(), String.class, Mode.Relative));
+		final Object id;
+		if (result.hasResult()) {
+			id = result.getResult();
+		} else {
+			id = MissingHandler.INSTANCE.retrieve(mappedField, adapter);
 		}
+
+		return session.get(mappedField.getType(), id);
 	}
 }

@@ -4,9 +4,10 @@ import java.util.Collection;
 
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.api.mapping.Mapping;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
+import org.om.core.api.persistence.request.PersistenceRequest;
 import org.om.core.api.persistence.result.CollectionResult;
 import org.om.core.api.persistence.result.PersistenceResult;
 import org.om.core.impl.persistence.result.ImmutableCollectionPersistenceResult;
@@ -45,6 +46,11 @@ public class TestingPassThroughPersistenceAdapter implements PersistenceAdapter 
 
 	public void delete() throws ObjectMapperException {
 		throw new IllegalStateException("Not implemented.");
+	}
+
+	@Override
+	public PersistenceResult getProperty(PersistenceRequest request) {
+		return new ImmutablePersistenceResult(object);
 	}
 
 }

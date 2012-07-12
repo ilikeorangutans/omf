@@ -1,11 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>omf-parent</artifactId>
 		<groupId>org.objectmapper</groupId>
 		<version>0.0.2-SNAPSHOT</version>
-		<relativePath>..</relativePath>
+		<relativePath>../omf-parent</relativePath>
 	</parent>
 	<artifactId>jcr</artifactId>
 	<name>Object Mapper - JCR Backend</name>
@@ -67,6 +69,10 @@
 			<artifactId>guice</artifactId>
 			<version>3.0</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
 		</dependency>
 	</dependencies>
 	<packaging>bundle</packaging>

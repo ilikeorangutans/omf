@@ -1,6 +1,7 @@
 package org.om.core.api.mapping;
 
 import org.om.core.api.annotation.MissingStrategy;
+import org.om.core.api.mapping.field.Mapping;
 
 /**
  * Describes the field on a mapped entity.

@@ -11,6 +11,7 @@ import org.om.core.api.persistence.result.PersistenceResult;
  * @author Jakob Külzer
  * 
  */
+@Deprecated
 public class ExceptionThrowingPersistenceResult implements PersistenceResult {
 
 	private Class<? extends RuntimeException> exceptionType;

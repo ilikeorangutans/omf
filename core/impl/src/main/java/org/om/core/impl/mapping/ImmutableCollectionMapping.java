@@ -40,4 +40,9 @@ public class ImmutableCollectionMapping implements CollectionMapping {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "ImmutableCollectionMapping [location=" + location + ", targetType=" + targetType + "]";
+	}
+
 }

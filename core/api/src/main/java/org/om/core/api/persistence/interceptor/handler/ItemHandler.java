@@ -1,7 +1,7 @@
 package org.om.core.api.persistence.interceptor.handler;
 
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.field.Mapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 
 /**

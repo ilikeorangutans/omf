@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 
 /**
  * Extracts {@link PropertyMapping}s from a given type.

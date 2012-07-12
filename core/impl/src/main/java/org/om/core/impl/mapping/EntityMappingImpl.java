@@ -4,17 +4,22 @@ import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.Fields;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.field.Mapping;
 
 public class EntityMappingImpl implements EntityMapping {
 
-	private final Class<?> type;
 	private Fields fields;
 	private final String name;
+	private final Class<?> type;
 
 	public EntityMappingImpl(Class<?> type, String name) {
 		this.type = type;
 		this.name = name;
+	}
+
+	@Override
+	public MappedField getByFieldName(String name) {
+		return fields.getField(name);
 	}
 
 	public MappedField getIdProperty() {
@@ -55,7 +60,7 @@ public class EntityMappingImpl implements EntityMapping {
 	}
 
 	@Override
-	public MappedField getByFieldName(String name) {
-		return fields.getField(name);
+	public String toString() {
+		return "EntityMappingImpl [fields=" + fields + ", name=" + name + ", type=" + type + "]";
 	}
 }

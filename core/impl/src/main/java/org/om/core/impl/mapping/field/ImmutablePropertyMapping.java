@@ -1,6 +1,6 @@
 package org.om.core.impl.mapping.field;
 
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.impl.util.ClassUtils;
 
 public class ImmutablePropertyMapping implements PropertyMapping {

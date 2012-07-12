@@ -10,7 +10,7 @@ import java.util.Set;
 import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.Fields;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.field.Mapping;
 
 /**
  * Immutable implementation of {@link Fields}.
@@ -76,7 +76,7 @@ public class ImmutableFields implements Fields {
 	public MappedField getFieldByMapping(Mapping mapping) {
 
 		for (MappedField mf : fields.values()) {
-			// This might need to use .equals(), but for now it works:
+			// This should use .equals(), but for now it works:
 			if (mf.getMapping() == mapping)
 				return mf;
 		}

@@ -2,6 +2,8 @@ package org.om.core.api.mapping;
 
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.exception.MappingException;
+import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 
 /**
  * Describes the mapping for an {@link Entity}.

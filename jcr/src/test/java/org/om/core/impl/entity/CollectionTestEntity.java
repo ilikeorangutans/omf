@@ -5,18 +5,18 @@ import java.util.List;
 import org.om.core.api.annotation.Collection;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
-import org.om.core.api.annotation.Property;
 
 @Entity
 public class CollectionTestEntity {
 
 	@Id
-	@Property
 	private String id;
 
-	@Property
-	@Collection(targetType = ChildEntity.class)
+	@Collection(targetType = ChildEntity.class, location = "./")
 	private List<ChildEntity> list;
+
+	@Collection(targetType = String.class)
+	private List<String> listOfStrings;
 
 	public CollectionTestEntity() {
 	}
@@ -29,4 +29,7 @@ public class CollectionTestEntity {
 		return list;
 	}
 
+	public List<String> getListOfStrings() {
+		return listOfStrings;
+	}
 }

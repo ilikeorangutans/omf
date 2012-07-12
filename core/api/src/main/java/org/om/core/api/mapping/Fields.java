@@ -2,6 +2,8 @@ package org.om.core.api.mapping;
 
 import java.util.Collection;
 
+import org.om.core.api.mapping.field.Mapping;
+
 /**
  * Contains all {@link MappedField}s for an {@link EntityMapping}.
  * 

@@ -16,145 +16,139 @@ import org.om.core.api.session.Session;
  */
 public class ReferenceListWrapper<T> implements List<T> {
 
+	private final Collection<?> collection;
+	private final Session session;
+	private final CollectionMapping collectionMapping;
+
 	public ReferenceListWrapper(Session session, CollectionMapping collectionMapping, Collection<?> result) {
+		this.session = session;
+		this.collectionMapping = collectionMapping;
+		this.collection = result;
 	}
 
 	@Override
 	public boolean add(T e) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void add(int index, T element) {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean addAll(Collection<? extends T> c) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean addAll(int index, Collection<? extends T> c) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public T get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (index < 0 || index >= size())
+			throw new IndexOutOfBoundsException(Integer.toString(index));
+
+		int i = 0;
+		for (Object o : collection) {
+			if (index == i)
+				return (T) session.get(collectionMapping.getTargetType(), o);
+			i++;
+		}
+
+		throw new IllegalStateException();
 	}
 
 	@Override
 	public int indexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return collection.isEmpty();
 	}
 
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ReferenceHandlingIterator(session, collectionMapping, collection.iterator());
 	}
 
 	@Override
 	public int lastIndexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public ListIterator<T> listIterator() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public ListIterator<T> listIterator(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public T remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public T set(int index, T element) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return collection.size();
 	}
 
 	@Override
 	public List<T> subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 }

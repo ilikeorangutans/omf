@@ -1,5 +1,7 @@
 package org.om.core.api.mapping;
 
+import org.om.core.api.mapping.field.Mapping;
+
 /**
  * Describes the mapping of a collection to a persistence backend.
  * 

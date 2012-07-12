@@ -13,8 +13,6 @@ import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.interceptor.handler.collection.PrimitiveListWrapper;
 import org.om.core.impl.persistence.interceptor.handler.collection.ReferenceListWrapper;
 import org.om.core.impl.util.ClassUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * An {@link ItemHandler} that access collections.
@@ -23,8 +21,6 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class CollectionHandler implements ItemHandler {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(CollectionHandler.class);
 
 	private final Session session;
 

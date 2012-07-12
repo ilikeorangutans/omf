@@ -1,7 +1,6 @@
 package org.om.core.api.mapping.field;
 
 import org.om.core.api.annotation.Entity;
-import org.om.core.api.mapping.Mapping;
 
 /**
  * A ReferenceMapping is a mapping that describes a one-to-one relationship

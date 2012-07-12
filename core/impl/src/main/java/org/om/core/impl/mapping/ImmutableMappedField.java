@@ -2,17 +2,24 @@ package org.om.core.impl.mapping;
 
 import org.om.core.api.annotation.MissingStrategy;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.field.Mapping;
 
 public class ImmutableMappedField implements MappedField {
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
+	private final Mapping mapping;
+
+	private final Class<? extends RuntimeException> missingException;
+
+	private final MissingStrategy missingStrategy;
+	private final String name;
+	private final Class<?> type;
+
+	public ImmutableMappedField(String name, Class<?> type, Mapping mapping, MissingStrategy missingStrategy, Class<? extends RuntimeException> missingException) {
+		this.name = name;
+		this.type = type;
+		this.mapping = mapping;
+		this.missingStrategy = missingStrategy;
+		this.missingException = missingException;
 	}
 
 	@Override
@@ -37,28 +44,6 @@ public class ImmutableMappedField implements MappedField {
 		return true;
 	}
 
-	private final String name;
-	private final Class<?> type;
-	private final Mapping mapping;
-	private final Class<? extends RuntimeException> missingException;
-	private final MissingStrategy missingStrategy;
-
-	public ImmutableMappedField(String name, Class<?> type, Mapping mapping, MissingStrategy missingStrategy, Class<? extends RuntimeException> missingException) {
-		this.name = name;
-		this.type = type;
-		this.mapping = mapping;
-		this.missingStrategy = missingStrategy;
-		this.missingException = missingException;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public Class<?> getType() {
-		return type;
-	}
-
 	public Mapping getMapping() {
 		return mapping;
 	}
@@ -69,6 +54,29 @@ public class ImmutableMappedField implements MappedField {
 
 	public MissingStrategy getMissingStrategy() {
 		return missingStrategy;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Class<?> getType() {
+		return type;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
+	}
+
+	@Override
+	public String toString() {
+		return "ImmutableMappedField [mapping=" + mapping + ", missingException=" + missingException + ", missingStrategy=" + missingStrategy + ", name="
+				+ name + ", type=" + type + "]";
 	}
 
 }

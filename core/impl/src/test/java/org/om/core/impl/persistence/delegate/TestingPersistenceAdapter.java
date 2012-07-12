@@ -4,14 +4,16 @@ import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.Mapping;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.PersistenceContext;
+import org.om.core.api.persistence.request.PersistenceRequest;
 import org.om.core.api.persistence.result.CollectionResult;
 import org.om.core.api.persistence.result.PersistenceResult;
 import org.om.core.impl.persistence.result.ImmutablePersistenceResult;
 import org.om.core.impl.persistence.result.MissingPersistenceResult;
+import org.om.core.impl.persistence.result.NoValuePersistenceResult;
 
 /**
  * @author tome
@@ -60,6 +62,14 @@ public class TestingPersistenceAdapter implements PersistenceAdapter {
 	public CollectionResult getCollection(CollectionMapping collectionMapping) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public PersistenceResult getProperty(PersistenceRequest request) {
+		if (!persistenceContext.hasProperty(request.getPath())) {
+			return new NoValuePersistenceResult();
+		}
+		return new ImmutablePersistenceResult(persistenceContext.getProperty(request.getPath()));
 	}
 
 }

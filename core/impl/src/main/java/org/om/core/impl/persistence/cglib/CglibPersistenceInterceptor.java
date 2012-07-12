@@ -51,7 +51,7 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 		}
 
 		final MappedField mappedField = entityMapping.getByFieldName(fieldName);
-		LOG.trace("Retrieved mapped field{}", mappedField);
+		LOG.trace("Retrieved {}", mappedField);
 
 		return interceptor.get(mappedField);
 	}

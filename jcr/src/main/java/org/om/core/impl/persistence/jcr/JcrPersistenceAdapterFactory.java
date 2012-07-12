@@ -49,7 +49,7 @@ public class JcrPersistenceAdapterFactory implements PersistenceAdapterFactory {
 			// node = rootNode.addNode(path);
 			// }
 
-			return new JcrPersistenceAdapter(session, mapping, node);
+			return new JcrPersistenceAdapter(mapping, node);
 		} catch (final PathNotFoundException e) {
 			throw new org.om.core.api.exception.PathNotFoundException(new Path(path));
 		} catch (final RepositoryException e) {

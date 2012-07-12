@@ -9,10 +9,10 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.om.core.api.annotation.MissingStrategy;
 import org.om.core.api.exception.MissingException;
-import org.om.core.api.mapping.IdMapping;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.mapping.extractor.FieldMappingExtractor;
+import org.om.core.api.mapping.field.IdMapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 
 public class FieldMappingExtractorImplTest {

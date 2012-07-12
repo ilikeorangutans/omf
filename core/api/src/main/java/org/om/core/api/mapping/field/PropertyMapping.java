@@ -1,4 +1,5 @@
-package org.om.core.api.mapping;
+package org.om.core.api.mapping.field;
+
 
 /**
  * Describes the mapping of a property.

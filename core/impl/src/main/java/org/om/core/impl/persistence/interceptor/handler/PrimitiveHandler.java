@@ -4,9 +4,11 @@ import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 
 import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.PropertyMapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
+import org.om.core.api.persistence.request.ImmutablePersistenceRequest;
+import org.om.core.api.persistence.request.Mode;
 import org.om.core.api.persistence.result.PersistenceResult;
 
 /**
@@ -22,9 +24,14 @@ public class PrimitiveHandler implements ItemHandler {
 
 	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
 		final PropertyMapping mapping = (PropertyMapping) mappedField.getMapping();
-		final PersistenceResult result = adapter.getProperty(mapping);
+		final PersistenceResult result = adapter.getProperty(new ImmutablePersistenceRequest(mapping.getPropertyName(), mappedField.getType(), Mode.Relative));
 
-		final Object input = result.getResult();
+		final Object input;
+		if (result.hasResult()) {
+			input = result.getResult();
+		} else {
+			input = MissingHandler.INSTANCE.retrieve(mappedField, adapter);
+		}
 
 		// If we get a null, we can just return null, no type checking
 		// necessary.

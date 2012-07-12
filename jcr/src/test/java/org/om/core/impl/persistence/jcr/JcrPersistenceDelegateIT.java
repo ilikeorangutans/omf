@@ -1,19 +1,16 @@
 package org.om.core.impl.persistence.jcr;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.jcr.Node;
-import javax.jcr.NodeIterator;
 import javax.jcr.Repository;
-import javax.jcr.RepositoryException;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -52,11 +49,6 @@ public class JcrPersistenceDelegateIT {
 		rootnode = jcrSession.getRootNode();
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		jcrSession.logout();
-	}
-
 	@Test
 	public void testSimpleEntity() throws Exception {
 
@@ -68,12 +60,13 @@ public class JcrPersistenceDelegateIT {
 		TestEntity testEntity = session.get(TestEntity.class, "entity");
 
 		assertThat(testEntity, notNullValue());
-		assertThat(testEntity.getId(), is(""));
+		// Disabled // ID does not map to a property any more //
+		// assertThat(testEntity.getId(), is(""));
 		assertThat(testEntity.getBlargh(), is(3131));
 	}
 
 	@Test
-	public void testSimpleCollection() throws Exception {
+	public void testSimpleCollectionWithReferenceValues() throws Exception {
 
 		Node node = rootnode.addNode("collection");
 		node.addNode("element1").setProperty("value", "first value");
@@ -87,7 +80,31 @@ public class JcrPersistenceDelegateIT {
 		assertThat(entity, notNullValue());
 		List<ChildEntity> list = entity.getList();
 		assertThat(list, notNullValue());
+		assertThat(list.size(), is(2));
 
+		ChildEntity childEntity = list.get(0);
+		assertThat(childEntity, notNullValue());
+		assertThat(childEntity.getValue(), is("first value"));
+
+	}
+
+	@Test
+	public void testCollectionWithStringValuesFromMultiValueProperty() throws Exception {
+
+		Node node = rootnode.addNode("collection");
+		node.setProperty("listOfStrings", new String[] { "first value", "second value" });
+
+		Session session = sessionFactory.getSession(new JcrPersistenceContext(jcrSession));
+		System.out.println("JcrPersistenceDelegateIT.test() Got session " + session);
+
+		CollectionTestEntity entity = session.get(CollectionTestEntity.class, "collection");
+
+		assertThat(entity, notNullValue());
+		List<String> list = entity.getListOfStrings();
+		assertThat(list, notNullValue());
+		assertThat(list.size(), is(2));
+
+		assertThat(list, containsInAnyOrder("first value", "second value"));
 	}
 
 }
