@@ -13,6 +13,8 @@ import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.interceptor.handler.collection.PrimitiveListWrapper;
 import org.om.core.impl.persistence.interceptor.handler.collection.ReferenceListWrapper;
 import org.om.core.impl.util.ClassUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An {@link ItemHandler} that access collections.
@@ -21,6 +23,8 @@ import org.om.core.impl.util.ClassUtils;
  * 
  */
 public class CollectionHandler implements ItemHandler {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CollectionHandler.class);
 
 	private final Session session;
 
@@ -35,8 +39,10 @@ public class CollectionHandler implements ItemHandler {
 		final CollectionMapping collectionMapping = (CollectionMapping) mapping;
 
 		final Class<?> fieldType = mappedField.getType();
+		final Class<?> targetType = collectionMapping.getTargetType();
+
 		if (fieldType == List.class) {
-			if (ClassUtils.isPrimitiveOrAutoboxed(collectionMapping.getTargetType())) {
+			if (ClassUtils.isPrimitiveOrAutoboxed(targetType) || String.class.equals(targetType)) {
 				return new PrimitiveListWrapper(collectionResult.getResult());
 			} else {
 				return new ReferenceListWrapper(session, collectionMapping, collectionResult.getResult());

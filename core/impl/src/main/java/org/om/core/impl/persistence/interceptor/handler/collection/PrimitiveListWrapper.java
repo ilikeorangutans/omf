@@ -41,13 +41,11 @@ public class PrimitiveListWrapper<T> implements List<T> {
 	}
 
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
 	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
 	public T get(int index) {
@@ -81,7 +79,7 @@ public class PrimitiveListWrapper<T> implements List<T> {
 	}
 
 	public ListIterator<T> listIterator() {
-		return (ListIterator<T>) collection.iterator();
+		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
 	public ListIterator<T> listIterator(int index) {

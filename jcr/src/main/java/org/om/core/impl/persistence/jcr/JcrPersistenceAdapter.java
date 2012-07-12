@@ -7,6 +7,7 @@ import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.Property;
 import javax.jcr.RepositoryException;
+import javax.jcr.Value;
 
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.CollectionMapping;
@@ -88,11 +89,24 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 			final List<String> paths = new LinkedList<String>();
 
 			final String location = collectionMapping.getLocation();
-			final Node collectionContainer = node.getNode(location);
 
-			for (NodeIterator ni = collectionContainer.getNodes(); ni.hasNext();) {
-				final Node child = ni.nextNode();
-				paths.add(child.getPath());
+			// TODO: This is a bit of a hack right now. We'll need a better
+			// representation of how to retrieve elements for collections.
+
+			if (node.hasNode(location)) {
+				final Node collectionContainer = node.getNode(location);
+
+				for (NodeIterator ni = collectionContainer.getNodes(); ni.hasNext();) {
+					final Node child = ni.nextNode();
+					paths.add(child.getPath());
+				}
+			} else if (node.hasProperty(location) && node.getProperty(location).isMultiple()) {
+				final Property property = node.getProperty(location);
+				for (Value v : property.getValues()) {
+					paths.add(v.getString());
+				}
+			} else {
+				throw new ObjectMapperException("Could not retrieve collection from " + collectionMapping.getLocation());
 			}
 
 			return new ImmutableCollectionPersistenceResult(paths);

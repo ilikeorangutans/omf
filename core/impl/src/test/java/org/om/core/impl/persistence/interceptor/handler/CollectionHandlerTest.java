@@ -27,35 +27,31 @@ public class CollectionHandlerTest {
 
 		final CollectionMapping mapping = new ImmutableCollectionMapping(List.class, String.class, "");
 		PersistenceAdapter adapter = new TestingPassThroughPersistenceAdapter(new ArrayList<String>());
-		Collection<String> mapped = (Collection<String>) handler.retrieve(new ImmutableMappedField("field", List.class, mapping, MissingStrategy.ReturnNull,
+		Collection<String> result = (Collection<String>) handler.retrieve(new ImmutableMappedField("field", List.class, mapping, MissingStrategy.ReturnNull,
 				MissingException.class), adapter);
 
-		assertThat(mapped, notNullValue());
-		assertThat(mapped, instanceOf(List.class));
-
-		assertThat(mapped.isEmpty(), is(true));
+		assertThat(result, notNullValue());
+		assertThat(result, instanceOf(List.class));
+		assertThat(result.isEmpty(), is(true));
 	}
 
 	@Test
-	public void testWithResultsPrimitiveType() {
+	public void testWithSimpleCollectionType() {
 		Session session = null;
 		CollectionHandler handler = new CollectionHandler(session);
 
 		final CollectionMapping mapping = new ImmutableCollectionMapping(List.class, String.class, "");
-		List<String> inputList = new ArrayList<String>();
-		inputList.add("one");
-		PersistenceAdapter adapter = new TestingPassThroughPersistenceAdapter(inputList);
-		Collection<String> mapped = (Collection<String>) handler.retrieve(new ImmutableMappedField("field", List.class, mapping, MissingStrategy.ReturnNull,
+		final List<String> input = new ArrayList<String>();
+		input.add("I");
+		input.add("like");
+		input.add("cake");
+		PersistenceAdapter adapter = new TestingPassThroughPersistenceAdapter(input);
+		List<String> result = (List<String>) handler.retrieve(new ImmutableMappedField("field", List.class, mapping, MissingStrategy.ReturnNull,
 				MissingException.class), adapter);
 
-		assertThat(mapped, notNullValue());
-		assertThat(mapped, instanceOf(List.class));
-
-		System.out.println("CollectionPropertyHandlerTest.testWithResultsPrimitiveType() " + mapped.size());
-		for (String s : mapped) {
-			System.out.println("CollectionPropertyHandlerTest.testWithResultsPrimitiveType() " + s);
-		}
-
-		assertThat(mapped.isEmpty(), is(true));
+		assertThat(result, notNullValue());
+		assertThat(result.isEmpty(), is(false));
+		assertThat(result.size(), is(3));
 	}
+	
 }
