@@ -53,4 +53,9 @@ public class TestingPassThroughPersistenceAdapter implements PersistenceAdapter 
 		return new ImmutablePersistenceResult(object);
 	}
 
+	@Override
+	public Object resolve(String id) {
+		throw new UnsupportedOperationException();
+	}
+
 }

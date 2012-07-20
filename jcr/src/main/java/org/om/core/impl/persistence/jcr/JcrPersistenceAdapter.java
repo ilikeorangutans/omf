@@ -22,6 +22,7 @@ import org.om.core.api.persistence.result.CollectionResult;
 import org.om.core.api.persistence.result.PersistenceResult;
 import org.om.core.impl.persistence.result.ImmutableCollectionPersistenceResult;
 import org.om.core.impl.persistence.result.ImmutablePersistenceResult;
+import org.om.core.impl.persistence.result.MissingCollectionPersistenceResult;
 import org.om.core.impl.persistence.result.MissingPersistenceResult;
 import org.om.core.impl.persistence.result.NoValuePersistenceResult;
 import org.slf4j.Logger;
@@ -97,6 +98,13 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 				for (NodeIterator ni = collectionContainer.getNodes(); ni.hasNext();) {
 					final Node child = ni.nextNode();
 
+					// TODO: This is a quick'n'dirty fix to avoid having
+					// jcr:content node in node level collections. I can't think
+					// of a use case where this would be required, yet I think
+					// this should be configurable in some way.
+					if (child.getName().equals("jcr:content"))
+						continue;
+
 					LOGGER.trace("Adding {} to collection.", child.getPath());
 
 					paths.add(child.getPath());
@@ -108,9 +116,7 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 					paths.add(v.getString());
 				}
 			} else {
-				throw new ObjectMapperException(
-						"Cannot retrieve collection. Could not find a node or multi-value property with name "
-								+ collectionMapping.getLocation() + ".");
+				return new MissingCollectionPersistenceResult();
 			}
 
 			return new ImmutableCollectionPersistenceResult(paths);
@@ -171,11 +177,9 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 			// The following is probably not necessary, but should save us the
 			// overhead of going through conversion via property editors on the
 			// interceptor level.
-			if (int.class == expectedType || Integer.class == expectedType || long.class == expectedType
-					|| Long.class == expectedType) {
+			if (int.class == expectedType || Integer.class == expectedType || long.class == expectedType || Long.class == expectedType) {
 				value = property.getLong();
-			} else if (float.class == expectedType || Float.class == expectedType || double.class == expectedType
-					|| Double.class == expectedType) {
+			} else if (float.class == expectedType || Float.class == expectedType || double.class == expectedType || Double.class == expectedType) {
 				value = property.getDouble();
 			} else if (boolean.class == expectedType || Boolean.class == expectedType) {
 				value = property.getBoolean();
@@ -186,6 +190,24 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 			return new ImmutablePersistenceResult(value);
 		} catch (RepositoryException e) {
 			throw new PersistenceLayerException("Exception while retrieving " + request, e);
+		}
+	}
+
+	@Override
+	public Object resolve(String path) {
+		if (path == null)
+			throw new NullPointerException("path is null");
+
+		boolean isAbsolutePath = path.startsWith("/");
+		// If the path is absolute, no need to resolve it.
+		if (isAbsolutePath) {
+			return path;
+		}
+
+		try {
+			return node.getPath() + "/" + path;
+		} catch (RepositoryException e) {
+			throw new PersistenceLayerException("Exception while resolving path.", e);
 		}
 	}
 }

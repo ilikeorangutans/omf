@@ -1,9 +1,12 @@
 package org.om.core.impl.persistence.interceptor.handler;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import org.om.core.api.annotation.MissingStrategy;
 import org.om.core.api.exception.MappingException;
+import org.om.core.api.exception.MissingException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.persistence.PersistenceAdapter;
@@ -37,7 +40,18 @@ public class CollectionHandler implements ItemHandler {
 		final Class<?> fieldType = mappedField.getType();
 		final Class<?> targetType = collectionMapping.getTargetType();
 
+		if (!collectionResult.hasResult()) {
+			if (mappedField.getMissingStrategy() == MissingStrategy.ThrowException) {
+				// TODO: Add proper exception logic
+				throw new MissingException("TODO: throw proper exception");
+			}
+
+		}
+
 		if (fieldType == List.class) {
+			if (!collectionResult.hasResult())
+				return Collections.EMPTY_LIST;
+
 			if (ClassUtils.isPrimitiveOrAutoboxed(targetType) || String.class.equals(targetType)) {
 				return new PrimitiveListWrapper(collectionResult.getResult());
 			} else {

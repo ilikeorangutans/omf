@@ -7,13 +7,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import org.om.core.api.annotation.LookupMode;
 import org.om.core.api.annotation.MissingStrategy;
 import org.om.core.api.exception.MissingException;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.extractor.FieldMappingExtractor;
 import org.om.core.api.mapping.field.IdMapping;
 import org.om.core.api.mapping.field.PropertyMapping;
+import org.om.core.api.mapping.field.ReferenceMapping;
 import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
+import org.om.core.impl.mapping.EntityWithReferenceProperties;
 
 public class FieldMappingExtractorImplTest {
 
@@ -60,6 +63,40 @@ public class FieldMappingExtractorImplTest {
 		assertEquals(RuntimeException.class, mappedField.getMissingException());
 		assertThat(mappedField.getMapping(), instanceOf(PropertyMapping.class));
 		assertThat(((PropertyMapping) mappedField.getMapping()).getDefaultValue(), is("custom default value"));
+	}
+
+	@Test
+	public void testExtractFieldWithReference() throws Exception {
+		MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("entityWithPrimitiveProperties"));
+
+		assertThat(mappedField.getName(), is("entityWithPrimitiveProperties"));
+		assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
+		ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
+		assertThat(mapping.getPath(), is("entityWithPrimitiveProperties"));
+
+	}
+
+	@Test
+	public void testExtractFieldWithReferenceAndCustomName() throws Exception {
+		MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("customNamedReference"));
+
+		assertThat(mappedField.getName(), is("customNamedReference"));
+		assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
+		ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
+		assertThat(mapping.getPath(), is("foo/bar"));
+
+	}
+
+	@Test
+	public void testExtractReferenceFieldWithCustomLookup() throws Exception {
+		MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("customLookupMode"));
+
+		assertThat(mappedField.getName(), is("customLookupMode"));
+		assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
+		ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
+		assertThat(mapping.getPath(), is("foobar"));
+		assertThat(mapping.getLookupMode(), is(LookupMode.Direct));
+
 	}
 
 }

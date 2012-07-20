@@ -49,4 +49,11 @@ public @interface Property {
 	 */
 	String defaultValue() default DEFAULT_VALUE;
 
+	/**
+	 * Configures how to retrieve the value for this property. This only affects
+	 * reference properties, i.e. fields that reference a non-primitive type.
+	 * 
+	 * @return
+	 */
+	LookupMode lookupMode() default LookupMode.Reference;
 }

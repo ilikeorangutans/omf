@@ -65,6 +65,7 @@ public interface PersistenceAdapter {
 	 * @param collectionMapping
 	 * @return
 	 */
+	@Deprecated
 	CollectionResult getCollection(CollectionMapping collectionMapping);
 
 	/**
@@ -81,5 +82,13 @@ public interface PersistenceAdapter {
 	 *             if a unrecoverable error occurs on the persistence layer.
 	 */
 	PersistenceResult getProperty(PersistenceRequest request) throws PersistenceLayerException;
+
+	/**
+	 * Resolves the given id relative to this adapter.
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Object resolve(String id);
 
 }

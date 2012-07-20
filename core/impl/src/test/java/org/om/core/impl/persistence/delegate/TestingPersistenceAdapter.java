@@ -72,4 +72,8 @@ public class TestingPersistenceAdapter implements PersistenceAdapter {
 		return new ImmutablePersistenceResult(persistenceContext.getProperty(request.getPath()));
 	}
 
+	@Override
+	public Object resolve(String id) {
+		return id;
+	}
 }

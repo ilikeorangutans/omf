@@ -138,7 +138,7 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 		if (primitiveOrAutoboxed) {
 			return new ImmutablePropertyMapping(propertyName, type, annotation.defaultValue());
 		} else {
-			return new ImmutableReferenceMapping(type, propertyName);
+			return new ImmutableReferenceMapping(type, propertyName, annotation.lookupMode());
 		}
 
 	}

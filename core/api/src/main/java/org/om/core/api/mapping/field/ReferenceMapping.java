@@ -1,6 +1,7 @@
 package org.om.core.api.mapping.field;
 
 import org.om.core.api.annotation.Entity;
+import org.om.core.api.annotation.LookupMode;
 
 /**
  * A ReferenceMapping is a mapping that describes a one-to-one relationship
@@ -18,5 +19,7 @@ public interface ReferenceMapping extends Mapping {
 	 * @return
 	 */
 	String getPath();
+
+	LookupMode getLookupMode();
 
 }
