@@ -1,23 +1,24 @@
 package org.om.core.impl.session;
 
-import java.util.Iterator;
-
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.field.Mapping;
 import org.om.core.api.mapping.registry.MappingRegistry;
-import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.PersistenceAdapterFactory;
+import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.proxy.ProxyFactory;
 import org.om.core.api.session.Session;
 import org.om.core.impl.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Jakob Külzer
  * @author tom
  */
 public class ImmutableSessionImpl implements Session {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(ImmutableSessionImpl.class);
 
 	private final MappingRegistry mappingRegistry;
 
@@ -33,6 +34,8 @@ public class ImmutableSessionImpl implements Session {
 		this.persistenceDelegateFactory = persistenceDelegateFactory;
 		this.mappingRegistry = mappingRegistry;
 		this.proxyFactory = proxyFactory;
+
+		LOGGER.info("New session with context {}", persistenceContext);
 	}
 
 	public void close() throws ObjectMapperException {
@@ -51,6 +54,9 @@ public class ImmutableSessionImpl implements Session {
 
 		final EntityMapping entityMapping = mappingRegistry.getMapping(clazz);
 		final PersistenceAdapter persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, false);
+
+		LOGGER.debug("Retrieving entity of type {} from {}", clazz, id);
+
 		return (T) proxyFactory.create(this, entityMapping, persistenceDelegate);
 	}
 

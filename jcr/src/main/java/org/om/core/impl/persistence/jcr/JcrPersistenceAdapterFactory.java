@@ -26,7 +26,7 @@ public class JcrPersistenceAdapterFactory implements PersistenceAdapterFactory {
 		final String path;
 
 		if (id == null)
-			throw new NullPointerException("Got null ID.");
+			throw new NullPointerException("Got null ID while creating adapter for " + mapping);
 
 		if (id instanceof String) {
 			path = (String) id;
