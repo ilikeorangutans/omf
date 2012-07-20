@@ -35,22 +35,9 @@ import org.om.core.api.persistence.result.PersistenceResult;
 public interface PersistenceAdapter {
 
 	/**
-	 * Set the property described by the given {@link PropertyMapping}.
-	 * 
-	 * @param propertyMapping
-	 * @return
+	 * delete a node
 	 */
-	void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException;
-
-	/**
-	 * Retrieve the property described by the given {@link PropertyMapping}.
-	 * This is used to retrieve single value entries.
-	 * 
-	 * @param propertyMapping
-	 * @return
-	 */
-	@Deprecated
-	PersistenceResult getProperty(PropertyMapping mapping) throws ObjectMapperException;
+	void delete() throws ObjectMapperException;
 
 	/**
 	 * Retrieves the given collection. Implementations should return a
@@ -69,11 +56,6 @@ public interface PersistenceAdapter {
 	CollectionResult getCollection(CollectionMapping collectionMapping);
 
 	/**
-	 * delete a node
-	 */
-	void delete() throws ObjectMapperException;
-
-	/**
 	 * Retrieves a scalar value from the underlying persistence layer.
 	 * 
 	 * @param request
@@ -84,11 +66,29 @@ public interface PersistenceAdapter {
 	PersistenceResult getProperty(PersistenceRequest request) throws PersistenceLayerException;
 
 	/**
+	 * Retrieve the property described by the given {@link PropertyMapping}.
+	 * This is used to retrieve single value entries.
+	 * 
+	 * @param propertyMapping
+	 * @return
+	 */
+	@Deprecated
+	PersistenceResult getProperty(PropertyMapping mapping) throws ObjectMapperException;
+
+	/**
 	 * Resolves the given id relative to this adapter.
 	 * 
 	 * @param id
 	 * @return
 	 */
 	Object resolve(String id);
+
+	/**
+	 * Set the property described by the given {@link PropertyMapping}.
+	 * 
+	 * @param propertyMapping
+	 * @return
+	 */
+	void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException;
 
 }

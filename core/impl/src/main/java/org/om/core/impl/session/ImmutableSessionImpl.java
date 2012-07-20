@@ -22,11 +22,11 @@ public class ImmutableSessionImpl implements Session {
 
 	private final MappingRegistry mappingRegistry;
 
-	private final ProxyFactory proxyFactory;
-
 	private final PersistenceContext persistenceContext;
 
 	private final PersistenceAdapterFactory persistenceDelegateFactory;
+
+	private final ProxyFactory proxyFactory;
 
 	public ImmutableSessionImpl(PersistenceContext persistenceContext, PersistenceAdapterFactory persistenceDelegateFactory, MappingRegistry mappingRegistry,
 			ProxyFactory proxyFactory) {
@@ -40,6 +40,10 @@ public class ImmutableSessionImpl implements Session {
 
 	public void close() throws ObjectMapperException {
 		throw new ObjectMapperException("not implemented");
+	}
+
+	public void commit() {
+		// TODO Auto-generated method stub
 	}
 
 	public void delete(Object o) throws ObjectMapperException {
@@ -94,10 +98,6 @@ public class ImmutableSessionImpl implements Session {
 		} catch (Exception e) {
 			throw new ObjectMapperException("Exception in save", e);
 		}
-	}
-
-	public void commit() {
-		// TODO Auto-generated method stub
 	}
 
 }

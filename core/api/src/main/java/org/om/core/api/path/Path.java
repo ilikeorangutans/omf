@@ -17,9 +17,9 @@ public class Path {
 
 	public static final String SLASH = "/";
 
-	private final String path;
-
 	private final int length;
+
+	private final String path;
 
 	public Path(String path) {
 		if (path == null)
@@ -53,7 +53,8 @@ public class Path {
 		path = path.replaceAll("//+", "/");
 
 		// Remove trailing slash:
-		path = !path.equals(SLASH) && path.length() > 2 && path.endsWith(SLASH) ? path.substring(0, path.length() - 1) : path;
+		path = !path.equals(SLASH) && path.length() > 2 && path.endsWith(SLASH) ? path.substring(0, path.length() - 1)
+				: path;
 		return path;
 	}
 

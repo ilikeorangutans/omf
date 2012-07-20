@@ -20,11 +20,11 @@ public class PrimitiveListWrapper<T> implements List<T> {
 		this.collection = collection;
 	}
 
-	public boolean add(T e) {
+	public void add(int index, T element) {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
-	public void add(int index, T element) {
+	public boolean add(T e) {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
@@ -86,11 +86,11 @@ public class PrimitiveListWrapper<T> implements List<T> {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
-	public boolean remove(Object o) {
+	public T remove(int index) {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
-	public T remove(int index) {
+	public boolean remove(Object o) {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 

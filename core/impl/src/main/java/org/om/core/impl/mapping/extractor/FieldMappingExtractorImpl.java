@@ -29,6 +29,19 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FieldMappingExtractorImpl.class);
 
+	private void checkMapping(String fieldname, boolean isProperty, boolean isCollection, boolean isId) {
+		if (isCollection && isProperty && isId) {
+			throw new MappingException("Field " + fieldname + " is mapped as @Id, @Property and @Collection. Make up your mind!");
+		}
+
+		if (isProperty && isId) {
+			throw new MappingException("Cannot map field " + fieldname + " @Id and @Property. Properties cannot be @Id fields!");
+		}
+		if (isCollection && isId) {
+			throw new MappingException("Cannot map field " + fieldname + " @Id and @Collection. Collections cannot be @Id fields!");
+		}
+	}
+
 	public MappedField extract(Field field) {
 
 		final Mapped mapped = field.getAnnotation(Mapped.class);
@@ -49,6 +62,34 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 		final MappedField mappedField = new ImmutableMappedField(field.getName(), field.getType(), itemMapping, getMissingStrategy(mapped),
 				getMissingException(mapped));
 		return mappedField;
+	}
+
+	private Mapping extractCollectionMapping(Mapped mapped, Collection collection, Field field) {
+		final Class<?> targetType = collection.targetType();
+		final boolean validTargetType = String.class.equals(targetType) || EntityUtils.isEntity(targetType) || ClassUtils.isPrimitiveOrAutoboxed(targetType);
+		if (!validTargetType)
+			throw new MappingException("Target type " + targetType.getName() + " is not an entity.");
+
+		Class<?> fieldType = field.getType();
+		final boolean isList = List.class.equals(fieldType);
+		final boolean isSet = Set.class.equals(fieldType);
+		final boolean isSupportedType = isList || isSet;
+		if (!isSupportedType)
+			throw new MappingException("Collection field " + field.getName() + " is of type " + fieldType
+					+ " but only java.util.List or java.util.Set are supported.");
+
+		final String location;
+		if (collection.location() == null || collection.location().isEmpty()) {
+			location = field.getName();
+		} else {
+			location = collection.location();
+		}
+
+		return new ImmutableCollectionMapping(fieldType, targetType, location);
+	}
+
+	private Mapping extractIdMapping(Id id, Field field) {
+		return ImmutableIdMapping.INSTANCE;
 	}
 
 	/**
@@ -94,34 +135,6 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 
 	}
 
-	private Mapping extractIdMapping(Id id, Field field) {
-		return ImmutableIdMapping.INSTANCE;
-	}
-
-	private Mapping extractCollectionMapping(Mapped mapped, Collection collection, Field field) {
-		final Class<?> targetType = collection.targetType();
-		final boolean validTargetType = String.class.equals(targetType) || EntityUtils.isEntity(targetType) || ClassUtils.isPrimitiveOrAutoboxed(targetType);
-		if (!validTargetType)
-			throw new MappingException("Target type " + targetType.getName() + " is not an entity.");
-
-		Class<?> fieldType = field.getType();
-		final boolean isList = List.class.equals(fieldType);
-		final boolean isSet = Set.class.equals(fieldType);
-		final boolean isSupportedType = isList || isSet;
-		if (!isSupportedType)
-			throw new MappingException("Collection field " + field.getName() + " is of type " + fieldType
-					+ " but only java.util.List or java.util.Set are supported.");
-
-		final String location;
-		if (collection.location() == null || collection.location().isEmpty()) {
-			location = field.getName();
-		} else {
-			location = collection.location();
-		}
-
-		return new ImmutableCollectionMapping(fieldType, targetType, location);
-	}
-
 	private Mapping extractPropertyMapping(Mapped mapped, Property annotation, Field field) {
 		final String fieldname = field.getName();
 		final Class<?> type = field.getType();
@@ -149,18 +162,5 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 
 	private MissingStrategy getMissingStrategy(Mapped mapped) {
 		return mapped == null ? MissingStrategy.ReturnNull : mapped.missingStrategy();
-	}
-
-	private void checkMapping(String fieldname, boolean isProperty, boolean isCollection, boolean isId) {
-		if (isCollection && isProperty && isId) {
-			throw new MappingException("Field " + fieldname + " is mapped as @Id, @Property and @Collection. Make up your mind!");
-		}
-
-		if (isProperty && isId) {
-			throw new MappingException("Cannot map field " + fieldname + " @Id and @Property. Properties cannot be @Id fields!");
-		}
-		if (isCollection && isId) {
-			throw new MappingException("Cannot map field " + fieldname + " @Id and @Collection. Collections cannot be @Id fields!");
-		}
 	}
 }

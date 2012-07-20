@@ -16,11 +16,6 @@ import org.om.core.api.exception.ObjectMapperException;
 public interface Session {
 
 	/**
-	 * get an object by id
-	 */
-	<T> T get(Class<T> clazz, Object id) throws ObjectMapperException;
-
-	/**
 	 * Closes the session.
 	 * 
 	 * TODO: What does this actually mean? Will the session not be able to
@@ -30,15 +25,9 @@ public interface Session {
 	void close() throws ObjectMapperException;
 
 	/**
-	 * Saves the given instance. If the class describing the object is not a
-	 * mapped entity, this method will throw an exception.
-	 * 
-	 * TODO: This is a modifying operation, so the implications of transaction
-	 * handling have to be declared.
-	 * 
-	 * @throws MappingException
+	 * Asks the session to write all pending changes to the persistence layer.
 	 */
-	void save(Object o) throws ObjectMapperException, MappingException;
+	void commit();
 
 	/**
 	 * Deletes the given object. If the given object is not a mapped and
@@ -52,7 +41,18 @@ public interface Session {
 	void delete(Object o) throws ObjectMapperException;
 
 	/**
-	 * Asks the session to write all pending changes to the persistence layer.
+	 * get an object by id
 	 */
-	void commit();
+	<T> T get(Class<T> clazz, Object id) throws ObjectMapperException;
+
+	/**
+	 * Saves the given instance. If the class describing the object is not a
+	 * mapped entity, this method will throw an exception.
+	 * 
+	 * TODO: This is a modifying operation, so the implications of transaction
+	 * handling have to be declared.
+	 * 
+	 * @throws MappingException
+	 */
+	void save(Object o) throws ObjectMapperException, MappingException;
 }

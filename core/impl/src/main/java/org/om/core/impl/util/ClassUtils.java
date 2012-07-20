@@ -14,21 +14,11 @@ import java.util.regex.Pattern;
  */
 public class ClassUtils {
 
-	private static final Pattern PATTERN = Pattern.compile("(get|is)([A-Z])([a-zA-Z0-9_]*)");
-
 	@SuppressWarnings("unchecked")
 	private static final Set<Class<?>> AUTOBOXING_TYPES = new HashSet<Class<?>>(Arrays.asList(Boolean.class, Character.class, Byte.class, Short.class,
 			Integer.class, Long.class, Float.class, Double.class));
 
-	/**
-	 * 
-	 * @param type
-	 * @return Returns true if the given type is either a primitive Java type or
-	 *         one of the wrapper types.
-	 */
-	public static final boolean isPrimitiveOrAutoboxed(Class<?> type) {
-		return type.isPrimitive() || AUTOBOXING_TYPES.contains(type);
-	}
+	private static final Pattern PATTERN = Pattern.compile("(get|is)([A-Z])([a-zA-Z0-9_]*)");
 
 	/**
 	 * Returns the field name for a Java Bean style getter method name. For
@@ -52,6 +42,16 @@ public class ClassUtils {
 	 */
 	public static boolean isGetter(String name) {
 		return PATTERN.matcher(name).find();
+	}
+
+	/**
+	 * 
+	 * @param type
+	 * @return Returns true if the given type is either a primitive Java type or
+	 *         one of the wrapper types.
+	 */
+	public static final boolean isPrimitiveOrAutoboxed(Class<?> type) {
+		return type.isPrimitive() || AUTOBOXING_TYPES.contains(type);
 	}
 
 }

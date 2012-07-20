@@ -1,6 +1,5 @@
 package org.om.core.api.mapping.field;
 
-
 /**
  * Describes an ID field mapping.
  * 

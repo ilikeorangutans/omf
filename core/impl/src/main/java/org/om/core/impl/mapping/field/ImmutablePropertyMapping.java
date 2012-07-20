@@ -5,9 +5,9 @@ import org.om.core.impl.util.ClassUtils;
 
 public class ImmutablePropertyMapping implements PropertyMapping {
 
+	private final String defaultValue;
 	private final String propertyName;
 	private final boolean simpleType;
-	private final String defaultValue;
 
 	public ImmutablePropertyMapping(String propertyName, Class<?> propertyType, String defaultValue) {
 

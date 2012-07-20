@@ -54,13 +54,13 @@ public class EntityMappingImpl implements EntityMapping {
 		this.fields = propertyMappings;
 	}
 
-	public void validate() throws MappingException {
-		if (getIdProperty() == null)
-			throw new MappingException("Entity " + type.getName() + " is missing id property. Annotate it with @Property and @Id.");
-	}
-
 	@Override
 	public String toString() {
 		return "EntityMappingImpl [fields=" + fields + ", name=" + name + ", type=" + type + "]";
+	}
+
+	public void validate() throws MappingException {
+		if (getIdProperty() == null)
+			throw new MappingException("Entity " + type.getName() + " is missing id property. Annotate it with @Property and @Id.");
 	}
 }

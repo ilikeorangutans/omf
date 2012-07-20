@@ -24,11 +24,6 @@ public class ReferenceHandler implements ItemHandler {
 
 	private final Session session;
 
-	@Override
-	public String toString() {
-		return "ReferenceHandler [session=" + session + "]";
-	}
-
 	public ReferenceHandler(Session session) {
 		this.session = session;
 	}
@@ -57,5 +52,10 @@ public class ReferenceHandler implements ItemHandler {
 		LOGGER.trace("Retrieving reference to {} from {}", mappedField.getType(), id);
 
 		return session.get(mappedField.getType(), id);
+	}
+
+	@Override
+	public String toString() {
+		return "ReferenceHandler [session=" + session + "]";
 	}
 }

@@ -17,8 +17,8 @@ import org.om.core.api.session.Session;
 public class ReferenceListWrapper<T> implements List<T> {
 
 	private final Collection<?> collection;
-	private final Session session;
 	private final CollectionMapping collectionMapping;
+	private final Session session;
 
 	public ReferenceListWrapper(Session session, CollectionMapping collectionMapping, Collection<?> result) {
 		this.session = session;
@@ -27,12 +27,12 @@ public class ReferenceListWrapper<T> implements List<T> {
 	}
 
 	@Override
-	public boolean add(T e) {
+	public void add(int index, T element) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public void add(int index, T element) {
+	public boolean add(T e) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -107,12 +107,12 @@ public class ReferenceListWrapper<T> implements List<T> {
 	}
 
 	@Override
-	public boolean remove(Object o) {
+	public T remove(int index) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public T remove(int index) {
+	public boolean remove(Object o) {
 		throw new UnsupportedOperationException();
 	}
 

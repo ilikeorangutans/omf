@@ -33,13 +33,6 @@ public @interface Property {
 	static final String DEFAULT_VALUE = "";
 
 	/**
-	 * Name of the property. If not set, will use the POJO field name.
-	 * 
-	 * @return
-	 */
-	String name() default "";
-
-	/**
 	 * Default value to use if {@link #missingStrategy()} is set to
 	 * {@link MissingStrategy#DefaultValue}. The returned value must be
 	 * translatable into the type of the field, otherwise a conversion error
@@ -56,4 +49,11 @@ public @interface Property {
 	 * @return
 	 */
 	LookupMode lookupMode() default LookupMode.Reference;
+
+	/**
+	 * Name of the property. If not set, will use the POJO field name.
+	 * 
+	 * @return
+	 */
+	String name() default "";
 }

@@ -11,7 +11,7 @@ import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFa
  * @author tome
  * 
  * 
- * Not quite sure what this class does, so I'm deprecating it. 
+ *         Not quite sure what this class does, so I'm deprecating it.
  * 
  * @author Jakob Külzer
  * 

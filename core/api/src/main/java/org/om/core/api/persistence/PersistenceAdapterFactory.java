@@ -9,6 +9,7 @@ import org.om.core.api.session.Session;
  */
 public interface PersistenceAdapterFactory {
 
-	PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode);
+	PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext,
+			boolean createNode);
 
 }

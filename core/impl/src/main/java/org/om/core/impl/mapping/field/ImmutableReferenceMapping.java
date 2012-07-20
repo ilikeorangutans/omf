@@ -5,8 +5,8 @@ import org.om.core.api.mapping.field.ReferenceMapping;
 
 public class ImmutableReferenceMapping implements ReferenceMapping {
 
-	private final String path;
 	private final LookupMode lookupMode;
+	private final String path;
 
 	public ImmutableReferenceMapping(Class<?> fieldType, String path) {
 		this(fieldType, path, LookupMode.Reference);
@@ -15,6 +15,11 @@ public class ImmutableReferenceMapping implements ReferenceMapping {
 	public ImmutableReferenceMapping(Class<?> fieldType, String path, LookupMode lookupMode) {
 		this.path = path;
 		this.lookupMode = lookupMode;
+	}
+
+	@Override
+	public LookupMode getLookupMode() {
+		return lookupMode;
 	}
 
 	public String getPath() {
@@ -32,11 +37,6 @@ public class ImmutableReferenceMapping implements ReferenceMapping {
 	@Override
 	public String toString() {
 		return "ImmutableReferenceMapping [path=" + path + "]";
-	}
-
-	@Override
-	public LookupMode getLookupMode() {
-		return lookupMode;
 	}
 
 }

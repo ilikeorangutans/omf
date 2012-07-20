@@ -14,6 +14,13 @@ import org.om.core.api.mapping.field.PropertyMapping;
 public interface EntityMapping {
 
 	/**
+	 * Returns a {@link MappedField} by name.
+	 * 
+	 * @param name
+	 */
+	MappedField getByFieldName(String name);
+
+	/**
 	 * Returns the {@link PropertyMapping} for the identifier field.
 	 * 
 	 * @return
@@ -55,11 +62,4 @@ public interface EntityMapping {
 	 * Validates the mapping.
 	 */
 	void validate() throws MappingException;
-
-	/**
-	 * Returns a {@link MappedField} by name.
-	 * 
-	 * @param name
-	 */
-	MappedField getByFieldName(String name);
 }

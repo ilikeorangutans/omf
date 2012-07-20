@@ -20,12 +20,14 @@ public interface Fields extends Iterable<MappedField> {
 	Collection<MappedField> getAll();
 
 	/**
-	 * Returns true if this map contains a field with the given name.
+	 * Finds a field by name.
 	 * 
-	 * @param name
+	 * @param fieldname
 	 * @return
 	 */
-	boolean hasField(String name);
+	MappedField getField(String fieldname);
+
+	MappedField getFieldByMapping(Mapping mapping);
 
 	/**
 	 * Returns the property that has been marked as the id property.
@@ -34,17 +36,15 @@ public interface Fields extends Iterable<MappedField> {
 	 */
 	MappedField getIdProperty();
 
-	/**
-	 * Finds a field by name.
-	 * 
-	 * @param fieldname
-	 * @return
-	 */
-	MappedField getField(String fieldname);
-
 	int getSize();
 
-	boolean isEmpty();
+	/**
+	 * Returns true if this map contains a field with the given name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	boolean hasField(String name);
 
-	MappedField getFieldByMapping(Mapping mapping);
+	boolean isEmpty();
 }

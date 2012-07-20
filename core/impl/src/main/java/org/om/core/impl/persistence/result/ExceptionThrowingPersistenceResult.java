@@ -21,11 +21,6 @@ public class ExceptionThrowingPersistenceResult implements PersistenceResult {
 	}
 
 	@Override
-	public boolean hasResult() {
-		return false;
-	}
-
-	@Override
 	public Object getResult() {
 
 		try {
@@ -46,6 +41,11 @@ public class ExceptionThrowingPersistenceResult implements PersistenceResult {
 			throw new RuntimeException("Could not construct exception for missing property.", e);
 		}
 
+	}
+
+	@Override
+	public boolean hasResult() {
+		return false;
 	}
 
 }

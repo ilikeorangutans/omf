@@ -39,14 +39,14 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JcrPersistenceAdapter.class);
 
 	/**
-	 * The node that backs all persistence operations on the enclosing entity.
-	 */
-	private final Node node;
-
-	/**
 	 * The entity mapping for the entity that maps 1:1 to this node
 	 */
 	private final EntityMapping entityMapping;
+
+	/**
+	 * The node that backs all persistence operations on the enclosing entity.
+	 */
+	private final Node node;
 
 	public JcrPersistenceAdapter(EntityMapping entityMapping, Node node) {
 		this.node = node;
@@ -55,30 +55,8 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		LOGGER.trace("New JcrPersistenceDelegate for {} with {}", node, entityMapping);
 	}
 
-	public PersistenceResult getProperty(PropertyMapping propertyMapping) {
-		// TODO: should check if the given mapping actually exists in
-		// entityMapping.
-
-		// TODO: The missing handling should be moved into the parent:
-		final String propertyName = propertyMapping.getPropertyName();
-		try {
-
-			if (!node.hasProperty(propertyName)) {
-				final MappedField mappedField = entityMapping.getMappedFields().getFieldByMapping(propertyMapping);
-				return MissingPersistenceResult.createMissing(mappedField);
-			}
-
-			final Property property = node.getProperty(propertyName);
-			if (property.isMultiple()) {
-				throw new RuntimeException("Cannot handle multi-value properties yet.");
-			}
-
-			// TODO: this could be more efficient for binary types:
-			return new ImmutablePersistenceResult(property.getValue().getString());
-
-		} catch (final RepositoryException e) {
-			throw new ObjectMapperException("Exception in getProperty " + propertyName, e);
-		}
+	public void delete() throws ObjectMapperException {
+		// Disabled for now. Transaction semantics need to be defined.
 	}
 
 	public CollectionResult getCollection(CollectionMapping collectionMapping) {
@@ -126,34 +104,6 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		}
 	}
 
-	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
-		// Disabled as this assumes write-through semantics which doesn't allow
-		// rollback.
-
-		// final String propertyName = propertyMapping.getPropertyName();
-		// try {
-		// Class<?> propertyType = propertyMapping.getFieldType();
-		// if (propertyType == String.class) {
-		// node.setProperty(propertyName, (String) object);
-		// } else if (propertyType == int.class) {
-		// node.setProperty(propertyName, ((Integer) object).intValue());
-		// } else if (propertyType == Integer.class) {
-		// node.setProperty(propertyName, (Integer) object);
-		// } else {
-		// throw new ObjectMapperException("Unknown property type");
-		// }
-		//
-		// } catch (final RepositoryException e) {
-		// throw new ObjectMapperException("Exception in setProperty " +
-		// propertyName, e);
-		// }
-
-	}
-
-	public void delete() throws ObjectMapperException {
-		// Disabled for now. Transaction semantics need to be defined.
-	}
-
 	@Override
 	public PersistenceResult getProperty(PersistenceRequest request) {
 
@@ -193,6 +143,32 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		}
 	}
 
+	public PersistenceResult getProperty(PropertyMapping propertyMapping) {
+		// TODO: should check if the given mapping actually exists in
+		// entityMapping.
+
+		// TODO: The missing handling should be moved into the parent:
+		final String propertyName = propertyMapping.getPropertyName();
+		try {
+
+			if (!node.hasProperty(propertyName)) {
+				final MappedField mappedField = entityMapping.getMappedFields().getFieldByMapping(propertyMapping);
+				return MissingPersistenceResult.createMissing(mappedField);
+			}
+
+			final Property property = node.getProperty(propertyName);
+			if (property.isMultiple()) {
+				throw new RuntimeException("Cannot handle multi-value properties yet.");
+			}
+
+			// TODO: this could be more efficient for binary types:
+			return new ImmutablePersistenceResult(property.getValue().getString());
+
+		} catch (final RepositoryException e) {
+			throw new ObjectMapperException("Exception in getProperty " + propertyName, e);
+		}
+	}
+
 	@Override
 	public Object resolve(String path) {
 		if (path == null)
@@ -209,5 +185,29 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		} catch (RepositoryException e) {
 			throw new PersistenceLayerException("Exception while resolving path.", e);
 		}
+	}
+
+	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
+		// Disabled as this assumes write-through semantics which doesn't allow
+		// rollback.
+
+		// final String propertyName = propertyMapping.getPropertyName();
+		// try {
+		// Class<?> propertyType = propertyMapping.getFieldType();
+		// if (propertyType == String.class) {
+		// node.setProperty(propertyName, (String) object);
+		// } else if (propertyType == int.class) {
+		// node.setProperty(propertyName, ((Integer) object).intValue());
+		// } else if (propertyType == Integer.class) {
+		// node.setProperty(propertyName, (Integer) object);
+		// } else {
+		// throw new ObjectMapperException("Unknown property type");
+		// }
+		//
+		// } catch (final RepositoryException e) {
+		// throw new ObjectMapperException("Exception in setProperty " +
+		// propertyName, e);
+		// }
+
 	}
 }

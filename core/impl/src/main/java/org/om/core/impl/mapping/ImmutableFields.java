@@ -52,6 +52,18 @@ public class ImmutableFields implements Fields {
 		return fields.get(fieldname);
 	}
 
+	@Override
+	public MappedField getFieldByMapping(Mapping mapping) {
+
+		for (MappedField mf : fields.values()) {
+			// This should use .equals(), but for now it works:
+			if (mf.getMapping() == mapping)
+				return mf;
+		}
+
+		throw new IllegalArgumentException("Looking for a mapped field with mapping " + mapping + " but it doesn't exist.");
+	}
+
 	public MappedField getIdProperty() {
 		return id;
 	}
@@ -70,18 +82,6 @@ public class ImmutableFields implements Fields {
 
 	public Iterator<MappedField> iterator() {
 		return fields.values().iterator();
-	}
-
-	@Override
-	public MappedField getFieldByMapping(Mapping mapping) {
-
-		for (MappedField mf : fields.values()) {
-			// This should use .equals(), but for now it works:
-			if (mf.getMapping() == mapping)
-				return mf;
-		}
-
-		throw new IllegalArgumentException("Looking for a mapped field with mapping " + mapping + " but it doesn't exist.");
 	}
 
 }

@@ -33,16 +33,6 @@ import org.om.core.api.exception.MissingException;
 public @interface Mapped {
 
 	/**
-	 * Defines how object mapper will react to missing properties. The default
-	 * is to return <tt>null</tt> if the referenced property cannot be found.
-	 * 
-	 * @see MissingStrategy
-	 * 
-	 * @return
-	 */
-	MissingStrategy missingStrategy() default MissingStrategy.ReturnNull;
-
-	/**
 	 * Exception to be thrown when the mapped property cannot be retrieved from
 	 * the underlying persistence layer and {@link #missingStrategy()} is set to
 	 * {@link MissingStrategy#ThrowException}.
@@ -53,5 +43,15 @@ public @interface Mapped {
 	 * @return
 	 */
 	Class<? extends RuntimeException> missingException() default MissingException.class;
+
+	/**
+	 * Defines how object mapper will react to missing properties. The default
+	 * is to return <tt>null</tt> if the referenced property cannot be found.
+	 * 
+	 * @see MissingStrategy
+	 * 
+	 * @return
+	 */
+	MissingStrategy missingStrategy() default MissingStrategy.ReturnNull;
 
 }

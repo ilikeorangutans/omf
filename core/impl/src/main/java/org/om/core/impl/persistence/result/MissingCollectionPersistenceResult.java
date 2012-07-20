@@ -8,13 +8,13 @@ import org.om.core.api.persistence.result.CollectionResult;
 public class MissingCollectionPersistenceResult implements CollectionResult {
 
 	@Override
-	public boolean hasResult() {
-		return false;
+	public Collection<?> getResult() {
+		throw new MissingException("Collection could not be populated.");
 	}
 
 	@Override
-	public Collection<?> getResult() {
-		throw new MissingException("Collection could not be populated.");
+	public boolean hasResult() {
+		return false;
 	}
 
 }

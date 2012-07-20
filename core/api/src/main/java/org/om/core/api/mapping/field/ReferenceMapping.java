@@ -12,6 +12,8 @@ import org.om.core.api.annotation.LookupMode;
  */
 public interface ReferenceMapping extends Mapping {
 
+	LookupMode getLookupMode();
+
 	/**
 	 * Returns the path relative to the initial node that hosts the referenced
 	 * entity.
@@ -19,7 +21,5 @@ public interface ReferenceMapping extends Mapping {
 	 * @return
 	 */
 	String getPath();
-
-	LookupMode getLookupMode();
 
 }

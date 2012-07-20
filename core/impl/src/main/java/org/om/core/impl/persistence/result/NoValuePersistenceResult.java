@@ -5,13 +5,13 @@ import org.om.core.api.persistence.result.PersistenceResult;
 public final class NoValuePersistenceResult implements PersistenceResult {
 
 	@Override
-	public boolean hasResult() {
-		return false;
+	public Object getResult() {
+		throw new IllegalStateException("No result available.");
 	}
 
 	@Override
-	public Object getResult() {
-		throw new IllegalStateException("No result available.");
+	public boolean hasResult() {
+		return false;
 	}
 
 }

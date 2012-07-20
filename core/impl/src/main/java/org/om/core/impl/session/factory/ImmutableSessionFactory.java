@@ -13,8 +13,8 @@ import org.om.core.impl.session.ImmutableSessionImpl;
 public class ImmutableSessionFactory implements SessionFactory {
 
 	private final MappingRegistry mappingRegistry;
-	private final ProxyFactory proxyFactory;
 	private final PersistenceAdapterFactory persistenceDelegateFactory;
+	private final ProxyFactory proxyFactory;
 
 	@Inject
 	public ImmutableSessionFactory(PersistenceAdapterFactory persistenceDelegateFactory, MappingRegistry mappingRegistry, ProxyFactory proxyFactory) {

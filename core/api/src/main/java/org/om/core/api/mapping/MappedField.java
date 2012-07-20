@@ -20,8 +20,7 @@ public interface MappedField {
 
 	/**
 	 * Exception to throw when {@link #getMissingStrategy()} is set to
-	 * {@link MissingStrategy#ThrowException} and the property cannot be
-	 * found.
+	 * {@link MissingStrategy#ThrowException} and the property cannot be found.
 	 * 
 	 * @return
 	 */
