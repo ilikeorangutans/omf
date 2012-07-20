@@ -5,7 +5,7 @@ import org.om.core.api.persistence.PersistenceAdapterFactory;
 import org.om.core.api.persistence.proxy.ProxyFactory;
 import org.om.core.api.session.factory.SessionFactory;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
-import org.om.core.impl.mapping.registry.OnDemandMappingRegistry;
+import org.om.core.impl.mapping.registry.SimpleCachingOnDemandMappingRegistry;
 import org.om.core.impl.persistence.cglib.CglibProxyFactory;
 import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
 import org.om.core.impl.persistence.jcr.JcrPersistenceAdapterFactory;
@@ -25,9 +25,10 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 		LOGGER.info("Object mapper bundle starting up... ");
 		PersistenceAdapterFactory persistenceDelegateFactory = new JcrPersistenceAdapterFactory();
-		MappingRegistry mappingRegistry = new OnDemandMappingRegistry(new EntityMappingExtractorImpl());
+		MappingRegistry mappingRegistry = new SimpleCachingOnDemandMappingRegistry(new EntityMappingExtractorImpl());
 		ProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
-		SessionFactory sessionFactory = new ImmutableSessionFactory(persistenceDelegateFactory, mappingRegistry, proxyFactory);
+		SessionFactory sessionFactory = new ImmutableSessionFactory(persistenceDelegateFactory, mappingRegistry,
+				proxyFactory);
 
 		sessionFactoryRegistration = context.registerService(SessionFactory.class.getName(), sessionFactory, null);
 		LOGGER.info("Registered session factory.");
