@@ -17,18 +17,18 @@ import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
  */
 public class ParameterizedJCRSessionFactory implements JCRSessionFactory {
 	/**
+	 * password
+	 */
+	private final String password;
+
+	/**
 	 * url
 	 */
 	private final String url;
-
 	/**
 	 * username
 	 */
 	private final String username;
-	/**
-	 * password
-	 */
-	private final String password;
 	/**
 	 * workspace
 	 */

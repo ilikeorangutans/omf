@@ -33,6 +33,13 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 		this.entityMapping = entityMapping;
 	}
 
+	public String extractFieldName(String name) {
+		Matcher matcher = PATTERN.matcher(name);
+		matcher.find();
+		final String fieldName = matcher.group(2).toLowerCase() + matcher.group(3);
+		return fieldName;
+	}
+
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 		final String name = method.getName();
 		LOG.debug("Intercepted method {}()", name);
@@ -54,13 +61,6 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 		LOG.trace("Retrieved property mapping {}", mapping);
 
 		return interceptor.getProperty(mapping);
-	}
-
-	public String extractFieldName(String name) {
-		Matcher matcher = PATTERN.matcher(name);
-		matcher.find();
-		final String fieldName = matcher.group(2).toLowerCase() + matcher.group(3);
-		return fieldName;
 	}
 
 	/**

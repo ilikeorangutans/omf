@@ -30,6 +30,11 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JcrPersistenceAdapter.class);
 
 	/**
+	 * The entity mapping for the entity that maps 1:1 to this node
+	 */
+	private final EntityMapping entityMapping;
+
+	/**
 	 * The node that backs all persistence operations on the enclosing entity.
 	 */
 	private final Node node;
@@ -39,17 +44,55 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 	 */
 	private final Session session;
 
-	/**
-	 * The entity mapping for the entity that maps 1:1 to this node
-	 */
-	private final EntityMapping entityMapping;
-
 	public JcrPersistenceAdapter(Session session, EntityMapping entityMapping, Node node) {
 		this.node = node;
 		this.session = session;
 		this.entityMapping = entityMapping;
 
 		LOGGER.trace("New JcrPersistenceDelegate for {} with {}", node, entityMapping);
+	}
+
+	public boolean canProvide(Mapping mapping) throws ObjectMapperException {
+		try {
+			// TODO: This method doesn't properly reflect the fact that mappings
+			// might be referencing nodes instead of properties.
+
+			// Ugly:
+			if (mapping instanceof PropertyMapping) {
+				PropertyMapping prop = (PropertyMapping) mapping;
+
+				return node.hasProperty(prop.getPropertyName());
+			}
+
+			return false;
+
+		} catch (final RepositoryException e) {
+			throw new ObjectMapperException("Exception while retrieving property " + mapping.getFieldname(), e);
+		}
+	}
+
+	public void delete() throws ObjectMapperException {
+		// Disabled for now. Transaction semantics need to be defined.
+	}
+
+	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+
+		try {
+			final List<String> paths = new LinkedList<String>();
+
+			final String location = collectionMapping.getLocation();
+			final Node collectionContainer = node.getNode(location);
+
+			for (NodeIterator ni = collectionContainer.getNodes(); ni.hasNext();) {
+				final Node child = ni.nextNode();
+				paths.add(child.getPath());
+			}
+
+			return paths;
+
+		} catch (RepositoryException e) {
+			throw new ObjectMapperException("Could not retrieve collection from " + collectionMapping.getLocation());
+		}
 	}
 
 	public Object getProperty(PropertyMapping propertyMapping) {
@@ -70,26 +113,6 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 
 		} catch (final RepositoryException e) {
 			throw new ObjectMapperException("Exception in getProperty " + propertyName, e);
-		}
-	}
-
-	public Collection<?> getCollection(CollectionMapping collectionMapping) {
-
-		try {
-			final List<String> paths = new LinkedList<String>();
-
-			final String location = collectionMapping.getLocation();
-			final Node collectionContainer = node.getNode(location);
-
-			for (NodeIterator ni = collectionContainer.getNodes(); ni.hasNext();) {
-				final Node child = ni.nextNode();
-				paths.add(child.getPath());
-			}
-
-			return paths;
-
-		} catch (RepositoryException e) {
-			throw new ObjectMapperException("Could not retrieve collection from " + collectionMapping.getLocation());
 		}
 	}
 
@@ -115,28 +138,5 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		// propertyName, e);
 		// }
 
-	}
-
-	public void delete() throws ObjectMapperException {
-		// Disabled for now. Transaction semantics need to be defined.
-	}
-
-	public boolean canProvide(Mapping mapping) throws ObjectMapperException {
-		try {
-			// TODO: This method doesn't properly reflect the fact that mappings
-			// might be referencing nodes instead of properties.
-
-			// Ugly:
-			if (mapping instanceof PropertyMapping) {
-				PropertyMapping prop = (PropertyMapping) mapping;
-
-				return node.hasProperty(prop.getPropertyName());
-			}
-
-			return false;
-
-		} catch (final RepositoryException e) {
-			throw new ObjectMapperException("Exception while retrieving property " + mapping.getFieldname(), e);
-		}
 	}
 }

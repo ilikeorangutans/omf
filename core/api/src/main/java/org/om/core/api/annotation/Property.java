@@ -20,13 +20,6 @@ public @interface Property {
 	static final String DEFAULT_VALUE = "";
 
 	/**
-	 * Name of the property. If not set, will use the POJO field name.
-	 * 
-	 * @return
-	 */
-	String name() default "";
-
-	/**
 	 * Default value to use if {@link #missingStrategy()} is set to
 	 * {@link PropertyMissingStrategy#DefaultValue}. The returned value must be
 	 * translatable into the type of the field, otherwise a conversion error
@@ -35,16 +28,6 @@ public @interface Property {
 	 * @return
 	 */
 	String defaultValue() default DEFAULT_VALUE;
-
-	/**
-	 * Defines how object mapper will react to missing properties. The default
-	 * is to return <tt>null</tt> if the referenced property cannot be found.
-	 * 
-	 * @see PropertyMissingStrategy
-	 * 
-	 * @return
-	 */
-	PropertyMissingStrategy missingStrategy() default PropertyMissingStrategy.ReturnNull;
 
 	/**
 	 * Exception to be thrown when the mapped property cannot be retrieved from
@@ -57,5 +40,22 @@ public @interface Property {
 	 * @return
 	 */
 	Class<? extends RuntimeException> missingException() default PropertyMissingException.class;
+
+	/**
+	 * Defines how object mapper will react to missing properties. The default
+	 * is to return <tt>null</tt> if the referenced property cannot be found.
+	 * 
+	 * @see PropertyMissingStrategy
+	 * 
+	 * @return
+	 */
+	PropertyMissingStrategy missingStrategy() default PropertyMissingStrategy.ReturnNull;
+
+	/**
+	 * Name of the property. If not set, will use the POJO field name.
+	 * 
+	 * @return
+	 */
+	String name() default "";
 
 }

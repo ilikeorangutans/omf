@@ -24,14 +24,17 @@ public @interface Collection {
 	public static final String LOCATION_RELATIVE_USING_FIELDNAME = "";
 
 	/**
-	 * Defines how object mapper should react if the underlying persistence
-	 * backend cannot resolve the nodes pointed to by {@link #location()}. Note
-	 * that {@link PropertyMissingStrategy#DefaultValue} will cause an empty
-	 * collection to be returned. This is the default.
+	 * Describes the location of where to load the collection from. This has
+	 * implications as of how the actual backend will load the data.
 	 * 
-	 * @return
+	 * There are two possible ways of specifying a path to a collection. It can
+	 * either be an absolute location, starting with a slash, or relative,
+	 * without a beginning slash. If the location is relative, it will be
+	 * resolved relative to the node of the containing {@link Entity}.
+	 * 
+	 * The default is to use the field name as a relative path.
 	 */
-	PropertyMissingStrategy missingStrategy() default PropertyMissingStrategy.DefaultValue;
+	String location() default LOCATION_RELATIVE_USING_FIELDNAME;
 
 	/**
 	 * Exception to be thrown when the mapped property cannot be retrieved from
@@ -46,17 +49,14 @@ public @interface Collection {
 	Class<? extends Exception> missingException() default PropertyMissingException.class;
 
 	/**
-	 * Describes the location of where to load the collection from. This has
-	 * implications as of how the actual backend will load the data.
+	 * Defines how object mapper should react if the underlying persistence
+	 * backend cannot resolve the nodes pointed to by {@link #location()}. Note
+	 * that {@link PropertyMissingStrategy#DefaultValue} will cause an empty
+	 * collection to be returned. This is the default.
 	 * 
-	 * There are two possible ways of specifying a path to a collection. It can
-	 * either be an absolute location, starting with a slash, or relative,
-	 * without a beginning slash. If the location is relative, it will be
-	 * resolved relative to the node of the containing {@link Entity}.
-	 * 
-	 * The default is to use the field name as a relative path.
+	 * @return
 	 */
-	String location() default LOCATION_RELATIVE_USING_FIELDNAME;
+	PropertyMissingStrategy missingStrategy() default PropertyMissingStrategy.DefaultValue;
 
 	/**
 	 * Declares the type of the collection entries. The class needs to be a

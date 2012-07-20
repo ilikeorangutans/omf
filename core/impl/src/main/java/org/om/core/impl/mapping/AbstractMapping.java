@@ -6,9 +6,9 @@ import org.om.core.api.mapping.Mapping;
 public abstract class AbstractMapping implements Mapping {
 
 	private final String fieldname;
+	private final Class<?> fieldType;
 	private final Class<? extends RuntimeException> missingException;
 	private final PropertyMissingStrategy missingStrategy;
-	private final Class<?> fieldType;
 
 	public AbstractMapping(String fieldname, Class<?> fieldType, PropertyMissingStrategy missingStrategy, Class<? extends RuntimeException> missingException) {
 		super();
@@ -22,6 +22,10 @@ public abstract class AbstractMapping implements Mapping {
 		return fieldname;
 	}
 
+	public Class<?> getFieldType() {
+		return fieldType;
+	}
+
 	@SuppressWarnings("unchecked")
 	public Class<RuntimeException> getMissingException() {
 		return (Class<RuntimeException>) missingException;
@@ -29,10 +33,6 @@ public abstract class AbstractMapping implements Mapping {
 
 	public PropertyMissingStrategy getMissingStrategy() {
 		return missingStrategy;
-	}
-
-	public Class<?> getFieldType() {
-		return fieldType;
 	}
 
 }

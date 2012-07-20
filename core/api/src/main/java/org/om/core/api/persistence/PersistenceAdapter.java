@@ -19,21 +19,18 @@ import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 public interface PersistenceAdapter {
 
 	/**
-	 * Set the property described by the given {@link PropertyMapping}.
+	 * Returns true if the delegate can provide a value for the given mapping.
+	 * If the underlying storage engine returns a null or cannot resolve the
+	 * implementation specific property, this method should return false.
 	 * 
-	 * @param propertyMapping
-	 * @return
+	 * @return true if the delegate can provide a value for the given property
 	 */
-	void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException;
+	boolean canProvide(Mapping mapping) throws ObjectMapperException;
 
 	/**
-	 * Retrieve the property described by the given {@link PropertyMapping}.
-	 * This is used to retrieve single value entries.
-	 * 
-	 * @param propertyMapping
-	 * @return
+	 * delete a node
 	 */
-	Object getProperty(PropertyMapping mapping) throws ObjectMapperException;
+	void delete() throws ObjectMapperException;
 
 	/**
 	 * Retrieves the given collection. Implementations should return a
@@ -51,16 +48,19 @@ public interface PersistenceAdapter {
 	Collection<?> getCollection(CollectionMapping collectionMapping);
 
 	/**
-	 * Returns true if the delegate can provide a value for the given mapping.
-	 * If the underlying storage engine returns a null or cannot resolve the
-	 * implementation specific property, this method should return false.
+	 * Retrieve the property described by the given {@link PropertyMapping}.
+	 * This is used to retrieve single value entries.
 	 * 
-	 * @return true if the delegate can provide a value for the given property
+	 * @param propertyMapping
+	 * @return
 	 */
-	boolean canProvide(Mapping mapping) throws ObjectMapperException;
+	Object getProperty(PropertyMapping mapping) throws ObjectMapperException;
 
 	/**
-	 * delete a node
+	 * Set the property described by the given {@link PropertyMapping}.
+	 * 
+	 * @param propertyMapping
+	 * @return
 	 */
-	void delete() throws ObjectMapperException;
+	void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException;
 }

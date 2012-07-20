@@ -15,14 +15,14 @@ import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 public class SingletonJCRSessionFactoryDecorator implements JCRSessionFactory {
 
 	/**
-	 * the session factory to decorate
-	 */
-	private final JCRSessionFactory sessionFactory;
-
-	/**
 	 * the session
 	 */
 	private static Session session = null;
+
+	/**
+	 * the session factory to decorate
+	 */
+	private final JCRSessionFactory sessionFactory;
 
 	/**
 	 * ctor

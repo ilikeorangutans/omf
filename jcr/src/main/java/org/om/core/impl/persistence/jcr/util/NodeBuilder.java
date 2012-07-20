@@ -17,8 +17,8 @@ import javax.jcr.version.VersionException;
  */
 public class NodeBuilder {
 
-	private final Session session;
 	private Node node;
+	private final Session session;
 
 	public NodeBuilder(Session session) throws RepositoryException {
 		this.session = session;
@@ -30,7 +30,5 @@ public class NodeBuilder {
 		node = node.addNode(path);
 		return this;
 	}
-	
-	
 
 }

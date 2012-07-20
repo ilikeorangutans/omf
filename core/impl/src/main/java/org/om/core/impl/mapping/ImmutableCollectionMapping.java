@@ -22,15 +22,6 @@ public class ImmutableCollectionMapping extends AbstractMapping implements Colle
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + ((targetType == null) ? 0 : targetType.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -56,6 +47,19 @@ public class ImmutableCollectionMapping extends AbstractMapping implements Colle
 		return location;
 	}
 
+	public Class<?> getTargetType() {
+		return targetType;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result + ((targetType == null) ? 0 : targetType.hashCode());
+		return result;
+	}
+
 	/**
 	 * Always returns false as a collection cannot serve as an identifier.
 	 */
@@ -68,10 +72,6 @@ public class ImmutableCollectionMapping extends AbstractMapping implements Colle
 	 */
 	public boolean isPrimitiveOrWrappedType() {
 		return false;
-	}
-
-	public Class<?> getTargetType() {
-		return targetType;
 	}
 
 }

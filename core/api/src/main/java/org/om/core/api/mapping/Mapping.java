@@ -13,6 +13,13 @@ public interface Mapping {
 	String getFieldname();
 
 	/**
+	 * Returns the type of the field.
+	 * 
+	 * @return
+	 */
+	Class<?> getFieldType();
+
+	/**
 	 * Exception to throw when {@link #getMissingStrategy()} is set to
 	 * {@link PropertyMissingStrategy#ThrowException} and the property cannot be
 	 * found.
@@ -28,13 +35,6 @@ public interface Mapping {
 	 * @return
 	 */
 	PropertyMissingStrategy getMissingStrategy();
-
-	/**
-	 * Returns the type of the field.
-	 * 
-	 * @return
-	 */
-	Class<?> getFieldType();
 
 	/**
 	 * Returns true if this mapping is an {@link Id} mapping.

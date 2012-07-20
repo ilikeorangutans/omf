@@ -34,6 +34,14 @@ final class MissingBehaviorPersistenceDelegateDecorator implements PersistenceAd
 		return delegate.canProvide(mapping);
 	}
 
+	public void delete() throws ObjectMapperException {
+		delegate.delete();
+	}
+
+	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+		return delegate.getCollection(collectionMapping);
+	}
+
 	public Object getProperty(PropertyMapping mapping) {
 
 		final boolean canProvide = delegate.canProvide(mapping);
@@ -61,6 +69,10 @@ final class MissingBehaviorPersistenceDelegateDecorator implements PersistenceAd
 						// that the previous method call never returns.
 	}
 
+	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
+		// TODO Auto-generated method stub
+	}
+
 	private void throwPropertyMissingException(Mapping mapping) {
 
 		final Class<RuntimeException> exceptionType = mapping.getMissingException();
@@ -83,18 +95,6 @@ final class MissingBehaviorPersistenceDelegateDecorator implements PersistenceAd
 			throw new RuntimeException("Could not construct exception for missing property.", e);
 		}
 
-	}
-
-	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
-		// TODO Auto-generated method stub
-	}
-
-	public void delete() throws ObjectMapperException {
-		delegate.delete();
-	}
-
-	public Collection<?> getCollection(CollectionMapping collectionMapping) {
-		return delegate.getCollection(collectionMapping);
 	}
 
 }

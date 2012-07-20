@@ -13,13 +13,13 @@ import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 public class SessionPerThreadJCRSessionFactoryDecorator implements JCRSessionFactory {
 
 	/**
-	 * the session factory to decorate
-	 */
-	private final JCRSessionFactory sessionFactory;
-	/**
 	 * the threadlocal primary session
 	 */
 	private static ThreadLocal<Session> threadLocalSession = null;
+	/**
+	 * the session factory to decorate
+	 */
+	private final JCRSessionFactory sessionFactory;
 
 	/**
 	 * ctor

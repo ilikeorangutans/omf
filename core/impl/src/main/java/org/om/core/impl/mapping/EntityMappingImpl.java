@@ -8,13 +8,9 @@ import org.om.core.api.mapping.PropertyMapping;
 
 public class EntityMappingImpl implements EntityMapping {
 
-	private final Class<?> type;
-	private ItemMap propertyMappings;
 	private String name;
-
-	public String getName() {
-		return name;
-	}
+	private ItemMap propertyMappings;
+	private final Class<?> type;
 
 	public EntityMappingImpl(Class<?> type) {
 		this.type = type;
@@ -29,16 +25,24 @@ public class EntityMappingImpl implements EntityMapping {
 		this.name = name;
 	}
 
-	public Class<?> getTypeClass() {
-		return type;
+	public PropertyMapping getIdProperty() {
+		return propertyMappings.getIdProperty();
 	}
 
 	public ItemMap getItemMappings() {
 		return propertyMappings;
 	}
 
-	public void setPropertyMap(ItemMap propertyMappings) {
-		this.propertyMappings = propertyMappings;
+	public Mapping getMappingByField(String fieldname) {
+		return propertyMappings.getField(fieldname);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Class<?> getTypeClass() {
+		return type;
 	}
 
 	public boolean hasField(String field) {
@@ -49,12 +53,8 @@ public class EntityMappingImpl implements EntityMapping {
 		return propertyMappings.hasProperty(property);
 	}
 
-	public Mapping getMappingByField(String fieldname) {
-		return propertyMappings.getField(fieldname);
-	}
-
-	public PropertyMapping getIdProperty() {
-		return propertyMappings.getIdProperty();
+	public void setPropertyMap(ItemMap propertyMappings) {
+		this.propertyMappings = propertyMappings;
 	}
 
 	public void validate() throws MappingException {

@@ -20,9 +20,9 @@ import org.om.core.api.mapping.PropertyMapping;
  */
 public class ImmutablePropertyMap implements ItemMap {
 
-	private final Map<String, PropertyMapping> properties;
 	private final Map<String, Mapping> fields;
 	private PropertyMapping id;
+	private final Map<String, PropertyMapping> properties;
 
 	public ImmutablePropertyMap(Set<Mapping> mappings) {
 		final Map<String, PropertyMapping> tmpProps = new HashMap<String, PropertyMapping>();
@@ -62,12 +62,8 @@ public class ImmutablePropertyMap implements ItemMap {
 		return fields.values();
 	}
 
-	public boolean hasProperty(String name) {
-		return properties.containsKey(name);
-	}
-
-	public boolean hasField(String name) {
-		return fields.containsKey(name);
+	public Mapping getField(String fieldname) {
+		return fields.get(fieldname);
 	}
 
 	public PropertyMapping getIdProperty() {
@@ -78,12 +74,16 @@ public class ImmutablePropertyMap implements ItemMap {
 		return properties.get(name);
 	}
 
-	public Mapping getField(String fieldname) {
-		return fields.get(fieldname);
-	}
-
 	public int getSize() {
 		return fields.size();
+	}
+
+	public boolean hasField(String name) {
+		return fields.containsKey(name);
+	}
+
+	public boolean hasProperty(String name) {
+		return properties.containsKey(name);
 	}
 
 	public boolean isEmpty() {

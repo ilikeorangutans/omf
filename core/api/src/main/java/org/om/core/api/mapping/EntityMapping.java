@@ -12,21 +12,33 @@ import org.om.core.api.exception.MappingException;
 public interface EntityMapping {
 
 	/**
+	 * Returns the {@link PropertyMapping} for the identifier field.
+	 * 
+	 * @return
+	 */
+	PropertyMapping getIdProperty();
+
+	ItemMap getItemMappings();
+
+	/**
+	 * Returns the {@link PropertyMapping} for the given field.
+	 * 
+	 * @param fieldname
+	 * @return
+	 */
+	Mapping getMappingByField(String fieldname);
+
+	/**
+	 * name
+	 */
+	String getName();
+
+	/**
 	 * Returns the class of the mapped type.
 	 * 
 	 * @return
 	 */
 	Class<?> getTypeClass();
-
-	ItemMap getItemMappings();
-
-	/**
-	 * Returns true if this entity mapping has a property with the given name.
-	 * 
-	 * @param fieldName
-	 * @return
-	 */
-	boolean hasProperty(String property);
 
 	/**
 	 * Returns true if this entity has a {@link PropertyMapping} for the given
@@ -38,27 +50,15 @@ public interface EntityMapping {
 	boolean hasField(String field);
 
 	/**
-	 * Returns the {@link PropertyMapping} for the given field.
+	 * Returns true if this entity mapping has a property with the given name.
 	 * 
-	 * @param fieldname
+	 * @param fieldName
 	 * @return
 	 */
-	Mapping getMappingByField(String fieldname);
-
-	/**
-	 * Returns the {@link PropertyMapping} for the identifier field.
-	 * 
-	 * @return
-	 */
-	PropertyMapping getIdProperty();
+	boolean hasProperty(String property);
 
 	/**
 	 * Validates the mapping.
 	 */
 	void validate() throws MappingException;
-
-	/**
-	 * name
-	 */
-	String getName();
 }

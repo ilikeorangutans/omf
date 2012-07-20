@@ -6,10 +6,10 @@ import org.om.core.impl.util.ClassUtils;
 
 public class ImmutablePropertyMapping extends AbstractMapping implements PropertyMapping {
 
+	private final String defaultValue;
 	private final boolean isId;
 	private final String propertyName;
 	private final boolean simpleType;
-	private final String defaultValue;
 
 	public ImmutablePropertyMapping(String fieldname, boolean isId, String propertyName, Class<?> propertyType, String defaultValue,
 			PropertyMissingStrategy missingStrategy, Class<? extends RuntimeException> missingException) {
@@ -19,39 +19,6 @@ public class ImmutablePropertyMapping extends AbstractMapping implements Propert
 		this.propertyName = propertyName;
 		this.defaultValue = defaultValue;
 		simpleType = String.class.equals(propertyType) || ClassUtils.isPrimitiveOrAutoboxed(propertyType);
-	}
-
-	public String getDefaultValue() {
-		return defaultValue;
-	}
-
-	public String getPropertyName() {
-		return propertyName;
-	}
-
-	public boolean isId() {
-		return isId;
-	}
-
-	public boolean isPrimitiveOrWrappedType() {
-		return simpleType;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((defaultValue == null) ? 0 : defaultValue.hashCode());
-		result = prime * result + (isId ? 1231 : 1237);
-		result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
-		result = prime * result + (simpleType ? 1231 : 1237);
-		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "ImmutablePropertyMapping [propertyName=" + propertyName + ", defaultValue=" + defaultValue + ", getFieldname()=" + getFieldname()
-				+ ", getFieldType()=" + getFieldType() + "]";
 	}
 
 	@Override
@@ -78,6 +45,39 @@ public class ImmutablePropertyMapping extends AbstractMapping implements Propert
 		if (simpleType != other.simpleType)
 			return false;
 		return true;
+	}
+
+	public String getDefaultValue() {
+		return defaultValue;
+	}
+
+	public String getPropertyName() {
+		return propertyName;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((defaultValue == null) ? 0 : defaultValue.hashCode());
+		result = prime * result + (isId ? 1231 : 1237);
+		result = prime * result + ((propertyName == null) ? 0 : propertyName.hashCode());
+		result = prime * result + (simpleType ? 1231 : 1237);
+		return result;
+	}
+
+	public boolean isId() {
+		return isId;
+	}
+
+	public boolean isPrimitiveOrWrappedType() {
+		return simpleType;
+	}
+
+	@Override
+	public String toString() {
+		return "ImmutablePropertyMapping [propertyName=" + propertyName + ", defaultValue=" + defaultValue + ", getFieldname()=" + getFieldname()
+				+ ", getFieldType()=" + getFieldType() + "]";
 	}
 
 }

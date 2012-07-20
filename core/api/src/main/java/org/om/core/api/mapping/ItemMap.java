@@ -18,20 +18,12 @@ public interface ItemMap {
 	Collection<Mapping> getAll();
 
 	/**
-	 * Returns true if this map contains a property with the given name.
+	 * Finds a field by name.
 	 * 
-	 * @param name
+	 * @param fieldname
 	 * @return
 	 */
-	boolean hasProperty(String name);
-
-	/**
-	 * Returns true if this map contains a field with the given name.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	boolean hasField(String name);
+	Mapping getField(String fieldname);
 
 	/**
 	 * Returns the property that has been marked as the id property.
@@ -48,15 +40,23 @@ public interface ItemMap {
 	 */
 	PropertyMapping getProperty(String name);
 
+	int getSize();
+
 	/**
-	 * Finds a field by name.
+	 * Returns true if this map contains a field with the given name.
 	 * 
-	 * @param fieldname
+	 * @param name
 	 * @return
 	 */
-	Mapping getField(String fieldname);
+	boolean hasField(String name);
 
-	int getSize();
+	/**
+	 * Returns true if this map contains a property with the given name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	boolean hasProperty(String name);
 
 	boolean isEmpty();
 }

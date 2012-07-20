@@ -32,6 +32,10 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 		this.delegate = new MissingBehaviorPersistenceDelegateDecorator(delegate);
 	}
 
+	public Collection<?> getCollection(CollectionMapping collectionMapping) {
+		return null;
+	}
+
 	public Object getProperty(Mapping mapping) {
 		if (mapping == null)
 			throw new NullPointerException("Mapping is null");
@@ -40,10 +44,6 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 		assert handler != null : "No handler for property mapping " + mapping + " found.";
 
 		return handler.retrieve(mapping, delegate);
-	}
-
-	public Collection<?> getCollection(CollectionMapping collectionMapping) {
-		return null;
 	}
 
 }

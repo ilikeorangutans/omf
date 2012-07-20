@@ -10,9 +10,9 @@ import org.om.core.api.session.Session;
 
 public class ListWrapper<T> implements List<T> {
 
-	private final Session session;
 	private final Collection<?> collection;
 	private final CollectionMapping collectionMapping;
+	private final Session session;
 
 	public ListWrapper(Session session, CollectionMapping collectionMapping, Collection<?> collection) {
 		this.session = session;
@@ -20,11 +20,11 @@ public class ListWrapper<T> implements List<T> {
 		this.collection = collection;
 	}
 
-	public boolean add(T e) {
+	public void add(int index, T element) {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
-	public void add(int index, T element) {
+	public boolean add(T e) {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
@@ -84,11 +84,11 @@ public class ListWrapper<T> implements List<T> {
 		return null;
 	}
 
-	public boolean remove(Object o) {
+	public T remove(int index) {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
-	public T remove(int index) {
+	public boolean remove(Object o) {
 		throw new UnsupportedOperationException("Not yet implemented.");
 	}
 
