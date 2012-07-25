@@ -2,7 +2,7 @@ package org.om.core.impl.persistence.jcr.sessionfactory.impl;
 
 import javax.jcr.Session;
 
-import org.om.core.impl.persistence.jcr.exception.JCRException;
+import org.om.core.impl.persistence.jcr.exception.JcrException;
 import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 /**
@@ -17,11 +17,11 @@ public class JNDIJCRSessionFactory implements JCRSessionFactory {
 	public JNDIJCRSessionFactory(String jndiName) {
 	}
 
-	public Session getSession() throws JCRException {
+	public Session getSession() throws JcrException {
 		try {
 			throw new Exception("Not Implemented");
 		} catch (final Exception e) {
-			throw new JCRException("Exception in getSession", e);
+			throw new JcrException("Exception in getSession", e);
 		}
 	}
 }

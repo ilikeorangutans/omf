@@ -6,7 +6,7 @@ import javax.jcr.ImportUUIDBehavior;
 import javax.jcr.Node;
 import javax.jcr.Session;
 
-import org.om.core.impl.persistence.jcr.exception.JCRException;
+import org.om.core.impl.persistence.jcr.exception.JcrException;
 import org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfiguredJCRSessionFactory;
 
 /**
@@ -19,7 +19,7 @@ import org.om.core.impl.persistence.jcr.sessionfactory.impl.PropertiesConfigured
  */
 public class ImportUtil {
 
-	public static void importXML(String nodeName, InputStream xml) throws JCRException {
+	public static void importXML(String nodeName, InputStream xml) throws JcrException {
 		try {
 			final Session session = new PropertiesConfiguredJCRSessionFactory().getSession();
 			RecursiveDelete.recursiveDelete(session.getRootNode());
@@ -28,7 +28,7 @@ public class ImportUtil {
 			session.save();
 			session.logout();
 		} catch (final Exception e) {
-			throw new JCRException("Exception in importXML", e);
+			throw new JcrException("Exception in importXML", e);
 		}
 	}
 }

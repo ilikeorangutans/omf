@@ -3,7 +3,7 @@ package org.om.core.impl.persistence.jcr.util;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 
-import org.om.core.impl.persistence.jcr.exception.JCRException;
+import org.om.core.impl.persistence.jcr.exception.JcrException;
 
 /**
  * 
@@ -11,7 +11,7 @@ import org.om.core.impl.persistence.jcr.exception.JCRException;
  * 
  */
 public class RecursiveDelete {
-	public static void recursiveDelete(Node node) throws JCRException {
+	public static void recursiveDelete(Node node) throws JcrException {
 		try {
 			final NodeIterator iter = node.getNodes();
 			while (iter.hasNext()) {
@@ -28,7 +28,7 @@ public class RecursiveDelete {
 				}
 			}
 		} catch (final Exception e) {
-			throw new JCRException("Exception in recursiveDelete", e);
+			throw new JcrException("Exception in recursiveDelete", e);
 		}
 	}
 }

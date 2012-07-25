@@ -8,7 +8,7 @@ import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
 import org.apache.jackrabbit.commons.JcrUtils;
-import org.om.core.impl.persistence.jcr.exception.JCRException;
+import org.om.core.impl.persistence.jcr.exception.JcrException;
 import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 /**
@@ -42,7 +42,7 @@ public class PropertiesConfiguredJCRSessionFactory implements JCRSessionFactory 
 		this.propertiesFile = propertiesFile;
 	}
 
-	public Session getSession() throws JCRException {
+	public Session getSession() throws JcrException {
 		try {
 			/*
 			 * get the props file
@@ -68,7 +68,7 @@ public class PropertiesConfiguredJCRSessionFactory implements JCRSessionFactory 
 			}
 			return repository.login(creds, workspace);
 		} catch (final Exception e) {
-			throw new JCRException("Exception in doGetSession", e);
+			throw new JcrException("Exception in doGetSession", e);
 		}
 	}
 }
