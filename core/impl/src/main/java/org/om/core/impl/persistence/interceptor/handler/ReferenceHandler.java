@@ -1,6 +1,8 @@
 package org.om.core.impl.persistence.interceptor.handler;
 
 import org.om.core.api.annotation.LookupMode;
+import org.om.core.api.exception.MissingException;
+import org.om.core.api.exception.PathNotFoundException;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.field.ReferenceMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
@@ -51,7 +53,21 @@ public class ReferenceHandler implements ItemHandler {
 
 		LOGGER.trace("Retrieving reference to {} from {}", mappedField.getType(), id);
 
-		return session.get(mappedField.getType(), id);
+		try {
+
+			return session.get(mappedField.getType(), id);
+		} catch (PathNotFoundException e) {
+			switch (mappedField.getMissingStrategy()) {
+			case ReturnNull:
+				return null;
+			case DefaultValue:
+				// TODO: handle default value
+			case ThrowException:
+			default:
+				// TODO: throw appropriate exception type
+				throw new MissingException("Cannot find " + id + " while retrieving " + mappedField, e);
+			}
+		}
 	}
 
 	@Override
