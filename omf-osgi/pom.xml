@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -42,19 +44,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
-			<artifactId>api</artifactId>
+			<artifactId>omf-api</artifactId>
 			<version>${project.version}</version>
 			<type>bundle</type>
 		</dependency>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
-			<artifactId>impl</artifactId>
+			<artifactId>omf-impl</artifactId>
 			<version>${project.version}</version>
 			<type>bundle</type>
 		</dependency>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
-			<artifactId>jcr</artifactId>
+			<artifactId>omf-jcr</artifactId>
 			<version>${project.version}</version>
 			<type>bundle</type>
 		</dependency>

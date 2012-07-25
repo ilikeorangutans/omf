@@ -9,7 +9,7 @@
 		<version>0.0.3-SNAPSHOT</version>
 		<relativePath>../omf-parent</relativePath>
 	</parent>
-	<artifactId>jcr</artifactId>
+	<artifactId>omf-jcr</artifactId>
 	<name>Object Mapper - JCR Backend</name>
 	<dependencies>
 		<dependency>
