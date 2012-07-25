@@ -2,8 +2,6 @@ package org.om.core.impl.session;
 
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.Mapping;
-import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.PersistenceAdapterFactory;
@@ -26,8 +24,6 @@ public class ImmutableSessionImpl implements Session {
 
 	private final PersistenceContext persistenceContext;
 	private final PersistenceAdapterFactory persistenceDelegateFactory;
-	private final ProxyFactory proxyFactory;
-
 	private final ProxyFactory proxyFactory;
 
 	public ImmutableSessionImpl(PersistenceContext persistenceContext, PersistenceAdapterFactory persistenceDelegateFactory, MappingRegistry mappingRegistry,
@@ -83,17 +79,20 @@ public class ImmutableSessionImpl implements Session {
 			 * walk the fields and save them
 			 */
 
-			Iterator<Mapping> iter = entityMapping.getItemMappings().getAll().iterator();
-			while (iter.hasNext()) {
-				/*
-				 * get property
-				 */
-				PropertyMapping propertyMapping = (PropertyMapping) iter.next();
-				/*
-				 * save it
-				 */
-				persistenceAdapter.setProperty(propertyMapping, EntityUtils.getEntityPropertyValue(propertyMapping, o));
-			}
+			// Iterator<Mapping> iter =
+			// entityMapping.getItemMappings().getAll().iterator();
+			// while (iter.hasNext()) {
+			// /*
+			// * get property
+			// */
+			// PropertyMapping propertyMapping = (PropertyMapping) iter.next();
+			// /*
+			// * save it
+			// */
+			// persistenceAdapter.setProperty(propertyMapping,
+			// EntityUtils.getEntityPropertyValue(propertyMapping, o));
+			// }
+			throw new UnsupportedOperationException("Implement me.");
 		} catch (Exception e) {
 			throw new ObjectMapperException("Exception in save", e);
 		}

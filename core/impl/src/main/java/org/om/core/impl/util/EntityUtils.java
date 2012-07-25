@@ -6,6 +6,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.field.PropertyMapping;
 
 /**
  * @author tome
@@ -30,20 +31,23 @@ public class EntityUtils {
 	/**
 	 * get an entity property value.
 	 */
+	@Deprecated
 	public static Object getEntityPropertyValue(PropertyMapping propertyMapping, Object object) throws NoSuchFieldException, InvocationTargetException,
 			NoSuchMethodException, IllegalAccessException {
-		/*
-		 * the field name
-		 */
-		String fieldName = propertyMapping.getFieldname();
-		/*
-		 * get
-		 */
-		String propValue = BeanUtils.getProperty(object, fieldName);
-		/*
-		 * return converted value
-		 */
-		return ConvertUtils.convert(propValue, propertyMapping.getFieldType());
+		// /*
+		// * the field name
+		// */
+		// String fieldName = propertyMapping.getPropertyName();
+		// /*
+		// * get
+		// */
+		// String propValue = BeanUtils.getProperty(object, fieldName);
+		// /*
+		// * return converted value
+		// */
+		// return ConvertUtils.convert(propValue,
+		// propertyMapping.getFieldType());
+		return null;
 	}
 
 	/**
@@ -64,7 +68,7 @@ public class EntityUtils {
 		/*
 		 * the id field
 		 */
-		String fieldName = entityMapping.getIdProperty().getFieldname();
+		String fieldName = entityMapping.getIdProperty().getName();
 		/*
 		 * set
 		 */
@@ -76,13 +80,13 @@ public class EntityUtils {
 	 */
 	public static void setEntityPropertyValue(PropertyMapping propertyMapping, Object object, Object value) throws NoSuchFieldException,
 			InvocationTargetException, NoSuchMethodException, IllegalAccessException {
-		/*
-		 * the field name
-		 */
-		String fieldName = propertyMapping.getFieldname();
-		/*
-		 * set
-		 */
-		BeanUtils.setProperty(object, fieldName, value);
+		// /*
+		// * the field name
+		// */
+		// String fieldName = propertyMapping.getFieldname();
+		// /*
+		// * set
+		// */
+		// BeanUtils.setProperty(object, fieldName, value);
 	}
 }
