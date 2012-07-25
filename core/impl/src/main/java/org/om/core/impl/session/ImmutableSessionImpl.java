@@ -2,6 +2,8 @@ package org.om.core.impl.session;
 
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.Mapping;
+import org.om.core.api.mapping.PropertyMapping;
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.PersistenceAdapterFactory;
@@ -23,8 +25,8 @@ public class ImmutableSessionImpl implements Session {
 	private final MappingRegistry mappingRegistry;
 
 	private final PersistenceContext persistenceContext;
-
 	private final PersistenceAdapterFactory persistenceDelegateFactory;
+	private final ProxyFactory proxyFactory;
 
 	private final ProxyFactory proxyFactory;
 
@@ -55,7 +57,6 @@ public class ImmutableSessionImpl implements Session {
 		if (clazz == null) {
 			throw new NullPointerException("Class is null.");
 		}
-
 		final EntityMapping entityMapping = mappingRegistry.getMapping(clazz);
 		final PersistenceAdapter persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, false);
 
@@ -77,27 +78,24 @@ public class ImmutableSessionImpl implements Session {
 			/*
 			 * get a persistence delegate
 			 */
-			final PersistenceAdapter persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, true);
+			final PersistenceAdapter persistenceAdapter = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, true);
 			/*
 			 * walk the fields and save them
 			 */
 
-			// Iterator<Mapping> iter =
-			// entityMapping.getItemMappings().getAll().iterator();
-			// while (iter.hasNext()) {
-			/*
-			 * get property
-			 */
-			// Mapping propertyMapping = iter.next();
-			/*
-			 * save it
-			 */
-			// DISABLED // persistenceDelegate.setProperty(propertyMapping,
-			// EntityUtils.getEntityPropertyValue(propertyMapping, o));
-			// }
+			Iterator<Mapping> iter = entityMapping.getItemMappings().getAll().iterator();
+			while (iter.hasNext()) {
+				/*
+				 * get property
+				 */
+				PropertyMapping propertyMapping = (PropertyMapping) iter.next();
+				/*
+				 * save it
+				 */
+				persistenceAdapter.setProperty(propertyMapping, EntityUtils.getEntityPropertyValue(propertyMapping, o));
+			}
 		} catch (Exception e) {
 			throw new ObjectMapperException("Exception in save", e);
 		}
 	}
-
 }
