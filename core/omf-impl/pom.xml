@@ -6,17 +6,17 @@
 	<parent>
 		<artifactId>omf-parent</artifactId>
 		<groupId>org.objectmapper</groupId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.0.3-SNAPSHOT</version>
 		<relativePath>../../omf-parent</relativePath>
 	</parent>
-	<artifactId>impl</artifactId>
+	<artifactId>omf-impl</artifactId>
 	<name>Object Mapper - Implementation</name>
 	<packaging>bundle</packaging>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
-			<artifactId>api</artifactId>
+			<artifactId>omf-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>omf-parent</artifactId>
 		<groupId>org.objectmapper</groupId>
-		<version>0.0.2-SNAPSHOT</version>
+		<version>0.0.3-SNAPSHOT</version>
 		<relativePath>../omf-parent</relativePath>
 	</parent>
 	<artifactId>jcr</artifactId>
@@ -14,12 +14,12 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
-			<artifactId>api</artifactId>
+			<artifactId>omf-api</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
-			<artifactId>impl</artifactId>
+			<artifactId>omf-impl</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

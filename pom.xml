@@ -3,13 +3,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.objectmapper</groupId>
 	<artifactId>objectmapper</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
 		<module>omf-parent</module>
-		<module>core/api</module>
-		<module>core/impl</module>
+		<module>core/omf-api</module>
+		<module>core/omf-impl</module>
 		<module>omf-osgi</module>
 	</modules>
 
@@ -70,7 +70,7 @@
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<modules>
-				<module>jcr</module>
+				<module>omf-jcr</module>
 			</modules>
 		</profile>
 
