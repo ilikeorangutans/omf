@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.extractor.FieldMappingExtractor;
-import org.om.core.impl.mapping.EntityWithCollections;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
+import org.om.core.impl.test.EntityWithCollections;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
 
 public class ItemMappingExtractorCollectionTest {
 
@@ -56,4 +56,18 @@ public class ItemMappingExtractorCollectionTest {
 		assertEquals(EntityWithPrimitiveProperties.class, mapping.getTargetType());
 		assertThat(mapping.getLocation(), is("collectionWithReferenceTypes"));
 	}
+
+	@Test
+	public void testMap() throws Exception {
+
+		MappedField mappedField = extractor.extract(EntityWithCollections.class.getDeclaredField("map"));
+
+		assertThat(mappedField, notNullValue());
+		CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
+		assertThat(mapping, notNullValue());
+
+		assertEquals(EntityWithPrimitiveProperties.class, mapping.getTargetType());
+		assertThat(mapping.getLocation(), is("map"));
+	}
+
 }

@@ -7,12 +7,12 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.persistence.cglib.CglibPersistenceInterceptor;
 import org.om.core.impl.persistence.delegate.TestingPersistenceAdapter;
 import org.om.core.impl.persistence.interceptor.PersistenceInterceptorImpl;
 import org.om.core.impl.persistence.interceptor.handler.ItemHandlerFactoryImpl;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
 
 public class CglibPersistenceInterceptorTest {
 

@@ -17,9 +17,9 @@ import org.om.core.api.exception.MissingException;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.session.Session;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.ImmutableMappedField;
 import org.om.core.impl.mapping.field.ImmutableReferenceMapping;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
 
 @RunWith(JMock.class)
 public class ReferencePropertyHandlerTest {

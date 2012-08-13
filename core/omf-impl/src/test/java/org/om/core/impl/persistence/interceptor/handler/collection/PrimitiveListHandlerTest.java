@@ -1,4 +1,4 @@
-package org.om.core.impl.persistence.interceptor.handler;
+package org.om.core.impl.persistence.interceptor.handler.collection;
 
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
@@ -17,13 +17,14 @@ import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.session.Session;
 import org.om.core.impl.mapping.ImmutableCollectionMapping;
 import org.om.core.impl.mapping.ImmutableMappedField;
+import org.om.core.impl.persistence.interceptor.handler.TestingPassThroughPersistenceAdapter;
 
-public class CollectionHandlerTest {
+public class PrimitiveListHandlerTest {
 
 	@Test
 	public void testWithEmptyResult() {
 		Session session = null;
-		CollectionHandler handler = new CollectionHandler(session);
+		AbstractCollectionHandler handler = new PrimitiveListHandler(session);
 
 		final CollectionMapping mapping = new ImmutableCollectionMapping(List.class, String.class, "");
 		PersistenceAdapter adapter = new TestingPassThroughPersistenceAdapter(new ArrayList<String>());
@@ -38,7 +39,7 @@ public class CollectionHandlerTest {
 	@Test
 	public void testWithSimpleCollectionType() {
 		Session session = null;
-		CollectionHandler handler = new CollectionHandler(session);
+		AbstractCollectionHandler handler = new PrimitiveListHandler(session);
 
 		final CollectionMapping mapping = new ImmutableCollectionMapping(List.class, String.class, "");
 		final List<String> input = new ArrayList<String>();
@@ -53,5 +54,5 @@ public class CollectionHandlerTest {
 		assertThat(result.isEmpty(), is(false));
 		assertThat(result.size(), is(3));
 	}
-	
+
 }

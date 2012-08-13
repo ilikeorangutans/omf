@@ -17,7 +17,7 @@ public class ImmutablePersistenceResult implements PersistenceResult {
 	}
 
 	@Override
-	public Object getResult() {
+	public Object getValue() {
 		return result;
 	}
 

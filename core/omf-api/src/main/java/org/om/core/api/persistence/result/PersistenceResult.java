@@ -15,11 +15,11 @@ public interface PersistenceResult {
 	 * 
 	 * @return
 	 */
-	Object getResult();
+	Object getValue();
 
 	/**
 	 * Returns true if any result was retrieved. This will return true even if
-	 * the result was true. If the underlying persistence mechanism can't find
+	 * the result was null. If the underlying persistence mechanism can't find
 	 * the requested entity, it should set this flag to false. It is up to to
 	 * the calling {@link PersistenceAdapter} how to react to this.
 	 * 

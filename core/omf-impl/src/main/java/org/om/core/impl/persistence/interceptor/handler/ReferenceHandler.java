@@ -45,7 +45,7 @@ public class ReferenceHandler implements ItemHandler {
 
 			final PersistenceResult result = adapter.getProperty(new ImmutablePersistenceRequest(mapping.getPath(), String.class, Mode.Relative));
 			if (result.hasResult()) {
-				id = result.getResult();
+				id = result.getValue();
 			} else {
 				id = MissingHandler.INSTANCE.retrieve(mappedField, adapter);
 			}

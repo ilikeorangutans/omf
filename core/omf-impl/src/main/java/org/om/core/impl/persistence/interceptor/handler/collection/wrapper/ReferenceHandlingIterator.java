@@ -1,4 +1,4 @@
-package org.om.core.impl.persistence.interceptor.handler.collection;
+package org.om.core.impl.persistence.interceptor.handler.collection.wrapper;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

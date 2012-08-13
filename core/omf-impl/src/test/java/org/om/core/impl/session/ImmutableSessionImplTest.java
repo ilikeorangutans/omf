@@ -9,14 +9,14 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.om.core.api.mapping.registry.MappingRegistry;
 import org.om.core.api.session.Session;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
-import org.om.core.impl.mapping.EntityWithReferenceProperties;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.mapping.registry.OnDemandMappingRegistry;
 import org.om.core.impl.persistence.cglib.CglibProxyFactory;
 import org.om.core.impl.persistence.delegate.TestingDelegateFactory;
 import org.om.core.impl.persistence.delegate.TestingPersistenceContext;
 import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
+import org.om.core.impl.test.EntityWithReferenceProperties;
 
 /**
  * @author Jakob Külzer

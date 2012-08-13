@@ -19,8 +19,8 @@ public class PersistenceInterceptorFactoryImpl implements PersistenceInterceptor
 		this(new ItemHandlerFactoryImpl());
 	}
 
-	public PersistenceInterceptorFactoryImpl(ItemHandlerFactory propertyHandlerFactory) {
-		this.propertyHandlerFactory = propertyHandlerFactory;
+	public PersistenceInterceptorFactoryImpl(ItemHandlerFactory itemHandlerFactory) {
+		this.propertyHandlerFactory = itemHandlerFactory;
 	}
 
 	public PersistenceInterceptor create(Session session, PersistenceAdapter delegate) {

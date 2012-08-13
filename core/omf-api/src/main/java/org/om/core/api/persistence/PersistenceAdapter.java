@@ -47,12 +47,11 @@ public interface PersistenceAdapter {
 	 * The idea is that the actual persistence backend should be able to
 	 * retrieve information like size of the collection or sequence of entries
 	 * in a more performant way than the backend agnostic
-	 * {@link PersistenceInterceptor} is able.
+	 * {@link PersistenceInterceptor} can.
 	 * 
 	 * @param collectionMapping
 	 * @return
 	 */
-	@Deprecated
 	CollectionResult getCollection(CollectionMapping collectionMapping);
 
 	/**
@@ -90,5 +89,12 @@ public interface PersistenceAdapter {
 	 * @return
 	 */
 	void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException;
+
+	/**
+	 * Returns the id that was used to initialize this adapter.
+	 * 
+	 * @return
+	 */
+	String getId();
 
 }

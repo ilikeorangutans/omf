@@ -38,7 +38,7 @@ public class PersistenceInterceptorImpl implements PersistenceInterceptor {
 		if (mappedField == null)
 			throw new NullPointerException("MappedField is null");
 
-		final ItemHandler handler = handlerFactory.get(session, mappedField.getMapping());
+		final ItemHandler handler = handlerFactory.get(session, mappedField);
 		if (handler == null)
 			throw new ObjectMapperException("No handler for mapped field " + mappedField.getName() + " found.");
 

@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.persistence.PersistenceAdapter;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
 
 public class PrimitivePropertyHandlerTest {
 

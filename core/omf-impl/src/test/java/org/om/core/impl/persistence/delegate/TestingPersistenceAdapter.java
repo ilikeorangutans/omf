@@ -76,4 +76,9 @@ public class TestingPersistenceAdapter implements PersistenceAdapter {
 	public Object resolve(String id) {
 		return id;
 	}
+
+	@Override
+	public String getId() {
+		return null;
+	}
 }

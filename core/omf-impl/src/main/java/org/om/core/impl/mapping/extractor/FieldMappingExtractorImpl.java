@@ -2,6 +2,7 @@ package org.om.core.impl.mapping.extractor;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.om.core.api.annotation.Collection;
@@ -73,10 +74,11 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 		Class<?> fieldType = field.getType();
 		final boolean isList = List.class.equals(fieldType);
 		final boolean isSet = Set.class.equals(fieldType);
-		final boolean isSupportedType = isList || isSet;
+		final boolean isMap = Map.class.equals(fieldType);
+		final boolean isSupportedType = isList || isSet || isMap;
 		if (!isSupportedType)
 			throw new MappingException("Collection field " + field.getName() + " is of type " + fieldType
-					+ " but only java.util.List or java.util.Set are supported.");
+					+ " but only java.util.List, java.util.Map or java.util.Set are supported.");
 
 		final String location;
 		if (collection.location() == null || collection.location().isEmpty()) {
@@ -123,10 +125,10 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 		checkMapping(fieldname, isProperty, isCollection, isId);
 
 		final Mapping mapping;
-		if (isProperty) {
-			mapping = extractPropertyMapping(mapped, annotation, field);
-		} else if (isId) {
+		if (isId) {
 			mapping = extractIdMapping(id, field);
+		} else if (isProperty) {
+			mapping = extractPropertyMapping(mapped, annotation, field);
 		} else {
 			mapping = extractCollectionMapping(mapped, collection, field);
 		}

@@ -58,4 +58,10 @@ public class TestingPassThroughPersistenceAdapter implements PersistenceAdapter 
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

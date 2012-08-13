@@ -15,8 +15,8 @@ import org.om.core.api.mapping.extractor.FieldMappingExtractor;
 import org.om.core.api.mapping.field.IdMapping;
 import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.mapping.field.ReferenceMapping;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
-import org.om.core.impl.mapping.EntityWithReferenceProperties;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
+import org.om.core.impl.test.EntityWithReferenceProperties;
 
 public class FieldMappingExtractorImplTest {
 

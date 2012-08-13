@@ -2,8 +2,6 @@ package org.om.core.impl.util;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertUtils;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.field.PropertyMapping;
@@ -16,6 +14,7 @@ public class EntityUtils {
 	/**
 	 * get the value of the @Id field of an @Entity
 	 */
+	@Deprecated
 	public static Object getEntityId(EntityMapping entityMapping, Object object) throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException,
 			IllegalAccessException {
 		/*
@@ -25,7 +24,8 @@ public class EntityUtils {
 		/*
 		 * get
 		 */
-		return BeanUtils.getProperty(object, fieldName);
+		// return BeanUtils.getProperty(object, fieldName);
+		return null;
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class EntityUtils {
 		/*
 		 * set
 		 */
-		BeanUtils.setProperty(object, fieldName, value);
+		// BeanUtils.setProperty(object, fieldName, value);
 	}
 
 	/**

@@ -4,6 +4,6 @@ import java.util.Collection;
 
 public interface CollectionResult extends PersistenceResult {
 
-	public Collection<?> getResult();
+	public Collection<?> getValue();
 
 }

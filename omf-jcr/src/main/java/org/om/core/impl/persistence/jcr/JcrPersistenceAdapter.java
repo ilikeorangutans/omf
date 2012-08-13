@@ -48,9 +48,17 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 	 */
 	private final Node node;
 
+	private final String id;
+
 	public JcrPersistenceAdapter(EntityMapping entityMapping, Node node) {
 		this.node = node;
 		this.entityMapping = entityMapping;
+
+		try {
+			id = node.getPath();
+		} catch (RepositoryException e) {
+			throw new ObjectMapperException("Could not get path from Node.");
+		}
 
 		LOGGER.trace("New JcrPersistenceDelegate for {} with {}", node, entityMapping);
 	}
@@ -209,5 +217,10 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 		// propertyName, e);
 		// }
 
+	}
+
+	@Override
+	public String getId() {
+		return id;
 	}
 }

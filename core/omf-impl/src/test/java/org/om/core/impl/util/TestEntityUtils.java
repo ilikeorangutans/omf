@@ -6,8 +6,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.field.PropertyMapping;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
 
 /**
  * @author tome

@@ -11,8 +11,8 @@ public class ImmutableCollectionPersistenceResult extends ImmutablePersistenceRe
 	}
 
 	@Override
-	public Collection<?> getResult() {
-		return (Collection<?>) super.getResult();
+	public Collection<?> getValue() {
+		return (Collection<?>) super.getValue();
 	}
 
 }

@@ -9,11 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.MappedField;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.persistence.delegate.TestingPersistenceAdapter;
 import org.om.core.impl.persistence.delegate.TestingPersistenceContext;
 import org.om.core.impl.persistence.interceptor.handler.ItemHandlerFactoryImpl;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
 
 public class PersistenceInterceptorImplWithPrimitiveTypesTest {
 

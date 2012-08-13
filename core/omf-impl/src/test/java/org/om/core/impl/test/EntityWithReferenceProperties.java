@@ -1,4 +1,4 @@
-package org.om.core.impl.mapping;
+package org.om.core.impl.test;
 
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;

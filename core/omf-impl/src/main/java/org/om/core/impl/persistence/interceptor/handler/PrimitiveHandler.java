@@ -3,6 +3,7 @@ package org.om.core.impl.persistence.interceptor.handler;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
 
+import org.om.core.api.exception.MappingException;
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.exception.PersistenceLayerException;
 import org.om.core.api.mapping.MappedField;
@@ -26,6 +27,9 @@ import org.om.core.impl.util.ClassUtils;
 public class PrimitiveHandler implements ItemHandler {
 
 	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
+		if (!(mappedField.getMapping() instanceof PropertyMapping))
+			throw new MappingException("Expected PropertyMapping for " + mappedField + " but got " + mappedField.getClass());
+
 		final PropertyMapping mapping = (PropertyMapping) mappedField.getMapping();
 		final PersistenceResult result;
 		try {
@@ -36,7 +40,7 @@ public class PrimitiveHandler implements ItemHandler {
 
 		final Object input;
 		if (result.hasResult()) {
-			input = result.getResult();
+			input = result.getValue();
 		} else {
 			input = MissingHandler.INSTANCE.retrieve(mappedField, adapter);
 		}

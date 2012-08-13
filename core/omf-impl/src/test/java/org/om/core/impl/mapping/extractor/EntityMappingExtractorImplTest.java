@@ -10,9 +10,9 @@ import org.junit.Test;
 import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.Fields;
-import org.om.core.impl.mapping.EntityWithInvalidCollectionMapping;
-import org.om.core.impl.mapping.EntityWithPrimitiveProperties;
-import org.om.core.impl.mapping.EntityWithoutProperties;
+import org.om.core.impl.test.EntityWithInvalidCollectionMapping;
+import org.om.core.impl.test.EntityWithPrimitiveProperties;
+import org.om.core.impl.test.EntityWithoutProperties;
 
 @SuppressWarnings("unused")
 public class EntityMappingExtractorImplTest {

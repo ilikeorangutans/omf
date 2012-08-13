@@ -1,6 +1,6 @@
 package org.om.core.api.persistence.interceptor.handler;
 
-import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.mapping.MappedField;
 import org.om.core.api.session.Session;
 
 public interface ItemHandlerFactory {
@@ -14,6 +14,6 @@ public interface ItemHandlerFactory {
 	 * @param propertyMissing
 	 * @return
 	 */
-	ItemHandler get(Session session, Mapping mapping);
+	ItemHandler get(Session session, MappedField field);
 
 }

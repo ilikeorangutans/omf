@@ -1,6 +1,7 @@
-package org.om.core.impl.mapping;
+package org.om.core.impl.test;
 
 import java.util.List;
+import java.util.Map;
 
 import org.om.core.api.annotation.Collection;
 import org.om.core.api.annotation.Entity;
@@ -20,6 +21,9 @@ public class EntityWithCollections {
 
 	@Collection(targetType = EntityWithPrimitiveProperties.class)
 	private List<EntityWithPrimitiveProperties> collectionWithReferenceTypes;
+
+	@Collection(targetType = EntityWithPrimitiveProperties.class)
+	private Map<String, EntityWithPrimitiveProperties> map;
 
 	public List<String> getCollectionWithStrings() {
 		return collectionWithStrings;

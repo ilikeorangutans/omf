@@ -54,11 +54,11 @@ public class ImmutableSessionImpl implements Session {
 			throw new NullPointerException("Class is null.");
 		}
 		final EntityMapping entityMapping = mappingRegistry.getMapping(clazz);
-		final PersistenceAdapter persistenceDelegate = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, false);
+		final PersistenceAdapter persistenceAdapter = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, false);
 
 		LOGGER.debug("Retrieving entity of type {} from {}", clazz, id);
 
-		return (T) proxyFactory.create(this, entityMapping, persistenceDelegate);
+		return (T) proxyFactory.create(this, entityMapping, persistenceAdapter);
 	}
 
 	public void save(Object o) throws ObjectMapperException {
@@ -70,11 +70,11 @@ public class ImmutableSessionImpl implements Session {
 			/*
 			 * get the id
 			 */
-			Object id = EntityUtils.getEntityId(entityMapping, o);
+			//Object id = EntityUtils.getEntityId(entityMapping, o);
 			/*
 			 * get a persistence delegate
 			 */
-			final PersistenceAdapter persistenceAdapter = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, true);
+			//final PersistenceAdapter persistenceAdapter = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, true);
 			/*
 			 * walk the fields and save them
 			 */

@@ -21,7 +21,7 @@ public class ExceptionThrowingPersistenceResult implements PersistenceResult {
 	}
 
 	@Override
-	public Object getResult() {
+	public Object getValue() {
 
 		try {
 			throw exceptionType.getConstructor(String.class).newInstance("Could not retrieve property ");

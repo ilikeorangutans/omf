@@ -1,4 +1,4 @@
-package org.om.core.impl.mapping;
+package org.om.core.impl.test;
 
 import java.util.List;
 
