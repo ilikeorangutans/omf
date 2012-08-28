@@ -5,7 +5,7 @@
 		<artifactId>omf-parent</artifactId>
 		<groupId>org.objectmapper</groupId>
 		<version>0.0.3-SNAPSHOT</version>
-		<relativePath>../../omf-parent</relativePath>
+		<relativePath>../omf-parent</relativePath>
 	</parent>
 	<artifactId>omf-api</artifactId>
 	<packaging>bundle</packaging>

@@ -8,8 +8,8 @@
 
 	<modules>
 		<module>omf-parent</module>
-		<module>core/omf-api</module>
-		<module>core/omf-impl</module>
+		<module>omf-api</module>
+		<module>omf-impl</module>
 		<module>omf-osgi</module>
 	</modules>
 
