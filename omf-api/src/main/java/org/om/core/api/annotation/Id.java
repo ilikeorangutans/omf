@@ -22,7 +22,8 @@ import java.lang.annotation.Target;
 
 /**
  * Marks the given property as the unique identifier for the containing
- * {@link Entity}.
+ * {@link Entity}. At runtime, fields annotated with this annotation, will
+ * return the identifier that was used to load the current entity.
  * 
  * @author Jakob Külzer
  * 
