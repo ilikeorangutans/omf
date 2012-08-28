@@ -73,13 +73,6 @@
 				<module>omf-jcr</module>
 			</modules>
 		</profile>
-
-		<profile>
-			<id>daycq4</id>
-			<modules>
-				<module>daycq4</module>
-			</modules>
-		</profile>
 	</profiles>
 
 	<properties>
