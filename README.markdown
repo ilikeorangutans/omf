@@ -40,6 +40,17 @@ Status
 The current implementation works. It's by no means perfect nor complete, but it works reliably in a larger 
 project. See the limitations section below to get a better understanding. 
 
+Roadmap
+-------
+
+**Version 0.4.0** support for field-level intercepts
+
+**Version 0.3.0** better OSGI integration
+
+**Version 0.2.0** add support for Maps
+
+**Version 0.1.0** dynamic reference lookup
+
 Concepts
 ========
 
@@ -209,4 +220,5 @@ OSGI Support
 All modules produce valid and runnable OSGI bundles and there's an OSGI specific bundle that exports a session factory as an OSGI
 service. However, due to the more restrictive class loading, there's still issues with incorrect class references. 
 
-The current implementation works fine
+The current implementation works fine, but from time to time you'll have to manually refresh its packages.
+
