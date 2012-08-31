@@ -22,6 +22,7 @@ import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
 import org.om.core.api.persistence.request.PersistenceRequest;
 import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.persistence.result.MapResult;
 import org.om.core.api.persistence.result.PersistenceResult;
 
 /**
@@ -53,6 +54,14 @@ public interface PersistenceAdapter {
 	 * @return
 	 */
 	CollectionResult getCollection(CollectionMapping collectionMapping);
+
+	/**
+	 * Retrieves a map using the given mapping.
+	 * 
+	 * @param collectionMapping
+	 * @return
+	 */
+	MapResult getMapResult(CollectionMapping collectionMapping);
 
 	/**
 	 * Retrieves a scalar value from the underlying persistence layer.

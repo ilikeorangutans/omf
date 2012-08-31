@@ -1,14 +1,20 @@
 package org.om.core.impl.persistence.jcr;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
+import javax.jcr.PathNotFoundException;
 import javax.jcr.Property;
+import javax.jcr.PropertyIterator;
 import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 
+import org.om.core.api.annotation.CollectionMode;
 import org.om.core.api.exception.ObjectMapperException;
 import org.om.core.api.exception.PersistenceLayerException;
 import org.om.core.api.mapping.CollectionMapping;
@@ -19,12 +25,15 @@ import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.request.Mode;
 import org.om.core.api.persistence.request.PersistenceRequest;
 import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.persistence.result.MapResult;
 import org.om.core.api.persistence.result.PersistenceResult;
 import org.om.core.impl.persistence.result.ImmutableCollectionPersistenceResult;
 import org.om.core.impl.persistence.result.ImmutablePersistenceResult;
 import org.om.core.impl.persistence.result.MissingCollectionPersistenceResult;
 import org.om.core.impl.persistence.result.MissingPersistenceResult;
 import org.om.core.impl.persistence.result.NoValuePersistenceResult;
+import org.om.core.impl.persistence.result.map.ExceptionThrowingMapResult;
+import org.om.core.impl.persistence.result.map.ImmutableMapResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -222,5 +231,60 @@ public class JcrPersistenceAdapter implements PersistenceAdapter {
 	@Override
 	public String getId() {
 		return id;
+	}
+
+	@Override
+	public MapResult getMapResult(CollectionMapping collectionMapping) {
+
+		LOGGER.trace("Retrieving map using {}", collectionMapping);
+
+		Map<Object, Object> result = Collections.EMPTY_MAP;
+		try {
+			Node baseNode = node.getNode(collectionMapping.getLocation());
+			LOGGER.trace("Base node {}", baseNode.getPath());
+
+			if (collectionMapping.getCollectionMode() == CollectionMode.Properties) {
+
+				result = new LinkedHashMap<Object, Object>();
+
+				int i = 0;
+				for (PropertyIterator pi = baseNode.getProperties(); pi.hasNext();) {
+					final Property property = pi.nextProperty();
+					final String propertyName = property.getName();
+
+					if (propertyName.startsWith("jcr:"))
+						continue;
+
+					String key;
+
+					switch (collectionMapping.getMapKeyStrategy()) {
+					case Index:
+						key = Integer.toString(i);
+						break;
+
+					default:
+					case Name:
+						key = propertyName;
+						break;
+					}
+
+					String value = property.getString();
+
+					result.put(key, value);
+
+					i++;
+				}
+
+			} else {
+				throw new ObjectMapperException("Don't know how to deal with collection mode " + collectionMapping.getCollectionMode() + " yet.");
+			}
+
+		} catch (PathNotFoundException e) {
+			return new ExceptionThrowingMapResult();
+		} catch (RepositoryException e) {
+			throw new PersistenceLayerException("Exception while retrieving " + collectionMapping, e);
+		}
+
+		return new ImmutableMapResult(result);
 	}
 }

@@ -7,13 +7,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
+import org.om.core.api.annotation.MapKeyStrategy;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.extractor.FieldMappingExtractor;
 import org.om.core.impl.test.EntityWithCollections;
 import org.om.core.impl.test.EntityWithPrimitiveProperties;
 
-public class ItemMappingExtractorCollectionTest {
+public class FieldMappingExtractorCollectionTest {
 
 	private FieldMappingExtractor extractor = new FieldMappingExtractorImpl();
 
@@ -68,6 +69,7 @@ public class ItemMappingExtractorCollectionTest {
 
 		assertEquals(EntityWithPrimitiveProperties.class, mapping.getTargetType());
 		assertThat(mapping.getLocation(), is("map"));
+		assertThat(mapping.getMapKeyStrategy(), is(MapKeyStrategy.Name));
 	}
 
 }
