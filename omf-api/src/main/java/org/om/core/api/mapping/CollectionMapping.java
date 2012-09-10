@@ -15,6 +15,8 @@
  */
 package org.om.core.api.mapping;
 
+import org.om.core.api.annotation.CollectionMode;
+import org.om.core.api.annotation.MapKeyStrategy;
 import org.om.core.api.mapping.field.Mapping;
 
 /**
@@ -24,6 +26,14 @@ import org.om.core.api.mapping.field.Mapping;
  * 
  */
 public interface CollectionMapping extends Mapping {
+
+	/**
+	 * Returns an instance of {@link CollectionMode} describing how the
+	 * collection should be constructed.
+	 * 
+	 * @return
+	 */
+	CollectionMode getCollectionMode();
 
 	/**
 	 * Returns the location that backs this collection.
@@ -39,4 +49,10 @@ public interface CollectionMapping extends Mapping {
 	 */
 	Class<?> getTargetType();
 
+	/**
+	 * Returns the configured {@link MapKeyStrategy}.
+	 * 
+	 * @return
+	 */
+	MapKeyStrategy getMapKeyStrategy();
 }

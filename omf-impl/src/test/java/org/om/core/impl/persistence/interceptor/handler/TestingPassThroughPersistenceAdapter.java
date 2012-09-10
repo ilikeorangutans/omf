@@ -9,6 +9,7 @@ import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.request.PersistenceRequest;
 import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.persistence.result.MapResult;
 import org.om.core.api.persistence.result.PersistenceResult;
 import org.om.core.impl.persistence.result.ImmutableCollectionPersistenceResult;
 import org.om.core.impl.persistence.result.ImmutablePersistenceResult;
@@ -60,6 +61,12 @@ public class TestingPassThroughPersistenceAdapter implements PersistenceAdapter 
 
 	@Override
 	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MapResult getMapResult(CollectionMapping collectionMapping) {
 		// TODO Auto-generated method stub
 		return null;
 	}
