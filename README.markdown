@@ -22,6 +22,35 @@ inflexible data access code. Enter Object Mapper Framework. Object Mapper Framew
 annotations to describe how you want Java objects to be mapped to JCR structures. With this mapping, 
 Object Mapper can create proxies that will dynamically route access to mapped fields to JCR structures.
 
+Doesn't That Exist Already?
+---------------------------
+
+Yes, there are a few projects that go in that same direction, however when I started creating this project
+I was unaware and would have done so anyways, just to learn how a framework like this is being built. 
+
+If you are interested, here's a quick and probably incomplete list of similar frameworks:
+
+* http://incubator.apache.org/graffito/jcr-mapping/index.html (Seems to be dead)
+* http://jackrabbit.apache.org/object-content-mapping.html (Not particularly active)
+* http://code.google.com/p/jcrom/ (No recent activity)
+
+Status
+------
+
+The current implementation works. It's by no means perfect nor complete, but it works reliably in a larger 
+project. See the limitations section below to get a better understanding. 
+
+Roadmap
+-------
+
+**Version 0.4.0** support for field-level intercepts
+
+**Version 0.3.0** better OSGI integration
+
+**Version 0.2.0** add support for Maps
+
+**Version 0.1.0** dynamic reference lookup
+
 Concepts
 ========
 
@@ -173,6 +202,11 @@ I haven't done any benchmarking, but currently there's some overhead in terms of
 read over and over again. There's no caching layer whatsoever, so it might be worth investigating how to integrate with various
 cache layers. Here we need to think how to seamlessly configure caching with the annotations, cache eviction strategies, etc etc. 
 
+Better Collection Support
+-------------------------
+
+Currently we only support java.util.List and java.util.Set. It would be nice to support Maps and clean up the collection code. 
+
 Write Support
 -------------
 
@@ -186,4 +220,5 @@ OSGI Support
 All modules produce valid and runnable OSGI bundles and there's an OSGI specific bundle that exports a session factory as an OSGI
 service. However, due to the more restrictive class loading, there's still issues with incorrect class references. 
 
-The current implementation works fine
+The current implementation works fine, but from time to time you'll have to manually refresh its packages.
+
