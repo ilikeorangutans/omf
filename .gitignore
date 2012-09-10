@@ -6,5 +6,5 @@ target
 .DS_Store
 *.log
 *.versionsBackup
-.releaseBackup
+*.releaseBackup
 release.properties
