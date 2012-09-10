@@ -47,9 +47,12 @@ Roadmap
 
 **Version 0.3.0** better OSGI integration
 
-**Version 0.2.0** add support for Maps
+**Version 0.2.0** dynamic reference lookup
 
-**Version 0.1.0** dynamic reference lookup
+**Version 0.1.0** add support for Maps
+
+   Initial support implemented, need to updated docs, add more tests.
+
 
 Concepts
 ========
