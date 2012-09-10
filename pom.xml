@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.objectmapper</groupId>
 	<artifactId>objectmapper</artifactId>
-	<version>0.0.4-SNAPSHOT</version>
+	<version>0.1.0</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -47,6 +47,11 @@
 					</reportPlugins>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.3.1</version>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -84,5 +89,6 @@
 		<connection>scm:git:git@github.com:ilikeorangutans/omf.git</connection>
 		<developerConnection>scm:git:git@github.com:ilikeorangutans/omf.git</developerConnection>
 		<url>https://github.com/ilikeorangutans/omf</url>
-	</scm>
+	  <tag>objectmapper-0.1.0</tag>
+  </scm>
 </project>

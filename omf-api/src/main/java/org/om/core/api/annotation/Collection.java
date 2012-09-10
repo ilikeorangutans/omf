@@ -19,6 +19,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.Map;
 
 /**
  * Maps a collection.
@@ -57,4 +58,23 @@ public @interface Collection {
 	 */
 	Class<?> targetType();
 
+	/**
+	 * Defines from what the collection should be constructed. Collections can
+	 * be created from the child nodes of {@link #location()}, from a
+	 * multi-value property indicated by {@link #location()} or by taking all
+	 * properties from under {@link #location()}.
+	 * 
+	 * @see CollectionMode for more details.
+	 * @return
+	 */
+	CollectionMode mode() default CollectionMode.Children;
+
+	/**
+	 * Defines how to generate the keys if the collection type is {@link Map}.
+	 * Per default {@link MapKeyStrategy#Name} is used. Obviously this setting
+	 * will only be used if you're using a Map.
+	 * 
+	 * @return
+	 */
+	MapKeyStrategy keyStrategy() default MapKeyStrategy.Name;
 }
