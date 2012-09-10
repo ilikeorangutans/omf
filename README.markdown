@@ -222,3 +222,11 @@ service. However, due to the more restrictive class loading, there's still issue
 
 The current implementation works fine, but from time to time you'll have to manually refresh its packages.
 
+
+Changelong
+==========
+
+Version 0.1.0
+-------------
+
+Added support for mapping ``java.util.Map``s.
