@@ -99,12 +99,26 @@ A mapped field is a basic Java field:
 		@Property
 		private int someValue;
 		
+		@Collection(targetType=String.class) 
+		private List<String> listOfStrings;
+		
+		@Collection(targetType=String.class
+		private Map<String, String> map;
+		
 		public String getId() {
 			return id;
 		}
 		
 		public int getSomeValue() {
 			return someValue;
+		}
+	
+		public List<String> getListOfStrings() {
+			return listOfStrings;
+		}
+		
+		public Map<String, String> getMap() {
+			return map;
 		}
 	
 	}
