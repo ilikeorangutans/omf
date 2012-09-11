@@ -13,6 +13,10 @@ import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 /**
  * 
+ * A JCR Session factory which can be configured from a properties file. This is
+ * very useful for the contribs, which aim to create a hibernate-like DAO
+ * wrapper around OM, and which can benfit from configuration from a file.
+ * 
  * @author tome.
  * 
  */

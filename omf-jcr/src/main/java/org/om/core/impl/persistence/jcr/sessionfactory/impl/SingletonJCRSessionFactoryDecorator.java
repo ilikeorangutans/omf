@@ -7,7 +7,10 @@ import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 /**
  * A decorator that makes the session a singleton. Not useful in production, but
- * very useful when using the transient repository in unit tests
+ * very useful when using the transient repository in unit tests. This is in the
+ * main tree, rather than the test tree so that test writers in other projects,
+ * such as the contribs can use it
+ * 
  * 
  * @author tome
  * 

@@ -8,15 +8,14 @@ import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFa
 
 /**
  * 
+ * This class extends ImmutableSessionFactory and passes the "usual defaults" to
+ * ImmutableSessionFactory, to allow creating sessions without worrying about
+ * needing to pass the ctor arguments. It is used in the contribs.
+ * 
  * @author tome
  * 
  * 
- *         Not quite sure what this class does, so I'm deprecating it.
- * 
- * @author Jakob Külzer
- * 
  */
-@Deprecated
 public class DefaultSessionFactory extends ImmutableSessionFactory {
 
 	public DefaultSessionFactory(PersistenceAdapterFactory persistenceDelegateFactory) {
