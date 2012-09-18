@@ -9,9 +9,10 @@ import org.om.core.impl.mapping.registry.SimpleCachingOnDemandMappingRegistry;
 import org.om.core.impl.persistence.cglib.CglibProxyFactory;
 import org.om.core.impl.persistence.interceptor.factory.PersistenceInterceptorFactoryImpl;
 import org.om.core.impl.persistence.jcr.JcrPersistenceAdapterFactory;
-import org.om.core.impl.session.factory.ImmutableSessionFactory;
+import org.om.osgi.session.factory.OsgiServiceFactorySessionFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceFactory;
 import org.osgi.framework.ServiceRegistration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +28,10 @@ public class Activator implements BundleActivator {
 		PersistenceAdapterFactory persistenceDelegateFactory = new JcrPersistenceAdapterFactory();
 		MappingRegistry mappingRegistry = new SimpleCachingOnDemandMappingRegistry(new EntityMappingExtractorImpl());
 		ProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
-		SessionFactory sessionFactory = new ImmutableSessionFactory(persistenceDelegateFactory, mappingRegistry,
-				proxyFactory);
+		ServiceFactory serviceFactory = new OsgiServiceFactorySessionFactory(persistenceDelegateFactory,
+				mappingRegistry, proxyFactory);
 
-		sessionFactoryRegistration = context.registerService(SessionFactory.class.getName(), sessionFactory, null);
+		sessionFactoryRegistration = context.registerService(SessionFactory.class.getName(), serviceFactory, null);
 		LOGGER.info("Registered session factory.");
 	}
 

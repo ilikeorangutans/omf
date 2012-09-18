@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.objectmapper</groupId>
 	<artifactId>objectmapper</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -89,6 +89,6 @@
 		<connection>scm:git:git@github.com:ilikeorangutans/omf.git</connection>
 		<developerConnection>scm:git:git@github.com:ilikeorangutans/omf.git</developerConnection>
 		<url>https://github.com/ilikeorangutans/omf</url>
-	  <tag>objectmapper-0.1.0</tag>
+	  <tag>objectmapper-0.1.1</tag>
   </scm>
 </project>

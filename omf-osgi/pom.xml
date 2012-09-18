@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>omf-parent</artifactId>
 		<groupId>org.objectmapper</groupId>
-		<version>0.1.0</version>
+		<version>0.1.1</version>
 		<relativePath>../omf-parent</relativePath>
 	</parent>
 	<artifactId>omf-osgi</artifactId>
@@ -18,7 +18,6 @@
 				<configuration>
 					<instructions>
 						<Bundle-Category>omf</Bundle-Category>
-						<Export-Package>org.om.osgi.*</Export-Package>
 						<Bundle-Activator>org.om.osgi.activator.Activator</Bundle-Activator>
 					</instructions>
 				</configuration>
