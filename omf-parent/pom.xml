@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>objectmapper</artifactId>
 		<groupId>org.objectmapper</groupId>
-		<version>0.1.1-SNAPSHOT</version>
+		<version>0.1.1</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<artifactId>omf-parent</artifactId>
