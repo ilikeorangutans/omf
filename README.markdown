@@ -243,6 +243,10 @@ The current implementation works fine, but from time to time you'll have to manu
 Changelong
 ==========
 
+Version 0.2.0
+-------------
+Added support for collections with different target and implementation types, see 997bc9022ce8bc3caec9a9bb9973a9cd51e81385.
+
 Version 0.1.0
 -------------
 
