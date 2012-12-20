@@ -16,6 +16,7 @@
 package org.om.core.impl.persistence.jcr;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -36,6 +37,8 @@ import org.om.core.api.session.factory.SessionFactory;
 import org.om.core.impl.entity.ChildEntity;
 import org.om.core.impl.entity.CollectionTestEntity;
 import org.om.core.impl.entity.EntityWithMaps;
+import org.om.core.impl.entity.MyInterface;
+import org.om.core.impl.entity.MyInterfaceImpl;
 import org.om.core.impl.entity.TestEntity;
 import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 import org.om.core.impl.persistence.jcr.test.TransientRepoTestEnv;
@@ -112,7 +115,6 @@ public class JcrPersistenceDelegate {
 		node.setProperty("listOfStrings", new String[] { "first value", "second value" });
 
 		Session session = sessionFactory.getSession(new JcrPersistenceContext(jcrSession));
-		System.out.println("JcrPersistenceDelegateIT.test() Got session " + session);
 
 		CollectionTestEntity entity = session.get(CollectionTestEntity.class, "collection");
 
@@ -122,6 +124,29 @@ public class JcrPersistenceDelegate {
 		assertThat(list.size(), is(2));
 
 		assertThat(list, containsInAnyOrder("first value", "second value"));
+	}
+
+	@Test
+	public void testCollectionWithDifferingTargetAndImplTypes() throws Exception {
+
+		Node node = rootnode.addNode("collection");
+		node.addNode("a").setProperty("value", "value a");
+		node.addNode("b").setProperty("value", "value b");
+		node.addNode("c").setProperty("value", "value c");
+
+		Session session = sessionFactory.getSession(new JcrPersistenceContext(jcrSession));
+
+		CollectionTestEntity entity = session.get(CollectionTestEntity.class, "collection");
+
+		assertThat(entity, notNullValue());
+		List<MyInterface> list = entity.getListWithDifferingTargetAndImplType();
+		assertThat(list, notNullValue());
+		assertThat(list.size(), is(3));
+
+		MyInterface first = list.get(0);
+		assertThat(first.getValue(), is("value a"));
+		assertThat(first, instanceOf(MyInterfaceImpl.class));
+
 	}
 
 	/**
