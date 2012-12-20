@@ -18,6 +18,9 @@ public class CollectionTestEntity {
 	@Collection(targetType = String.class)
 	private List<String> listOfStrings;
 
+	@Collection(targetType = MyInterface.class, implementationType = MyInterfaceImpl.class, location = "./")
+	private List<MyInterface> listWithDifferingTargetAndImplType;
+
 	public CollectionTestEntity() {
 	}
 
@@ -31,5 +34,9 @@ public class CollectionTestEntity {
 
 	public List<String> getListOfStrings() {
 		return listOfStrings;
+	}
+
+	public List<MyInterface> getListWithDifferingTargetAndImplType() {
+		return listWithDifferingTargetAndImplType;
 	}
 }

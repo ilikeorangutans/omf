@@ -30,7 +30,7 @@ public class ReferenceHandlingIterator<T> implements Iterator<T> {
 
 		Object id = iterator.next();
 
-		return (T) session.get(collectionMapping.getTargetType(), id);
+		return (T) session.get(collectionMapping.getImplementationType(), id);
 	}
 
 	@Override

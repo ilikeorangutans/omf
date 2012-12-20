@@ -33,8 +33,8 @@ public class ItemHandlerFactoryImpl implements ItemHandlerFactory {
 		if (mapping instanceof CollectionMapping) {
 			final Class<?> fieldType = field.getType();
 			final CollectionMapping collectionMapping = (CollectionMapping) mapping;
-			final Class<?> targetType = collectionMapping.getTargetType();
-			final boolean primitive = ClassUtils.isPrimitiveOrAutoboxed(targetType) || String.class.equals(targetType);
+			final Class<?> implementationType = collectionMapping.getImplementationType();
+			final boolean primitive = ClassUtils.isPrimitiveOrAutoboxed(implementationType) || String.class.equals(implementationType);
 
 			if (List.class.equals(fieldType)) {
 				if (primitive) {
@@ -51,5 +51,4 @@ public class ItemHandlerFactoryImpl implements ItemHandlerFactory {
 
 		return new ReferenceHandler(session);
 	}
-
 }
