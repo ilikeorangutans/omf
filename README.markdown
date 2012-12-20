@@ -89,7 +89,7 @@ A mapped field is a basic Java field:
 * Optionally annotated with the ``org.om.core.api.annotation.Mapped`` annotation
 * Annotated with one of the following annotations: ``org.om.core.api.annotation.Property``, ``org.om.core.api.annotation.Collection``, or ``org.om.core.api.annotation.Id``
 
-
+```java
 	@Entity
 	public class MyPojo {
 	
@@ -122,6 +122,7 @@ A mapped field is a basic Java field:
 		}
 	
 	}
+```
 
 Session
 -------
