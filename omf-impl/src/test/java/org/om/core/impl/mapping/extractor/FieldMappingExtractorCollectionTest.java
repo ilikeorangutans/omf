@@ -4,15 +4,20 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertThat;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.om.core.api.annotation.MapKeyStrategy;
+import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.extractor.FieldMappingExtractor;
 import org.om.core.impl.test.EntityWithCollections;
 import org.om.core.impl.test.EntityWithPrimitiveProperties;
+import org.om.core.impl.test.MappedFieldBuilder;
 
 public class FieldMappingExtractorCollectionTest {
 
@@ -72,4 +77,24 @@ public class FieldMappingExtractorCollectionTest {
 		assertThat(mapping.getMapKeyStrategy(), is(MapKeyStrategy.Name));
 	}
 
+	@Test
+	public void testExtractMappingForCollectionWithDefaultImplType() throws Exception {
+		MappedField field = extractor.extract(EntityWithCollections.class.getDeclaredField("collectionWithStrings"));
+		CollectionMapping mapping = (CollectionMapping) field.getMapping();
+
+		assertEquals(mapping.getTargetType(), mapping.getImplementationType());
+	}
+
+	@Test
+	public void testExtractMappingForCollectionWithDifferingTargetAndImplType() throws Exception {
+		MappedField field = extractor.extract(EntityWithCollections.class.getDeclaredField("collectionWithDifferentTargetAndImplType"));
+		CollectionMapping mapping = (CollectionMapping) field.getMapping();
+		assertNotSame(mapping.getTargetType(), mapping.getImplementationType());
+	}
+
+	@Test(expected = MappingException.class)
+	public void testExtractingMappingWithIncompatibleTargetAndImplementationTypes() {
+		new MappedFieldBuilder().withName("foobar").withType(List.class).withCollectionMapping(List.class, String.class, EntityWithCollections.class, "foobar")
+				.create();
+	}
 }

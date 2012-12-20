@@ -22,7 +22,14 @@ import java.lang.annotation.Target;
 import java.util.Map;
 
 /**
- * Maps a collection.
+ * Maps a collection of {@link Entity}s to a {@link Collection} or one of its
+ * subtypes.
+ * 
+ * <p>
+ * In order to map a collection, you need at least to add the this annotation.
+ * Also, you'll need to indicate what the type of the elements in the collection
+ * are by setting the {@link #targetType()}, or, if the target type is different
+ * than the
  * 
  * Please note that depending on the concrete collection implementation in use,
  * you'll want to make sure that your collection entries implement
@@ -34,6 +41,18 @@ import java.util.Map;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Collection {
+
+	/**
+	 * A class that doesn't do anything and is used as a <tt>null</tt> marker as
+	 * an annotation default value.
+	 */
+	static final class NULL {
+		/**
+		 * Make sure nobody ever will use this class for anything:
+		 */
+		private NULL() {
+		}
+	}
 
 	public static final String LOCATION_RELATIVE_USING_FIELDNAME = "";
 
@@ -51,12 +70,41 @@ public @interface Collection {
 	String location() default LOCATION_RELATIVE_USING_FIELDNAME;
 
 	/**
-	 * Declares the type of the collection entries. The class needs to be a
-	 * valid {@link Entity}.
+	 * Declares the type of the collection items. Each item will be represented
+	 * by the given type.
+	 * <p>
+	 * The referenced type must be a valid {@link Entity}.
+	 */
+	Class<?> targetType();
+
+	/**
+	 * The type of the actual items in the collection. This value is optional,
+	 * and if not provided, it will fall back to the value of
+	 * {@link #targetType()}. This is usually sufficient if the the type of the
+	 * actual mapped element is the same as the type that's provided via the
+	 * generics. For example:
+	 * 
+	 * <pre>
+	 * <code>@Collection(targetType=MyEntity.class)
+	 * List&lt;MyEntity&gt; list;</code>
+	 * </pre>
+	 * 
+	 * However, if the generic type of the collection is different than the
+	 * actual entity type, the mapping type has to be set explicitly. For
+	 * example:
+	 * 
+	 * <pre>
+	 * &#064;Collection(targetType = MyEntity.class)
+	 * List&lt;MyEntityImpl&gt; list;
+	 * </pre>
+	 * 
+	 * <p>
+	 * Please note that the implementation type must be either the same type as
+	 * {@link #targetType()} or a subtype of it.
 	 * 
 	 * @return
 	 */
-	Class<?> targetType();
+	Class<?> implementationType() default NULL.class;
 
 	/**
 	 * Defines from what the collection should be constructed. Collections can

@@ -17,6 +17,7 @@ package org.om.core.impl.mapping;
 
 import org.om.core.api.annotation.CollectionMode;
 import org.om.core.api.annotation.MapKeyStrategy;
+import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.CollectionMapping;
 
 /**
@@ -31,21 +32,34 @@ public class ImmutableCollectionMapping implements CollectionMapping {
 	private final Class<?> targetType;
 	private final CollectionMode collectionMode;
 	private final MapKeyStrategy mapKeyStrategy;
+	private final Class<?> implementationType;
 
-	public ImmutableCollectionMapping(Class<?> fieldType, Class<?> targetType, String location) {
-		this(fieldType, targetType, location, CollectionMode.Children, MapKeyStrategy.Name);
-	}
+	public ImmutableCollectionMapping(Class<?> fieldType, Class<?> targetType, Class<?> implementationType, String location, CollectionMode collectionMode,
+			MapKeyStrategy mapKeyStrategy) {
 
-	public ImmutableCollectionMapping(Class<?> fieldType, Class<?> targetType, String location, CollectionMode collectionMode, MapKeyStrategy mapKeyStrategy) {
+		if (!targetType.isAssignableFrom(implementationType))
+			throw new MappingException("Collection mapping implementation type (" + implementationType + ") is not the same or a subtype of the target type ("
+					+ targetType + ").");
+
 		this.targetType = targetType;
+		this.implementationType = implementationType;
 		this.location = location;
 		this.collectionMode = collectionMode;
 		this.mapKeyStrategy = mapKeyStrategy;
 	}
 
+	public ImmutableCollectionMapping(Class<?> fieldType, Class<?> targetType, String location) {
+		this(fieldType, targetType, targetType, location, CollectionMode.Children, MapKeyStrategy.Name);
+	}
+
 	@Override
 	public CollectionMode getCollectionMode() {
 		return collectionMode;
+	}
+
+	@Override
+	public Class<?> getImplementationType() {
+		return implementationType;
 	}
 
 	public String getLocation() {
