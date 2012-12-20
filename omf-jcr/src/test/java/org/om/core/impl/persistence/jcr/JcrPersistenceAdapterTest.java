@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.util.Collection;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -16,7 +17,9 @@ import org.junit.Test;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.extractor.EntityMappingExtractor;
+import org.om.core.api.persistence.result.CollectionResult;
 import org.om.core.api.persistence.result.MapResult;
+import org.om.core.impl.entity.CollectionTestEntity;
 import org.om.core.impl.entity.EntityWithMap;
 import org.om.core.impl.persistence.jcr.test.TransientRepoTestEnv;
 
@@ -58,5 +61,25 @@ public class JcrPersistenceAdapterTest {
 		assertThat(map, hasKey("c"));
 
 		assertThat(map.get("a"), is("first"));
+
 	}
+
+	@Test
+	public void testGetCollection() throws Exception {
+		Node node = JcrUtils.getOrAddNode(jcrSession.getRootNode(), "foo");
+		node.addNode("a").setProperty("value", "value a");
+		node.addNode("b").setProperty("value", "value b");
+		node.addNode("c").setProperty("value", "value c");
+
+		EntityMapping entityMapping = extractor.extract(CollectionTestEntity.class);
+		JcrPersistenceAdapter adapter = new JcrPersistenceAdapter(entityMapping, node);
+
+		CollectionResult result = adapter.getCollection((CollectionMapping) entityMapping.getByFieldName("listWithDifferingTargetAndImplType").getMapping());
+		assertThat(result, notNullValue());
+		Collection<?> collection = result.getValue();
+		assertThat(collection, notNullValue());
+		assertThat(collection.size(), is(3));
+
+	}
+
 }

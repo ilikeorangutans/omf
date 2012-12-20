@@ -69,7 +69,7 @@ public class ReferenceListWrapper<T> implements List<T> {
 		int i = 0;
 		for (Object o : collection) {
 			if (index == i)
-				return (T) session.get(collectionMapping.getTargetType(), o);
+				return (T) session.get(collectionMapping.getImplementationType(), o);
 			i++;
 		}
 

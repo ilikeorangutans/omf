@@ -84,8 +84,10 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 
 	private Mapping extractCollectionMapping(Mapped mapped, Collection collection, Field field) {
 		final Class<?> targetType = collection.targetType();
-		final boolean validTargetType = String.class.equals(targetType) || EntityUtils.isEntity(targetType) || ClassUtils.isPrimitiveOrAutoboxed(targetType);
-		if (!validTargetType)
+		final Class<?> implementationType = collection.implementationType() == Collection.NULL.class ? targetType : collection.implementationType();
+		final boolean validImplementationType = String.class.equals(implementationType) || EntityUtils.isEntity(implementationType)
+				|| ClassUtils.isPrimitiveOrAutoboxed(implementationType);
+		if (!validImplementationType)
 			throw new MappingException("Target type " + targetType.getName() + " is not an entity.");
 
 		Class<?> fieldType = field.getType();
@@ -107,7 +109,7 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 		final CollectionMode collectionMapping = collection.mode();
 		final MapKeyStrategy keyMapStrategy = collection.keyStrategy();
 
-		return new ImmutableCollectionMapping(fieldType, targetType, location, collectionMapping, keyMapStrategy);
+		return new ImmutableCollectionMapping(fieldType, targetType, implementationType, location, collectionMapping, keyMapStrategy);
 	}
 
 	private Mapping extractIdMapping(Id id, Field field) {

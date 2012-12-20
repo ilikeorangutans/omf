@@ -15,6 +15,7 @@
  */
 package org.om.core.api.mapping;
 
+import org.om.core.api.annotation.Collection;
 import org.om.core.api.annotation.CollectionMode;
 import org.om.core.api.annotation.MapKeyStrategy;
 import org.om.core.api.mapping.field.Mapping;
@@ -48,6 +49,14 @@ public interface CollectionMapping extends Mapping {
 	 * @return
 	 */
 	Class<?> getTargetType();
+
+	/**
+	 * Returns the implementation type of the list, as described in
+	 * {@link Collection#implementationType()}.
+	 * 
+	 * @return
+	 */
+	Class<?> getImplementationType();
 
 	/**
 	 * Returns the configured {@link MapKeyStrategy}.

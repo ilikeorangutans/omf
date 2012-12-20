@@ -28,6 +28,30 @@ public class ImmutablePersistenceRequest implements PersistenceRequest {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ImmutablePersistenceRequest other = (ImmutablePersistenceRequest) obj;
+		if (exptectedType == null) {
+			if (other.exptectedType != null)
+				return false;
+		} else if (!exptectedType.equals(other.exptectedType))
+			return false;
+		if (mode != other.mode)
+			return false;
+		if (path == null) {
+			if (other.path != null)
+				return false;
+		} else if (!path.equals(other.path))
+			return false;
+		return true;
+	}
+
+	@Override
 	public Class<?> getExpectedType() {
 		return exptectedType;
 	}
@@ -40,6 +64,16 @@ public class ImmutablePersistenceRequest implements PersistenceRequest {
 	@Override
 	public String getPath() {
 		return path;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((exptectedType == null) ? 0 : exptectedType.hashCode());
+		result = prime * result + ((mode == null) ? 0 : mode.hashCode());
+		result = prime * result + ((path == null) ? 0 : path.hashCode());
+		return result;
 	}
 
 	@Override

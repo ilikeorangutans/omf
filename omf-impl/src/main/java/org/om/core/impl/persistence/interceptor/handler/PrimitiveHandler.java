@@ -38,6 +38,9 @@ public class PrimitiveHandler implements ItemHandler {
 			throw new ObjectMapperException("Could not retrieve primitive for " + mappedField, e);
 		}
 
+		if (result == null)
+			throw new IllegalStateException("PersistenceAdapter returned null. This should not happen.");
+
 		final Object input;
 		if (result.hasResult()) {
 			input = result.getValue();
