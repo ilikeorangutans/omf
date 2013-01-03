@@ -62,9 +62,14 @@ public class EntityMappingExtractorImpl implements EntityMappingExtractor {
 
 		final FieldMappingExtractorImpl fieldMappingExtractor = new FieldMappingExtractorImpl();
 		for (Field field : type.getDeclaredFields()) {
-			MappedField mappedField = fieldMappingExtractor.extract(field);
-			if (mappedField != null)
-				fields.add(mappedField);
+			try {
+				final MappedField mappedField = fieldMappingExtractor.extract(field);
+				if (mappedField != null)
+					fields.add(mappedField);
+			} catch (MappingException e) {
+				e.setMappedType(type);
+				throw e;
+			}
 		}
 
 		return new ImmutableFields(fields);

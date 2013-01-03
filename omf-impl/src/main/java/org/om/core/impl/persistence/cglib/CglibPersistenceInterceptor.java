@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
+import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.EntityMapping;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
@@ -53,7 +54,12 @@ public class CglibPersistenceInterceptor implements MethodInterceptor {
 		final MappedField mappedField = entityMapping.getByFieldName(fieldName);
 		LOG.trace("Retrieved {}", mappedField);
 
-		return interceptor.get(mappedField);
+		try {
+			return interceptor.get(mappedField);
+		} catch (MappingException e) {
+			e.setMappedType(entityMapping.getTypeClass());
+			throw e;
+		}
 	}
 
 }

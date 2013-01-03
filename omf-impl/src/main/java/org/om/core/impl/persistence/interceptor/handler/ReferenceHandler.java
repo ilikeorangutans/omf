@@ -54,8 +54,7 @@ public class ReferenceHandler implements ItemHandler {
 		LOGGER.trace("Retrieving reference to {} from {}", mappedField.getType(), id);
 
 		try {
-
-			return session.get(mappedField.getType(), id);
+			return session.get(mapping.getImplementationType(), id);
 		} catch (PathNotFoundException e) {
 			switch (mappedField.getMissingStrategy()) {
 			case ReturnNull:
