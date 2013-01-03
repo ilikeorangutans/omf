@@ -19,10 +19,12 @@ public class ReferenceListWrapper<T> implements List<T> {
 	private final Collection<?> collection;
 	private final CollectionMapping collectionMapping;
 	private final Session session;
+	private final Class<?> implementationType;
 
-	public ReferenceListWrapper(Session session, CollectionMapping collectionMapping, Collection<?> result) {
+	public ReferenceListWrapper(Session session, CollectionMapping collectionMapping, Class<?> implementationType, Collection<?> result) {
 		this.session = session;
 		this.collectionMapping = collectionMapping;
+		this.implementationType = implementationType;
 		this.collection = result;
 	}
 
@@ -69,7 +71,7 @@ public class ReferenceListWrapper<T> implements List<T> {
 		int i = 0;
 		for (Object o : collection) {
 			if (index == i)
-				return (T) session.get(collectionMapping.getImplementationType(), o);
+				return (T) session.get(implementationType, o);
 			i++;
 		}
 
@@ -88,7 +90,7 @@ public class ReferenceListWrapper<T> implements List<T> {
 
 	@Override
 	public Iterator<T> iterator() {
-		return new ReferenceHandlingIterator(session, collectionMapping, collection.iterator());
+		return new ReferenceHandlingIterator(session, implementationType, collection.iterator());
 	}
 
 	@Override

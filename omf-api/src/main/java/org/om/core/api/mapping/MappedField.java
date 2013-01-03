@@ -57,10 +57,9 @@ public interface MappedField {
 	String getName();
 
 	/**
-	 * Returns the type of the field.
+	 * Returns the declared type of the field.
 	 * 
 	 * @return
 	 */
 	Class<?> getType();
-
 }

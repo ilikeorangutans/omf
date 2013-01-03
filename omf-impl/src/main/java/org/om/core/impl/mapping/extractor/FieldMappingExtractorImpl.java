@@ -26,6 +26,7 @@ import org.om.core.api.annotation.Id;
 import org.om.core.api.annotation.MapKeyStrategy;
 import org.om.core.api.annotation.Mapped;
 import org.om.core.api.annotation.MissingStrategy;
+import org.om.core.api.annotation.NULL;
 import org.om.core.api.annotation.Property;
 import org.om.core.api.exception.MappingException;
 import org.om.core.api.exception.MissingException;
@@ -76,19 +77,22 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 
 		LOGGER.trace("Found annotated field {}", field.getName());
 
-		final Mapping itemMapping = extractMapping(field);
-		final MappedField mappedField = new ImmutableMappedField(field.getName(), field.getType(), itemMapping, getMissingStrategy(mapped),
-				getMissingException(mapped));
+		final Mapping mapping = extractMapping(field);
+
+		final Class<?> fieldType = field.getType();
+		final Class<?> implementationType = mapping.getImplementationType();
+
+		final boolean validImplementationType = String.class.equals(implementationType) || EntityUtils.isEntity(implementationType)
+				|| ClassUtils.isPrimitiveOrAutoboxed(implementationType);
+		if (!validImplementationType)
+			throw new MappingException("Target type " + fieldType + " is not an entity.");
+
+		final MappedField mappedField = new ImmutableMappedField(field.getName(), fieldType, mapping, getMissingStrategy(mapped), getMissingException(mapped));
 		return mappedField;
 	}
 
 	private Mapping extractCollectionMapping(Mapped mapped, Collection collection, Field field) {
-		final Class<?> targetType = collection.targetType();
-		final Class<?> implementationType = collection.implementationType() == Collection.NULL.class ? targetType : collection.implementationType();
-		final boolean validImplementationType = String.class.equals(implementationType) || EntityUtils.isEntity(implementationType)
-				|| ClassUtils.isPrimitiveOrAutoboxed(implementationType);
-		if (!validImplementationType)
-			throw new MappingException("Target type " + targetType.getName() + " is not an entity.");
+		final Class<?> declaredType = collection.targetType();
 
 		Class<?> fieldType = field.getType();
 		final boolean isList = List.class.equals(fieldType);
@@ -108,8 +112,9 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 
 		final CollectionMode collectionMapping = collection.mode();
 		final MapKeyStrategy keyMapStrategy = collection.keyStrategy();
+		final Class<?> implementationType = getImplementationType(mapped, declaredType);
 
-		return new ImmutableCollectionMapping(fieldType, targetType, implementationType, location, collectionMapping, keyMapStrategy);
+		return new ImmutableCollectionMapping(fieldType, declaredType, implementationType, location, collectionMapping, keyMapStrategy);
 	}
 
 	private Mapping extractIdMapping(Id id, Field field) {
@@ -130,7 +135,7 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 	 */
 	public Mapping extractMapping(Field field) {
 		if (field == null)
-			throw new NullPointerException("Cannot extract property mapping from field, it's null.");
+			throw new IllegalArgumentException("Cannot extract property mapping from field, it's null.");
 		final String fieldname = field.getName();
 
 		LOGGER.trace("Extracting mapping for field {}", fieldname);
@@ -159,10 +164,10 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 
 	}
 
-	private Mapping extractPropertyMapping(Mapped mapped, Property annotation, Field field) {
+	Mapping extractPropertyMapping(Mapped mapped, Property annotation, Field field) {
 		final String fieldname = field.getName();
-		final Class<?> type = field.getType();
-		final boolean primitiveOrAutoboxed = ClassUtils.isPrimitiveOrAutoboxed(type) || String.class.equals(type);
+		final Class<?> declaredType = field.getType();
+		final boolean primitiveOrAutoboxed = ClassUtils.isPrimitiveOrAutoboxed(declaredType) || String.class.equals(declaredType);
 
 		final String propertyName;
 		final boolean hasNameSetOnAnnotation = annotation.name() != null && annotation.name().length() > 1;
@@ -173,11 +178,25 @@ public class FieldMappingExtractorImpl implements FieldMappingExtractor {
 		}
 
 		if (primitiveOrAutoboxed) {
-			return new ImmutablePropertyMapping(propertyName, type, annotation.defaultValue());
+			return new ImmutablePropertyMapping(propertyName, declaredType, annotation.defaultValue());
 		} else {
-			return new ImmutableReferenceMapping(type, propertyName, annotation.lookupMode());
+			Class<?> implementationType = getImplementationType(mapped, declaredType);
+			return new ImmutableReferenceMapping(declaredType, implementationType, propertyName, annotation.lookupMode());
 		}
+	}
 
+	/**
+	 * Returns the implementation type to be used for the given {@link Mapped}
+	 * annotation and declared type. If the given annotation is null or the
+	 * implementation type returned by it is null, this will return the declared
+	 * type, otherwise the specified implementation type.
+	 * 
+	 * @param mapped
+	 * @param declaredType
+	 * @return
+	 */
+	private Class<?> getImplementationType(Mapped mapped, Class<?> declaredType) {
+		return mapped == null || mapped.implementationType() == NULL.class ? declaredType : mapped.implementationType();
 	}
 
 	private Class<? extends RuntimeException> getMissingException(Mapped mapped) {

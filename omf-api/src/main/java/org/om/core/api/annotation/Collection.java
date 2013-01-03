@@ -42,18 +42,6 @@ import java.util.Map;
 @Target(ElementType.FIELD)
 public @interface Collection {
 
-	/**
-	 * A class that doesn't do anything and is used as a <tt>null</tt> marker as
-	 * an annotation default value.
-	 */
-	static final class NULL {
-		/**
-		 * Make sure nobody ever will use this class for anything:
-		 */
-		private NULL() {
-		}
-	}
-
 	public static final String LOCATION_RELATIVE_USING_FIELDNAME = "";
 
 	/**
@@ -76,35 +64,6 @@ public @interface Collection {
 	 * The referenced type must be a valid {@link Entity}.
 	 */
 	Class<?> targetType();
-
-	/**
-	 * The type of the actual items in the collection. This value is optional,
-	 * and if not provided, it will fall back to the value of
-	 * {@link #targetType()}. This is usually sufficient if the the type of the
-	 * actual mapped element is the same as the type that's provided via the
-	 * generics. For example:
-	 * 
-	 * <pre>
-	 * <code>@Collection(targetType=MyEntity.class)
-	 * List&lt;MyEntity&gt; list;</code>
-	 * </pre>
-	 * 
-	 * However, if the generic type of the collection is different than the
-	 * actual entity type, the mapping type has to be set explicitly. For
-	 * example:
-	 * 
-	 * <pre>
-	 * &#064;Collection(targetType = MyEntity.class)
-	 * List&lt;MyEntityImpl&gt; list;
-	 * </pre>
-	 * 
-	 * <p>
-	 * Please note that the implementation type must be either the same type as
-	 * {@link #targetType()} or a subtype of it.
-	 * 
-	 * @return
-	 */
-	Class<?> implementationType() default NULL.class;
 
 	/**
 	 * Defines from what the collection should be constructed. Collections can

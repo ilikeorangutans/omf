@@ -5,6 +5,7 @@ import java.util.List;
 import org.om.core.api.annotation.Collection;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
+import org.om.core.api.annotation.Mapped;
 
 @Entity
 public class CollectionTestEntity {
@@ -18,7 +19,8 @@ public class CollectionTestEntity {
 	@Collection(targetType = String.class)
 	private List<String> listOfStrings;
 
-	@Collection(targetType = MyInterface.class, implementationType = MyInterfaceImpl.class, location = "./")
+	@Collection(targetType = MyInterface.class, location = "./")
+	@Mapped(implementationType = MyInterfaceImpl.class)
 	private List<MyInterface> listWithDifferingTargetAndImplType;
 
 	public CollectionTestEntity() {

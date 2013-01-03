@@ -6,6 +6,7 @@ import java.util.Map;
 import org.om.core.api.annotation.Collection;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
+import org.om.core.api.annotation.Mapped;
 
 /**
  * An entity that exposes various different mappings for collections.
@@ -28,7 +29,8 @@ public class EntityWithCollections {
 	@Collection(targetType = EntityWithPrimitiveProperties.class)
 	private List<EntityWithPrimitiveProperties> collectionWithReferenceTypes;
 
-	@Collection(targetType = MyInterface.class, implementationType = EntityImplementingInterface.class)
+	@Collection(targetType = MyInterface.class)
+	@Mapped(implementationType = EntityImplementingInterface.class)
 	private List<MyInterface> collectionWithDifferentTargetAndImplType;
 
 	@Collection(targetType = EntityWithPrimitiveProperties.class)

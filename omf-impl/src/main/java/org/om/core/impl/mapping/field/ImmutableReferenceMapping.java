@@ -3,16 +3,13 @@ package org.om.core.impl.mapping.field;
 import org.om.core.api.annotation.LookupMode;
 import org.om.core.api.mapping.field.ReferenceMapping;
 
-public class ImmutableReferenceMapping implements ReferenceMapping {
+public class ImmutableReferenceMapping extends AbstractImmutableMapping implements ReferenceMapping {
 
 	private final LookupMode lookupMode;
 	private final String path;
 
-	public ImmutableReferenceMapping(Class<?> fieldType, String path) {
-		this(fieldType, path, LookupMode.Reference);
-	}
-
-	public ImmutableReferenceMapping(Class<?> fieldType, String path, LookupMode lookupMode) {
+	public ImmutableReferenceMapping(Class<?> declaredType, Class<?> implementationType, String path, LookupMode lookupMode) {
+		super(declaredType, implementationType);
 		this.path = path;
 		this.lookupMode = lookupMode;
 	}

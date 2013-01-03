@@ -3,18 +3,17 @@ package org.om.core.impl.persistence.interceptor.handler.collection.wrapper;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.session.Session;
 
 public class ReferenceHandlingIterator<T> implements Iterator<T> {
 
-	private final CollectionMapping collectionMapping;
 	private final Iterator<?> iterator;
 	private final Session session;
+	private final Class<?> implementationType;
 
-	public ReferenceHandlingIterator(Session session, CollectionMapping collectionMapping, Iterator<?> iterator) {
+	public ReferenceHandlingIterator(Session session, Class<?> implementationType, Iterator<?> iterator) {
 		this.session = session;
-		this.collectionMapping = collectionMapping;
+		this.implementationType = implementationType;
 		this.iterator = iterator;
 	}
 
@@ -30,7 +29,7 @@ public class ReferenceHandlingIterator<T> implements Iterator<T> {
 
 		Object id = iterator.next();
 
-		return (T) session.get(collectionMapping.getImplementationType(), id);
+		return (T) session.get(implementationType, id);
 	}
 
 	@Override

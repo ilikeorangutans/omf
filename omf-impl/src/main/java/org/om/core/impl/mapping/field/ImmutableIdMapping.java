@@ -7,7 +7,17 @@ public class ImmutableIdMapping implements IdMapping {
 
 	public static final Mapping INSTANCE = new ImmutableIdMapping();
 
+	@Override
+	public Class<?> getDeclaredType() {
+		return String.class;
+	}
+
 	public Class<?> getFieldType() {
+		return String.class;
+	}
+
+	@Override
+	public Class<?> getImplementationType() {
 		return String.class;
 	}
 
