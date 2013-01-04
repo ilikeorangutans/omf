@@ -17,39 +17,35 @@ package org.om.core.impl.mapping;
 
 import org.om.core.api.annotation.CollectionMode;
 import org.om.core.api.annotation.MapKeyStrategy;
-import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.CollectionMapping;
+import org.om.core.impl.mapping.field.AbstractImmutableMapping;
 
 /**
  * Describes a mapping for collections.
  * 
  * @author Jakob Külzer
  * 
+ *         TODO: this should be split into a mapping for java.util.Collection
+ *         and java.util.Map.
  */
-public class ImmutableCollectionMapping implements CollectionMapping {
+public class ImmutableCollectionMapping extends AbstractImmutableMapping implements CollectionMapping {
 
-	private final String location;
-	private final Class<?> targetType;
 	private final CollectionMode collectionMode;
+	private final Class<?> collectionType;
+	private final String location;
 	private final MapKeyStrategy mapKeyStrategy;
-	private final Class<?> implementationType;
 
-	public ImmutableCollectionMapping(Class<?> fieldType, Class<?> targetType, Class<?> implementationType, String location, CollectionMode collectionMode,
-			MapKeyStrategy mapKeyStrategy) {
-
-		if (!targetType.isAssignableFrom(implementationType))
-			throw new MappingException("Collection mapping implementation type (" + implementationType + ") is not the same or a subtype of the target type ("
-					+ targetType + ").");
-
-		this.targetType = targetType;
-		this.implementationType = implementationType;
+	public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, Class<?> implementationType, String location,
+			CollectionMode collectionMode, MapKeyStrategy mapKeyStrategy) {
+		super(declaredType, implementationType);
+		this.collectionType = collectionType;
 		this.location = location;
 		this.collectionMode = collectionMode;
 		this.mapKeyStrategy = mapKeyStrategy;
 	}
 
-	public ImmutableCollectionMapping(Class<?> fieldType, Class<?> targetType, String location) {
-		this(fieldType, targetType, targetType, location, CollectionMode.Children, MapKeyStrategy.Name);
+	public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, String location) {
+		this(collectionType, declaredType, declaredType, location, CollectionMode.Children, MapKeyStrategy.Name);
 	}
 
 	@Override
@@ -58,8 +54,8 @@ public class ImmutableCollectionMapping implements CollectionMapping {
 	}
 
 	@Override
-	public Class<?> getImplementationType() {
-		return implementationType;
+	public Class<?> getCollectionType() {
+		return collectionType;
 	}
 
 	public String getLocation() {
@@ -69,10 +65,6 @@ public class ImmutableCollectionMapping implements CollectionMapping {
 	@Override
 	public MapKeyStrategy getMapKeyStrategy() {
 		return mapKeyStrategy;
-	}
-
-	public Class<?> getTargetType() {
-		return targetType;
 	}
 
 	/**
@@ -91,8 +83,9 @@ public class ImmutableCollectionMapping implements CollectionMapping {
 
 	@Override
 	public String toString() {
-		return "ImmutableCollectionMapping [location=" + location + ", targetType=" + targetType + ", collectionMode=" + collectionMode + ", mapKeyStrategy="
-				+ mapKeyStrategy + "]";
+		return "ImmutableCollectionMapping [location=" + location + ", collectionMode=" + collectionMode + ", mapKeyStrategy=" + mapKeyStrategy
+				+ ", collectionType=" + collectionType + ", getImplementationType()=" + getImplementationType() + ", getDeclaredType()=" + getDeclaredType()
+				+ "]";
 	}
 
 }

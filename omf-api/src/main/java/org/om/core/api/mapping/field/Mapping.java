@@ -27,6 +27,28 @@ import org.om.core.api.annotation.Mapped;
 public interface Mapping {
 
 	/**
+	 * Returns the implementation type of this mapped field. The implementation
+	 * type is the class used to instantiate the entities described by this
+	 * mapping.
+	 * 
+	 * @return
+	 */
+	Class<?> getImplementationType();
+
+	/**
+	 * Returns the declared type of this mapping. The declared type is used as
+	 * the externally visible type of the mapped entities. This could be an
+	 * interface that the actual entity implements.
+	 * 
+	 * <p>
+	 * If the declared type is not the entity type,
+	 * {@link #getImplementationType()} will return it.
+	 * 
+	 * @return
+	 */
+	Class<?> getDeclaredType();
+
+	/**
 	 * Returns true if this mapping is an {@link Id} mapping.
 	 * 
 	 * @return

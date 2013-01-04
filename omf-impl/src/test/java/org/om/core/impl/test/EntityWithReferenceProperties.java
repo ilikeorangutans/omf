@@ -3,6 +3,7 @@ package org.om.core.impl.test;
 import org.om.core.api.annotation.Entity;
 import org.om.core.api.annotation.Id;
 import org.om.core.api.annotation.LookupMode;
+import org.om.core.api.annotation.Mapped;
 import org.om.core.api.annotation.Property;
 
 @Entity
@@ -19,6 +20,10 @@ public class EntityWithReferenceProperties {
 
 	@Property(name = "foobar", lookupMode = LookupMode.Direct)
 	private EntityWithPrimitiveProperties customLookupMode;
+
+	@Property
+	@Mapped(implementationType = EntityImplementingInterface.class)
+	private MyInterface myInterface;
 
 	public EntityWithReferenceProperties() {
 	}
@@ -37,5 +42,9 @@ public class EntityWithReferenceProperties {
 
 	public EntityWithPrimitiveProperties getCustomNamedReference() {
 		return customNamedReference;
+	}
+
+	public MyInterface getMyInterface() {
+		return myInterface;
 	}
 }

@@ -7,12 +7,12 @@ import org.om.core.api.persistence.result.MapResult;
 public class ExceptionThrowingMapResult implements MapResult {
 
 	@Override
-	public boolean hasResult() {
-		return false;
+	public Map<?, ?> getValue() {
+		throw new IllegalStateException("No value available.");
 	}
 
 	@Override
-	public Map<?, ?> getValue() {
-		throw new IllegalStateException("No value available.");
+	public boolean hasResult() {
+		return false;
 	}
 }

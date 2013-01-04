@@ -1,19 +1,17 @@
 package org.om.core.impl.mapping.field;
 
 import org.om.core.api.mapping.field.PropertyMapping;
-import org.om.core.impl.util.ClassUtils;
 
-public class ImmutablePropertyMapping implements PropertyMapping {
+public class ImmutablePropertyMapping extends AbstractImmutableMapping implements PropertyMapping {
 
 	private final String defaultValue;
 	private final String propertyName;
-	private final boolean simpleType;
 
 	public ImmutablePropertyMapping(String propertyName, Class<?> propertyType, String defaultValue) {
+		super(propertyType, propertyType);
 
 		this.propertyName = propertyName;
 		this.defaultValue = defaultValue;
-		simpleType = String.class.equals(propertyType) || ClassUtils.isPrimitiveOrAutoboxed(propertyType);
 	}
 
 	public String getDefaultValue() {
@@ -28,13 +26,10 @@ public class ImmutablePropertyMapping implements PropertyMapping {
 		return false;
 	}
 
-	public boolean isPrimitiveOrWrappedType() {
-		return simpleType;
-	}
-
 	@Override
 	public String toString() {
-		return "ImmutablePropertyMapping [propertyName=" + propertyName + ", simpleType=" + simpleType + ", defaultValue=" + defaultValue + "]";
+		return "ImmutablePropertyMapping [defaultValue=" + defaultValue + ", propertyName=" + propertyName + ", getDeclaredType()=" + getDeclaredType()
+				+ ", getImplementationType()=" + getImplementationType() + ", isPrimitiveOrWrappedType()=" + isPrimitiveOrWrappedType() + "]";
 	}
 
 }

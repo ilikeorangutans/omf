@@ -1,6 +1,7 @@
 package org.om.core.impl.test;
 
 import org.om.core.api.annotation.CollectionMode;
+import org.om.core.api.annotation.LookupMode;
 import org.om.core.api.annotation.MapKeyStrategy;
 import org.om.core.api.annotation.MissingStrategy;
 import org.om.core.api.exception.MissingException;
@@ -10,6 +11,7 @@ import org.om.core.impl.mapping.ImmutableCollectionMapping;
 import org.om.core.impl.mapping.ImmutableMappedField;
 import org.om.core.impl.mapping.field.ImmutableIdMapping;
 import org.om.core.impl.mapping.field.ImmutablePropertyMapping;
+import org.om.core.impl.mapping.field.ImmutableReferenceMapping;
 
 /**
  * Helper utility class to build {@link MappedField} instances.
@@ -86,6 +88,16 @@ public class MappedFieldBuilder {
 
 	public MappedFieldBuilder withPropertyMapping(String propertyName, Class<?> propertyType, String defaultValue) {
 		mapping = new ImmutablePropertyMapping(propertyName, propertyType, defaultValue);
+		return this;
+	}
+
+	public MappedFieldBuilder withReferenceMapping(String propertyName, Class<?> declaredType, Class<?> implementationType, String path, LookupMode lookupMode) {
+		mapping = new ImmutableReferenceMapping(declaredType, implementationType, path, lookupMode);
+		return this;
+	}
+
+	public MappedFieldBuilder withReferenceMapping(String propertyName, Class<?> declaredType, String path) {
+		mapping = new ImmutableReferenceMapping(declaredType, declaredType, path, LookupMode.Reference);
 		return this;
 	}
 

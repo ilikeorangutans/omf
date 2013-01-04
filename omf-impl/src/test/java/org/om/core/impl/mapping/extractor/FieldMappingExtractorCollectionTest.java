@@ -15,9 +15,12 @@ import org.om.core.api.exception.MappingException;
 import org.om.core.api.mapping.CollectionMapping;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.extractor.FieldMappingExtractor;
+import org.om.core.api.mapping.field.Mapping;
+import org.om.core.impl.test.EntityImplementingInterface;
 import org.om.core.impl.test.EntityWithCollections;
 import org.om.core.impl.test.EntityWithPrimitiveProperties;
 import org.om.core.impl.test.MappedFieldBuilder;
+import org.om.core.impl.test.MyInterface;
 
 public class FieldMappingExtractorCollectionTest {
 
@@ -33,7 +36,9 @@ public class FieldMappingExtractorCollectionTest {
 		assertThat(mapping, notNullValue());
 		assertThat(mapping, instanceOf(CollectionMapping.class));
 
-		assertEquals(String.class, mapping.getTargetType());
+		assertEquals(String.class, mapping.getDeclaredType());
+		assertEquals(String.class, mapping.getImplementationType());
+		assertEquals(List.class, mapping.getCollectionType());
 	}
 
 	@Test
@@ -46,7 +51,7 @@ public class FieldMappingExtractorCollectionTest {
 		assertThat(mapping, notNullValue());
 		assertThat(mapping, instanceOf(CollectionMapping.class));
 
-		assertEquals(Integer.class, mapping.getTargetType());
+		assertEquals(Integer.class, mapping.getImplementationType());
 	}
 
 	@Test
@@ -59,7 +64,7 @@ public class FieldMappingExtractorCollectionTest {
 		assertThat(mapping, notNullValue());
 		assertThat(mapping, instanceOf(CollectionMapping.class));
 
-		assertEquals(EntityWithPrimitiveProperties.class, mapping.getTargetType());
+		assertEquals(EntityWithPrimitiveProperties.class, mapping.getImplementationType());
 		assertThat(mapping.getLocation(), is("collectionWithReferenceTypes"));
 	}
 
@@ -72,7 +77,7 @@ public class FieldMappingExtractorCollectionTest {
 		CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
 		assertThat(mapping, notNullValue());
 
-		assertEquals(EntityWithPrimitiveProperties.class, mapping.getTargetType());
+		assertEquals(EntityWithPrimitiveProperties.class, mapping.getImplementationType());
 		assertThat(mapping.getLocation(), is("map"));
 		assertThat(mapping.getMapKeyStrategy(), is(MapKeyStrategy.Name));
 	}
@@ -80,16 +85,19 @@ public class FieldMappingExtractorCollectionTest {
 	@Test
 	public void testExtractMappingForCollectionWithDefaultImplType() throws Exception {
 		MappedField field = extractor.extract(EntityWithCollections.class.getDeclaredField("collectionWithStrings"));
-		CollectionMapping mapping = (CollectionMapping) field.getMapping();
+		Mapping mapping = field.getMapping();
 
-		assertEquals(mapping.getTargetType(), mapping.getImplementationType());
+		assertEquals(mapping.getDeclaredType(), mapping.getImplementationType());
 	}
 
 	@Test
 	public void testExtractMappingForCollectionWithDifferingTargetAndImplType() throws Exception {
 		MappedField field = extractor.extract(EntityWithCollections.class.getDeclaredField("collectionWithDifferentTargetAndImplType"));
-		CollectionMapping mapping = (CollectionMapping) field.getMapping();
-		assertNotSame(mapping.getTargetType(), mapping.getImplementationType());
+		Mapping mapping = field.getMapping();
+
+		assertNotSame(mapping.getDeclaredType(), mapping.getImplementationType());
+		assertEquals(MyInterface.class, mapping.getDeclaredType());
+		assertEquals(EntityImplementingInterface.class, mapping.getImplementationType());
 	}
 
 	@Test(expected = MappingException.class)

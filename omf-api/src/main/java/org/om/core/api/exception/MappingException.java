@@ -24,10 +24,12 @@ package org.om.core.api.exception;
  */
 public class MappingException extends ObjectMapperException {
 
+	private Class<?> mappedType;
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	public MappingException(Class<?> type, String string) {
 		this(String.format("Type %s is not an entity: %s", type.getName(), string));
@@ -45,4 +47,22 @@ public class MappingException extends ObjectMapperException {
 		super(cause);
 	}
 
+	public void setMappedType(Class<?> mappedType) {
+		this.mappedType = mappedType;
+	}
+
+	public Class<?> getMappedType() {
+		return mappedType;
+	}
+
+	@Override
+	public String getMessage() {
+		String message = super.getMessage();
+
+		if (getMappedType() != null) {
+			message += " (in " + getMappedType().getName() + ")";
+		}
+
+		return message;
+	}
 }

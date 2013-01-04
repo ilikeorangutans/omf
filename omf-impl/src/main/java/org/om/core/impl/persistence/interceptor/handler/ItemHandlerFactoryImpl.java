@@ -13,7 +13,6 @@ import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.interceptor.handler.collection.PrimitiveListHandler;
 import org.om.core.impl.persistence.interceptor.handler.collection.ReferenceListHandler;
 import org.om.core.impl.persistence.interceptor.handler.map.PrimitiveMapHandler;
-import org.om.core.impl.util.ClassUtils;
 
 public class ItemHandlerFactoryImpl implements ItemHandlerFactory {
 
@@ -32,9 +31,8 @@ public class ItemHandlerFactoryImpl implements ItemHandlerFactory {
 
 		if (mapping instanceof CollectionMapping) {
 			final Class<?> fieldType = field.getType();
-			final CollectionMapping collectionMapping = (CollectionMapping) mapping;
-			final Class<?> implementationType = collectionMapping.getImplementationType();
-			final boolean primitive = ClassUtils.isPrimitiveOrAutoboxed(implementationType) || String.class.equals(implementationType);
+			final Class<?> implementationType = mapping.getImplementationType();
+			final boolean primitive = mapping.isPrimitiveOrWrappedType() || String.class.equals(implementationType);
 
 			if (List.class.equals(fieldType)) {
 				if (primitive) {

@@ -13,13 +13,13 @@ public class ImmutableMapResult implements MapResult {
 	}
 
 	@Override
-	public boolean hasResult() {
-		return true;
+	public Map<?, ?> getValue() {
+		return result;
 	}
 
 	@Override
-	public Map<?, ?> getValue() {
-		return result;
+	public boolean hasResult() {
+		return true;
 	}
 
 }

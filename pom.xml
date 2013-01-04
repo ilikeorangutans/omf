@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.objectmapper</groupId>
 	<artifactId>objectmapper</artifactId>
-	<version>0.2.0</version>
+	<version>0.2.1</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -53,6 +53,41 @@
 				<version>2.3.1</version>
 			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.felix
+										</groupId>
+										<artifactId>
+											maven-scr-plugin
+										</artifactId>
+										<versionRange>
+											[1.7.4,)
+										</versionRange>
+										<goals>
+											<goal>scr</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<developers>
@@ -89,6 +124,6 @@
 		<connection>scm:git:git@github.com:ilikeorangutans/omf.git</connection>
 		<developerConnection>scm:git:git@github.com:ilikeorangutans/omf.git</developerConnection>
 		<url>https://github.com/ilikeorangutans/omf</url>
-		<tag>objectmapper-0.2.0</tag>
+		<tag>objectmapper-0.2.1</tag>
 	</scm>
 </project>

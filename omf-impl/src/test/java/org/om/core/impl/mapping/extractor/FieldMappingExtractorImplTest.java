@@ -13,10 +13,13 @@ import org.om.core.api.exception.MissingException;
 import org.om.core.api.mapping.MappedField;
 import org.om.core.api.mapping.extractor.FieldMappingExtractor;
 import org.om.core.api.mapping.field.IdMapping;
+import org.om.core.api.mapping.field.Mapping;
 import org.om.core.api.mapping.field.PropertyMapping;
 import org.om.core.api.mapping.field.ReferenceMapping;
+import org.om.core.impl.test.EntityImplementingInterface;
 import org.om.core.impl.test.EntityWithPrimitiveProperties;
 import org.om.core.impl.test.EntityWithReferenceProperties;
+import org.om.core.impl.test.MyInterface;
 
 public class FieldMappingExtractorImplTest {
 
@@ -97,6 +100,18 @@ public class FieldMappingExtractorImplTest {
 		assertThat(mapping.getPath(), is("foobar"));
 		assertThat(mapping.getLookupMode(), is(LookupMode.Direct));
 
+	}
+
+	@Test
+	public void testExtractReferenceFieldWithDifferingImplementationType() throws Exception {
+		MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("myInterface"));
+
+		assertThat(mappedField.getName(), is("myInterface"));
+		assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
+		Mapping mapping = mappedField.getMapping();
+
+		assertEquals(MyInterface.class, mapping.getDeclaredType());
+		assertEquals(EntityImplementingInterface.class, mapping.getImplementationType());
 	}
 
 }
