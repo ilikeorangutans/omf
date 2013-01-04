@@ -30,14 +30,10 @@ import org.om.core.impl.mapping.field.AbstractImmutableMapping;
  */
 public class ImmutableCollectionMapping extends AbstractImmutableMapping implements CollectionMapping {
 
-	private final String location;
 	private final CollectionMode collectionMode;
-	private final MapKeyStrategy mapKeyStrategy;
 	private final Class<?> collectionType;
-
-	public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, String location) {
-		this(collectionType, declaredType, declaredType, location, CollectionMode.Children, MapKeyStrategy.Name);
-	}
+	private final String location;
+	private final MapKeyStrategy mapKeyStrategy;
 
 	public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, Class<?> implementationType, String location,
 			CollectionMode collectionMode, MapKeyStrategy mapKeyStrategy) {
@@ -46,6 +42,10 @@ public class ImmutableCollectionMapping extends AbstractImmutableMapping impleme
 		this.location = location;
 		this.collectionMode = collectionMode;
 		this.mapKeyStrategy = mapKeyStrategy;
+	}
+
+	public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, String location) {
+		this(collectionType, declaredType, declaredType, location, CollectionMode.Children, MapKeyStrategy.Name);
 	}
 
 	@Override

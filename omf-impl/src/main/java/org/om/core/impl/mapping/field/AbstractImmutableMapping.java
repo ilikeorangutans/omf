@@ -6,8 +6,8 @@ import org.om.core.impl.util.ClassUtils;
 
 public class AbstractImmutableMapping implements Mapping {
 
-	private final Class<?> implementationType;
 	private final Class<?> declaredType;
+	private final Class<?> implementationType;
 	private final boolean simpleType;
 
 	public AbstractImmutableMapping(Class<?> declaredType, Class<?> implementationType) {
@@ -21,13 +21,13 @@ public class AbstractImmutableMapping implements Mapping {
 	}
 
 	@Override
-	public Class<?> getImplementationType() {
-		return implementationType;
+	public Class<?> getDeclaredType() {
+		return declaredType;
 	}
 
 	@Override
-	public Class<?> getDeclaredType() {
-		return declaredType;
+	public Class<?> getImplementationType() {
+		return implementationType;
 	}
 
 	@Override

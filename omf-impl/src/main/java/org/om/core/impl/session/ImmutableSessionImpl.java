@@ -70,11 +70,13 @@ public class ImmutableSessionImpl implements Session {
 			/*
 			 * get the id
 			 */
-			//Object id = EntityUtils.getEntityId(entityMapping, o);
+			// Object id = EntityUtils.getEntityId(entityMapping, o);
 			/*
 			 * get a persistence delegate
 			 */
-			//final PersistenceAdapter persistenceAdapter = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, true);
+			// final PersistenceAdapter persistenceAdapter =
+			// persistenceDelegateFactory.create(this, id, entityMapping,
+			// persistenceContext, true);
 			/*
 			 * walk the fields and save them
 			 */

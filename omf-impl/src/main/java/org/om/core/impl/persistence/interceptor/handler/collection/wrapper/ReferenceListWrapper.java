@@ -18,8 +18,8 @@ public class ReferenceListWrapper<T> implements List<T> {
 
 	private final Collection<?> collection;
 	private final CollectionMapping collectionMapping;
-	private final Session session;
 	private final Class<?> implementationType;
+	private final Session session;
 
 	public ReferenceListWrapper(Session session, CollectionMapping collectionMapping, Class<?> implementationType, Collection<?> result) {
 		this.session = session;

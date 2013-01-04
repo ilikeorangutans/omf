@@ -7,9 +7,9 @@ import org.om.core.api.session.Session;
 
 public class ReferenceHandlingIterator<T> implements Iterator<T> {
 
+	private final Class<?> implementationType;
 	private final Iterator<?> iterator;
 	private final Session session;
-	private final Class<?> implementationType;
 
 	public ReferenceHandlingIterator(Session session, Class<?> implementationType, Iterator<?> iterator) {
 		this.session = session;
