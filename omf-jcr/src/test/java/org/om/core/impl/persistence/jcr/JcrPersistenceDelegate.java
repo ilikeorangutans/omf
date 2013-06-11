@@ -40,7 +40,6 @@ import org.om.core.impl.entity.EntityWithMaps;
 import org.om.core.impl.entity.MyInterface;
 import org.om.core.impl.entity.MyInterfaceImpl;
 import org.om.core.impl.entity.TestEntity;
-import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 import org.om.core.impl.persistence.jcr.test.TransientRepoTestEnv;
 
 import com.google.guiceberry.junit4.GuiceBerryRule;
@@ -58,9 +57,6 @@ public class JcrPersistenceDelegate {
 
 	@Inject
 	private Repository repository;
-
-	@Inject
-	private JCRSessionFactory jcrSessionFactory;
 
 	private Node rootnode;
 

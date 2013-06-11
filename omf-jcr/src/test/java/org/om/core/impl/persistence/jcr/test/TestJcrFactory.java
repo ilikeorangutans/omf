@@ -5,12 +5,9 @@ import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
-import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
-
 import com.google.inject.Provider;
-import com.google.inject.Provides;
 
-public class TestJcrFactory implements JCRSessionFactory, Provider<Session> {
+public class TestJcrFactory implements Provider<Session> {
 
 	private Session session;
 
@@ -24,12 +21,7 @@ public class TestJcrFactory implements JCRSessionFactory, Provider<Session> {
 
 	}
 
-	@Provides
-	public Session getSession() {
-		return session;
-	}
-
 	public Session get() {
-		return getSession();
+		return session;
 	}
 }
