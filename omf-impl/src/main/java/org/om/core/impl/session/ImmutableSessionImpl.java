@@ -8,7 +8,6 @@ import org.om.core.api.persistence.PersistenceAdapterFactory;
 import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.proxy.ProxyFactory;
 import org.om.core.api.session.Session;
-import org.om.core.impl.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +53,7 @@ public class ImmutableSessionImpl implements Session {
 			throw new NullPointerException("Class is null.");
 		}
 		final EntityMapping entityMapping = mappingRegistry.getMapping(clazz);
-		final PersistenceAdapter persistenceAdapter = persistenceDelegateFactory.create(this, id, entityMapping, persistenceContext, false);
+		final PersistenceAdapter persistenceAdapter = persistenceDelegateFactory.create(id, entityMapping, persistenceContext);
 
 		LOGGER.debug("Retrieving entity of type {} from {}", clazz, id);
 

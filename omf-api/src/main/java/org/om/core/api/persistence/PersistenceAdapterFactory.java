@@ -16,7 +16,6 @@
 package org.om.core.api.persistence;
 
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.session.Session;
 
 /**
  * @author Jakob Külzer
@@ -24,6 +23,17 @@ import org.om.core.api.session.Session;
  */
 public interface PersistenceAdapterFactory {
 
-	PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode);
+	/**
+	 * Creates a {@link PersistenceAdapter}.
+	 * 
+	 * @param id
+	 *            id for the object to retrieve.
+	 * @param mapping
+	 *            entity mapping for the object to retrieve.
+	 * @param persistenceContext
+	 *            persistence context.
+	 * @return
+	 */
+	PersistenceAdapter create(Object id, EntityMapping mapping, PersistenceContext persistenceContext);
 
 }

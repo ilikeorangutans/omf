@@ -6,8 +6,8 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.api.persistence.PersistenceAdapterFactory;
+import org.om.core.api.persistence.PersistenceContext;
 import org.om.core.impl.mapping.extractor.EntityMappingExtractorImpl;
 import org.om.core.impl.persistence.cglib.CglibProxyFactory;
 import org.om.core.impl.persistence.delegate.TestingDelegateFactory;
@@ -28,7 +28,7 @@ public class CglibProxyFactoryTest {
 		final CglibProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
 
 		EntityWithPrimitiveProperties proxy = (EntityWithPrimitiveProperties) proxyFactory.create(null, mapping,
-				delegateFactory.create(null, null, mapping, persistenceContext, false));
+				delegateFactory.create(null, mapping, persistenceContext));
 
 		assertThat(proxy, notNullValue());
 		String fieldWithDefaultSettings = proxy.getFieldWithDefaultSettings();
@@ -46,7 +46,7 @@ public class CglibProxyFactoryTest {
 		final CglibProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
 
 		EntityWithPrimitiveProperties proxy = (EntityWithPrimitiveProperties) proxyFactory.create(null, mapping,
-				delegateFactory.create(null, null, mapping, persistenceContext, false));
+				delegateFactory.create(null, mapping, persistenceContext));
 
 		assertThat(proxy, notNullValue());
 		assertThat(proxy.getUnmappedField(), is("unmapped"));

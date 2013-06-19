@@ -10,7 +10,6 @@ import org.om.core.api.path.Path;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.PersistenceAdapterFactory;
 import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.jcr.util.NodeRetriever;
 
 /**
@@ -21,7 +20,7 @@ import org.om.core.impl.persistence.jcr.util.NodeRetriever;
  */
 public class JcrPersistenceAdapterFactory implements PersistenceAdapterFactory {
 
-	public PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
+	public PersistenceAdapter create(Object id, EntityMapping mapping, PersistenceContext persistenceContext) {
 		final JcrPersistenceContext context = (JcrPersistenceContext) persistenceContext;
 		final String path;
 
