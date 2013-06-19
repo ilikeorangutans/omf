@@ -25,6 +25,11 @@ public class JcrPersistenceAdapterFactory implements PersistenceAdapterFactory {
 		final JcrPersistenceContext context = (JcrPersistenceContext) persistenceContext;
 		final String path;
 
+		// This should return an exception better reflecting this error
+		// condition. This can happen when an OMF session resolves a reference
+		// but the reference field is null. Either we add better error handling
+		// into the persistence adapters to intercept relative paths that are
+		// null or we throw an exception that better indicates what happened.
 		if (id == null)
 			throw new NullPointerException("Got null ID while creating adapter for " + mapping);
 

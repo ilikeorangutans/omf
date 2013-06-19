@@ -1,8 +1,8 @@
 Object Mapper
 =============
 
-A JPA like framework for JCR
-----------------------------
+Mapping POJOs to JCR
+--------------------
 
 Having worked with JCR based systems for a while, I could never shake off the feeling that I was writing 
 code that would talk to the JCR and translate it into Java objects again and again. Every time I wrote a

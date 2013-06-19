@@ -29,6 +29,10 @@ public class ReferenceHandlingIterator<T> implements Iterator<T> {
 
 		Object id = iterator.next();
 
+		// TODO: This needs to take into account the actual mappings. As of now,
+		// if the referenced id cannot be resolved, this will crash with a
+		// PathNotFoundException, ignoring any mappings regarding not found
+		// behaviour.
 		return (T) session.get(implementationType, id);
 	}
 
