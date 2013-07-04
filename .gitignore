@@ -8,3 +8,6 @@ target
 *.versionsBackup
 *.releaseBackup
 release.properties
+*.iml
+.idea/
+atlassian-ide-plugin.xml
