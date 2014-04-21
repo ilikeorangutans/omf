@@ -10,7 +10,6 @@ import org.om.core.api.path.Path;
 import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.PersistenceAdapterFactory;
 import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.api.session.Session;
 import org.om.core.impl.persistence.jcr.util.NodeRetriever;
 
 /**
@@ -21,10 +20,15 @@ import org.om.core.impl.persistence.jcr.util.NodeRetriever;
  */
 public class JcrPersistenceAdapterFactory implements PersistenceAdapterFactory {
 
-	public PersistenceAdapter create(Session session, Object id, EntityMapping mapping, PersistenceContext persistenceContext, boolean createNode) {
+	public PersistenceAdapter create(Object id, EntityMapping mapping, PersistenceContext persistenceContext) {
 		final JcrPersistenceContext context = (JcrPersistenceContext) persistenceContext;
 		final String path;
 
+		// This should return an exception better reflecting this error
+		// condition. This can happen when an OMF session resolves a reference
+		// but the reference field is null. Either we add better error handling
+		// into the persistence adapters to intercept relative paths that are
+		// null or we throw an exception that better indicates what happened.
 		if (id == null)
 			throw new NullPointerException("Got null ID while creating adapter for " + mapping);
 

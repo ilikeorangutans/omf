@@ -8,7 +8,6 @@ import javax.jcr.Repository;
 import javax.jcr.Session;
 
 import org.apache.jackrabbit.core.TransientRepository;
-import org.om.core.impl.persistence.jcr.sessionfactory.JCRSessionFactory;
 
 import com.google.common.testing.TearDown;
 import com.google.common.testing.TearDownAccepter;
@@ -29,7 +28,6 @@ public class TransientRepoTestEnv extends GuiceBerryModule {
 	@Override
 	protected void configure() {
 		super.configure();
-		bind(JCRSessionFactory.class).to(TestJcrFactory.class);
 		bind(Session.class).toProvider(TestJcrFactory.class).in(TestScoped.class);
 		install(new ObjectMapperDefaultBindings());
 	}
