@@ -32,7 +32,7 @@ public class ImmutableSessionImpl implements Session {
 		this.mappingRegistry = mappingRegistry;
 		this.proxyFactory = proxyFactory;
 
-		LOGGER.info("New session with context {}", persistenceContext);
+		LOGGER.debug("New session with context {}", persistenceContext);
 	}
 
 	public void close() throws ObjectMapperException {
