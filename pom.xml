@@ -2,106 +2,55 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.objectmapper</groupId>
 	<artifactId>objectmapper</artifactId>
-	<version>0.2.2</version>
+	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
 	<modules>
 		<module>omf-parent</module>
 		<module>omf-api</module>
 		<module>omf-impl</module>
 		<module>omf-osgi</module>
 	</modules>
-
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdk.version>1.7</jdk.version>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.3</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.0</version>
-				<configuration>
-					<reportPlugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-project-info-reports-plugin</artifactId>
-							<version>2.4</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>cobertura-maven-plugin</artifactId>
-							<version>2.5.1</version>
-							<configuration>
-								<formats>
-									<format>html</format>
-								</formats>
-							</configuration>
-						</plugin>
-					</reportPlugins>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5</version>
+				<version>2.5.2</version>
 			</plugin>
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											org.apache.felix
-										</groupId>
-										<artifactId>
-											maven-scr-plugin
-										</artifactId>
-										<versionRange>
-											[1.7.4,)
-										</versionRange>
-										<goals>
-											<goal>scr</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 	</build>
-
 	<developers>
 		<developer>
 			<email>jakob.kuelzer@gmail.com</email>
 			<name>Jakob Külzer</name>
 			<id>ilikeorangutans</id>
 			<roles>
-				<role>I built this.</role>
+				<role>Original Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<email>tom@khubla.com</email>
+			<name>Tom Everett</name>
+			<id>teverett</id>
+			<roles>
+				<role>Contributor</role>
 			</roles>
 		</developer>
 	</developers>
 	<name>Object Mapper</name>
-
 	<profiles>
 		<profile>
 			<id>jcr</id>
@@ -113,17 +62,10 @@
 			</modules>
 		</profile>
 	</profiles>
-
-	<properties>
-
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-	</properties>
-
 	<scm>
 		<connection>scm:git:git@github.com:ilikeorangutans/omf.git</connection>
 		<developerConnection>scm:git:git@github.com:ilikeorangutans/omf.git</developerConnection>
 		<url>https://github.com/ilikeorangutans/omf</url>
-		<tag>objectmapper-0.2.2</tag>
+		<tag>objectmapper-1.0-SNAPSHOT</tag>
 	</scm>
 </project>
