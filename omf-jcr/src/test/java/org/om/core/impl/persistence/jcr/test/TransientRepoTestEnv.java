@@ -1,6 +1,7 @@
 package org.om.core.impl.persistence.jcr.test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 import javax.inject.Singleton;
@@ -23,6 +24,8 @@ import com.google.inject.Provides;
  * @author Jakob Külzer
  */
 public class TransientRepoTestEnv extends GuiceBerryModule {
+   private static final String REPOSITORY_XML = "repository.xml";
+
    @Override
    protected void configure() {
       super.configure();
@@ -32,10 +35,13 @@ public class TransientRepoTestEnv extends GuiceBerryModule {
 
    @Provides
    @Singleton
-   public Repository createRepository() throws URISyntaxException {
+   public Repository createRepository() throws URISyntaxException, FileNotFoundException {
       System.out.println("TransientRepoTestEnv.createRepository() Starting up repository...");
       final File dir = new File("target/transientrepo");
-      final File configFile = new File(getClass().getClassLoader().getResource("repository.xml").toURI());
+      final File configFile = new File(getClass().getClassLoader().getResource(REPOSITORY_XML).toURI());
+      if (false == configFile.exists()) {
+         throw new FileNotFoundException();
+      }
       System.out.println("TransientRepoTestEnv.createRepository() Loading repository configuration from " + configFile.getAbsolutePath());
       return new TransientRepository(configFile, dir);
    }
