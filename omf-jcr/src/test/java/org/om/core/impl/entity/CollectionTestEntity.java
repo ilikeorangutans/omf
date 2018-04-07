@@ -9,36 +9,32 @@ import org.om.core.api.annotation.Mapped;
 
 @Entity
 public class CollectionTestEntity {
+   @Id
+   private String id;
+   @Collection(targetType = ChildEntity.class, location = "./")
+   private List<ChildEntity> list;
+   @Collection(targetType = String.class)
+   private List<String> listOfStrings;
+   @Collection(targetType = MyInterface.class, location = "./")
+   @Mapped(implementationType = MyInterfaceImpl.class)
+   private List<MyInterface> listWithDifferingTargetAndImplType;
 
-	@Id
-	private String id;
+   public CollectionTestEntity() {
+   }
 
-	@Collection(targetType = ChildEntity.class, location = "./")
-	private List<ChildEntity> list;
+   public String getId() {
+      return id;
+   }
 
-	@Collection(targetType = String.class)
-	private List<String> listOfStrings;
+   public List<ChildEntity> getList() {
+      return list;
+   }
 
-	@Collection(targetType = MyInterface.class, location = "./")
-	@Mapped(implementationType = MyInterfaceImpl.class)
-	private List<MyInterface> listWithDifferingTargetAndImplType;
+   public List<String> getListOfStrings() {
+      return listOfStrings;
+   }
 
-	public CollectionTestEntity() {
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public List<ChildEntity> getList() {
-		return list;
-	}
-
-	public List<String> getListOfStrings() {
-		return listOfStrings;
-	}
-
-	public List<MyInterface> getListWithDifferingTargetAndImplType() {
-		return listWithDifferingTargetAndImplType;
-	}
+   public List<MyInterface> getListWithDifferingTargetAndImplType() {
+      return listWithDifferingTargetAndImplType;
+   }
 }

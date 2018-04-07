@@ -18,25 +18,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Activator implements BundleActivator {
+   private static final Logger LOGGER = LoggerFactory.getLogger(Activator.class);
+   private ServiceRegistration sessionFactoryRegistration;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(Activator.class);
+   @Override
+   public void start(BundleContext context) throws Exception {
+      LOGGER.info("Object mapper bundle starting up... ");
+      final PersistenceAdapterFactory persistenceDelegateFactory = new JcrPersistenceAdapterFactory();
+      final MappingRegistry mappingRegistry = new SimpleCachingOnDemandMappingRegistry(new EntityMappingExtractorImpl());
+      final ProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
+      final ServiceFactory serviceFactory = new OsgiServiceFactorySessionFactory(persistenceDelegateFactory, mappingRegistry, proxyFactory);
+      sessionFactoryRegistration = context.registerService(SessionFactory.class.getName(), serviceFactory, null);
+      LOGGER.info("Registered session factory.");
+   }
 
-	private ServiceRegistration sessionFactoryRegistration;
-
-	public void start(BundleContext context) throws Exception {
-		LOGGER.info("Object mapper bundle starting up... ");
-		PersistenceAdapterFactory persistenceDelegateFactory = new JcrPersistenceAdapterFactory();
-		MappingRegistry mappingRegistry = new SimpleCachingOnDemandMappingRegistry(new EntityMappingExtractorImpl());
-		ProxyFactory proxyFactory = new CglibProxyFactory(new PersistenceInterceptorFactoryImpl());
-		ServiceFactory serviceFactory = new OsgiServiceFactorySessionFactory(persistenceDelegateFactory,
-				mappingRegistry, proxyFactory);
-
-		sessionFactoryRegistration = context.registerService(SessionFactory.class.getName(), serviceFactory, null);
-		LOGGER.info("Registered session factory.");
-	}
-
-	public void stop(BundleContext context) throws Exception {
-		sessionFactoryRegistration.unregister();
-	}
-
+   @Override
+   public void stop(BundleContext context) throws Exception {
+      sessionFactoryRegistration.unregister();
+   }
 }

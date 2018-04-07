@@ -20,37 +20,29 @@ import org.om.core.impl.test.MappedFieldBuilder;
 
 @RunWith(JMock.class)
 public class ReferencePropertyHandlerTest {
+   private Session session;
+   private final Mockery mockery = new JUnit4Mockery();
 
-	private Session session;
+   @Before
+   public void setUp() {
+      session = mockery.mock(Session.class);
+   }
 
-	private Mockery mockery = new JUnit4Mockery();
-
-	@Before
-	public void setUp() {
-		session = mockery.mock(Session.class);
-	}
-
-	@Test
-	@Ignore
-	public void test() {
-
-		mockery.checking(new Expectations() {
-			{
-				oneOf(session).get(EntityWithPrimitiveProperties.class, "/foo/bar");
-			}
-		});
-
-		ReferenceHandler handler = new ReferenceHandler(session);
-
-		PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter("/foo/bar");
-		MappedField mappedField = new MappedFieldBuilder().withName("mappedField").withType(EntityWithPrimitiveProperties.class)
-				.withReferenceMapping("fieldname", EntityWithPrimitiveProperties.class, "path").create();
-		Object retrieve = handler.retrieve(mappedField, delegate);
-
-		assertThat(retrieve, notNullValue());
-
-		System.out.println("ReferencePropertyHandlerTest.test() " + retrieve);
-
-		fail("implement me");
-	}
+   @Test
+   @Ignore
+   public void test() {
+      mockery.checking(new Expectations() {
+         {
+            oneOf(session).get(EntityWithPrimitiveProperties.class, "/foo/bar");
+         }
+      });
+      final ReferenceHandler handler = new ReferenceHandler(session);
+      final PersistenceAdapter delegate = new TestingPassThroughPersistenceAdapter("/foo/bar");
+      final MappedField mappedField = new MappedFieldBuilder().withName("mappedField").withType(EntityWithPrimitiveProperties.class)
+            .withReferenceMapping("fieldname", EntityWithPrimitiveProperties.class, "path").create();
+      final Object retrieve = handler.retrieve(mappedField, delegate);
+      assertThat(retrieve, notNullValue());
+      System.out.println("ReferencePropertyHandlerTest.test() " + retrieve);
+      fail("implement me");
+   }
 }

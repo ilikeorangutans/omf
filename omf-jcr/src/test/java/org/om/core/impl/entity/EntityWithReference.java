@@ -8,30 +8,26 @@ import org.om.core.api.annotation.Property;
 
 @Entity
 public class EntityWithReference {
+   @Id
+   private String id;
+   @Property
+   private TestEntity testEntity;
+   @Mapped(missingStrategy = MissingStrategy.ThrowException)
+   @Property
+   private TestEntity referenceThrowingExceptionOnMissing;
 
-	@Id
-	private String id;
+   public EntityWithReference() {
+   }
 
-	@Property
-	private TestEntity testEntity;
+   public String getId() {
+      return id;
+   }
 
-	@Mapped(missingStrategy = MissingStrategy.ThrowException)
-	@Property
-	private TestEntity referenceThrowingExceptionOnMissing;
+   public TestEntity getReferenceThrowingExceptionOnMissing() {
+      return referenceThrowingExceptionOnMissing;
+   }
 
-	public TestEntity getReferenceThrowingExceptionOnMissing() {
-		return referenceThrowingExceptionOnMissing;
-	}
-
-	public EntityWithReference() {
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public TestEntity getTestEntity() {
-		return testEntity;
-	}
-
+   public TestEntity getTestEntity() {
+      return testEntity;
+   }
 }

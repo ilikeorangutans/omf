@@ -9,21 +9,19 @@ import org.om.core.api.annotation.Id;
 
 @Entity
 public class EntityWithMap {
+   @Id
+   private String id;
+   @Collection(targetType = String.class, mode = CollectionMode.Properties)
+   private Map<String, String> mapToProperties;
 
-	@Id
-	private String id;
+   public EntityWithMap() {
+   }
 
-	@Collection(targetType = String.class, mode = CollectionMode.Properties)
-	private Map<String, String> mapToProperties;
+   public String getId() {
+      return id;
+   }
 
-	public Map<String, String> getMapToProperties() {
-		return mapToProperties;
-	}
-
-	public EntityWithMap() {
-	}
-
-	public String getId() {
-		return id;
-	}
+   public Map<String, String> getMapToProperties() {
+      return mapToProperties;
+   }
 }

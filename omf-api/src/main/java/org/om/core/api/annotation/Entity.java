@@ -1,6 +1,6 @@
 /*
  * Copyright 2012 Jakob Külzer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package org.om.core.api.annotation;
 
@@ -21,18 +21,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks a class as an entity. Every class that should be mapped by the object
- * mapper needs to be annotated with this.
- * 
- * Each entity must have exactly one {@link Property} that acts as the
- * identifier property which has to be annotated with {@link Id}.
- * 
- * 
+ * Marks a class as an entity. Every class that should be mapped by the object mapper needs to be annotated with this. Each entity must have exactly one {@link Property} that acts as the identifier
+ * property which has to be annotated with {@link Id}.
+ *
  * @author Jakob Külzer
- * 
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Entity {
-
 }

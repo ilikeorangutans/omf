@@ -5,16 +5,14 @@ import org.om.core.api.annotation.Property;
 
 @Entity
 public class EntityImplementingInterface implements MyInterface {
+   @Property
+   private String value;
 
-	@Property
-	private String value;
+   public EntityImplementingInterface() {
+   }
 
-	public EntityImplementingInterface() {
-	}
-
-	@Override
-	public String getValue() {
-		return null;
-	}
-
+   @Override
+   public String getValue() {
+      return null;
+   }
 }

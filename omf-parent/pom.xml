@@ -1,23 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>objectmapper</artifactId>
 		<groupId>org.objectmapper</groupId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
 	<name>Object Mapper - Parent</name>
 	<artifactId>omf-parent</artifactId>
 	<packaging>pom</packaging>
 	<properties>
-		<guice.version>3.0</guice.version>
+		<guice.version>4.2.0</guice.version>
 		<junit.version>4.12</junit.version>
-		<jmock.version>2.8.3</jmock.version>
+		<jmock.version>2.8.4</jmock.version>
 		<mockito.version>1.9.5</mockito.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<hamcrest.version>1.3</hamcrest.version>
-		<cglib.version>3.2.5</cglib.version>
+		<cglib.version>3.2.6</cglib.version>
 		<osgi.version>6.0.0</osgi.version>
+		<guiceberry.version>3.3.1</guiceberry.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -100,7 +103,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.8.1</version>
+					<version>3.0.0</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

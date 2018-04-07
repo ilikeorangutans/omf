@@ -15,20 +15,14 @@ import org.om.core.impl.persistence.interceptor.handler.ItemHandlerFactoryImpl;
 import org.om.core.impl.test.EntityWithPrimitiveProperties;
 
 public class CglibPersistenceInterceptorTest {
-
-	@Test
-	public void testInterceptWithValidField() throws Throwable {
-		EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
-		PersistenceAdapter persistenceDelegate = new TestingPersistenceAdapter(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
-		CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(null,
-				new ItemHandlerFactoryImpl(), persistenceDelegate));
-
-		EntityWithPrimitiveProperties entity = new EntityWithPrimitiveProperties();
-
-		String result = (String) interceptor.intercept(entity, EntityWithPrimitiveProperties.class.getMethod("getFieldWithDefaultSettings"), new Object[] {},
-				null);
-		assertThat(result, notNullValue());
-		assertThat(result, is("booyah"));
-	}
-
+   @Test
+   public void testInterceptWithValidField() throws Throwable {
+      final EntityMapping entityMapping = new EntityMappingExtractorImpl().extract(EntityWithPrimitiveProperties.class);
+      final PersistenceAdapter persistenceDelegate = new TestingPersistenceAdapter(entityMapping, null).addProperty("fieldWithDefaultSettings", "booyah");
+      final CglibPersistenceInterceptor interceptor = new CglibPersistenceInterceptor(entityMapping, new PersistenceInterceptorImpl(null, new ItemHandlerFactoryImpl(), persistenceDelegate));
+      final EntityWithPrimitiveProperties entity = new EntityWithPrimitiveProperties();
+      final String result = (String) interceptor.intercept(entity, EntityWithPrimitiveProperties.class.getMethod("getFieldWithDefaultSettings"), new Object[] {}, null);
+      assertThat(result, notNullValue());
+      assertThat(result, is("booyah"));
+   }
 }

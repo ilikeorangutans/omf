@@ -12,37 +12,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A {@link SessionFactory} that acts as a OSGI {@link ServiceFactory} to avoid
- * class loading issues in OSGI runtimes.
- * 
+ * A {@link SessionFactory} that acts as a OSGI {@link ServiceFactory} to avoid class loading issues in OSGI runtimes.
+ *
  * @author Jakob Külzer
- * 
  */
 public class OsgiServiceFactorySessionFactory implements ServiceFactory {
+   private static final Logger LOGGER = LoggerFactory.getLogger(OsgiServiceFactorySessionFactory.class);
+   private final MappingRegistry mappingRegistry;
+   private final PersistenceAdapterFactory persistenceDelegateFactory;
+   private final ProxyFactory proxyFactory;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(OsgiServiceFactorySessionFactory.class);
+   public OsgiServiceFactorySessionFactory(PersistenceAdapterFactory persistenceDelegateFactory, MappingRegistry mappingRegistry, ProxyFactory proxyFactory) {
+      this.persistenceDelegateFactory = persistenceDelegateFactory;
+      this.mappingRegistry = mappingRegistry;
+      this.proxyFactory = proxyFactory;
+   }
 
-	private final MappingRegistry mappingRegistry;
-	private final PersistenceAdapterFactory persistenceDelegateFactory;
-	private final ProxyFactory proxyFactory;
+   @Override
+   public Object getService(Bundle bundle, ServiceRegistration registration) {
+      LOGGER.info("Creating new SessionFactory for bundle {}", bundle.toString());
+      return new ImmutableSessionFactory(persistenceDelegateFactory, mappingRegistry, proxyFactory);
+   }
 
-	public OsgiServiceFactorySessionFactory(PersistenceAdapterFactory persistenceDelegateFactory,
-			MappingRegistry mappingRegistry, ProxyFactory proxyFactory) {
-		this.persistenceDelegateFactory = persistenceDelegateFactory;
-		this.mappingRegistry = mappingRegistry;
-		this.proxyFactory = proxyFactory;
-	}
-
-	@Override
-	public Object getService(Bundle bundle, ServiceRegistration registration) {
-		LOGGER.info("Creating new SessionFactory for bundle {}", bundle.toString());
-
-		return new ImmutableSessionFactory(persistenceDelegateFactory, mappingRegistry, proxyFactory);
-	}
-
-	@Override
-	public void ungetService(Bundle bundle, ServiceRegistration registration, Object service) {
-		LOGGER.info("Destroying SessionFactory for bundle {}", bundle.toString());
-	}
-
+   @Override
+   public void ungetService(Bundle bundle, ServiceRegistration registration, Object service) {
+      LOGGER.info("Destroying SessionFactory for bundle {}", bundle.toString());
+   }
 }

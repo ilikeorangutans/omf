@@ -7,119 +7,139 @@ import java.util.ListIterator;
 
 /**
  * A list wrapper that contains only primitive types.
- * 
+ *
  * @author Jakob Külzer
- * 
  * @param <T>
  */
 public class PrimitiveListWrapper<T> implements List<T> {
+   private final Collection<?> collection;
 
-	private final Collection<?> collection;
+   public PrimitiveListWrapper(Collection<?> collection) {
+      this.collection = collection;
+   }
 
-	public PrimitiveListWrapper(Collection<?> collection) {
-		this.collection = collection;
-	}
+   @Override
+   public void add(int index, T element) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public void add(int index, T element) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public boolean add(T e) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public boolean add(T e) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public boolean addAll(Collection<? extends T> c) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public boolean addAll(Collection<? extends T> c) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public boolean addAll(int index, Collection<? extends T> c) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public boolean addAll(int index, Collection<? extends T> c) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public void clear() {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public void clear() {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public boolean contains(Object o) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public boolean contains(Object o) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public boolean containsAll(Collection<?> c) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public boolean containsAll(Collection<?> c) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public T get(int index) {
+      if ((index < 0) || (index >= collection.size())) {
+         throw new IndexOutOfBoundsException(index + " is out of bounds (0 - " + (collection.size() - 1) + ")");
+      }
+      int i = 0;
+      for (final Object o : collection) {
+         if (i == index) {
+            return (T) o;
+         }
+         i++;
+      }
+      throw new IllegalStateException("This cannot happen.");
+   }
 
-	public T get(int index) {
-		if (index < 0 || index >= collection.size())
-			throw new IndexOutOfBoundsException(index + " is out of bounds (0 - " + (collection.size() - 1) + ")");
+   @Override
+   public int indexOf(Object o) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-		int i = 0;
-		for (Object o : collection) {
-			if (i == index)
-				return (T) o;
-			i++;
-		}
+   @Override
+   public boolean isEmpty() {
+      return collection.isEmpty();
+   }
 
-		throw new IllegalStateException("This cannot happen.");
-	}
+   @Override
+   public Iterator<T> iterator() {
+      return (Iterator<T>) collection.iterator();
+   }
 
-	public int indexOf(Object o) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public int lastIndexOf(Object o) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public boolean isEmpty() {
-		return collection.isEmpty();
-	}
+   @Override
+   public ListIterator<T> listIterator() {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public Iterator<T> iterator() {
-		return (Iterator<T>) collection.iterator();
-	}
+   @Override
+   public ListIterator<T> listIterator(int index) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public int lastIndexOf(Object o) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public T remove(int index) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public ListIterator<T> listIterator() {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public boolean remove(Object o) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public ListIterator<T> listIterator(int index) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public boolean removeAll(Collection<?> c) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public T remove(int index) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public boolean retainAll(Collection<?> c) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public boolean remove(Object o) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public T set(int index, T element) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public boolean removeAll(Collection<?> c) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public int size() {
+      return collection.size();
+   }
 
-	public boolean retainAll(Collection<?> c) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public List<T> subList(int fromIndex, int toIndex) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public T set(int index, T element) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
+   @Override
+   public Object[] toArray() {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 
-	public int size() {
-		return collection.size();
-	}
-
-	public List<T> subList(int fromIndex, int toIndex) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
-
-	public Object[] toArray() {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
-
-	public <T> T[] toArray(T[] a) {
-		throw new UnsupportedOperationException("Not yet implemented.");
-	}
-
+   @Override
+   public <T> T[] toArray(T[] a) {
+      throw new UnsupportedOperationException("Not yet implemented.");
+   }
 }

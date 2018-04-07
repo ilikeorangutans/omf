@@ -22,96 +22,81 @@ import org.om.core.impl.test.EntityWithReferenceProperties;
 import org.om.core.impl.test.MyInterface;
 
 public class FieldMappingExtractorImplTest {
+   private final FieldMappingExtractor extractor = new FieldMappingExtractorImpl();
 
-	private FieldMappingExtractor extractor = new FieldMappingExtractorImpl();
+   @Test
+   public void testExtractFieldWithAllSettings() throws Exception {
+      final MappedField mappedField = extractor.extract(EntityWithPrimitiveProperties.class.getDeclaredField("fieldWithAllSettings"));
+      assertThat(mappedField.getName(), is("fieldWithAllSettings"));
+      assertThat(mappedField.getMissingStrategy(), is(MissingStrategy.ThrowException));
+      assertEquals(RuntimeException.class, mappedField.getMissingException());
+      assertThat(mappedField.getMapping(), instanceOf(PropertyMapping.class));
+      assertThat(((PropertyMapping) mappedField.getMapping()).getDefaultValue(), is("custom default value"));
+   }
 
-	@Test
-	public void testExtractIdProperty() throws Exception {
-		MappedField mappedField = extractor.extract(EntityWithPrimitiveProperties.class.getDeclaredField("id"));
+   @Test
+   public void testExtractFieldWithDefaultSettings() throws Exception {
+      final MappedField mappedField = extractor.extract(EntityWithPrimitiveProperties.class.getDeclaredField("fieldWithDefaultSettings"));
+      assertThat(mappedField, notNullValue());
+      assertThat(mappedField.getName(), is("fieldWithDefaultSettings"));
+      assertThat(mappedField.getMissingStrategy(), is(MissingStrategy.ReturnNull));
+      assertEquals(MissingException.class, mappedField.getMissingException());
+      assertThat(mappedField.getMapping(), instanceOf(PropertyMapping.class));
+   }
 
-		assertThat(mappedField, notNullValue());
-		assertThat(mappedField.getName(), is("id"));
+   @Test
+   public void testExtractFieldWithDefaultValue() throws Exception {
+      final MappedField mappedField = extractor.extract(EntityWithPrimitiveProperties.class.getDeclaredField("fieldWithDefaultValue"));
+      assertThat(mappedField.getName(), is("fieldWithDefaultValue"));
+      assertThat(mappedField.getMissingStrategy(), is(MissingStrategy.DefaultValue));
+      assertEquals(MissingException.class, mappedField.getMissingException());
+      assertThat(mappedField.getMapping(), instanceOf(PropertyMapping.class));
+      assertThat(((PropertyMapping) mappedField.getMapping()).getDefaultValue(), is("1234"));
+   }
 
-		assertThat(mappedField.getMapping(), instanceOf(IdMapping.class));
-	}
+   @Test
+   public void testExtractFieldWithReference() throws Exception {
+      final MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("entityWithPrimitiveProperties"));
+      assertThat(mappedField.getName(), is("entityWithPrimitiveProperties"));
+      assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
+      final ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
+      assertThat(mapping.getPath(), is("entityWithPrimitiveProperties"));
+   }
 
-	@Test
-	public void testExtractFieldWithDefaultSettings() throws Exception {
-		MappedField mappedField = extractor.extract(EntityWithPrimitiveProperties.class.getDeclaredField("fieldWithDefaultSettings"));
+   @Test
+   public void testExtractFieldWithReferenceAndCustomName() throws Exception {
+      final MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("customNamedReference"));
+      assertThat(mappedField.getName(), is("customNamedReference"));
+      assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
+      final ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
+      assertThat(mapping.getPath(), is("foo/bar"));
+   }
 
-		assertThat(mappedField, notNullValue());
-		assertThat(mappedField.getName(), is("fieldWithDefaultSettings"));
-		assertThat(mappedField.getMissingStrategy(), is(MissingStrategy.ReturnNull));
-		assertEquals(MissingException.class, mappedField.getMissingException());
-		assertThat(mappedField.getMapping(), instanceOf(PropertyMapping.class));
-	}
+   @Test
+   public void testExtractIdProperty() throws Exception {
+      final MappedField mappedField = extractor.extract(EntityWithPrimitiveProperties.class.getDeclaredField("id"));
+      assertThat(mappedField, notNullValue());
+      assertThat(mappedField.getName(), is("id"));
+      assertThat(mappedField.getMapping(), instanceOf(IdMapping.class));
+   }
 
-	@Test
-	public void testExtractFieldWithDefaultValue() throws Exception {
-		MappedField mappedField = extractor.extract(EntityWithPrimitiveProperties.class.getDeclaredField("fieldWithDefaultValue"));
+   @Test
+   public void testExtractReferenceFieldWithCustomLookup() throws Exception {
+      final MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("customLookupMode"));
+      assertThat(mappedField.getName(), is("customLookupMode"));
+      assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
+      final ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
+      assertThat(mapping.getPath(), is("foobar"));
+      assertThat(mapping.getLookupMode(), is(LookupMode.Direct));
+   }
 
-		assertThat(mappedField.getName(), is("fieldWithDefaultValue"));
-		assertThat(mappedField.getMissingStrategy(), is(MissingStrategy.DefaultValue));
-		assertEquals(MissingException.class, mappedField.getMissingException());
-		assertThat(mappedField.getMapping(), instanceOf(PropertyMapping.class));
-		assertThat(((PropertyMapping) mappedField.getMapping()).getDefaultValue(), is("1234"));
-	}
-
-	@Test
-	public void testExtractFieldWithAllSettings() throws Exception {
-		MappedField mappedField = extractor.extract(EntityWithPrimitiveProperties.class.getDeclaredField("fieldWithAllSettings"));
-
-		assertThat(mappedField.getName(), is("fieldWithAllSettings"));
-		assertThat(mappedField.getMissingStrategy(), is(MissingStrategy.ThrowException));
-		assertEquals(RuntimeException.class, mappedField.getMissingException());
-		assertThat(mappedField.getMapping(), instanceOf(PropertyMapping.class));
-		assertThat(((PropertyMapping) mappedField.getMapping()).getDefaultValue(), is("custom default value"));
-	}
-
-	@Test
-	public void testExtractFieldWithReference() throws Exception {
-		MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("entityWithPrimitiveProperties"));
-
-		assertThat(mappedField.getName(), is("entityWithPrimitiveProperties"));
-		assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
-		ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
-		assertThat(mapping.getPath(), is("entityWithPrimitiveProperties"));
-
-	}
-
-	@Test
-	public void testExtractFieldWithReferenceAndCustomName() throws Exception {
-		MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("customNamedReference"));
-
-		assertThat(mappedField.getName(), is("customNamedReference"));
-		assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
-		ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
-		assertThat(mapping.getPath(), is("foo/bar"));
-
-	}
-
-	@Test
-	public void testExtractReferenceFieldWithCustomLookup() throws Exception {
-		MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("customLookupMode"));
-
-		assertThat(mappedField.getName(), is("customLookupMode"));
-		assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
-		ReferenceMapping mapping = (ReferenceMapping) mappedField.getMapping();
-		assertThat(mapping.getPath(), is("foobar"));
-		assertThat(mapping.getLookupMode(), is(LookupMode.Direct));
-
-	}
-
-	@Test
-	public void testExtractReferenceFieldWithDifferingImplementationType() throws Exception {
-		MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("myInterface"));
-
-		assertThat(mappedField.getName(), is("myInterface"));
-		assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
-		Mapping mapping = mappedField.getMapping();
-
-		assertEquals(MyInterface.class, mapping.getDeclaredType());
-		assertEquals(EntityImplementingInterface.class, mapping.getImplementationType());
-	}
-
+   @Test
+   public void testExtractReferenceFieldWithDifferingImplementationType() throws Exception {
+      final MappedField mappedField = extractor.extract(EntityWithReferenceProperties.class.getDeclaredField("myInterface"));
+      assertThat(mappedField.getName(), is("myInterface"));
+      assertThat(mappedField.getMapping(), instanceOf(ReferenceMapping.class));
+      final Mapping mapping = mappedField.getMapping();
+      assertEquals(MyInterface.class, mapping.getDeclaredType());
+      assertEquals(EntityImplementingInterface.class, mapping.getImplementationType());
+   }
 }

@@ -6,18 +6,16 @@ import org.om.core.api.annotation.Property;
 
 @Entity
 public class ChildEntity {
+   @Id
+   private String id;
+   @Property
+   private String value;
 
-	@Id
-	private String id;
+   public String getId() {
+      return id;
+   }
 
-	@Property
-	private String value;
-
-	public String getId() {
-		return id;
-	}
-
-	public String getValue() {
-		return value;
-	}
+   public String getValue() {
+      return value;
+   }
 }

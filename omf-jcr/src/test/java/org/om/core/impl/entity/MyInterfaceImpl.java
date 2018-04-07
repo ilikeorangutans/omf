@@ -6,22 +6,20 @@ import org.om.core.api.annotation.Property;
 
 @Entity
 public class MyInterfaceImpl implements MyInterface {
+   @Id
+   private String id;
+   @Property
+   private String value;
 
-	@Id
-	private String id;
+   public MyInterfaceImpl() {
+   }
 
-	@Property
-	private String value;
+   public String getId() {
+      return id;
+   }
 
-	public MyInterfaceImpl() {
-	}
-
-	@Override
-	public String getValue() {
-		return value;
-	}
-
-	public String getId() {
-		return id;
-	}
+   @Override
+   public String getValue() {
+      return value;
+   }
 }

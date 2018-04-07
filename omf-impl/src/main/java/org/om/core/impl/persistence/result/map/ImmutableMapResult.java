@@ -5,21 +5,19 @@ import java.util.Map;
 import org.om.core.api.persistence.result.MapResult;
 
 public class ImmutableMapResult implements MapResult {
+   private final Map<?, ?> result;
 
-	private Map<?, ?> result;
+   public ImmutableMapResult(Map<?, ?> result) {
+      this.result = result;
+   }
 
-	public ImmutableMapResult(Map<?, ?> result) {
-		this.result = result;
-	}
+   @Override
+   public Map<?, ?> getValue() {
+      return result;
+   }
 
-	@Override
-	public Map<?, ?> getValue() {
-		return result;
-	}
-
-	@Override
-	public boolean hasResult() {
-		return true;
-	}
-
+   @Override
+   public boolean hasResult() {
+      return true;
+   }
 }

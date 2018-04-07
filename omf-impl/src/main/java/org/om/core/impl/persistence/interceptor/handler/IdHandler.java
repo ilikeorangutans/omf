@@ -5,10 +5,8 @@ import org.om.core.api.persistence.PersistenceAdapter;
 import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 
 public class IdHandler implements ItemHandler {
-
-	@Override
-	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
-		return adapter.getId();
-	}
-
+   @Override
+   public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
+      return adapter.getId();
+   }
 }

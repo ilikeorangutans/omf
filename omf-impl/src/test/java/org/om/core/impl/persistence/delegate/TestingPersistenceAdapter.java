@@ -21,71 +21,73 @@ import org.om.core.impl.persistence.result.NoValuePersistenceResult;
  * @author Jakob Külzer
  */
 public class TestingPersistenceAdapter implements PersistenceAdapter {
+   private final EntityMapping entityMapping;
+   private final TestingPersistenceContext persistenceContext;
 
-	private final EntityMapping entityMapping;
+   public TestingPersistenceAdapter(EntityMapping entityMapping, PersistenceContext persistenceContext) {
+      this.entityMapping = entityMapping;
+      this.persistenceContext = (TestingPersistenceContext) (persistenceContext == null ? new TestingPersistenceContext() : persistenceContext);
+   }
 
-	private final TestingPersistenceContext persistenceContext;
+   public TestingPersistenceAdapter addProperty(String propertyName, Object value) {
+      persistenceContext.addProperty(propertyName, value);
+      return this;
+   }
 
-	public TestingPersistenceAdapter(EntityMapping entityMapping, PersistenceContext persistenceContext) {
-		this.entityMapping = entityMapping;
-		this.persistenceContext = (TestingPersistenceContext) (persistenceContext == null ? new TestingPersistenceContext() : persistenceContext);
-	}
+   public boolean canProvide(Mapping mapping) {
+      return false; // persistenceContext.hasProperty(mapping.get());
+   }
 
-	public EntityMapping getEntityMapping() {
-		return entityMapping;
-	}
+   @Override
+   public void delete() throws ObjectMapperException {
+      // do nothing
+   }
 
-	public TestingPersistenceAdapter addProperty(String propertyName, Object value) {
-		persistenceContext.addProperty(propertyName, value);
-		return this;
-	}
+   @Override
+   public CollectionResult getCollection(CollectionMapping collectionMapping) {
+      // TODO Auto-generated method stub
+      return null;
+   }
 
-	public PersistenceResult getProperty(PropertyMapping propertyMapping) {
-		if (!persistenceContext.hasProperty(propertyMapping.getPropertyName())) {
-			MappedField mappedField = entityMapping.getMappedFields().getFieldByMapping(propertyMapping);
-			return MissingPersistenceResult.createMissing(mappedField);
-		}
-		return new ImmutablePersistenceResult(persistenceContext.getProperty(propertyMapping));
-	}
+   public EntityMapping getEntityMapping() {
+      return entityMapping;
+   }
 
-	public boolean canProvide(Mapping mapping) {
-		return false; // persistenceContext.hasProperty(mapping.get());
-	}
+   @Override
+   public String getId() {
+      return null;
+   }
 
-	public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
-		persistenceContext.setProperty(propertyMapping, object);
-	}
+   @Override
+   public MapResult getMapResult(CollectionMapping collectionMapping) {
+      // TODO Auto-generated method stub
+      return null;
+   }
 
-	public void delete() throws ObjectMapperException {
-		// do nothing
-	}
+   @Override
+   public PersistenceResult getProperty(PersistenceRequest request) {
+      if (!persistenceContext.hasProperty(request.getPath())) {
+         return new NoValuePersistenceResult();
+      }
+      return new ImmutablePersistenceResult(persistenceContext.getProperty(request.getPath()));
+   }
 
-	public CollectionResult getCollection(CollectionMapping collectionMapping) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+   @Override
+   public PersistenceResult getProperty(PropertyMapping propertyMapping) {
+      if (!persistenceContext.hasProperty(propertyMapping.getPropertyName())) {
+         final MappedField mappedField = entityMapping.getMappedFields().getFieldByMapping(propertyMapping);
+         return MissingPersistenceResult.createMissing(mappedField);
+      }
+      return new ImmutablePersistenceResult(persistenceContext.getProperty(propertyMapping));
+   }
 
-	@Override
-	public PersistenceResult getProperty(PersistenceRequest request) {
-		if (!persistenceContext.hasProperty(request.getPath())) {
-			return new NoValuePersistenceResult();
-		}
-		return new ImmutablePersistenceResult(persistenceContext.getProperty(request.getPath()));
-	}
+   @Override
+   public Object resolve(String id) {
+      return id;
+   }
 
-	@Override
-	public Object resolve(String id) {
-		return id;
-	}
-
-	@Override
-	public String getId() {
-		return null;
-	}
-
-	@Override
-	public MapResult getMapResult(CollectionMapping collectionMapping) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+   @Override
+   public void setProperty(PropertyMapping propertyMapping, Object object) throws ObjectMapperException {
+      persistenceContext.setProperty(propertyMapping, object);
+   }
 }

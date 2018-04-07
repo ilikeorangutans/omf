@@ -11,26 +11,21 @@ import org.om.core.api.persistence.interceptor.handler.ItemHandler;
 import org.om.core.api.persistence.result.MapResult;
 
 public class PrimitiveMapHandler implements ItemHandler {
-
-	@Override
-	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
-
-		final CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
-		final MapResult mapResult = adapter.getMapResult(mapping);
-
-		if (!mapResult.hasResult()) {
-			// TODO: I've copied this code over from AbstractCollectionHandler.
-			// This needs to be refactored.
-			if (mappedField.getMissingStrategy() == MissingStrategy.ThrowException) {
-				// TODO: Add proper exception logic
-				throw new MissingException("TODO: throw proper exception. ");
-			} else {
-				// TODO: In case of read/write we need to return a proxy.
-				return Collections.EMPTY_MAP;
-			}
-		}
-
-		return new PrimitiveValueMapWrapper(mapResult.getValue());
-	}
-
+   @Override
+   public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
+      final CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
+      final MapResult mapResult = adapter.getMapResult(mapping);
+      if (!mapResult.hasResult()) {
+         // TODO: I've copied this code over from AbstractCollectionHandler.
+         // This needs to be refactored.
+         if (mappedField.getMissingStrategy() == MissingStrategy.ThrowException) {
+            // TODO: Add proper exception logic
+            throw new MissingException("TODO: throw proper exception. ");
+         } else {
+            // TODO: In case of read/write we need to return a proxy.
+            return Collections.EMPTY_MAP;
+         }
+      }
+      return new PrimitiveValueMapWrapper(mapResult.getValue());
+   }
 }

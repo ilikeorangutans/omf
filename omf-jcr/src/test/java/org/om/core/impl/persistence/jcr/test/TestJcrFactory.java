@@ -8,20 +8,19 @@ import javax.jcr.Session;
 import com.google.inject.Provider;
 
 public class TestJcrFactory implements Provider<Session> {
+   private Session session;
 
-	private Session session;
+   @Inject
+   public TestJcrFactory(Repository repository) {
+      try {
+         session = repository.login();
+      } catch (final RepositoryException e) {
+         throw new RuntimeException(e);
+      }
+   }
 
-	@Inject
-	public TestJcrFactory(Repository repository) {
-		try {
-			session = repository.login();
-		} catch (RepositoryException e) {
-			throw new RuntimeException(e);
-		}
-
-	}
-
-	public Session get() {
-		return session;
-	}
+   @Override
+   public Session get() {
+      return session;
+   }
 }

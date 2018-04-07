@@ -9,21 +9,18 @@ import org.om.core.api.annotation.Property;
 
 @Entity
 public class EntityWithInvalidCollectionMapping {
+   @Id
+   @Property
+   private String id;
+   @Property
+   @Collection(targetType = NotAnEntity.class)
+   private List<NotAnEntity> invalidCollection;
 
-	@Id
-	@Property
-	private String id;
+   public String getId() {
+      return id;
+   }
 
-	@Property
-	@Collection(targetType = NotAnEntity.class)
-	private List<NotAnEntity> invalidCollection;
-
-	public String getId() {
-		return id;
-	}
-
-	public List<NotAnEntity> getInvalidCollection() {
-		return invalidCollection;
-	}
-
+   public List<NotAnEntity> getInvalidCollection() {
+      return invalidCollection;
+   }
 }

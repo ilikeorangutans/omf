@@ -1,6 +1,6 @@
 /*
  * Copyright 2012 Jakob Külzer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package org.om.core.api.annotation;
 
@@ -21,15 +21,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marks the given property as the unique identifier for the containing
- * {@link Entity}. At runtime, fields annotated with this annotation, will
- * return the identifier that was used to load the current entity.
- * 
+ * Marks the given property as the unique identifier for the containing {@link Entity}. At runtime, fields annotated with this annotation, will return the identifier that was used to load the current
+ * entity.
+ *
  * @author Jakob Külzer
- * 
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Id {
-
 }

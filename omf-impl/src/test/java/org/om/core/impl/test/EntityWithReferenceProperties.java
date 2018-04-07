@@ -8,43 +8,38 @@ import org.om.core.api.annotation.Property;
 
 @Entity
 public class EntityWithReferenceProperties {
+   @Id
+   private String id;
+   @Property
+   private EntityWithPrimitiveProperties entityWithPrimitiveProperties;
+   @Property(name = "foo/bar")
+   private EntityWithPrimitiveProperties customNamedReference;
+   @Property(name = "foobar", lookupMode = LookupMode.Direct)
+   private EntityWithPrimitiveProperties customLookupMode;
+   @Property
+   @Mapped(implementationType = EntityImplementingInterface.class)
+   private MyInterface myInterface;
 
-	@Id
-	private String id;
+   public EntityWithReferenceProperties() {
+   }
 
-	@Property
-	private EntityWithPrimitiveProperties entityWithPrimitiveProperties;
+   public EntityWithPrimitiveProperties getCustomLookupMode() {
+      return customLookupMode;
+   }
 
-	@Property(name = "foo/bar")
-	private EntityWithPrimitiveProperties customNamedReference;
+   public EntityWithPrimitiveProperties getCustomNamedReference() {
+      return customNamedReference;
+   }
 
-	@Property(name = "foobar", lookupMode = LookupMode.Direct)
-	private EntityWithPrimitiveProperties customLookupMode;
+   public EntityWithPrimitiveProperties getEntityWithPrimitiveProperties() {
+      return entityWithPrimitiveProperties;
+   }
 
-	@Property
-	@Mapped(implementationType = EntityImplementingInterface.class)
-	private MyInterface myInterface;
+   public String getId() {
+      return id;
+   }
 
-	public EntityWithReferenceProperties() {
-	}
-
-	public EntityWithPrimitiveProperties getEntityWithPrimitiveProperties() {
-		return entityWithPrimitiveProperties;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public EntityWithPrimitiveProperties getCustomLookupMode() {
-		return customLookupMode;
-	}
-
-	public EntityWithPrimitiveProperties getCustomNamedReference() {
-		return customNamedReference;
-	}
-
-	public MyInterface getMyInterface() {
-		return myInterface;
-	}
+   public MyInterface getMyInterface() {
+      return myInterface;
+   }
 }

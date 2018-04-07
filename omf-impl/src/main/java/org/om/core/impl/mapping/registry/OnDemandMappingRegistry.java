@@ -8,21 +8,19 @@ import org.om.core.api.mapping.registry.MappingRegistry;
 
 /**
  * Simple {@link MappingRegistry} that scans types as they come in.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public class OnDemandMappingRegistry implements MappingRegistry {
+   private final EntityMappingExtractor entityMappingExtractor;
 
-	private final EntityMappingExtractor entityMappingExtractor;
+   @Inject
+   public OnDemandMappingRegistry(EntityMappingExtractor entityMappingExtractor) {
+      this.entityMappingExtractor = entityMappingExtractor;
+   }
 
-	@Inject
-	public OnDemandMappingRegistry(EntityMappingExtractor entityMappingExtractor) {
-		this.entityMappingExtractor = entityMappingExtractor;
-	}
-
-	public EntityMapping getMapping(Class<?> clazz) {
-		return entityMappingExtractor.extract(clazz);
-	}
-
+   @Override
+   public EntityMapping getMapping(Class<?> clazz) {
+      return entityMappingExtractor.extract(clazz);
+   }
 }

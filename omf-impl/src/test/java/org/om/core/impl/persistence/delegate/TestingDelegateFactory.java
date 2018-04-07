@@ -9,10 +9,8 @@ import org.om.core.api.persistence.PersistenceContext;
  * @author Jakob Külzer
  */
 public class TestingDelegateFactory implements PersistenceAdapterFactory {
-
-	@Override
-	public PersistenceAdapter create(Object id, EntityMapping mapping, PersistenceContext persistenceContext) {
-		return new TestingPersistenceAdapter(mapping, persistenceContext);
-	}
-
+   @Override
+   public PersistenceAdapter create(Object id, EntityMapping mapping, PersistenceContext persistenceContext) {
+      return new TestingPersistenceAdapter(mapping, persistenceContext);
+   }
 }

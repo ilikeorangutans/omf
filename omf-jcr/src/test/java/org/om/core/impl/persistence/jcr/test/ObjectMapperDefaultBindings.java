@@ -18,20 +18,17 @@ import com.google.inject.Module;
 
 /**
  * Guice {@link Module} that binds all default implementations.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public class ObjectMapperDefaultBindings extends AbstractModule {
-
-	@Override
-	protected void configure() {
-		bind(MappingRegistry.class).to(OnDemandMappingRegistry.class);
-		bind(EntityMappingExtractor.class).to(EntityMappingExtractorImpl.class);
-		bind(SessionFactory.class).to(ImmutableSessionFactory.class);
-		bind(PersistenceAdapterFactory.class).to(JcrPersistenceAdapterFactory.class);
-		bind(ProxyFactory.class).to(CglibProxyFactory.class);
-		bind(PersistenceInterceptorFactory.class).to(PersistenceInterceptorFactoryImpl.class);
-	}
-
+   @Override
+   protected void configure() {
+      bind(MappingRegistry.class).to(OnDemandMappingRegistry.class);
+      bind(EntityMappingExtractor.class).to(EntityMappingExtractorImpl.class);
+      bind(SessionFactory.class).to(ImmutableSessionFactory.class);
+      bind(PersistenceAdapterFactory.class).to(JcrPersistenceAdapterFactory.class);
+      bind(ProxyFactory.class).to(CglibProxyFactory.class);
+      bind(PersistenceInterceptorFactory.class).to(PersistenceInterceptorFactoryImpl.class);
+   }
 }
