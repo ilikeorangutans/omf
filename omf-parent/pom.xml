@@ -21,6 +21,7 @@
 		<cglib.version>3.2.9</cglib.version>
 		<osgi.version>6.0.0</osgi.version>
 		<guiceberry.version>3.3.1</guiceberry.version>
+		<required-maven-version>3.5.0</required-maven-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -93,17 +94,37 @@
 					<groupId>org.apache.felix</groupId>
 					<artifactId>maven-bundle-plugin</artifactId>
 					<extensions>true</extensions>
-					<version>2.3.7</version>
+					<version>4.2.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>maven-scr-plugin</artifactId>
-					<version>1.7.4</version>
+					<version>1.26.4</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>3.1.1</version>
+				</plugin>		
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.0.0-M2</version>
+					<executions>
+						<execution>
+							<id>enforce-maven</id>
+							<goals>
+								<goal>enforce</goal>
+							</goals>
+							<configuration>
+								<rules>
+									<requireMavenVersion>
+										<version>${required-maven-version}</version>
+									</requireMavenVersion>
+								</rules>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
