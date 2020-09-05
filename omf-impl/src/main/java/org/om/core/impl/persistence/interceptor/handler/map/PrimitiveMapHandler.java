@@ -1,23 +1,19 @@
 package org.om.core.impl.persistence.interceptor.handler.map;
 
-import java.util.Collections;
+import java.util.*;
 
-import org.om.core.api.annotation.MissingStrategy;
-import org.om.core.api.exception.MissingException;
-import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.api.mapping.MappedField;
-import org.om.core.api.persistence.PersistenceAdapter;
-import org.om.core.api.persistence.interceptor.handler.ItemHandler;
-import org.om.core.api.persistence.result.MapResult;
+import org.om.core.api.annotation.*;
+import org.om.core.api.exception.*;
+import org.om.core.api.mapping.*;
+import org.om.core.api.persistence.*;
+import org.om.core.api.persistence.interceptor.handler.*;
+import org.om.core.api.persistence.result.*;
 
 public class PrimitiveMapHandler implements ItemHandler {
-
 	@Override
 	public Object retrieve(MappedField mappedField, PersistenceAdapter adapter) {
-
 		final CollectionMapping mapping = (CollectionMapping) mappedField.getMapping();
 		final MapResult mapResult = adapter.getMapResult(mapping);
-
 		if (!mapResult.hasResult()) {
 			// TODO: I've copied this code over from AbstractCollectionHandler.
 			// This needs to be refactored.
@@ -29,8 +25,6 @@ public class PrimitiveMapHandler implements ItemHandler {
 				return Collections.EMPTY_MAP;
 			}
 		}
-
 		return new PrimitiveValueMapWrapper(mapResult.getValue());
 	}
-
 }

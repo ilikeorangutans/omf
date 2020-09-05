@@ -1,18 +1,16 @@
 package org.om.core.impl.persistence.jcr.util;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
+import java.math.*;
+import java.util.*;
 
-import javax.jcr.PropertyType;
+import javax.jcr.*;
 
 /**
  * Quick'n'dirty class to map {@link PropertyType}.* to {@link Class}es.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public class PropertyTypeToClass {
-
 	private static final Class<?>[] TYPES;
 	static {
 		TYPES = new Class<?>[13];
@@ -36,7 +34,6 @@ public class PropertyTypeToClass {
 		if ((type >= TYPES.length) || (type < 0)) {
 			throw new IllegalArgumentException("Don't know how to map type " + type + " to a class.");
 		}
-
 		return TYPES[type];
 	}
 
@@ -46,17 +43,16 @@ public class PropertyTypeToClass {
 	 * @return
 	 */
 	public static int getTypeForClass(Class<?> type) {
-
 		if (type == String.class) {
 			return PropertyType.STRING;
 		}
-		if (type == int.class || type == Integer.class || type == long.class || type == Long.class) {
+		if ((type == int.class) || (type == Integer.class) || (type == long.class) || (type == Long.class)) {
 			return PropertyType.LONG;
 		}
-		if (type == float.class || type == Float.class || type == double.class || type == Double.class) {
+		if ((type == float.class) || (type == Float.class) || (type == double.class) || (type == Double.class)) {
 			return PropertyType.DOUBLE;
 		}
-		if (type == boolean.class || type == Boolean.class) {
+		if ((type == boolean.class) || (type == Boolean.class)) {
 			return PropertyType.LONG;
 		}
 		if (type == byte[].class) {
@@ -68,7 +64,6 @@ public class PropertyTypeToClass {
 		if (type == BigDecimal.class) {
 			return PropertyType.DECIMAL;
 		}
-
 		throw new IllegalArgumentException("Don't know how to map class " + type.getName() + " to a JCR property type.");
 	}
 }

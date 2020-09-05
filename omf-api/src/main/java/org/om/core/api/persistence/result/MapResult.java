@@ -1,10 +1,8 @@
 package org.om.core.api.persistence.result;
 
-import java.util.Map;
+import java.util.*;
 
 public interface MapResult extends PersistenceResult {
-
 	@Override
 	Map<?, ?> getValue();
-
 }

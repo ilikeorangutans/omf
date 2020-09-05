@@ -1,6 +1,6 @@
 /*
  * Copyright 2012 Jakob Külzer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,12 +11,11 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package org.om.core.api.persistence.request;
 
 public class ImmutablePersistenceRequest implements PersistenceRequest {
-
 	private final Class<?> exptectedType;
 	private final Mode mode;
 	private final String path;
@@ -29,25 +28,33 @@ public class ImmutablePersistenceRequest implements PersistenceRequest {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		ImmutablePersistenceRequest other = (ImmutablePersistenceRequest) obj;
+		}
+		final ImmutablePersistenceRequest other = (ImmutablePersistenceRequest) obj;
 		if (exptectedType == null) {
-			if (other.exptectedType != null)
+			if (other.exptectedType != null) {
 				return false;
-		} else if (!exptectedType.equals(other.exptectedType))
+			}
+		} else if (!exptectedType.equals(other.exptectedType)) {
 			return false;
-		if (mode != other.mode)
+		}
+		if (mode != other.mode) {
 			return false;
+		}
 		if (path == null) {
-			if (other.path != null)
+			if (other.path != null) {
 				return false;
-		} else if (!path.equals(other.path))
+			}
+		} else if (!path.equals(other.path)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -70,9 +77,9 @@ public class ImmutablePersistenceRequest implements PersistenceRequest {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((exptectedType == null) ? 0 : exptectedType.hashCode());
-		result = prime * result + ((mode == null) ? 0 : mode.hashCode());
-		result = prime * result + ((path == null) ? 0 : path.hashCode());
+		result = (prime * result) + ((exptectedType == null) ? 0 : exptectedType.hashCode());
+		result = (prime * result) + ((mode == null) ? 0 : mode.hashCode());
+		result = (prime * result) + ((path == null) ? 0 : path.hashCode());
 		return result;
 	}
 
@@ -80,5 +87,4 @@ public class ImmutablePersistenceRequest implements PersistenceRequest {
 	public String toString() {
 		return "ImmutablePersistenceRequest [mode=" + mode + ", exptectedType=" + exptectedType + ", path=" + path + "]";
 	}
-
 }

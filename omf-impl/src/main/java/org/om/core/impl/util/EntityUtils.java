@@ -1,26 +1,21 @@
 package org.om.core.impl.util;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 
-import org.om.core.api.annotation.Entity;
-import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.field.PropertyMapping;
+import org.om.core.api.annotation.*;
+import org.om.core.api.mapping.*;
+import org.om.core.api.mapping.field.*;
 
 /**
  * @author tome
  */
 public class EntityUtils {
-
 	/**
 	 * get the value of the @Id field of an @Entity
 	 */
 	@Deprecated
-	public static Object getEntityId(EntityMapping entityMapping, Object object) throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException,
-			IllegalAccessException {
-		/*
-		 * the id field
-		 */
-		String fieldName = entityMapping.getIdProperty().getName();
+	public static Object getEntityId(EntityMapping entityMapping, Object object) throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+		entityMapping.getIdProperty().getName();
 		/*
 		 * get
 		 */
@@ -32,8 +27,7 @@ public class EntityUtils {
 	 * get an entity property value.
 	 */
 	@Deprecated
-	public static Object getEntityPropertyValue(PropertyMapping propertyMapping, Object object) throws NoSuchFieldException, InvocationTargetException,
-			NoSuchMethodException, IllegalAccessException {
+	public static Object getEntityPropertyValue(PropertyMapping propertyMapping, Object object) throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 		// /*
 		// * the field name
 		// */
@@ -63,23 +57,15 @@ public class EntityUtils {
 	/**
 	 * set the value of the @Id field of an @Entity
 	 */
-	public static void setEntityId(EntityMapping entityMapping, Object object, Object value) throws NoSuchFieldException, InvocationTargetException,
-			NoSuchMethodException, IllegalAccessException {
-		/*
-		 * the id field
-		 */
-		String fieldName = entityMapping.getIdProperty().getName();
-		/*
-		 * set
-		 */
-		// BeanUtils.setProperty(object, fieldName, value);
+	public static void setEntityId(EntityMapping entityMapping, Object object, Object value) throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+		entityMapping.getIdProperty().getName();
 	}
 
 	/**
 	 * set entity property value.
 	 */
-	public static void setEntityPropertyValue(PropertyMapping propertyMapping, Object object, Object value) throws NoSuchFieldException,
-			InvocationTargetException, NoSuchMethodException, IllegalAccessException {
+	public static void setEntityPropertyValue(PropertyMapping propertyMapping, Object object, Object value)
+			throws NoSuchFieldException, InvocationTargetException, NoSuchMethodException, IllegalAccessException {
 		// /*
 		// * the field name
 		// */

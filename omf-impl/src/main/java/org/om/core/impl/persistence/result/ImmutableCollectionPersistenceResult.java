@@ -1,11 +1,10 @@
 package org.om.core.impl.persistence.result;
 
-import java.util.Collection;
+import java.util.*;
 
-import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.persistence.result.*;
 
 public class ImmutableCollectionPersistenceResult extends ImmutablePersistenceResult implements CollectionResult {
-
 	public ImmutableCollectionPersistenceResult(Collection<?> result) {
 		super(result);
 	}
@@ -14,5 +13,4 @@ public class ImmutableCollectionPersistenceResult extends ImmutablePersistenceRe
 	public Collection<?> getValue() {
 		return (Collection<?>) super.getValue();
 	}
-
 }

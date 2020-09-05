@@ -1,12 +1,11 @@
 package org.om.core.impl.persistence.result.map;
 
-import java.util.Map;
+import java.util.*;
 
-import org.om.core.api.persistence.result.MapResult;
+import org.om.core.api.persistence.result.*;
 
 public class ImmutableMapResult implements MapResult {
-
-	private Map<?, ?> result;
+	private final Map<?, ?> result;
 
 	public ImmutableMapResult(Map<?, ?> result) {
 		this.result = result;
@@ -21,5 +20,4 @@ public class ImmutableMapResult implements MapResult {
 	public boolean hasResult() {
 		return true;
 	}
-
 }

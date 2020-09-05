@@ -1,12 +1,11 @@
 package org.om.core.impl.persistence.result;
 
-import java.util.Collection;
+import java.util.*;
 
-import org.om.core.api.exception.MissingException;
-import org.om.core.api.persistence.result.CollectionResult;
+import org.om.core.api.exception.*;
+import org.om.core.api.persistence.result.*;
 
 public class MissingCollectionPersistenceResult implements CollectionResult {
-
 	@Override
 	public Collection<?> getValue() {
 		throw new MissingException("Collection could not be populated.");
@@ -16,5 +15,4 @@ public class MissingCollectionPersistenceResult implements CollectionResult {
 	public boolean hasResult() {
 		return false;
 	}
-
 }

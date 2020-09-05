@@ -1,6 +1,6 @@
 /*
  * Copyright 2012 Jakob Külzer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,21 +11,19 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package org.om.core.api.mapping;
 
-import org.om.core.api.annotation.MissingStrategy;
-import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.annotation.*;
+import org.om.core.api.mapping.field.*;
 
 /**
  * Describes the field on a mapped entity.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public interface MappedField {
-
 	/**
 	 * Return the actual mapping.
 	 * 
@@ -42,8 +40,7 @@ public interface MappedField {
 	Class<RuntimeException> getMissingException();
 
 	/**
-	 * Strategy to be used when the given property cannot be found in the
-	 * persistence layer.
+	 * Strategy to be used when the given property cannot be found in the persistence layer.
 	 * 
 	 * @return
 	 */

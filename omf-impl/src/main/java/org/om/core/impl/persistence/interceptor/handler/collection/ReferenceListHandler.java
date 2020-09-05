@@ -1,17 +1,14 @@
 package org.om.core.impl.persistence.interceptor.handler.collection;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
-import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.field.Mapping;
-import org.om.core.api.persistence.result.CollectionResult;
-import org.om.core.api.session.Session;
-import org.om.core.impl.persistence.interceptor.handler.collection.wrapper.ReferenceListWrapper;
+import org.om.core.api.mapping.*;
+import org.om.core.api.mapping.field.*;
+import org.om.core.api.persistence.result.*;
+import org.om.core.api.session.*;
+import org.om.core.impl.persistence.interceptor.handler.collection.wrapper.*;
 
 public class ReferenceListHandler extends AbstractCollectionHandler {
-
 	public ReferenceListHandler(Session session) {
 		super(session);
 	}
@@ -27,5 +24,4 @@ public class ReferenceListHandler extends AbstractCollectionHandler {
 	public Collection<?> createEmptyCollection(MappedField field) {
 		return Collections.EMPTY_LIST;
 	}
-
 }

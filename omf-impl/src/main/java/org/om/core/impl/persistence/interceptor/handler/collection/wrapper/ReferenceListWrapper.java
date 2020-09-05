@@ -1,29 +1,22 @@
 package org.om.core.impl.persistence.interceptor.handler.collection.wrapper;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
-import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.api.session.Session;
+import org.om.core.api.mapping.*;
+import org.om.core.api.session.*;
 
 /**
  * List handler that handles reference list types.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public class ReferenceListWrapper<T> implements List<T> {
-
 	private final Collection<?> collection;
-	private final CollectionMapping collectionMapping;
 	private final Class<?> implementationType;
 	private final Session session;
 
 	public ReferenceListWrapper(Session session, CollectionMapping collectionMapping, Class<?> implementationType, Collection<?> result) {
 		this.session = session;
-		this.collectionMapping = collectionMapping;
 		this.implementationType = implementationType;
 		this.collection = result;
 	}
@@ -65,16 +58,16 @@ public class ReferenceListWrapper<T> implements List<T> {
 
 	@Override
 	public T get(int index) {
-		if (index < 0 || index >= size())
+		if ((index < 0) || (index >= size())) {
 			throw new IndexOutOfBoundsException(Integer.toString(index));
-
+		}
 		int i = 0;
-		for (Object o : collection) {
-			if (index == i)
+		for (final Object o : collection) {
+			if (index == i) {
 				return (T) session.get(implementationType, o);
+			}
 			i++;
 		}
-
 		throw new IllegalStateException();
 	}
 
@@ -152,5 +145,4 @@ public class ReferenceListWrapper<T> implements List<T> {
 	public <T> T[] toArray(T[] a) {
 		throw new UnsupportedOperationException();
 	}
-
 }

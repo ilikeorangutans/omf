@@ -1,11 +1,10 @@
 package org.om.core.impl.mapping.field;
 
-import org.om.core.api.exception.MappingException;
-import org.om.core.api.mapping.field.Mapping;
-import org.om.core.impl.util.ClassUtils;
+import org.om.core.api.exception.*;
+import org.om.core.api.mapping.field.*;
+import org.om.core.impl.util.*;
 
 public class AbstractImmutableMapping implements Mapping {
-
 	private final Class<?> declaredType;
 	private final Class<?> implementationType;
 	private final boolean simpleType;
@@ -14,10 +13,9 @@ public class AbstractImmutableMapping implements Mapping {
 		this.declaredType = declaredType;
 		this.implementationType = implementationType;
 		simpleType = String.class.equals(declaredType) || ClassUtils.isPrimitiveOrAutoboxed(declaredType);
-
-		if (!declaredType.isAssignableFrom(implementationType))
-			throw new MappingException("Invalid mapping. Implementation type " + implementationType.getName() + " is not a subtype of declared type "
-					+ declaredType.getName());
+		if (!declaredType.isAssignableFrom(implementationType)) {
+			throw new MappingException("Invalid mapping. Implementation type " + implementationType.getName() + " is not a subtype of declared type " + declaredType.getName());
+		}
 	}
 
 	@Override
@@ -39,5 +37,4 @@ public class AbstractImmutableMapping implements Mapping {
 	public boolean isPrimitiveOrWrappedType() {
 		return simpleType;
 	}
-
 }

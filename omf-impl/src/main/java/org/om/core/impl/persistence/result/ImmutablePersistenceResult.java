@@ -1,16 +1,14 @@
 package org.om.core.impl.persistence.result;
 
-import org.om.core.api.persistence.result.PersistenceResult;
+import org.om.core.api.persistence.result.*;
 
 /**
  * Default implementation for results that actually contain data.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public class ImmutablePersistenceResult implements PersistenceResult {
-
-	private Object result;
+	private final Object result;
 
 	public ImmutablePersistenceResult(Object result) {
 		this.result = result;
@@ -30,5 +28,4 @@ public class ImmutablePersistenceResult implements PersistenceResult {
 	public String toString() {
 		return "ImmutablePersistenceResult [result=" + result + "]";
 	}
-
 }

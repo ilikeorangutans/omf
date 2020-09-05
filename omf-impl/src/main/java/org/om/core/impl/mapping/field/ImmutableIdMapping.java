@@ -1,10 +1,8 @@
 package org.om.core.impl.mapping.field;
 
-import org.om.core.api.mapping.field.IdMapping;
-import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.mapping.field.*;
 
 public class ImmutableIdMapping implements IdMapping {
-
 	public static final Mapping INSTANCE = new ImmutableIdMapping();
 
 	@Override
@@ -21,12 +19,13 @@ public class ImmutableIdMapping implements IdMapping {
 		return String.class;
 	}
 
+	@Override
 	public boolean isId() {
 		return true;
 	}
 
+	@Override
 	public boolean isPrimitiveOrWrappedType() {
 		return true;
 	}
-
 }

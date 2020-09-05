@@ -1,3 +1,6 @@
+![CI](https://github.com/teverett/omf/workflows/CI/badge.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/91525134dedf4c618ca57691be61e828)](https://www.codacy.com/app/teverett/omf?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=teverett/omf&amp;utm_campaign=Badge_Grade)
+
 Object Mapper
 =============
 

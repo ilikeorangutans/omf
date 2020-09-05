@@ -3,11 +3,15 @@
 	<parent>
 		<artifactId>omf-parent</artifactId>
 		<groupId>org.objectmapper</groupId>
-		<version>0.2.2</version>
+		<version>1.1-SNAPSHOT</version>
 		<relativePath>../omf-parent</relativePath>
 	</parent>
 	<artifactId>omf-jcr</artifactId>
 	<name>Object Mapper - JCR Backend</name>
+	<properties>
+		<jcr.version>2.0</jcr.version>
+		<jackrabbit.version>2.21.3</jackrabbit.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.objectmapper</groupId>
@@ -22,31 +26,31 @@
 		<dependency>
 			<groupId>javax.jcr</groupId>
 			<artifactId>jcr</artifactId>
-			<version>2.0</version>
+			<version>${jcr.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.jackrabbit</groupId>
 			<artifactId>jackrabbit-jcr-server</artifactId>
-			<version>2.4.0</version>
+			<version>${jackrabbit.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.jackrabbit</groupId>
 			<artifactId>jackrabbit-core</artifactId>
-			<version>2.4.0</version>
+			<version>${jackrabbit.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.jackrabbit</groupId>
 			<artifactId>jackrabbit-jcr-rmi</artifactId>
-			<version>2.4.0</version>
+			<version>${jackrabbit.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.jackrabbit</groupId>
 			<artifactId>jackrabbit-jcr-commons</artifactId>
-			<version>2.2.4</version>
+			<version>${jackrabbit.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -54,25 +58,38 @@
 			<artifactId>jackrabbit-jcr-webdav</artifactId>
 			<version>1.1.1</version>
 			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>xerces</groupId>
+					<artifactId>xercesImpl</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guiceberry</groupId>
 			<artifactId>guiceberry</artifactId>
-			<version>3.1.0</version>
+			<version>${guiceberry.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>3.0</version>
+			<version>${guice.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr.ds-annotations</artifactId>
+			<version>1.2.10</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.scr.annotations</artifactId>
+			<version>1.12.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-	<packaging>bundle</packaging>
 	<build>
 		<plugins>
 			<plugin>
@@ -101,11 +118,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.12</version>
+				<version>2.22.2</version>
 				<configuration>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>

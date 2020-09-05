@@ -1,6 +1,6 @@
 /*
  * Copyright 2012 Jakob Külzer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,34 +11,29 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package org.om.core.api.annotation;
 
 /**
  * Describes strategies for handling non existing properties.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public enum MissingStrategy {
-
 	/**
-	 * Return a default value. The default value can be specified with the
-	 * {@link Property} annotation.
+	 * Return a default value. The default value can be specified with the {@link Property}
+	 * annotation.
 	 */
 	DefaultValue,
-
 	/**
-	 * Return <tt>null</tt> if the property is not found. This applies both for
-	 * primitive and reference types. This is the default behavior.
+	 * Return <tt>null</tt> if the property is not found. This applies both for primitive and
+	 * reference types. This is the default behavior.
 	 */
 	ReturnNull,
-
 	/**
-	 * Throw an exception. The type of the exception can be specified with the
-	 * {@link Property} annotation.
+	 * Throw an exception. The type of the exception can be specified with the {@link Property}
+	 * annotation.
 	 */
 	ThrowException
-
 }

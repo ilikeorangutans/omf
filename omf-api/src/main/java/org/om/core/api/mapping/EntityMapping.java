@@ -1,6 +1,6 @@
 /*
  * Copyright 2012 Jakob Külzer
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -11,23 +11,20 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package org.om.core.api.mapping;
 
-import org.om.core.api.annotation.Entity;
-import org.om.core.api.exception.MappingException;
-import org.om.core.api.mapping.field.Mapping;
-import org.om.core.api.mapping.field.PropertyMapping;
+import org.om.core.api.annotation.*;
+import org.om.core.api.exception.*;
+import org.om.core.api.mapping.field.*;
 
 /**
  * Describes the mapping for an {@link Entity}.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public interface EntityMapping {
-
 	/**
 	 * Returns a {@link MappedField} by name.
 	 * 
@@ -65,8 +62,7 @@ public interface EntityMapping {
 	Class<?> getTypeClass();
 
 	/**
-	 * Returns true if this entity has a {@link MappedField} with the given
-	 * name.
+	 * Returns true if this entity has a {@link MappedField} with the given name.
 	 * 
 	 * @param field
 	 * @return

@@ -1,45 +1,30 @@
 package org.om.core.impl.test;
 
-import org.om.core.api.annotation.Entity;
-import org.om.core.api.annotation.Id;
-import org.om.core.api.annotation.Mapped;
-import org.om.core.api.annotation.MissingStrategy;
-import org.om.core.api.annotation.Property;
+import org.om.core.api.annotation.*;
 
 @Entity
 public class EntityWithPrimitiveProperties {
-
 	public static final int NUMBER_OF_FIELDS = 9;
-
 	@Id
 	private String id;
-
 	@Property
 	private String fieldWithDefaultSettings;
-
 	@Mapped(missingStrategy = MissingStrategy.DefaultValue)
 	@Property(defaultValue = "1234")
 	private String fieldWithDefaultValue;
-
 	@Property(name = "customName")
 	private String fieldWithCustomName;
-
 	@Mapped(missingStrategy = MissingStrategy.DefaultValue)
 	@Property(defaultValue = "default value")
 	private String fieldWithMissingStrategy;
-
 	@Mapped(missingException = RuntimeException.class, missingStrategy = MissingStrategy.ThrowException)
 	@Property(defaultValue = "custom default value", name = "differentCustomName")
 	private String fieldWithAllSettings;
-
 	@Property
 	private int primitiveInt;
-
 	@Property
 	private Float complexFloat;
-
-	private String unmappedField;
-
+	private final String unmappedField;
 	@Mapped(missingStrategy = MissingStrategy.DefaultValue)
 	@Property(defaultValue = "2706")
 	private int primitiveIntWithDefaultValue;

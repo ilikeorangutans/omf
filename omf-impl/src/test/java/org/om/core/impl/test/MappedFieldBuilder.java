@@ -1,26 +1,18 @@
 package org.om.core.impl.test;
 
-import org.om.core.api.annotation.CollectionMode;
-import org.om.core.api.annotation.LookupMode;
-import org.om.core.api.annotation.MapKeyStrategy;
-import org.om.core.api.annotation.MissingStrategy;
-import org.om.core.api.exception.MissingException;
-import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.field.Mapping;
-import org.om.core.impl.mapping.ImmutableCollectionMapping;
-import org.om.core.impl.mapping.ImmutableMappedField;
-import org.om.core.impl.mapping.field.ImmutableIdMapping;
-import org.om.core.impl.mapping.field.ImmutablePropertyMapping;
-import org.om.core.impl.mapping.field.ImmutableReferenceMapping;
+import org.om.core.api.annotation.*;
+import org.om.core.api.exception.*;
+import org.om.core.api.mapping.*;
+import org.om.core.api.mapping.field.*;
+import org.om.core.impl.mapping.*;
+import org.om.core.impl.mapping.field.*;
 
 /**
  * Helper utility class to build {@link MappedField} instances.
- * 
+ *
  * @author Jakob Külzer
- * 
  */
 public class MappedFieldBuilder {
-
 	private String name;
 	private Class<?> type;
 	private Mapping mapping;
@@ -28,19 +20,20 @@ public class MappedFieldBuilder {
 	private Class<? extends RuntimeException> missingException = MissingException.class;
 
 	/**
-	 * Creates a new instance of {@link MappedField} using the previously set
-	 * parameters.
+	 * Creates a new instance of {@link MappedField} using the previously set parameters.
 	 * 
 	 * @return
 	 */
 	public MappedField create() {
-		if (name == null)
+		if (name == null) {
 			throw new IllegalStateException("name has not been set.");
-		if (type == null)
+		}
+		if (type == null) {
 			throw new IllegalStateException("type has not been set.");
-		if (mapping == null)
+		}
+		if (mapping == null) {
 			throw new IllegalStateException("mapping has not been set.");
-
+		}
 		return new ImmutableMappedField(name, type, mapping, missingStrategy, missingException);
 	}
 
@@ -49,8 +42,8 @@ public class MappedFieldBuilder {
 		return this;
 	}
 
-	public MappedFieldBuilder withCollectionMapping(Class<?> fieldType, Class<?> targetType, Class<?> implementationType, String location,
-			CollectionMode collectionMode, MapKeyStrategy mapKeyStrategy) {
+	public MappedFieldBuilder withCollectionMapping(Class<?> fieldType, Class<?> targetType, Class<?> implementationType, String location, CollectionMode collectionMode,
+			MapKeyStrategy mapKeyStrategy) {
 		mapping = new ImmutableCollectionMapping(fieldType, targetType, implementationType, location, collectionMode, mapKeyStrategy);
 		return this;
 	}
@@ -58,7 +51,6 @@ public class MappedFieldBuilder {
 	public MappedFieldBuilder withCollectionMapping(Class<?> fieldType, Class<?> targetType, String location) {
 		withCollectionMapping(fieldType, targetType, targetType, location, CollectionMode.Children, MapKeyStrategy.Name);
 		return this;
-
 	}
 
 	public MappedFieldBuilder withIdMapping() {
@@ -67,7 +59,7 @@ public class MappedFieldBuilder {
 	}
 
 	public MappedFieldBuilder withMissingException(Class<? extends RuntimeException> exception) {
-		this.missingException = exception;
+		missingException = exception;
 		return this;
 	}
 
@@ -105,5 +97,4 @@ public class MappedFieldBuilder {
 		this.type = type;
 		return this;
 	}
-
 }

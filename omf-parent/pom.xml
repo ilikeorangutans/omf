@@ -3,35 +3,48 @@
 	<parent>
 		<artifactId>objectmapper</artifactId>
 		<groupId>org.objectmapper</groupId>
-		<version>0.2.2</version>
+		<version>1.1-SNAPSHOT</version>
 		<relativePath>..</relativePath>
 	</parent>
+	<name>Object Mapper - Parent</name>
 	<artifactId>omf-parent</artifactId>
 	<packaging>pom</packaging>
-
+	<properties>
+		<guice.version>4.2.2</guice.version>
+		<junit.version>4.12</junit.version>
+		<jmock.version>2.12.0</jmock.version>
+		<mockito.version>1.9.5</mockito.version>
+		<slf4j.version>1.7.30</slf4j.version>
+		<hamcrest.version>2.2</hamcrest.version>
+		<cglib.version>3.2.9</cglib.version>
+		<osgi.version>6.0.0</osgi.version>
+		<guiceberry.version>3.3.1</guiceberry.version>
+		<required-maven-version>3.5.0</required-maven-version>
+		<felix.version>1.12.0</felix.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jmock</groupId>
 			<artifactId>jmock-junit4</artifactId>
-			<version>2.5.1</version>
+			<version>${jmock.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>
-			<version>1.3.RC2</version>
+			<version>${hamcrest.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -44,92 +57,77 @@
 			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+		</dependency>
 	</dependencies>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
-				<version>1.6.4</version>
+				<version>${slf4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
-				<version>1.6.4</version>
+				<version>${slf4j.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cglib</groupId>
 				<artifactId>cglib</artifactId>
-				<version>2.2.2</version>
+				<version>${cglib.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.osgi</groupId>
 				<artifactId>org.osgi.core</artifactId>
-				<version>4.1.0</version>
+				<version>${osgi.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
 	<build>
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>maven-bundle-plugin</artifactId>
 					<extensions>true</extensions>
-					<version>2.3.7</version>
+					<version>5.1.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>maven-scr-plugin</artifactId>
-					<version>1.7.4</version>
+					<version>1.26.4</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.8.1</version>
+					<version>3.2.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.0.0-M2</version>
+					<executions>
+						<execution>
+							<id>enforce-maven</id>
+							<goals>
+								<goal>enforce</goal>
+							</goals>
+							<configuration>
+								<rules>
+									<requireMavenVersion>
+										<version>${required-maven-version}</version>
+									</requireMavenVersion>
+								</rules>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-
-					<reportPlugins>
-
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>cobertura-maven-plugin</artifactId>
-							<version>2.5.1</version>
-						</plugin>
-
-					</reportPlugins>
-
-				</configuration>
-			</plugin>
-		</plugins>
 	</build>
-	<name>Object Mapper - Parent</name>
-
 	<profiles>
 		<profile>
 			<id>auto-deploy</id>
@@ -156,5 +154,4 @@
 			</build>
 		</profile>
 	</profiles>
-
 </project>

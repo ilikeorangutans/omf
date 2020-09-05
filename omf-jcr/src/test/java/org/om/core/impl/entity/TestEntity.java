@@ -1,21 +1,14 @@
 package org.om.core.impl.entity;
 
-import org.om.core.api.annotation.Entity;
-import org.om.core.api.annotation.Id;
-import org.om.core.api.annotation.Mapped;
-import org.om.core.api.annotation.MissingStrategy;
-import org.om.core.api.annotation.Property;
+import org.om.core.api.annotation.*;
 
 @Entity
 public class TestEntity {
-
 	@Mapped(missingStrategy = MissingStrategy.DefaultValue)
 	@Property(defaultValue = "3131", name = "mycoolfield")
 	private int blargh;
-
 	@Property
 	private String foobar;
-
 	@Id
 	private String id;
 

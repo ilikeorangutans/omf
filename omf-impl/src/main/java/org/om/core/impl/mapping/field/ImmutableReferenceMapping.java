@@ -1,10 +1,9 @@
 package org.om.core.impl.mapping.field;
 
-import org.om.core.api.annotation.LookupMode;
-import org.om.core.api.mapping.field.ReferenceMapping;
+import org.om.core.api.annotation.*;
+import org.om.core.api.mapping.field.*;
 
 public class ImmutableReferenceMapping extends AbstractImmutableMapping implements ReferenceMapping {
-
 	private final LookupMode lookupMode;
 	private final String path;
 
@@ -19,14 +18,17 @@ public class ImmutableReferenceMapping extends AbstractImmutableMapping implemen
 		return lookupMode;
 	}
 
+	@Override
 	public String getPath() {
 		return path;
 	}
 
+	@Override
 	public boolean isId() {
 		return false;
 	}
 
+	@Override
 	public boolean isPrimitiveOrWrappedType() {
 		return false;
 	}
@@ -35,5 +37,4 @@ public class ImmutableReferenceMapping extends AbstractImmutableMapping implemen
 	public String toString() {
 		return "ImmutableReferenceMapping [path=" + path + "]";
 	}
-
 }

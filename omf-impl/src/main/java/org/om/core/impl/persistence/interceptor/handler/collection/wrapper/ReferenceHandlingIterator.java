@@ -1,12 +1,10 @@
 package org.om.core.impl.persistence.interceptor.handler.collection.wrapper;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
-import org.om.core.api.session.Session;
+import org.om.core.api.session.*;
 
 public class ReferenceHandlingIterator<T> implements Iterator<T> {
-
 	private final Class<?> implementationType;
 	private final Iterator<?> iterator;
 	private final Session session;
@@ -24,11 +22,10 @@ public class ReferenceHandlingIterator<T> implements Iterator<T> {
 
 	@Override
 	public T next() {
-		if (!hasNext())
+		if (!hasNext()) {
 			throw new NoSuchElementException();
-
-		Object id = iterator.next();
-
+		}
+		final Object id = iterator.next();
 		// TODO: This needs to take into account the actual mappings. As of now,
 		// if the referenced id cannot be resolved, this will crash with a
 		// PathNotFoundException, ignoring any mappings regarding not found
@@ -40,5 +37,4 @@ public class ReferenceHandlingIterator<T> implements Iterator<T> {
 	public void remove() {
 		throw new UnsupportedOperationException();
 	}
-
 }

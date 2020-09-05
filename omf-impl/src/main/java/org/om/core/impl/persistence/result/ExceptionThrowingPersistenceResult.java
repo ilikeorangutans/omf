@@ -1,51 +1,43 @@
 package org.om.core.impl.persistence.result;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.*;
 
-import org.om.core.api.persistence.result.PersistenceResult;
+import org.om.core.api.persistence.result.*;
 
 /**
- * Result that encapsulates the actual missing strategy from the mapped field
- * settings.
- * 
+ * Result that encapsulates the actual missing strategy from the mapped field settings.
+ *
  * @author Jakob Külzer
- * 
  */
 @Deprecated
 public class ExceptionThrowingPersistenceResult implements PersistenceResult {
-
-	private Class<? extends RuntimeException> exceptionType;
+	private final Class<? extends RuntimeException> exceptionType;
 
 	ExceptionThrowingPersistenceResult(Class<? extends RuntimeException> exceptionClass) {
-		this.exceptionType = exceptionClass;
+		exceptionType = exceptionClass;
 	}
 
 	@Override
 	public Object getValue() {
-
 		try {
 			throw exceptionType.getConstructor(String.class).newInstance("Could not retrieve property ");
-		} catch (SecurityException e) {
+		} catch (final SecurityException e) {
 			throw new RuntimeException("Could not construct exception for missing property.", e);
-		} catch (NoSuchMethodException e) {
-
+		} catch (final NoSuchMethodException e) {
 			throw new RuntimeException("Implement me! ");
-
-		} catch (IllegalArgumentException e) {
+		} catch (final IllegalArgumentException e) {
 			throw new RuntimeException("Could not construct exception for missing property.", e);
-		} catch (InstantiationException e) {
+		} catch (final InstantiationException e) {
 			throw new RuntimeException("Could not construct exception for missing property.", e);
-		} catch (IllegalAccessException e) {
+		} catch (final IllegalAccessException e) {
 			throw new RuntimeException("Could not construct exception for missing property.", e);
-		} catch (InvocationTargetException e) {
+		} catch (final InvocationTargetException e) {
 			throw new RuntimeException("Could not construct exception for missing property.", e);
 		}
-
 	}
 
 	@Override
 	public boolean hasResult() {
 		return false;
 	}
-
 }

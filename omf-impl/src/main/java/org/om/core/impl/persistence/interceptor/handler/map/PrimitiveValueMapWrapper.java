@@ -1,11 +1,8 @@
 package org.om.core.impl.persistence.interceptor.handler.map;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class PrimitiveValueMapWrapper<K, V> implements Map<K, V> {
-
 	private final Map<?, ?> map;
 
 	public PrimitiveValueMapWrapper(Map<?, ?> map) {
@@ -71,5 +68,4 @@ public class PrimitiveValueMapWrapper<K, V> implements Map<K, V> {
 	public Collection<V> values() {
 		return (Collection<V>) map.values();
 	}
-
 }
