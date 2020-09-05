@@ -15,33 +15,34 @@
  */
 package org.om.core.api.persistence.request;
 
-import org.om.core.api.persistence.PersistenceAdapter;
+import org.om.core.api.persistence.*;
 
 /**
- * Describes a request for a {@link PersistenceAdapter}. The idea behind this class is that a {@link PersistenceAdapter} needs some information in order to retrieve the appropriate
+ * Describes a request for a {@link PersistenceAdapter}. The idea behind this class is that a
+ * {@link PersistenceAdapter} needs some information in order to retrieve the appropriate
  * properties/entities. This interface describes the minimum a persistence adapter can expect.
  *
  * @author Jakob Külzer
  */
 public interface PersistenceRequest {
-   /**
-    * Returns the expected return type.
-    * 
-    * @return
-    */
-   Class<?> getExpectedType();
+	/**
+	 * Returns the expected return type.
+	 * 
+	 * @return
+	 */
+	Class<?> getExpectedType();
 
-   /**
-    * States how the given {@link #getPath()} should be resolved.
-    * 
-    * @return
-    */
-   Mode getMode();
+	/**
+	 * States how the given {@link #getPath()} should be resolved.
+	 * 
+	 * @return
+	 */
+	Mode getMode();
 
-   /**
-    * Path used to resolve the request.
-    * 
-    * @return
-    */
-   String getPath();
+	/**
+	 * Path used to resolve the request.
+	 * 
+	 * @return
+	 */
+	String getPath();
 }

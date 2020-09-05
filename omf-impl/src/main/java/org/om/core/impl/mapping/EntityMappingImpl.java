@@ -1,73 +1,71 @@
 package org.om.core.impl.mapping;
 
-import org.om.core.api.exception.MappingException;
-import org.om.core.api.mapping.EntityMapping;
-import org.om.core.api.mapping.Fields;
-import org.om.core.api.mapping.MappedField;
-import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.exception.*;
+import org.om.core.api.mapping.*;
+import org.om.core.api.mapping.field.*;
 
 public class EntityMappingImpl implements EntityMapping {
-   private Fields fields;
-   private final String name;
-   private final Class<?> type;
+	private Fields fields;
+	private final String name;
+	private final Class<?> type;
 
-   public EntityMappingImpl(Class<?> type, String name) {
-      this.type = type;
-      this.name = name;
-   }
+	public EntityMappingImpl(Class<?> type, String name) {
+		this.type = type;
+		this.name = name;
+	}
 
-   @Override
-   public MappedField getByFieldName(String name) {
-      return fields.getField(name);
-   }
+	@Override
+	public MappedField getByFieldName(String name) {
+		return fields.getField(name);
+	}
 
-   @Override
-   public MappedField getIdProperty() {
-      return fields.getIdProperty();
-   }
+	@Override
+	public MappedField getIdProperty() {
+		return fields.getIdProperty();
+	}
 
-   @Override
-   public Fields getMappedFields() {
-      return fields;
-   }
+	@Override
+	public Fields getMappedFields() {
+		return fields;
+	}
 
-   @Override
-   public Mapping getMappingByField(String fieldname) {
-      return fields.getField(fieldname).getMapping();
-   }
+	@Override
+	public Mapping getMappingByField(String fieldname) {
+		return fields.getField(fieldname).getMapping();
+	}
 
-   @Override
-   public String getName() {
-      return name;
-   }
+	@Override
+	public String getName() {
+		return name;
+	}
 
-   @Override
-   public Class<?> getTypeClass() {
-      return type;
-   }
+	@Override
+	public Class<?> getTypeClass() {
+		return type;
+	}
 
-   @Override
-   public boolean hasField(String field) {
-      return fields.hasField(field);
-   }
+	@Override
+	public boolean hasField(String field) {
+		return fields.hasField(field);
+	}
 
-   public boolean hasProperty(String property) {
-      return false;
-   }
+	public boolean hasProperty(String property) {
+		return false;
+	}
 
-   public void setFields(Fields propertyMappings) {
-      fields = propertyMappings;
-   }
+	public void setFields(Fields propertyMappings) {
+		fields = propertyMappings;
+	}
 
-   @Override
-   public String toString() {
-      return "EntityMappingImpl [fields=" + fields + ", name=" + name + ", type=" + type + "]";
-   }
+	@Override
+	public String toString() {
+		return "EntityMappingImpl [fields=" + fields + ", name=" + name + ", type=" + type + "]";
+	}
 
-   @Override
-   public void validate() throws MappingException {
-      if (getIdProperty() == null) {
-         throw new MappingException("Entity " + type.getName() + " is missing id property. Annotate it with @Property and @Id.");
-      }
-   }
+	@Override
+	public void validate() throws MappingException {
+		if (getIdProperty() == null) {
+			throw new MappingException("Entity " + type.getName() + " is missing id property. Annotate it with @Property and @Id.");
+		}
+	}
 }

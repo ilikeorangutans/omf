@@ -16,7 +16,8 @@
 package org.om.core.api.persistence;
 
 /**
- * Marker interface for persistence context. TODO: This interface is not really adding anything. Might as well remove it.
+ * Marker interface for persistence context. TODO: This interface is not really adding anything.
+ * Might as well remove it.
  *
  * @author Jakob Külzer
  * @author tome

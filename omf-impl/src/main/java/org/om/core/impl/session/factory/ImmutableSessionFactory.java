@@ -1,29 +1,28 @@
 package org.om.core.impl.session.factory;
 
-import javax.inject.Inject;
+import javax.inject.*;
 
-import org.om.core.api.mapping.registry.MappingRegistry;
-import org.om.core.api.persistence.PersistenceAdapterFactory;
-import org.om.core.api.persistence.PersistenceContext;
-import org.om.core.api.persistence.proxy.ProxyFactory;
-import org.om.core.api.session.Session;
-import org.om.core.api.session.factory.SessionFactory;
-import org.om.core.impl.session.ImmutableSessionImpl;
+import org.om.core.api.mapping.registry.*;
+import org.om.core.api.persistence.*;
+import org.om.core.api.persistence.proxy.*;
+import org.om.core.api.session.*;
+import org.om.core.api.session.factory.*;
+import org.om.core.impl.session.*;
 
 public class ImmutableSessionFactory implements SessionFactory {
-   private final MappingRegistry mappingRegistry;
-   private final PersistenceAdapterFactory persistenceDelegateFactory;
-   private final ProxyFactory proxyFactory;
+	private final MappingRegistry mappingRegistry;
+	private final PersistenceAdapterFactory persistenceDelegateFactory;
+	private final ProxyFactory proxyFactory;
 
-   @Inject
-   public ImmutableSessionFactory(PersistenceAdapterFactory persistenceDelegateFactory, MappingRegistry mappingRegistry, ProxyFactory proxyFactory) {
-      this.persistenceDelegateFactory = persistenceDelegateFactory;
-      this.mappingRegistry = mappingRegistry;
-      this.proxyFactory = proxyFactory;
-   }
+	@Inject
+	public ImmutableSessionFactory(PersistenceAdapterFactory persistenceDelegateFactory, MappingRegistry mappingRegistry, ProxyFactory proxyFactory) {
+		this.persistenceDelegateFactory = persistenceDelegateFactory;
+		this.mappingRegistry = mappingRegistry;
+		this.proxyFactory = proxyFactory;
+	}
 
-   @Override
-   public Session getSession(PersistenceContext persistenceContext) {
-      return new ImmutableSessionImpl(persistenceContext, persistenceDelegateFactory, mappingRegistry, proxyFactory);
-   }
+	@Override
+	public Session getSession(PersistenceContext persistenceContext) {
+		return new ImmutableSessionImpl(persistenceContext, persistenceDelegateFactory, mappingRegistry, proxyFactory);
+	}
 }

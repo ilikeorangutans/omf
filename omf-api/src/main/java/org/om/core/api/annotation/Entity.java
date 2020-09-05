@@ -15,14 +15,12 @@
  */
 package org.om.core.api.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
- * Marks a class as an entity. Every class that should be mapped by the object mapper needs to be annotated with this. Each entity must have exactly one {@link Property} that acts as the identifier
- * property which has to be annotated with {@link Id}.
+ * Marks a class as an entity. Every class that should be mapped by the object mapper needs to be
+ * annotated with this. Each entity must have exactly one {@link Property} that acts as the
+ * identifier property which has to be annotated with {@link Id}.
  *
  * @author Jakob Külzer
  */

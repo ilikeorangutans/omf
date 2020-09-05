@@ -21,17 +21,17 @@ package org.om.core.api.mapping.field;
  * @author Jakob Külzer
  */
 public interface PropertyMapping extends Mapping {
-   /**
-    * Returns the default value according to the annotation.
-    * 
-    * @return
-    */
-   String getDefaultValue();
+	/**
+	 * Returns the default value according to the annotation.
+	 * 
+	 * @return
+	 */
+	String getDefaultValue();
 
-   /**
-    * Name of the property in the underlying persistence layer.
-    * 
-    * @return
-    */
-   String getPropertyName();
+	/**
+	 * Name of the property in the underlying persistence layer.
+	 * 
+	 * @return
+	 */
+	String getPropertyName();
 }

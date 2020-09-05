@@ -15,25 +15,27 @@
  */
 package org.om.core.api.annotation;
 
-import java.util.Map;
+import java.util.*;
 
 /**
- * Describes how a collection is to be created from the underlying nodes after Object Mapper has resolved the collection base using {@link Collection#location()} setting. Note that some of the
+ * Describes how a collection is to be created from the underlying nodes after Object Mapper has
+ * resolved the collection base using {@link Collection#location()} setting. Note that some of the
  * settings are only applicable for {@link Map}s.
  *
  * @author Jakob Külzer
  */
 public enum CollectionMode {
-   /**
-    * Construct a collection from the child nodes of the collection base node.
-    */
-   Children,
-   /**
-    * Treat the collection base node as a multi-valued property and use the property values to build the collection.
-    */
-   MultiValueProperty,
-   /**
-    * Creates a collection from all properties found on the base node.
-    */
-   Properties
+	/**
+	 * Construct a collection from the child nodes of the collection base node.
+	 */
+	Children,
+	/**
+	 * Treat the collection base node as a multi-valued property and use the property values to build
+	 * the collection.
+	 */
+	MultiValueProperty,
+	/**
+	 * Creates a collection from all properties found on the base node.
+	 */
+	Properties
 }

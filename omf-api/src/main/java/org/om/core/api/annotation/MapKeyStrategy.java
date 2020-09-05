@@ -15,7 +15,7 @@
  */
 package org.om.core.api.annotation;
 
-import java.util.Map;
+import java.util.*;
 
 /**
  * Defines how to create the keys for {@link Map}s.
@@ -23,16 +23,17 @@ import java.util.Map;
  * @author Jakob Külzer
  */
 public enum MapKeyStrategy {
-   /**
-    * Use the name of the node as the key.
-    */
-   Name,
-   /**
-    * Use a property under each entry's node. This only works for complex target types.
-    */
-   Property,
-   /**
-    * Use a zero based index as key. This is hardly useful, but I just felt there might be situations where this is handy.
-    */
-   Index
+	/**
+	 * Use the name of the node as the key.
+	 */
+	Name,
+	/**
+	 * Use a property under each entry's node. This only works for complex target types.
+	 */
+	Property,
+	/**
+	 * Use a zero based index as key. This is hardly useful, but I just felt there might be
+	 * situations where this is handy.
+	 */
+	Index
 }

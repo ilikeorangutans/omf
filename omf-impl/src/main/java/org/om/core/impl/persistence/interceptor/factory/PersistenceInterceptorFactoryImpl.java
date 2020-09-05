@@ -1,29 +1,29 @@
 package org.om.core.impl.persistence.interceptor.factory;
 
-import org.om.core.api.persistence.PersistenceAdapter;
-import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
-import org.om.core.api.persistence.interceptor.factory.PersistenceInterceptorFactory;
-import org.om.core.api.persistence.interceptor.handler.ItemHandlerFactory;
-import org.om.core.api.session.Session;
-import org.om.core.impl.persistence.interceptor.PersistenceInterceptorImpl;
-import org.om.core.impl.persistence.interceptor.handler.ItemHandlerFactoryImpl;
+import org.om.core.api.persistence.*;
+import org.om.core.api.persistence.interceptor.*;
+import org.om.core.api.persistence.interceptor.factory.*;
+import org.om.core.api.persistence.interceptor.handler.*;
+import org.om.core.api.session.*;
+import org.om.core.impl.persistence.interceptor.*;
+import org.om.core.impl.persistence.interceptor.handler.*;
 
 /**
  * @author Jakob Külzers
  */
 public class PersistenceInterceptorFactoryImpl implements PersistenceInterceptorFactory {
-   private final ItemHandlerFactory propertyHandlerFactory;
+	private final ItemHandlerFactory propertyHandlerFactory;
 
-   public PersistenceInterceptorFactoryImpl() {
-      this(new ItemHandlerFactoryImpl());
-   }
+	public PersistenceInterceptorFactoryImpl() {
+		this(new ItemHandlerFactoryImpl());
+	}
 
-   public PersistenceInterceptorFactoryImpl(ItemHandlerFactory itemHandlerFactory) {
-      propertyHandlerFactory = itemHandlerFactory;
-   }
+	public PersistenceInterceptorFactoryImpl(ItemHandlerFactory itemHandlerFactory) {
+		propertyHandlerFactory = itemHandlerFactory;
+	}
 
-   @Override
-   public PersistenceInterceptor create(Session session, PersistenceAdapter delegate) {
-      return new PersistenceInterceptorImpl(session, propertyHandlerFactory, delegate);
-   }
+	@Override
+	public PersistenceInterceptor create(Session session, PersistenceAdapter delegate) {
+		return new PersistenceInterceptorImpl(session, propertyHandlerFactory, delegate);
+	}
 }

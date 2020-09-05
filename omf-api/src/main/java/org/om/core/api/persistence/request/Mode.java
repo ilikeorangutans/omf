@@ -15,7 +15,7 @@
  */
 package org.om.core.api.persistence.request;
 
-import org.om.core.api.persistence.PersistenceContext;
+import org.om.core.api.persistence.*;
 
 /**
  * Describes how to resolve a path.
@@ -23,12 +23,12 @@ import org.om.core.api.persistence.PersistenceContext;
  * @author Jakob Külzer
  */
 public enum Mode {
-   /**
-    * The path should be interpreted as an absolute path.
-    */
-   Absolute,
-   /**
-    * The given path should be resolve relative to the current {@link PersistenceContext}.
-    */
-   Relative;
+	/**
+	 * The path should be interpreted as an absolute path.
+	 */
+	Absolute,
+	/**
+	 * The given path should be resolve relative to the current {@link PersistenceContext}.
+	 */
+	Relative;
 }

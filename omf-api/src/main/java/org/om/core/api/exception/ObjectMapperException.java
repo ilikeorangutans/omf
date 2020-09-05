@@ -21,21 +21,21 @@ package org.om.core.api.exception;
  * @author Jakob Külzer
  */
 public class ObjectMapperException extends RuntimeException {
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-   public ObjectMapperException() {
-      super();
-   }
+	public ObjectMapperException() {
+		super();
+	}
 
-   public ObjectMapperException(String message) {
-      super(message);
-   }
+	public ObjectMapperException(String message) {
+		super(message);
+	}
 
-   public ObjectMapperException(String message, Throwable cause) {
-      super(message, cause);
-   }
+	public ObjectMapperException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-   public ObjectMapperException(Throwable cause) {
-      super(cause);
-   }
+	public ObjectMapperException(Throwable cause) {
+		super(cause);
+	}
 }

@@ -15,7 +15,7 @@
  */
 package org.om.core.api.mapping.registry;
 
-import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.*;
 
 /**
  * Keeps track of {@link EntityMapping}s.
@@ -23,5 +23,5 @@ import org.om.core.api.mapping.EntityMapping;
  * @author Jakob Külzer
  */
 public interface MappingRegistry {
-   EntityMapping getMapping(Class<?> clazz);
+	EntityMapping getMapping(Class<?> clazz);
 }

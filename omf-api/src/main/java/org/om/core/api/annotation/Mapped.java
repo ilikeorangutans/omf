@@ -15,12 +15,9 @@
  */
 package org.om.core.api.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
-import org.om.core.api.exception.MissingException;
+import org.om.core.api.exception.*;
 
 /**
  * Marks the given field as a mapped field.
@@ -30,53 +27,62 @@ import org.om.core.api.exception.MissingException;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Mapped {
-   /**
-    * The actual implementation type. This is necessary when the types of mapped fields are interfaces and you need to specify a subtype to actually use. This value is optional, and if not provided,
-    * it will fall back to the declared type of the field. This is usually sufficient if the the type of the actual mapped element is the same as the type that's provided via the generics.
-    * </p>
-    * However, in cases where the declared type of a field is not the actual entity, but a supertype thereof, it has to be specified. For example, if your interface is <tt>MyEntity</tt> but your
-    * implementation is <tt>MyEntityImpl</tt>:
-    * 
-    * <pre>
-    * <code>@Property
-    * &#64;Mapped(implementationType=MyEntityImpl.class)
-    * private MyEntity myEntity; 
-    * </code>
-    * </pre>
-    * 
-    * Same for collections:
-    * 
-    * <pre>
-    * <code>@Collection(targetType=MyEntity.class)
-    * List&lt;MyEntity&gt; list;</code>
-    * </pre>
-    * 
-    * However, if the generic type of the collection is different than the actual entity type, the mapping type has to be set explicitly. For example:
-    * 
-    * <pre>
-    * &#064;Collection(targetType = MyEntity.class)
-    * List&lt;MyEntityImpl&gt; list;
-    * </pre>
-    * <p>
-    * Please note that the implementation type must be either the same type as {@link #targetType()} or a subtype of it.
-    * 
-    * @return
-    */
-   Class<?> implementationType() default NULL.class;
+	/**
+	 * The actual implementation type. This is necessary when the types of mapped fields are
+	 * interfaces and you need to specify a subtype to actually use. This value is optional, and if
+	 * not provided, it will fall back to the declared type of the field. This is usually sufficient
+	 * if the the type of the actual mapped element is the same as the type that's provided via the
+	 * generics.
+	 * </p>
+	 * However, in cases where the declared type of a field is not the actual entity, but a supertype
+	 * thereof, it has to be specified. For example, if your interface is <tt>MyEntity</tt> but your
+	 * implementation is <tt>MyEntityImpl</tt>:
+	 * 
+	 * <pre>
+	 * <code>@Property
+	 * &#64;Mapped(implementationType=MyEntityImpl.class)
+	 * private MyEntity myEntity; 
+	 * </code>
+	 * </pre>
+	 * 
+	 * Same for collections:
+	 * 
+	 * <pre>
+	 * <code>@Collection(targetType=MyEntity.class)
+	 * List&lt;MyEntity&gt; list;</code>
+	 * </pre>
+	 * 
+	 * However, if the generic type of the collection is different than the actual entity type, the
+	 * mapping type has to be set explicitly. For example:
+	 * 
+	 * <pre>
+	 * &#064;Collection(targetType = MyEntity.class)
+	 * List&lt;MyEntityImpl&gt; list;
+	 * </pre>
+	 * <p>
+	 * Please note that the implementation type must be either the same type as {@link #targetType()}
+	 * or a subtype of it.
+	 * 
+	 * @return
+	 */
+	Class<?> implementationType() default NULL.class;
 
-   /**
-    * Exception to be thrown when the mapped property cannot be retrieved from the underlying persistence layer and {@link #missingStrategy()} is set to {@link MissingStrategy#ThrowException}. The
-    * exception must have either a no-arg constructor or take one String parameter.
-    * 
-    * @return
-    */
-   Class<? extends RuntimeException> missingException() default MissingException.class;
+	/**
+	 * Exception to be thrown when the mapped property cannot be retrieved from the underlying
+	 * persistence layer and {@link #missingStrategy()} is set to
+	 * {@link MissingStrategy#ThrowException}. The exception must have either a no-arg constructor or
+	 * take one String parameter.
+	 * 
+	 * @return
+	 */
+	Class<? extends RuntimeException> missingException() default MissingException.class;
 
-   /**
-    * Defines how object mapper will react to missing properties. The default is to return <tt>null</tt> if the referenced property cannot be found.
-    * 
-    * @see MissingStrategy
-    * @return
-    */
-   MissingStrategy missingStrategy() default MissingStrategy.ReturnNull;
+	/**
+	 * Defines how object mapper will react to missing properties. The default is to return
+	 * <tt>null</tt> if the referenced property cannot be found.
+	 * 
+	 * @see MissingStrategy
+	 * @return
+	 */
+	MissingStrategy missingStrategy() default MissingStrategy.ReturnNull;
 }

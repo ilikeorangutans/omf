@@ -15,73 +15,73 @@
  */
 package org.om.core.impl.mapping;
 
-import org.om.core.api.annotation.CollectionMode;
-import org.om.core.api.annotation.MapKeyStrategy;
-import org.om.core.api.mapping.CollectionMapping;
-import org.om.core.impl.mapping.field.AbstractImmutableMapping;
+import org.om.core.api.annotation.*;
+import org.om.core.api.mapping.*;
+import org.om.core.impl.mapping.field.*;
 
 /**
  * Describes a mapping for collections.
  *
- * @author Jakob Külzer TODO: this should be split into a mapping for java.util.Collection and java.util.Map.
+ * @author Jakob Külzer TODO: this should be split into a mapping for java.util.Collection and
+ *         java.util.Map.
  */
 public class ImmutableCollectionMapping extends AbstractImmutableMapping implements CollectionMapping {
-   private final CollectionMode collectionMode;
-   private final Class<?> collectionType;
-   private final String location;
-   private final MapKeyStrategy mapKeyStrategy;
+	private final CollectionMode collectionMode;
+	private final Class<?> collectionType;
+	private final String location;
+	private final MapKeyStrategy mapKeyStrategy;
 
-   public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, Class<?> implementationType, String location, CollectionMode collectionMode, MapKeyStrategy mapKeyStrategy) {
-      super(declaredType, implementationType);
-      this.collectionType = collectionType;
-      this.location = location;
-      this.collectionMode = collectionMode;
-      this.mapKeyStrategy = mapKeyStrategy;
-   }
+	public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, Class<?> implementationType, String location, CollectionMode collectionMode, MapKeyStrategy mapKeyStrategy) {
+		super(declaredType, implementationType);
+		this.collectionType = collectionType;
+		this.location = location;
+		this.collectionMode = collectionMode;
+		this.mapKeyStrategy = mapKeyStrategy;
+	}
 
-   public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, String location) {
-      this(collectionType, declaredType, declaredType, location, CollectionMode.Children, MapKeyStrategy.Name);
-   }
+	public ImmutableCollectionMapping(Class<?> collectionType, Class<?> declaredType, String location) {
+		this(collectionType, declaredType, declaredType, location, CollectionMode.Children, MapKeyStrategy.Name);
+	}
 
-   @Override
-   public CollectionMode getCollectionMode() {
-      return collectionMode;
-   }
+	@Override
+	public CollectionMode getCollectionMode() {
+		return collectionMode;
+	}
 
-   @Override
-   public Class<?> getCollectionType() {
-      return collectionType;
-   }
+	@Override
+	public Class<?> getCollectionType() {
+		return collectionType;
+	}
 
-   @Override
-   public String getLocation() {
-      return location;
-   }
+	@Override
+	public String getLocation() {
+		return location;
+	}
 
-   @Override
-   public MapKeyStrategy getMapKeyStrategy() {
-      return mapKeyStrategy;
-   }
+	@Override
+	public MapKeyStrategy getMapKeyStrategy() {
+		return mapKeyStrategy;
+	}
 
-   /**
-    * Always returns false as a collection cannot serve as an identifier.
-    */
-   @Override
-   public boolean isId() {
-      return false;
-   }
+	/**
+	 * Always returns false as a collection cannot serve as an identifier.
+	 */
+	@Override
+	public boolean isId() {
+		return false;
+	}
 
-   /**
-    * Always returns false.
-    */
-   @Override
-   public boolean isPrimitiveOrWrappedType() {
-      return false;
-   }
+	/**
+	 * Always returns false.
+	 */
+	@Override
+	public boolean isPrimitiveOrWrappedType() {
+		return false;
+	}
 
-   @Override
-   public String toString() {
-      return "ImmutableCollectionMapping [location=" + location + ", collectionMode=" + collectionMode + ", mapKeyStrategy=" + mapKeyStrategy + ", collectionType=" + collectionType
-            + ", getImplementationType()=" + getImplementationType() + ", getDeclaredType()=" + getDeclaredType() + "]";
-   }
+	@Override
+	public String toString() {
+		return "ImmutableCollectionMapping [location=" + location + ", collectionMode=" + collectionMode + ", mapKeyStrategy=" + mapKeyStrategy + ", collectionType=" + collectionType
+				+ ", getImplementationType()=" + getImplementationType() + ", getDeclaredType()=" + getDeclaredType() + "]";
+	}
 }

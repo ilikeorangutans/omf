@@ -16,75 +16,75 @@
 package org.om.core.api.persistence.request;
 
 public class ImmutablePersistenceRequest implements PersistenceRequest {
-   private final Class<?> exptectedType;
-   private final Mode mode;
-   private final String path;
+	private final Class<?> exptectedType;
+	private final Mode mode;
+	private final String path;
 
-   public ImmutablePersistenceRequest(String path, Class<?> exptectedType, Mode mode) {
-      this.path = path;
-      this.exptectedType = exptectedType;
-      this.mode = mode;
-   }
+	public ImmutablePersistenceRequest(String path, Class<?> exptectedType, Mode mode) {
+		this.path = path;
+		this.exptectedType = exptectedType;
+		this.mode = mode;
+	}
 
-   @Override
-   public boolean equals(Object obj) {
-      if (this == obj) {
-         return true;
-      }
-      if (obj == null) {
-         return false;
-      }
-      if (getClass() != obj.getClass()) {
-         return false;
-      }
-      final ImmutablePersistenceRequest other = (ImmutablePersistenceRequest) obj;
-      if (exptectedType == null) {
-         if (other.exptectedType != null) {
-            return false;
-         }
-      } else if (!exptectedType.equals(other.exptectedType)) {
-         return false;
-      }
-      if (mode != other.mode) {
-         return false;
-      }
-      if (path == null) {
-         if (other.path != null) {
-            return false;
-         }
-      } else if (!path.equals(other.path)) {
-         return false;
-      }
-      return true;
-   }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final ImmutablePersistenceRequest other = (ImmutablePersistenceRequest) obj;
+		if (exptectedType == null) {
+			if (other.exptectedType != null) {
+				return false;
+			}
+		} else if (!exptectedType.equals(other.exptectedType)) {
+			return false;
+		}
+		if (mode != other.mode) {
+			return false;
+		}
+		if (path == null) {
+			if (other.path != null) {
+				return false;
+			}
+		} else if (!path.equals(other.path)) {
+			return false;
+		}
+		return true;
+	}
 
-   @Override
-   public Class<?> getExpectedType() {
-      return exptectedType;
-   }
+	@Override
+	public Class<?> getExpectedType() {
+		return exptectedType;
+	}
 
-   @Override
-   public Mode getMode() {
-      return mode;
-   }
+	@Override
+	public Mode getMode() {
+		return mode;
+	}
 
-   @Override
-   public String getPath() {
-      return path;
-   }
+	@Override
+	public String getPath() {
+		return path;
+	}
 
-   @Override
-   public int hashCode() {
-      final int prime = 31;
-      int result = 1;
-      result = (prime * result) + ((exptectedType == null) ? 0 : exptectedType.hashCode());
-      result = (prime * result) + ((mode == null) ? 0 : mode.hashCode());
-      result = (prime * result) + ((path == null) ? 0 : path.hashCode());
-      return result;
-   }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = (prime * result) + ((exptectedType == null) ? 0 : exptectedType.hashCode());
+		result = (prime * result) + ((mode == null) ? 0 : mode.hashCode());
+		result = (prime * result) + ((path == null) ? 0 : path.hashCode());
+		return result;
+	}
 
-   @Override
-   public String toString() {
-      return "ImmutablePersistenceRequest [mode=" + mode + ", exptectedType=" + exptectedType + ", path=" + path + "]";
-   }
+	@Override
+	public String toString() {
+		return "ImmutablePersistenceRequest [mode=" + mode + ", exptectedType=" + exptectedType + ", path=" + path + "]";
+	}
 }

@@ -1,18 +1,17 @@
 package org.om.core.impl.test;
 
-import org.om.core.api.annotation.Entity;
-import org.om.core.api.annotation.Property;
+import org.om.core.api.annotation.*;
 
 @Entity
 public class EntityImplementingInterface implements MyInterface {
-   @Property
-   private String value;
+	@Property
+	private String value;
 
-   public EntityImplementingInterface() {
-   }
+	public EntityImplementingInterface() {
+	}
 
-   @Override
-   public String getValue() {
-      return null;
-   }
+	@Override
+	public String getValue() {
+		return null;
+	}
 }

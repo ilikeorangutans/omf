@@ -15,53 +15,57 @@
  */
 package org.om.core.api.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.Map;
+import java.lang.annotation.*;
+import java.util.*;
 
 /**
  * Maps a collection of {@link Entity}s to a {@link Collection} or one of its subtypes.
  * <p>
- * In order to map a collection, you need at least to add the this annotation. Also, you'll need to indicate what the type of the elements in the collection are by setting the {@link #targetType()},
- * or, if the target type is different than the Please note that depending on the concrete collection implementation in use, you'll want to make sure that your collection entries implement
- * {@link #hashCode()} and {@link #equals(Object)}.
+ * In order to map a collection, you need at least to add the this annotation. Also, you'll need to
+ * indicate what the type of the elements in the collection are by setting the
+ * {@link #targetType()}, or, if the target type is different than the Please note that depending on
+ * the concrete collection implementation in use, you'll want to make sure that your collection
+ * entries implement {@link #hashCode()} and {@link #equals(Object)}.
  *
  * @author Jakob Külzer
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Collection {
-   public static final String LOCATION_RELATIVE_USING_FIELDNAME = "";
+	public static final String LOCATION_RELATIVE_USING_FIELDNAME = "";
 
-   /**
-    * Defines how to generate the keys if the collection type is {@link Map}. Per default {@link MapKeyStrategy#Name} is used. Obviously this setting will only be used if you're using a Map.
-    * 
-    * @return
-    */
-   MapKeyStrategy keyStrategy() default MapKeyStrategy.Name;
+	/**
+	 * Defines how to generate the keys if the collection type is {@link Map}. Per default
+	 * {@link MapKeyStrategy#Name} is used. Obviously this setting will only be used if you're using
+	 * a Map.
+	 * 
+	 * @return
+	 */
+	MapKeyStrategy keyStrategy() default MapKeyStrategy.Name;
 
-   /**
-    * Describes the location of where to load the collection from. This has implications as of how the actual backend will load the data. There are two possible ways of specifying a path to a
-    * collection. It can either be an absolute location, starting with a slash, or relative, without a beginning slash. If the location is relative, it will be resolved relative to the node of the
-    * containing {@link Entity}. The default is to use the field name as a relative path.
-    */
-   String location() default LOCATION_RELATIVE_USING_FIELDNAME;
+	/**
+	 * Describes the location of where to load the collection from. This has implications as of how
+	 * the actual backend will load the data. There are two possible ways of specifying a path to a
+	 * collection. It can either be an absolute location, starting with a slash, or relative, without
+	 * a beginning slash. If the location is relative, it will be resolved relative to the node of
+	 * the containing {@link Entity}. The default is to use the field name as a relative path.
+	 */
+	String location() default LOCATION_RELATIVE_USING_FIELDNAME;
 
-   /**
-    * Defines from what the collection should be constructed. Collections can be created from the child nodes of {@link #location()}, from a multi-value property indicated by {@link #location()} or by
-    * taking all properties from under {@link #location()}.
-    * 
-    * @see CollectionMode for more details.
-    * @return
-    */
-   CollectionMode mode() default CollectionMode.Children;
+	/**
+	 * Defines from what the collection should be constructed. Collections can be created from the
+	 * child nodes of {@link #location()}, from a multi-value property indicated by
+	 * {@link #location()} or by taking all properties from under {@link #location()}.
+	 * 
+	 * @see CollectionMode for more details.
+	 * @return
+	 */
+	CollectionMode mode() default CollectionMode.Children;
 
-   /**
-    * Declares the type of the collection items. Each item will be represented by the given type.
-    * <p>
-    * The referenced type must be a valid {@link Entity}.
-    */
-   Class<?> targetType();
+	/**
+	 * Declares the type of the collection items. Each item will be represented by the given type.
+	 * <p>
+	 * The referenced type must be a valid {@link Entity}.
+	 */
+	Class<?> targetType();
 }

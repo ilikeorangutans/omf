@@ -1,8 +1,8 @@
 package org.om.core.impl.persistence.jcr;
 
-import javax.jcr.Session;
+import javax.jcr.*;
 
-import org.om.core.api.persistence.PersistenceContext;
+import org.om.core.api.persistence.*;
 
 /**
  * {@link PersistenceContext} for JCR repositories.
@@ -10,13 +10,13 @@ import org.om.core.api.persistence.PersistenceContext;
  * @author Jakob Külzer
  */
 public class JcrPersistenceContext implements PersistenceContext {
-   private final Session session;
+	private final Session session;
 
-   public JcrPersistenceContext(Session session) {
-      this.session = session;
-   }
+	public JcrPersistenceContext(Session session) {
+		this.session = session;
+	}
 
-   public Session getSession() {
-      return session;
-   }
+	public Session getSession() {
+		return session;
+	}
 }

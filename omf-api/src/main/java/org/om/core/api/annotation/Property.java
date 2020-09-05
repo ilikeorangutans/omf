@@ -15,10 +15,7 @@
  */
 package org.om.core.api.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Annotation that describes a property on an {@link Entity}.
@@ -28,27 +25,29 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface Property {
-   static final String DEFAULT_VALUE = "";
+	static final String DEFAULT_VALUE = "";
 
-   /**
-    * Default value to use if {@link #missingStrategy()} is set to {@link MissingStrategy#DefaultValue}. The returned value must be translatable into the type of the field, otherwise a conversion
-    * error will occur.
-    * 
-    * @return
-    */
-   String defaultValue() default DEFAULT_VALUE;
+	/**
+	 * Default value to use if {@link #missingStrategy()} is set to
+	 * {@link MissingStrategy#DefaultValue}. The returned value must be translatable into the type of
+	 * the field, otherwise a conversion error will occur.
+	 * 
+	 * @return
+	 */
+	String defaultValue() default DEFAULT_VALUE;
 
-   /**
-    * Configures how to retrieve the value for this property. This only affects reference properties, i.e. fields that reference a non-primitive type.
-    * 
-    * @return
-    */
-   LookupMode lookupMode() default LookupMode.Reference;
+	/**
+	 * Configures how to retrieve the value for this property. This only affects reference
+	 * properties, i.e. fields that reference a non-primitive type.
+	 * 
+	 * @return
+	 */
+	LookupMode lookupMode() default LookupMode.Reference;
 
-   /**
-    * Name of the property. If not set, will use the POJO field name.
-    * 
-    * @return
-    */
-   String name() default "";
+	/**
+	 * Name of the property. If not set, will use the POJO field name.
+	 * 
+	 * @return
+	 */
+	String name() default "";
 }

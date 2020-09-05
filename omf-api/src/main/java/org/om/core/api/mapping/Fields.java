@@ -15,9 +15,9 @@
  */
 package org.om.core.api.mapping;
 
-import java.util.Collection;
+import java.util.*;
 
-import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.mapping.field.*;
 
 /**
  * Contains all {@link MappedField}s for an {@link EntityMapping}.
@@ -25,39 +25,39 @@ import org.om.core.api.mapping.field.Mapping;
  * @author Jakob Külzer
  */
 public interface Fields extends Iterable<MappedField> {
-   /**
-    * Returns all {@link Mapping}s.
-    * 
-    * @return
-    */
-   Collection<MappedField> getAll();
+	/**
+	 * Returns all {@link Mapping}s.
+	 * 
+	 * @return
+	 */
+	Collection<MappedField> getAll();
 
-   /**
-    * Finds a field by name.
-    * 
-    * @param fieldname
-    * @return
-    */
-   MappedField getField(String fieldname);
+	/**
+	 * Finds a field by name.
+	 * 
+	 * @param fieldname
+	 * @return
+	 */
+	MappedField getField(String fieldname);
 
-   MappedField getFieldByMapping(Mapping mapping);
+	MappedField getFieldByMapping(Mapping mapping);
 
-   /**
-    * Returns the property that has been marked as the id property.
-    * 
-    * @return
-    */
-   MappedField getIdProperty();
+	/**
+	 * Returns the property that has been marked as the id property.
+	 * 
+	 * @return
+	 */
+	MappedField getIdProperty();
 
-   int getSize();
+	int getSize();
 
-   /**
-    * Returns true if this map contains a field with the given name.
-    * 
-    * @param name
-    * @return
-    */
-   boolean hasField(String name);
+	/**
+	 * Returns true if this map contains a field with the given name.
+	 * 
+	 * @param name
+	 * @return
+	 */
+	boolean hasField(String name);
 
-   boolean isEmpty();
+	boolean isEmpty();
 }

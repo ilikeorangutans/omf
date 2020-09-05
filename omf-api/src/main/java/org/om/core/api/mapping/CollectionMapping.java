@@ -15,9 +15,8 @@
  */
 package org.om.core.api.mapping;
 
-import org.om.core.api.annotation.CollectionMode;
-import org.om.core.api.annotation.MapKeyStrategy;
-import org.om.core.api.mapping.field.Mapping;
+import org.om.core.api.annotation.*;
+import org.om.core.api.mapping.field.*;
 
 /**
  * Describes the mapping of a collection to a persistence backend.
@@ -25,31 +24,32 @@ import org.om.core.api.mapping.field.Mapping;
  * @author Jakob Külzer
  */
 public interface CollectionMapping extends Mapping {
-   /**
-    * Returns an instance of {@link CollectionMode} describing how the collection should be constructed.
-    * 
-    * @return
-    */
-   CollectionMode getCollectionMode();
+	/**
+	 * Returns an instance of {@link CollectionMode} describing how the collection should be
+	 * constructed.
+	 * 
+	 * @return
+	 */
+	CollectionMode getCollectionMode();
 
-   /**
-    * Returns the type of the collection.
-    * 
-    * @return
-    */
-   Class<?> getCollectionType();
+	/**
+	 * Returns the type of the collection.
+	 * 
+	 * @return
+	 */
+	Class<?> getCollectionType();
 
-   /**
-    * Returns the location that backs this collection.
-    * 
-    * @return
-    */
-   String getLocation();
+	/**
+	 * Returns the location that backs this collection.
+	 * 
+	 * @return
+	 */
+	String getLocation();
 
-   /**
-    * Returns the configured {@link MapKeyStrategy}.
-    * 
-    * @return
-    */
-   MapKeyStrategy getMapKeyStrategy();
+	/**
+	 * Returns the configured {@link MapKeyStrategy}.
+	 * 
+	 * @return
+	 */
+	MapKeyStrategy getMapKeyStrategy();
 }

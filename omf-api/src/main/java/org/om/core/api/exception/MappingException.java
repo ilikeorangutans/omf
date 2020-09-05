@@ -21,42 +21,42 @@ package org.om.core.api.exception;
  * @author Jakob Külzer
  */
 public class MappingException extends ObjectMapperException {
-   /**
-    * 
-    */
-   private static final long serialVersionUID = 2L;
-   private Class<?> mappedType;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
+	private Class<?> mappedType;
 
-   public MappingException(Class<?> type, String string) {
-      this(String.format("Type %s is not an entity: %s", type.getName(), string));
-   }
+	public MappingException(Class<?> type, String string) {
+		this(String.format("Type %s is not an entity: %s", type.getName(), string));
+	}
 
-   public MappingException(String message) {
-      super(message);
-   }
+	public MappingException(String message) {
+		super(message);
+	}
 
-   public MappingException(String message, Throwable cause) {
-      super(message, cause);
-   }
+	public MappingException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-   public MappingException(Throwable cause) {
-      super(cause);
-   }
+	public MappingException(Throwable cause) {
+		super(cause);
+	}
 
-   public Class<?> getMappedType() {
-      return mappedType;
-   }
+	public Class<?> getMappedType() {
+		return mappedType;
+	}
 
-   @Override
-   public String getMessage() {
-      String message = super.getMessage();
-      if (getMappedType() != null) {
-         message += " (in " + getMappedType().getName() + ")";
-      }
-      return message;
-   }
+	@Override
+	public String getMessage() {
+		String message = super.getMessage();
+		if (getMappedType() != null) {
+			message += " (in " + getMappedType().getName() + ")";
+		}
+		return message;
+	}
 
-   public void setMappedType(Class<?> mappedType) {
-      this.mappedType = mappedType;
-   }
+	public void setMappedType(Class<?> mappedType) {
+		this.mappedType = mappedType;
+	}
 }

@@ -15,14 +15,12 @@
  */
 package org.om.core.api.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
- * Marks the given property as the unique identifier for the containing {@link Entity}. At runtime, fields annotated with this annotation, will return the identifier that was used to load the current
- * entity.
+ * Marks the given property as the unique identifier for the containing {@link Entity}. At runtime,
+ * fields annotated with this annotation, will return the identifier that was used to load the
+ * current entity.
  *
  * @author Jakob Külzer
  */

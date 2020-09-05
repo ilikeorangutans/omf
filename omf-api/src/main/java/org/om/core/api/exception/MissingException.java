@@ -16,22 +16,23 @@
 package org.om.core.api.exception;
 
 /**
- * Exception thrown when a mapped property could not be resolved. TODO: Isn't this the same as {@link PathNotFoundException}?
+ * Exception thrown when a mapped property could not be resolved. TODO: Isn't this the same as
+ * {@link PathNotFoundException}?
  *
  * @author Jakob Külzer
  */
 public class MissingException extends ObjectMapperException {
-   private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-   public MissingException(String message) {
-      super(message);
-   }
+	public MissingException(String message) {
+		super(message);
+	}
 
-   public MissingException(String message, Throwable throwable) {
-      super(message, throwable);
-   }
+	public MissingException(String message, Throwable throwable) {
+		super(message, throwable);
+	}
 
-   public MissingException(Throwable throwable) {
-      super(throwable);
-   }
+	public MissingException(Throwable throwable) {
+		super(throwable);
+	}
 }

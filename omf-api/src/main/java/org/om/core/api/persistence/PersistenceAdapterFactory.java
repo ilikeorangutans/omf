@@ -15,20 +15,20 @@
  */
 package org.om.core.api.persistence;
 
-import org.om.core.api.mapping.EntityMapping;
+import org.om.core.api.mapping.*;
 
 /**
  * @author Jakob Külzer
  * @author tome
  */
 public interface PersistenceAdapterFactory {
-   /**
-    * Creates a {@link PersistenceAdapter}.
-    * 
-    * @param id id for the object to retrieve.
-    * @param mapping entity mapping for the object to retrieve.
-    * @param persistenceContext persistence context.
-    * @return
-    */
-   PersistenceAdapter create(Object id, EntityMapping mapping, PersistenceContext persistenceContext);
+	/**
+	 * Creates a {@link PersistenceAdapter}.
+	 * 
+	 * @param id id for the object to retrieve.
+	 * @param mapping entity mapping for the object to retrieve.
+	 * @param persistenceContext persistence context.
+	 * @return
+	 */
+	PersistenceAdapter create(Object id, EntityMapping mapping, PersistenceContext persistenceContext);
 }

@@ -15,13 +15,13 @@
  */
 package org.om.core.api.persistence.interceptor.factory;
 
-import org.om.core.api.persistence.PersistenceAdapter;
-import org.om.core.api.persistence.interceptor.PersistenceInterceptor;
-import org.om.core.api.session.Session;
+import org.om.core.api.persistence.*;
+import org.om.core.api.persistence.interceptor.*;
+import org.om.core.api.session.*;
 
 /**
  * @author Jakob Külzer
  */
 public interface PersistenceInterceptorFactory {
-   PersistenceInterceptor create(Session session, PersistenceAdapter delegate);
+	PersistenceInterceptor create(Session session, PersistenceAdapter delegate);
 }
