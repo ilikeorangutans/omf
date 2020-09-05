@@ -11,12 +11,12 @@
 	<packaging>pom</packaging>
 	<properties>
 		<guice.version>4.2.2</guice.version>
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13</junit.version>
 		<jmock.version>2.12.0</jmock.version>
-		<mockito.version>1.9.5</mockito.version>
+		<mockito.version>1.10.19</mockito.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<hamcrest.version>2.2</hamcrest.version>
-		<cglib.version>3.2.9</cglib.version>
+		<cglib.version>3.3.0</cglib.version>
 		<osgi.version>6.0.0</osgi.version>
 		<guiceberry.version>3.3.1</guiceberry.version>
 		<required-maven-version>3.5.0</required-maven-version>
@@ -108,7 +108,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-enforcer-plugin</artifactId>
-					<version>3.0.0-M2</version>
+					<version>3.0.0-M3</version>
 					<executions>
 						<execution>
 							<id>enforce-maven</id>
