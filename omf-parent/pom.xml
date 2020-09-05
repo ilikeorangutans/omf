@@ -16,7 +16,7 @@
 		<mockito.version>1.9.5</mockito.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<hamcrest.version>2.2</hamcrest.version>
-		<cglib.version>3.2.9</cglib.version>
+		<cglib.version>3.3.0</cglib.version>
 		<osgi.version>6.0.0</osgi.version>
 		<guiceberry.version>3.3.1</guiceberry.version>
 		<required-maven-version>3.5.0</required-maven-version>
