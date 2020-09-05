@@ -13,7 +13,7 @@
 		<guice.version>4.2.2</guice.version>
 		<junit.version>4.12</junit.version>
 		<jmock.version>2.12.0</jmock.version>
-		<mockito.version>1.9.5</mockito.version>
+		<mockito.version>1.10.19</mockito.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<hamcrest.version>2.2</hamcrest.version>
 		<cglib.version>3.2.9</cglib.version>
