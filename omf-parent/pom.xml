@@ -20,6 +20,7 @@
 		<osgi.version>6.0.0</osgi.version>
 		<guiceberry.version>3.3.1</guiceberry.version>
 		<required-maven-version>3.5.0</required-maven-version>
+		<felix.version>1.12.0</felix.version>
 	</properties>
 	<dependencies>
 		<dependency>
