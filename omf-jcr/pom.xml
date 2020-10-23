@@ -10,7 +10,7 @@
 	<name>Object Mapper - JCR Backend</name>
 	<properties>
 		<jcr.version>2.0</jcr.version>
-		<jackrabbit.version>2.21.3</jackrabbit.version>
+		<jackrabbit.version>2.21.4</jackrabbit.version>
 	</properties>
 	<dependencies>
 		<dependency>
