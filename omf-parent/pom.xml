@@ -10,7 +10,7 @@
 	<artifactId>omf-parent</artifactId>
 	<packaging>pom</packaging>
 	<properties>
-		<guice.version>4.2.3</guice.version>
+		<guice.version>5.0.0</guice.version>
 		<junit.version>4.13</junit.version>
 		<jmock.version>2.12.0</jmock.version>
 		<mockito.version>1.10.19</mockito.version>
